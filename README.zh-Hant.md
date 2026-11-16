@@ -6,7 +6,7 @@
 
 [English](README.md) · [發佈頁](https://github.com/Ya-MiC/ymzz/releases) · [路線圖](ROADMAP.md)
 
-目前是 **M1 倉庫基礎**，不是成品交付。本 fork 尚未通過 M2 基線，沒有已驗收的 湛箴_ymzz Windows 安裝包；品牌／四主題／新增插件尚未套入應用程式。預裝 ymzz 插件：**尚無**。
+已完成 **M1 倉庫基礎**，不是成品交付。本 fork 尚未通過 M2 基線，沒有已驗收的 湛箴_ymzz Windows 安裝包；品牌／四主題／新增插件尚未套入應用程式。預裝 ymzz 插件：**尚無**。
 
 | 平台 | 狀態 |
 |---|---|
@@ -31,7 +31,7 @@ DSH 預設資料在 `~/.dsh`，開發時請設定產品獨立 `DSH_HOME`。沒�
 
 [稟冊引導](https://bingce.yanmingx0215.filegear-sg.me/#onboarding) · [原倉庫及草稿下載](https://github.com/Ya-MiC/ymzz-loop/releases) · [舊整合倉庫](https://github.com/Ya-MiC/ymzz-zhanzhen) · [真實核對結果](ymzz/docs/LEGACY-PRODUCTS.md)
 
-只維護一個 `master`；不改 `@deepseek-ai/*` 包名。新增內容在 `ymzz/` 與 `packages/ymzz/`；[原 README 原文](ymzz/docs/upstream/README.md) 保留。官網與一鍵維護者審核更新尚未上線；支付由作者自己接入。
+只維護一個 `master`；34/34 個繼承工作流逐一停用且不刪檔（[實證](ymzz/docs/evidence/m1-remote.json)）；不改 `@deepseek-ai/*` 包名。新增內容在 `ymzz/` 與 `packages/ymzz/`；[原 README 原文](ymzz/docs/upstream/README.md) 保留。官網與一鍵維護者審核更新尚未上線；支付由作者自己接入。
 
 [全部來源](ymzz/docs/RESOURCES.md) · [同步上游](ymzz/docs/UPSTREAM-SYNC.md) · [網路清單](ymzz/docs/NETWORK.md) · [發版閘](ymzz/docs/RELEASING.md)
 

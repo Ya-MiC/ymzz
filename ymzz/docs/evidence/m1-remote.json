@@ -1,0 +1,246 @@
+{
+  "recordedAt": "2026-11-16T22:30:49.762440+09:00",
+  "milestone": "M1",
+  "repository": "https://github.com/Ya-MiC/ymzz",
+  "isForkOf": "https://github.com/deepseek-ai/deepseek-harness",
+  "upstreamCommit": "39163dd30f703a79079e2d2446545cff3c453738",
+  "branches": [
+    "master"
+  ],
+  "inheritedWorkflowCount": 34,
+  "workflows": [
+    {
+      "id": 420157679,
+      "name": "Build single-exe",
+      "path": ".github/workflows/build-exe-for-python-sdk.yml",
+      "state": "disabled_manually"
+    },
+    {
+      "id": 420157680,
+      "name": "Build SSH helper",
+      "path": ".github/workflows/build-exe-for-ssh-helper.yml",
+      "state": "disabled_manually"
+    },
+    {
+      "id": 420157681,
+      "name": "Build PR preview",
+      "path": ".github/workflows/build-preview-cloudflare.yml",
+      "state": "disabled_manually"
+    },
+    {
+      "id": 420157684,
+      "name": "CI master",
+      "path": ".github/workflows/ci-master.yml",
+      "state": "disabled_manually"
+    },
+    {
+      "id": 420157685,
+      "name": "CI Python",
+      "path": ".github/workflows/ci-python.yml",
+      "state": "disabled_manually"
+    },
+    {
+      "id": 420157687,
+      "name": "CI Windows",
+      "path": ".github/workflows/ci-windows.yml",
+      "state": "disabled_manually"
+    },
+    {
+      "id": 420157689,
+      "name": "CI",
+      "path": ".github/workflows/ci.yml",
+      "state": "disabled_manually"
+    },
+    {
+      "id": 420157690,
+      "name": "Package CUA helper · macOS · arm64 + x64",
+      "path": ".github/workflows/cua-helper-package-macos.yml",
+      "state": "disabled_manually"
+    },
+    {
+      "id": 420157691,
+      "name": "Package CUA helper · Windows · x64",
+      "path": ".github/workflows/cua-helper-package-windows.yml",
+      "state": "disabled_manually"
+    },
+    {
+      "id": 420157694,
+      "name": "Publish Desktop · COS",
+      "path": ".github/workflows/desktop-publish.yml",
+      "state": "disabled_manually"
+    },
+    {
+      "id": 420157698,
+      "name": "Publish Desktop · Rollout & Website",
+      "path": ".github/workflows/desktop-rollout.yml",
+      "state": "disabled_manually"
+    },
+    {
+      "id": 420157700,
+      "name": "Deploy documentation",
+      "path": ".github/workflows/docs-pages.yml",
+      "state": "disabled_manually"
+    },
+    {
+      "id": 420157701,
+      "name": "E2E (real DeepSeek API)",
+      "path": ".github/workflows/e2e.yml",
+      "state": "disabled_manually"
+    },
+    {
+      "id": 420157705,
+      "name": "Expected filenames",
+      "path": ".github/workflows/expected-filenames.yml",
+      "state": "disabled_manually"
+    },
+    {
+      "id": 420157707,
+      "name": "Issue lifecycle",
+      "path": ".github/workflows/issue-lifecycle.yml",
+      "state": "disabled_manually"
+    },
+    {
+      "id": 420157711,
+      "name": "Issue policy",
+      "path": ".github/workflows/issue-policy.yml",
+      "state": "disabled_manually"
+    },
+    {
+      "id": 420157713,
+      "name": "Package Desktop · macOS · Intel",
+      "path": ".github/workflows/macos-intel-package.yml",
+      "state": "disabled_manually"
+    },
+    {
+      "id": 420157716,
+      "name": "Package Desktop · macOS · Apple Silicon",
+      "path": ".github/workflows/macos-package.yml",
+      "state": "disabled_manually"
+    },
+    {
+      "id": 420157718,
+      "name": "Node Addon System Release",
+      "path": ".github/workflows/node-addon-system-release.yml",
+      "state": "disabled_manually"
+    },
+    {
+      "id": 420157721,
+      "name": "Node Addon System",
+      "path": ".github/workflows/node-addon-system.yml",
+      "state": "disabled_manually"
+    },
+    {
+      "id": 420157723,
+      "name": "E2E (pi-ai Azure OpenAI and Anthropic)",
+      "path": ".github/workflows/pi-ai-provider-e2e.yml",
+      "state": "disabled_manually"
+    },
+    {
+      "id": 420157725,
+      "name": "Policy",
+      "path": ".github/workflows/pr-check-after-approve.yml",
+      "state": "disabled_manually"
+    },
+    {
+      "id": 420157730,
+      "name": "Policy",
+      "path": ".github/workflows/pr-check-on-base-branch.yml",
+      "state": "disabled_manually"
+    },
+    {
+      "id": 420157736,
+      "name": "Policy",
+      "path": ".github/workflows/pr-check-on-head-branch.yml",
+      "state": "disabled_manually"
+    },
+    {
+      "id": 420157741,
+      "name": "Release (SSH helper)",
+      "path": ".github/workflows/publish-ssh-helper.yml",
+      "state": "disabled_manually"
+    },
+    {
+      "id": 420157743,
+      "name": "Release (Python)",
+      "path": ".github/workflows/python-release.yml",
+      "state": "disabled_manually"
+    },
+    {
+      "id": 420157746,
+      "name": "Release publish (dsh)",
+      "path": ".github/workflows/release-publish.yml",
+      "state": "disabled_manually"
+    },
+    {
+      "id": 420157748,
+      "name": "Release publish (vendor)",
+      "path": ".github/workflows/release-vendor-publish.yml",
+      "state": "disabled_manually"
+    },
+    {
+      "id": 420157750,
+      "name": "Release (vendor)",
+      "path": ".github/workflows/release-vendor.yml",
+      "state": "disabled_manually"
+    },
+    {
+      "id": 420157754,
+      "name": "Release (dsh)",
+      "path": ".github/workflows/release.yml",
+      "state": "disabled_manually"
+    },
+    {
+      "id": 420157758,
+      "name": "Sandbox",
+      "path": ".github/workflows/sandbox.yml",
+      "state": "disabled_manually"
+    },
+    {
+      "id": 420157764,
+      "name": "weighted-approval-review-event",
+      "path": ".github/workflows/weighted-approval-review-event.yml",
+      "state": "disabled_manually"
+    },
+    {
+      "id": 420157766,
+      "name": "weighted-approval",
+      "path": ".github/workflows/weighted-approval.yml",
+      "state": "disabled_manually"
+    },
+    {
+      "id": 420157768,
+      "name": "Package Desktop · Windows · x64",
+      "path": ".github/workflows/windows-package.yml",
+      "state": "disabled_manually"
+    }
+  ],
+  "upstreamWorkflowFilesDeleted": false,
+  "settings": {
+    "wiki": false,
+    "projects": false,
+    "deleteBranchOnMerge": true,
+    "defaultBranch": "master",
+    "topics": [
+      "ai-agent",
+      "deepseek-harness",
+      "dsh",
+      "cordis",
+      "electron",
+      "local-first"
+    ]
+  },
+  "protectedSettingsChanged": false,
+  "site": {
+    "plannedURL": "https://ya-mic.github.io/ymzz/",
+    "http": 404,
+    "deployed": false
+  },
+  "preservedSites": {
+    "https://ya-mic.github.io/ymzz-loop/": 200,
+    "https://bingce.yanmingx0215.filegear-sg.me/#onboarding": 200
+  },
+  "oldREADMEOnlyCommit": "ee6066e5526999449903485689b2fa1e84852cf9",
+  "M2Started": false,
+  "windowsVerified": false,
+  "releasePublished": false
+}

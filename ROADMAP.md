@@ -5,7 +5,7 @@ One repository, one `master`, complete upstream DSH. No independent agent runtim
 | Milestone | Acceptance | Current status |
 |---|---|---|
 | M0 | Environment/auth/space checks | Prior read-only preflight reported; Windows user machine not touched |
-| M1 | True fork/master, clear READMEs/credits, metadata, upstream workflows disabled | Current milestone; see M1 evidence and final remote verification |
+| M1 | True fork/master, clear READMEs/credits, metadata, upstream workflows disabled | Complete: 34/34 inherited workflows disabled manually; see ymzz/docs/evidence/m1-remote.json |
 | M2 | Actual pinned pnpm install → build:artifacts → web on 3081 → HTTP proof → stop service | Not started in this checkout |
 | Branding / minimal plugin | Exact owner icon/name/meaning, four Wenrun themes, native layout, genuine SDK registration | Not implemented in this fork |
 | Windows v0.1 | Official Electron package, installed/native GUI+task verification, truthful dependency licenses/checksums | Not verified; no release |

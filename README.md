@@ -8,7 +8,7 @@
 
 [繁體中文](README.zh-Hant.md) · [Releases](https://github.com/Ya-MiC/ymzz/releases) · [Roadmap](ROADMAP.md) · [Preserved 稟冊](https://ya-mic.github.io/ymzz-loop/)
 
-**Current milestone: M1 repository foundation. No 湛箴_ymzz Windows installer has been qualified or published in this fork.** Original DSH chat, tools, agent runtime and plugin system remain upstream code; our branding and plugins are not yet applied. The next baseline gate is M2. Do not mistake old Tauri/稟冊 binaries or old-repository fake-transport demonstrations for this product.
+**Completed milestone: M1 repository foundation. No 湛箴_ymzz Windows installer has been qualified or published in this fork.** Original DSH chat, tools, agent runtime and plugin system remain upstream code; our branding and plugins are not yet applied. The next baseline gate is M2. Do not mistake old Tauri/稟冊 binaries or old-repository fake-transport demonstrations for this product.
 
 ## Downloads
 
@@ -46,7 +46,7 @@ These are verified upstream entrypoints, **not a claim that M2 has passed in thi
 
 ## Maintainer / development
 
-Only `master` is our mainline. Preserve upstream files/packages and names (`@deepseek-ai/*`); additions live in `ymzz/` and `packages/ymzz/`. The original root README is retained [byte-for-byte](ymzz/docs/upstream/README.md).
+Only `master` is our mainline; all 34 inherited workflows are disabled manually without deleting their files ([actual M1 checks](ymzz/docs/evidence/m1-remote.json)). Preserve upstream files/packages and names (`@deepseek-ai/*`); additions live in `ymzz/` and `packages/ymzz/`. The original root README is retained [byte-for-byte](ymzz/docs/upstream/README.md).
 
 [Upstream sync](ymzz/docs/UPSTREAM-SYNC.md) · [Branding points](ymzz/docs/BRANDING-POINTS.md) · [Network inventory](ymzz/docs/NETWORK.md) · [Skills](ymzz/docs/SKILLS.md) · [Release gates](ymzz/docs/RELEASING.md)
 
