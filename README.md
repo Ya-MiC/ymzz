@@ -1,77 +1,55 @@
-# DeepSeek Harness
+# 湛箴_ymzz
 
-English | [中文](README.zh.md)
+<img src="ymzz/branding/icon-source.png" width="88" alt="湛箴_ymzz 使用者提供的產品圖標">
 
-DeepSeek Harness (`dsh`) is an open-source agent harness developed by [DeepSeek AI](https://deepseek.com).
+**A local-first agent distribution of the complete DeepSeek Harness, extended through real plugins—not a rewritten runtime.**
 
-It is built on an **everything-is-a-plugin** architecture and powered by [Cordis](https://github.com/cordiverse/cordis), whose design is described in [_A Programming Paradigm for Spatiotemporal Composability_](https://arxiv.org/abs/2608.25512).
+> 深淵的清澈的水，纂刻于竹篾上的痕，珍重微小，有所依據，立傳傳世
 
-Documentation: [https://deepseek-harness.github.io/deepseek-harness/](https://deepseek-harness.github.io/deepseek-harness/)
+[繁體中文](README.zh-Hant.md) · [Releases](https://github.com/Ya-MiC/ymzz/releases) · [Roadmap](ROADMAP.md) · [Preserved 稟冊](https://ya-mic.github.io/ymzz-loop/)
 
-## Developer preview
+**Current milestone: M1 repository foundation. No 湛箴_ymzz Windows installer has been qualified or published in this fork.** Original DSH chat, tools, agent runtime and plugin system remain upstream code; our branding and plugins are not yet applied. The next baseline gate is M2. Do not mistake old Tauri/稟冊 binaries or old-repository fake-transport demonstrations for this product.
 
-DeepSeek Harness is in _developer preview_ and iterating rapidly. **THERE WILL BE COMPATIBILITY-BREAKING CHANGES.**
+## Downloads
 
-Review the [safety notice](SAFETY.md) before running the project.
+| Platform | Status |
+|---|---|
+| Windows x64 | v0.1.0 發佈後填 Release 連結 — not released or verified yet |
+| macOS | 計劃中 / Planned; not guaranteed in v0.1 |
+| Linux | 計劃中 / Planned; upstream does not target Linux desktop releases |
+| From source (any system) | Commands below; this fork's M2 build/run gate is pending |
 
-## Run
+## Run from source
 
-### Run from `npm`
-
-Install `Node.js`, then run:
-
-```sh
-npx @deepseek-ai/dsh web
-```
-
-The command starts the Web UI at `http://127.0.0.1:3080` by default and opens it in the default browser for a local launch. An SSH launch only prints the host URL because the SSH client or editor owns the local forwarded address. Pass `--no-open` to run the server without opening a browser. See [Web UI guide](docs/user/guide/index.md).
-
-### Run from source
-
-To run from a repository checkout:
+Prerequisites: Node ≥24.9 (24.22.1 available on the development box), Git ≥2.26 and Corepack-enabled **pnpm 11.28.5**, pinned by the unchanged upstream `package.json`. Commands run at the repository root:
 
 ```sh
-git clone https://github.com/deepseek-ai/deepseek-harness.git
-cd deepseek-harness
 pnpm install
-pnpm run build
-pnpm dsh web
+pnpm run build:artifacts
+pnpm dsh web --no-open --port 3081
 ```
 
-`pnpm run build` prepares the repository artifacts. `pnpm dsh web` uses those built artifacts without rebuilding.
+These are verified upstream entrypoints, **not a claim that M2 has passed in this checkout**. DSH's default data directory is `~/.dsh`; use `DSH_HOME` to choose a product-owned development profile. No model credentials are bundled and no live model inference was performed. Do not enter secrets in issue reports or logs.
 
-## Community and support
+## Preinstalled ymzz plugins
 
-- Submit feedback or bug reports through [GitHub Discussions](https://github.com/deepseek-ai/deepseek-harness/discussions).
-- Add the [`dsh-plugin`](https://github.com/topics/dsh-plugin) topic to your plugin repository for discoverability.
-- Join <a href="https://discord.gg/4MrtZUhpxg">DeepSeek Harness Discord community</a>.
+**None yet.** M4 must register a minimal real plugin before it appears here. Native DSH layout/component positions and the Wenrun palette are to be retained. The icon is the owner's actual image; no DeepSeek logo is presented as our product logo.
 
-## Contributing
+## Existing products are preserved
 
-See [CONTRIBUTING.md](CONTRIBUTING.md).
+**稟冊 is a separate Tauri personal-work-report/file-management product**, with nickname onboarding, local conversations/files and review progress. Its repository, sites and drafts remain untouched. It is not renamed into this agent or represented as integrated merely because a link exists.
 
-## Development
+- [稟冊 / Loop website](https://ya-mic.github.io/ymzz-loop/) · [稟冊 onboarding](https://bingce.yanmingx0215.filegear-sg.me/#onboarding)
+- [稟冊 source and draft releases](https://github.com/Ya-MiC/ymzz-loop/releases) — draft visibility requires the appropriate GitHub account.
+- [Previous integration repository](https://github.com/Ya-MiC/ymzz-zhanzhen) stays intact; its old PR/builds are historical, not this fork's release.
+- [Verified legacy status and limitations](ymzz/docs/LEGACY-PRODUCTS.md) · [All retained resource links](ymzz/docs/RESOURCES.md)
 
-Start with the [development guide](docs/development.md) and [architecture documentation](docs/architecture.md).
+## Maintainer / development
 
-`pnpm run dev:web` builds, serves, and rebuilds client bundles on source edits in one terminal, and `make help` lists the matching Make targets for Web and Desktop; the guide's application commands section owns the full table.
+Only `master` is our mainline. Preserve upstream files/packages and names (`@deepseek-ai/*`); additions live in `ymzz/` and `packages/ymzz/`. The original root README is retained [byte-for-byte](ymzz/docs/upstream/README.md).
 
-For agents, follow [AGENTS.md](AGENTS.md).
+[Upstream sync](ymzz/docs/UPSTREAM-SYNC.md) · [Branding points](ymzz/docs/BRANDING-POINTS.md) · [Network inventory](ymzz/docs/NETWORK.md) · [Skills](ymzz/docs/SKILLS.md) · [Release gates](ymzz/docs/RELEASING.md)
 
-## Citation
+No telemetry is added. Maintainer-reviewed updates and an Agent official site are planned; neither is claimed live. Payment configuration remains owner-managed. Dependencies and native payloads retain their actual licenses; the upstream MIT license is not a claim that every third-party binary is MIT.
 
-```bibtex
-@misc{deepseek-harness2026,
-  title={DeepSeek Harness: Everything is a Plugin},
-  author={DeepSeek-AI},
-  year={2026},
-  publisher={GitHub},
-  howpublished={\url{https://github.com/deepseek-ai/deepseek-harness}},
-}
-```
-
-## License
-
-[MIT](LICENSE)
-
-Third-party dependencies and their licenses are disclosed in [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
+Based on DeepSeek Harness (MIT). **Not an official DeepSeek product.** See [LICENSE](LICENSE), [NOTICE.md](NOTICE.md) and unchanged [upstream third-party notices](THIRD_PARTY_NOTICES.md).

@@ -1,0 +1,18 @@
+{
+  "milestone": "M1",
+  "passed": true,
+  "upstreamEntries": 21632,
+  "unchangedEntries": 21630,
+  "retainedSymlinks": 13,
+  "allowedModifiedUpstream": [
+    "README.md",
+    ".gitattributes"
+  ],
+  "rootPackageUnchanged": true,
+  "originalREADMEByteIdentical": true,
+  "iconSHA256": "65b2af69825756700fe36ffad5b3d5a943b123364d611bd513df71d9c048be2d",
+  "branch": "master",
+  "runtimeBuilt": false,
+  "windowsVerified": false,
+  "releasePublished": false
+}

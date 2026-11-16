@@ -1,0 +1,41 @@
+{
+  "checkedAt": "2026-11-16 22:30 KST",
+  "repository": "https://github.com/Ya-MiC/ymzz-loop",
+  "draft": true,
+  "tag": "v0.21.1-preview",
+  "assets": [
+    {
+      "name": "ymzz-bingce_0.21.1_amd64.AppImage",
+      "bytes": 92551672,
+      "sha256": "be72c983caa14f54ef16280c138ab66d02b90bfd144ec92d4323a13bfa3ac4df",
+      "magic": "7f454c46020101004149020000000000",
+      "isZip": false,
+      "executed": false,
+      "formatVerified": "ELF x86_64 AppImage marker"
+    },
+    {
+      "name": "ymzz-bingce_0.21.1_aarch64.dmg",
+      "bytes": 12942150,
+      "sha256": "3a55f91929f801c0f2a93dca826c31c885c86f0b83dbed481ebb50897a1a3e09",
+      "magic": "78da636018054318fcfbffff1d103302",
+      "isZip": false,
+      "executed": false,
+      "formatVerified": "UDIF disk-image koly trailer"
+    },
+    {
+      "name": "ymzz-bingce_0.21.1_x64-setup.exe",
+      "bytes": 11151940,
+      "sha256": "764498e414ae61cfe6c872b90b5060e9bf81447a70bd7e466de777c0ce8d216c",
+      "magic": "4d5a90000300000004000000ffff0000",
+      "isZip": false,
+      "executed": false,
+      "formatVerified": "Windows PE"
+    }
+  ],
+  "notProven": [
+    "installer executed",
+    "three-platform GUI run",
+    "new DSH product qualification"
+  ],
+  "oldAssetsModified": false
+}

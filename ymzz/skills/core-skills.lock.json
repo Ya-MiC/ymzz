@@ -1,0 +1,7 @@
+{
+  "schema": 1,
+  "status": "M1-not-installed",
+  "scope": "product-only",
+  "skills": [],
+  "note": "No skill is claimed installed. Real commit/checksum/license review is required before populating this lock."
+}

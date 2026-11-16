@@ -1,0 +1,25 @@
+{
+  "schema": 1,
+  "displayName": "湛箴_ymzz",
+  "identifier": "ymzz",
+  "brand": "晏銘湛箴 / Ya-MiC",
+  "meaning": "深淵的清澈的水，纂刻于竹篾上的痕，珍重微小，有所依據，立傳傳世",
+  "upstream": {
+    "repository": "https://github.com/deepseek-ai/deepseek-harness",
+    "commit": "39163dd30f703a79079e2d2446545cff3c453738",
+    "license": "MIT"
+  },
+  "icon": {
+    "source": "icon-source.png",
+    "sha256": "65b2af69825756700fe36ffad5b3d5a943b123364d611bd513df71d9c048be2d",
+    "ownership": "User-supplied artwork, not DeepSeek logo; code MIT does not relicense artwork"
+  },
+  "applicationBrandingApplied": false,
+  "layout": "Preserve native DSH component placement",
+  "themes": [
+    "雲箋淺",
+    "雲箋暗",
+    "陶土淺",
+    "陶土暗"
+  ]
+}

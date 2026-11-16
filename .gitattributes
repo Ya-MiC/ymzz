@@ -25,3 +25,4 @@ locales.ts dsh-review-layer=test
 snapshots/** dsh-review-layer=test
 *.i18n.yaml dsh-review-layer=test
 packages/*/*/src/types.ts dsh-review-layer=interface
+README.md merge=ours
