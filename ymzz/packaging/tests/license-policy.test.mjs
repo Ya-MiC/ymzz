@@ -1,0 +1,6 @@
+// MIT. Policy approval is not redistribution clearance or source completeness.
+import test from 'node:test';import assert from 'node:assert/strict';
+import {approved,classifyLicense} from '../../compliance/license-policy.mjs';
+for(const p of approved)test('only exact approved component '+p.name,()=>{const r=classifyLicense(p);assert.equal(r.licensePolicyPassed,true);assert.equal(r.strictPermissivePassed,false);assert.equal(r.distributionMaterialsRequired,true);assert.equal(classifyLicense({...p,version:'999.0.0'}).licensePolicyPassed,false);assert.equal(classifyLicense({...p,name:'unknown-copy'}).licensePolicyPassed,false)});
+for(const license of ['GPL-3.0-only','AGPL-3.0-or-later','LGPL-2.1-only','MPL-2.0','LicenseRef-Commons-Clause',null,'MIT AND GPL-3.0-only','GPL-3.0-or-later WITH GCC-exception-3.1'])test('unapproved expression remains blocked '+license,()=>assert.equal(classifyLicense({name:'unreviewed',version:'1',license}).licensePolicyPassed,false));
+test('legitimate permissive OR selection does not silently accept GPL AND',()=>{assert.equal(classifyLicense({license:'MIT OR GPL-3.0-only'}).strictPermissivePassed,true);assert.equal(classifyLicense({license:'MIT AND GPL-3.0-only'}).licensePolicyPassed,false)});

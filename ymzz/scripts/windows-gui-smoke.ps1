@@ -21,6 +21,9 @@ $nodeExe=Join-Path $portable 'resources/runtime/primary-runtime/dependencies/nod
 if(!(Test-Path -LiteralPath $nodeExe)){throw 'Actual packaged primary Node missing'}
 $nodeVersion=& $nodeExe --version
 if($LASTEXITCODE -ne 0 -or $nodeVersion -notmatch '^v24\.'){throw 'Actual packaged primary Node cannot execute'}
+node ymzz/scripts/check-pe-icon.mjs --exe $exe --ico ymzz/branding/generated/icon.ico --output (Join-Path $proof 'pe-icon.json')
+if($LASTEXITCODE -ne 0){throw 'Actual PE resources do not contain exact owner icon frames'}
+@{actualNSISInstalled=$true;unicodeSpaceInstallPath=$true;productName='湛箴_ymzz';installerSHA256=(Get-FileHash $installer.FullName -Algorithm SHA256).Hash;exeSHA256=(Get-FileHash $exe -Algorithm SHA256).Hash;nodeVersion=$nodeVersion;primaryNodeSHA256=(Get-FileHash $nodeExe -Algorithm SHA256).Hash;nativeGUIQualified=$false}|ConvertTo-Json|Set-Content -Encoding utf8 (Join-Path $proof 'installed-prechecks.json')
 $p=Start-Process -FilePath $exe -ArgumentList '--force-renderer-accessibility' -PassThru
 function State {
  if(!(Test-Path $stateFile)){return $null}
@@ -37,6 +40,10 @@ function Screenshot([string]$name){$b=[System.Windows.Forms.Screen]::PrimaryScre
 try{
  $end=(Get-Date).AddSeconds(90);do{$p.Refresh();if($p.HasExited){throw 'FULL DSH EXE exited during GUI startup'};if($p.MainWindowHandle -eq [IntPtr]::Zero){Start-Sleep -Milliseconds 300}}until($p.MainWindowHandle -ne [IntPtr]::Zero -or (Get-Date) -gt $end)
  if($p.MainWindowHandle -eq [IntPtr]::Zero){throw 'Full Electron main window never started'};$Element=[System.Windows.Automation.AutomationElement]::FromHandle($p.MainWindowHandle)
+ # Preserved native first-run flow: use its real Set up later button. No key/login/fake credential.
+ Screenshot 'full-dsh-native-welcome'
+ Click 'Add API Key';Click 'Set up later';Start-Sleep -Seconds 3
+ $p.Refresh();$Element=[System.Windows.Automation.AutomationElement]::FromHandle($p.MainWindowHandle)
  $nick=Find-Control '怎麼稱呼你？' ([System.Windows.Automation.ValuePattern]::Pattern);if($nick.GetCurrentPattern([System.Windows.Automation.ValuePattern]::Pattern).Current.Value -ne '用戶'){throw 'Nickname invented a nonconsented phone suffix'};$nick.GetCurrentPattern([System.Windows.Automation.ValuePattern]::Pattern).SetValue('湛箴 Windows 完整 DSH 驗收');Click '以暱稱開始使用完整 DSH'
  Find-Control '湛箴_ymzz'|Out-Null
  Find-Control '深淵的清澈的水，纂刻于竹篾上的痕，珍重微小，有所依據，立傳傳世'|Out-Null

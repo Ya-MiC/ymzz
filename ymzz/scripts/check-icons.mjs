@@ -13,6 +13,7 @@ import {
   UPSTREAM_ICON_ARCHIVE,
   applyBranding,
   inspectSvg,
+  generatedBytes,
 } from '../branding/apply-branding.mjs'
 
 const root = path.resolve(import.meta.dirname, '../..')
@@ -91,9 +92,7 @@ assert.deepEqual(inspectSvg(fs.readFileSync(path.join(branding, 'generated', 'fa
 
 for (const target of ICON_TARGETS) {
   const actual = fs.readFileSync(path.join(root, target.path))
-  const expected = target.generated === 'SOURCE_SVG'
-    ? source
-    : fs.readFileSync(path.join(branding, 'generated', target.generated))
+  const expected = generatedBytes(target.generated, {bytes:source})
   assert.equal(sha256(actual), sha256(expected), target.path)
 }
 

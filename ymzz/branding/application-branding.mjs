@@ -1,4 +1,4 @@
-// MIT. Documented display-only branding points; never alter model/runtime/update policy.
+// MIT. Documented branding/compliance resources and the two owner-approved unsigned-policy conditions; no model/runtime rewrite.
 import fs from 'node:fs';import path from 'node:path';import {createHash} from 'node:crypto';
 const root=path.resolve(import.meta.dirname,'../..');
 export const TEXT_BRAND_TARGETS=['scripts/client-build-environment.ts','apps/desktop/scripts/electron-builder-config.mjs','apps/desktop/scripts/smoke-packaged-runtime.ts','apps/desktop/src/locale.ts','apps/desktop/src/main.ts'];
@@ -13,6 +13,8 @@ export function applyApplicationBranding({dryRun=false}={}){
    if(!text.includes("DSH_CLIENT_BUILD_PROFILE: 'local',\n        DSH_CLIENT_TITLE: '湛箴_ymzz'"))text=text.replace("DSH_CLIENT_BUILD_PROFILE: 'local',","DSH_CLIENT_BUILD_PROFILE: 'local',\n        DSH_CLIENT_TITLE: '湛箴_ymzz',");
   }else if(file.endsWith('electron-builder-config.mjs')){
    text=text.replace('const policy = packagesMacOS && unsigned ? undefined : resolveDesktopPolicyEnvironment(env)','const policy = unsigned ? undefined : resolveDesktopPolicyEnvironment(env)');
+   text=text.replace("icon: fileURLToPath(new URL('../resources/icon-windows.png', import.meta.url))", "icon: fileURLToPath(new URL('../../../ymzz/branding/generated/icon.ico', import.meta.url))");
+   text=text.replace('extraResources: [\n', "extraResources: [\n      { from: fileURLToPath(new URL('../../../ymzz/.build/licenses', import.meta.url)), to: 'licenses/ymzz' },\n");
    text=text.replace("productName: 'DeepSeek Harness'","productName: '湛箴_ymzz'").replace('artifactName: `deepseek-harness-','artifactName: `湛箴_ymzz-');
   }else if(file.endsWith('smoke-packaged-runtime.ts'))text=text.replace("join(application, 'DeepSeek Harness.exe')","join(application, '湛箴_ymzz.exe')");
   else if(file.endsWith('locale.ts'))text=text.replaceAll('DeepSeek Harness','湛箴_ymzz');

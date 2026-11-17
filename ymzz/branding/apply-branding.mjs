@@ -23,6 +23,7 @@ const ALLOWED_XMLNS = new Set([
 
 /** Documented icon resource points inspected from the actual DSH source. */
 export const ICON_TARGETS = [
+  { path: 'apps/desktop/renderer/assets/welcome-brand.svg', generated: 'WELCOME_SVG', role: 'native-first-run-owner-icon-and-product-name-original-layout' },
   { path: 'apps/desktop/resources/icon.png', generated: 'icon-1104.png', role: 'designer-original-slot' },
   { path: 'apps/desktop/resources/icon.svg', generated: 'SOURCE_SVG', role: 'designer-original-vector-slot' },
   { path: 'apps/desktop/resources/icon-windows.png', generated: 'icon-1024.png', role: 'electron-builder-win-icon-and-packaged-icon.png' },
@@ -50,6 +51,7 @@ export const PREVIOUS_BRANDING_ARCHIVE = {
 export const UPSTREAM_ICON_ARCHIVE = {
   directory: 'upstream-dsh-icons',
   files: [
+    { path: 'apps/desktop/renderer/assets/welcome-brand.svg', sha256: '182f040f9d3eccf25b20f5bbfc9d50a21296a88978b91b4dec7e64cbd16b4039' },
     { path: 'apps/desktop/resources/icon.png', sha256: '982c2859568d83d2576110a527c545f04641f4008bdb2cfeb6758f333c0fb07a' },
     { path: 'apps/desktop/resources/icon.svg', sha256: '0458ed5e4825846a6560e90d3e4de767cd75842f7eb53539dc87a5db380d9146' },
     { path: 'apps/desktop/resources/icon-windows.png', sha256: '12064ff340e65872715cb18e56cfa9d3afe294fed98c81807d39e230a030d972' },
@@ -110,8 +112,9 @@ function sourceBytes() {
   return { brand, source, bytes, digest }
 }
 
-function generatedBytes(generated, source) {
+export function generatedBytes(generated, source) {
   if (generated === 'SOURCE_SVG') return source.bytes
+  if (generated === 'WELCOME_SVG') return Buffer.from(`<svg xmlns="http://www.w3.org/2000/svg" width="472" height="40" viewBox="0 0 472 40"><image width="40" height="40" href="data:image/svg+xml;base64,${source.bytes.toString('base64')}"/><text x="54" y="30" fill="#332d27" font-family="Microsoft JhengHei,Microsoft YaHei,sans-serif" font-size="32">湛箴_ymzz</text></svg>\n`)
   const file = path.join(generatedDir, generated)
   if (!fs.existsSync(file)) throw new Error(`missing generated file: ${generated}`)
   return fs.readFileSync(file)

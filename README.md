@@ -12,7 +12,7 @@
 
 | Platform | Availability |
 |---|---|
-| Windows x64 | **Not released.** v0.1.0 發佈後填 Release 連結. Native packaging, GUI and license gates must pass first. |
+| Windows x64 | **Not released.** Actual official installer built/installed in Chinese-space CI path; native GUI follow-up and complete licensing gates remain. |
 | macOS / Linux desktop | Planned; not guaranteed in v0.1. |
 | From source | Full DSH eight-gate artifact build and authenticated HTTP200 passed on Linux; actual native-agent tool/task tests passed. |
 
@@ -38,13 +38,13 @@ One private workspace package, [`@ymzz/dsh-product`](packages/ymzz/product), is 
 
 | Extension | What actually exists |
 |---|---|
-| Brand / Wenrun | Original user SVG and generated icons; exact product title/EXE resource branding; native sidebar brand/footer slots and four registered themes: 雲箋淺、雲箋暗、陶土淺、陶土暗. Windows rendering/PE identity still needs GUI qualification. |
+| Brand / Wenrun | Original user SVG and generated icons; exact product title/EXE resource branding; native sidebar brand/footer slots and four registered themes: 雲箋淺、雲箋暗、陶土淺、陶土暗. Native PE ProductName/installation passed; exact ICO resource + complete GUI follow-up is being qualified. |
 | Bounded task / gates | Official `ctx.agents`, `ctx.tools`, `ctx.approval`; explicit proposals, selected-workspace read/write/patch, fixed Node test command, failure feedback, human diff accept/rollback, persistent tasks and confirmed memory. Not an OS/network sandbox. |
 | Local provider | Off-by-default loopback OpenAI-compatible adapter/settings; no API key handling or remote URLs. Protocol tests use labeled fake HTTP responses. A working real model is not claimed. General project picking uses the actual native DSH directory-picker service; Windows picker GUI remains unqualified. |
 | Skills |9 integrity-pinned instruction skills registered with official `ctx.skills`; third-party licenses retained. Scripts/CLI installs/network permission are NOT granted by installing instructions. |
 | Reviewed updates | Tested signature/hash/compatibility/license-checked local staging and staging rollback only. No live channel, installer/restart or maintainer signing key configured. |
 
-First plugin opening asks for a nickname; without a consented real phone suffix the default is simply 用戶, never invented digits. User model setup remains explicit. Payment is owner-managed and outside this work.
+On Windows first-run, use native **Add API Key → Set up later** to enter without credentials; no model is thereby configured. First plugin opening asks for a nickname; without a consented real phone suffix the default is simply 用戶, never invented digits. User model setup remains explicit. Payment is owner-managed and outside this work.
 
 ## Separate products stay separate
 
@@ -62,8 +62,18 @@ node ymzz/scripts/check-site.mjs
 node ymzz/scripts/audit-production.mjs --enforce
 ```
 
-The last command currently **fails closed for distribution policy**; LGPL/MPL native dependencies are not falsely relabeled MIT or confused with GPL/AGPL. [Approved scope and remaining compliance qualification](ymzz/docs/WINDOWS-BLOCKERS.md).
+The last command **fails closed until actual native payload/source compliance clears**, even when the exact owner-approved LGPL/MPL graph passes. A deeper native NumPy audit found a separate GCC-runtime exception requiring a decision; it is not confused with plain GPL and is not silently approved. [Approved scope and remaining compliance qualification](ymzz/docs/WINDOWS-BLOCKERS.md).
 
-[Branding points](ymzz/docs/BRANDING-POINTS.md) · [Network/disable controls](ymzz/docs/NETWORK.md) · [Skills/provenance](ymzz/docs/SKILLS.md) · [Upstream sync](ymzz/docs/UPSTREAM-SYNC.md) · [Original README](ymzz/docs/upstream/README.md) · [All source links](ymzz/docs/RESOURCES.md)
+[Actual source/compliance materials](ymzz/compliance/REBUILD.md) · [Branding points](ymzz/docs/BRANDING-POINTS.md) · [Network/disable controls](ymzz/docs/NETWORK.md) · [Skills/provenance](ymzz/docs/SKILLS.md) · [Upstream sync](ymzz/docs/UPSTREAM-SYNC.md) · [Original README](ymzz/docs/upstream/README.md) · [All source links](ymzz/docs/RESOURCES.md)
 
 Based on DeepSeek Harness (MIT). **Not an official DeepSeek product.** Added code is MIT; actual third-party licenses remain applicable. [LICENSE](LICENSE) · [NOTICE](NOTICE.md) · [Upstream notices](THIRD_PARTY_NOTICES.md).
+
+### Native Windows packaging (qualification, not publication)
+
+```powershell
+node ymzz/scripts/stage-notices.mjs
+pnpm run package:desktop:win:x64:unsigned --check
+pnpm run package:desktop:win:x64:unsigned
+```
+
+Use a Windows x64 build host and documented public `.env.windows` product settings. No mandatory-update endpoint is required for unsigned builds; signed HTTPS validation remains. Normal upstream NSIS install/uninstall/protocol registrations are not called “registry free”. [Latest measured Windows attempt](https://github.com/Ya-MiC/ymzz/actions/runs/44029913700) built the real installer; the final native GUI/compliance gates are not yet green, so there is deliberately no executable download.

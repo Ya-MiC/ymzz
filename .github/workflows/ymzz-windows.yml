@@ -39,7 +39,7 @@ jobs:
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           node ymzz/scripts/check-site.mjs
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-          corepack pnpm exec tsx --test ymzz/packaging/tests/unsigned-policy.test.mjs
+          corepack pnpm exec tsx --test ymzz/packaging/tests/*.test.mjs
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           corepack pnpm exec vitest run apps/desktop/tests/desktop-policy-environment.spec.ts
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
@@ -85,6 +85,10 @@ jobs:
           DSH_DESKTOP_AUTO_UPDATE_ENV=production
           '@ | Set-Content -Encoding utf8 apps/desktop/.env.windows
           corepack pnpm run package:desktop:win:x64:unsigned --check
+      - name: Stage original copyright and LGPL/MPL/native license texts
+        if: ${{ !cancelled() && steps.artifacts.conclusion == 'success' }}
+        shell: pwsh
+        run: node ymzz/scripts/stage-notices.mjs
       - name: Build actual official unsigned Windows Electron installer for local qualification
         id: package
         if: ${{ !cancelled() && steps.artifacts.conclusion == 'success' && steps.preflight.conclusion == 'success' }}
@@ -94,6 +98,10 @@ jobs:
         if: ${{ !cancelled() && steps.package.conclusion == 'success' }}
         shell: pwsh
         run: ./ymzz/scripts/windows-gui-smoke.ps1 -BuildRoot apps/desktop/.desktop-build/targets/win-x64/unsigned-artifacts
+      - name: Audit actual prepared scientific native runtime (not package-level BSD labels)
+        if: ${{ !cancelled() && steps.package.conclusion == 'success' }}
+        shell: pwsh
+        run: python ymzz/scripts/audit-native-python.py --root apps/desktop/.desktop-build/targets/win-x64/runtime/primary-runtime --output ymzz/docs/evidence/windows-native-python-license.json --enforce
       - name: Preserve qualification evidence only, NEVER a failed/unqualified executable
         if: always()
         uses: actions/upload-artifact@v4
@@ -103,4 +111,5 @@ jobs:
             ymzz/docs/evidence/windows-full-dsh-web.json
             ymzz/docs/evidence/production-license-win32.json
             ymzz/docs/evidence/windows/
+            ymzz/docs/evidence/windows-native-python-license.json
           if-no-files-found: warn

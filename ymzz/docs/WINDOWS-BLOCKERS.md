@@ -41,3 +41,11 @@ The plugin has tested Ed25519 signed-manifest compatibility/hash/license-gated s
 ## Actual installer behavior
 
 The official NSIS installer makes normal per-user installation/uninstall registrations and shortcuts. The preserved upstream app also calls `setAsDefaultProtocolClient('dsh')` on packaged startup. We add no registry-edit script, but do **not** claim registry-free installation or startup. Qualification installs only into an ephemeral CI Windows runner, never the owner's computer. `windows-gui-smoke.ps1` targets the real branded NSIS payload rather than the upstream synthetic installer fixture.
+
+##4. New actual Windows scientific-runtime category and measured package progress
+
+Run44029913700 (commit3cdde61ad9bfb80abfe1d14136bf1cfc4a7064bf) successfully built the **real official unsigned Electron/NSIS installer**, passed the upstream prepared/packaged runtime smoke, installed in a Chinese-space path, passed exact PE ProductName and separately bundled Node checks. This is not an old Tauri executable. Full source HTTP task approval/repair/accept/memory/rollback also passed on Windows. Native GUI qualification stopped at the preserved first-run Welcome screen because the test had not navigated Add API Key → Set up later; the test is fixed to use those genuine UI buttons, without entering any key or bypassing authentication. Native task GUI is not claimed passed yet.
+
+A deeper locked native-wheel audit found NumPy2.3.5's bundled OpenBLAS DLL declares `GPL-3.0-or-later WITH GCC-exception-3.1`. This is **not plain GPL**, and the exception permits eligible non-GPL/proprietary combinations; it does not turn the application GPL. It is still outside the owner-approved LGPL/MPL exceptions and remains blocked, not silently whitelisted. See [exact native evidence](evidence/windows-numpy-license.json), original [license](../compliance/notices/numpy-2.3.5-WINDOWS-LICENSE.txt) and [actual source/compliance preparation](../compliance/REBUILD.md).
+
+21 corresponding-material archives have actually been downloaded/hash-verified. No claim of complete distribution clearance is made: matching API0.2.3 preferred-source verification is still incomplete, unlike its supplied native C++ sources. No release/draft release/download is created before these gates clear.

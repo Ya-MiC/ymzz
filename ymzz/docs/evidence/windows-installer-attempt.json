@@ -1,0 +1,16 @@
+{
+  "run": "https://github.com/Ya-MiC/ymzz/actions/runs/44029913700",
+  "commit": "3cdde61ad9bfb80abfe1d14136bf1cfc4a7064bf",
+  "fullOfficialDSH": true,
+  "officialUnsignedPackagingPreflightPassed": true,
+  "officialElectronNSISInstallerBuildPassed": true,
+  "upstreamPackagedRuntimeSmokePassed": true,
+  "installedChineseSpacePath": true,
+  "PEProductNameCheckPassedBeforeGUI": true,
+  "bundledPrimaryNodeExecutedBeforeGUI": true,
+  "nativeGUIQualified": false,
+  "GUIFailure": "Native Welcome visible; test expected plugin nickname without clicking existing Add API Key -> Set up later. Fixed in following commit; not claimed passed.",
+  "releaseCleared": false,
+  "binaryUploaded": false,
+  "liveInference": false
+}
