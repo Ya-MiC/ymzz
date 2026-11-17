@@ -18,7 +18,9 @@ export function applyApplicationBranding({dryRun=false}={}){
   else if(file.endsWith('main.ts')){
    text=text.replace("applicationName: 'DeepSeek Harness'","applicationName: '湛箴_ymzz'");
    const before='detail: formatDesktopMessage(locale.messages.aboutVersion, { version: app.getVersion() }),';
-   const after='detail: '+JSON.stringify(brand.meaning+'\nBased on DeepSeek Harness (MIT); not an official DeepSeek product.\n')+' + formatDesktopMessage(locale.messages.aboutVersion, { version: app.getVersion() }),';
+   const detail=brand.meaning+'\nBased on DeepSeek Harness (MIT); not an official DeepSeek product.\n';
+   const literal="'"+detail.replaceAll('\\','\\\\').replaceAll("'","\\'").replaceAll('\n','\\n')+"'";
+   const after='detail: '+literal+' + formatDesktopMessage(locale.messages.aboutVersion, { version: app.getVersion() }),';
    text=text.replace(before,after);
   }
   if(original!==pristine&&original!==text)throw new Error('UNEXPECTED_BRANDING_TARGET_CHANGE: '+file);
