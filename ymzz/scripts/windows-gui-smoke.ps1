@@ -3,6 +3,15 @@
 param([Parameter(Mandatory=$true)][string]$BuildRoot)
 $ErrorActionPreference='Stop'
 Add-Type -AssemblyName UIAutomationClient,UIAutomationTypes,System.Windows.Forms,System.Drawing
+# Actual visible native GUI input in the CI test only; no DOM mutation or injected success.
+Add-Type @'
+using System;
+using System.Runtime.InteropServices;
+public static class YmzzTestMouse {
+ [DllImport("user32.dll")] public static extern bool SetCursorPos(int x,int y);
+ [DllImport("user32.dll")] public static extern void mouse_event(uint flags,uint dx,uint dy,uint data,UIntPtr extra);
+}
+'@
 $proof=Join-Path (Split-Path $PSScriptRoot -Parent) 'docs/evidence/windows';New-Item -ItemType Directory -Force $proof|Out-Null
 # This is the actual official NSIS installer, not the upstream synthetic installer fixture.
 $installer=Get-ChildItem -LiteralPath $BuildRoot -File -Filter '湛箴_ymzz-*-win-x64-unsigned.exe' | Select-Object -First 1
@@ -19,6 +28,11 @@ $env:DSH_TELEMETRY_DISABLED='1'
 $stateFile=Join-Path $env:DSH_HOME 'ymzz/tasks.json'
 $nodeExe=Join-Path $portable 'resources/runtime/primary-runtime/dependencies/node/bin/node.exe'
 if(!(Test-Path -LiteralPath $nodeExe)){throw 'Actual packaged primary Node missing'}
+$pythonExe=Join-Path $portable 'resources/runtime/primary-runtime/dependencies/python/python.exe'
+if(!(Test-Path -LiteralPath $pythonExe)){throw 'Actual bundled Python missing'}
+$compiled=& $pythonExe -I -c "import json;from lxml import etree;print(json.dumps({'lxml':etree.LXML_VERSION,'iconvCompiled':etree.ICONV_COMPILED_VERSION,'libxmlCompiled':etree.LIBXML_COMPILED_VERSION,'libxsltCompiled':etree.LIBXSLT_COMPILED_VERSION}))"
+if($LASTEXITCODE -ne 0){throw 'Actual bundled lxml cannot report its compiled dependency versions'}
+$compiled|Set-Content -Encoding utf8 (Join-Path $proof 'python-compiled-libraries.json')
 $nodeVersion=& $nodeExe --version
 if($LASTEXITCODE -ne 0 -or $nodeVersion -notmatch '^v24\.'){throw 'Actual packaged primary Node cannot execute'}
 node ymzz/scripts/check-pe-icon.mjs --exe $exe --ico ymzz/branding/generated/icon.ico --output (Join-Path $proof 'pe-icon.json')
@@ -49,13 +63,27 @@ try{
  Find-Control '深淵的清澈的水，纂刻于竹篾上的痕，珍重微小，有所依據，立傳傳世'|Out-Null
  $nativeDocument=Find-Control '湛箴_ymzz';if($Element.Current.Name -ne '湛箴_ymzz'){throw "Actual native window title differs from requested product name: $($Element.Current.Name)"}
  Screenshot 'full-dsh-onboarding'
- $approvals=0
+ $approvals=0;$script:themeProof=@()
  # Actual UIA option selection, not unverified foreground SendKeys (which left light selected).
  function Select-Theme([string]$label){
   $theme=Find-Control '湛箴四套溫潤主題';try{$theme.GetCurrentPattern([System.Windows.Automation.ScrollItemPattern]::Pattern).ScrollIntoView()}catch{};$expand=$theme.GetCurrentPattern([System.Windows.Automation.ExpandCollapsePattern]::Pattern);$expand.Expand()
-  $option=Find-Control $label ([System.Windows.Automation.SelectionItemPattern]::Pattern);$selection=$option.GetCurrentPattern([System.Windows.Automation.SelectionItemPattern]::Pattern);$selection.Select();Start-Sleep -Milliseconds 300
-  if(!$selection.Current.IsSelected){throw "Actual theme option was not selected: $label"}
-  if($expand.Current.ExpandCollapseState -ne [System.Windows.Automation.ExpandCollapseState]::Collapsed){$expand.Collapse()};Start-Sleep -Milliseconds 500
+  $option=Find-Control $label ([System.Windows.Automation.SelectionItemPattern]::Pattern);$point=$option.GetClickablePoint();$window=$Element.Current.BoundingRectangle
+  if($option.Current.IsOffscreen -or $point.X -lt $window.Left -or $point.X -gt $window.Right -or $point.Y -lt $window.Top -or $point.Y -gt $window.Bottom){throw 'Visible native theme option escaped actual product window'}
+  if(![YmzzTestMouse]::SetCursorPos([int]$point.X,[int]$point.Y)){throw 'Native theme mouse positioning failed'}
+  [YmzzTestMouse]::mouse_event(2,0,0,0,[UIntPtr]::Zero);[YmzzTestMouse]::mouse_event(4,0,0,0,[UIntPtr]::Zero)
+  # UIA SelectionItem.Select did not commit Chromium's HTML popup in the measured run.
+  # Test a real native click and the actual rendered immutable-authority color instead.
+  $tokens=Get-Content -LiteralPath (Join-Path $PSScriptRoot '../../packages/ymzz/product/wenrun-tokens.css') -Raw
+  $expression=if($label -like '*暗*'){'\[data-theme="dark"\]\s*\{\s*--bg-0:\s*(#[0-9A-Fa-f]{6})'}else{'--c-cloud-paper:\s*(#[0-9A-Fa-f]{6})'}
+  $match=[regex]::Match($tokens,$expression);if(!$match.Success){throw 'Immutable authority background token missing'};$expected=$match.Groups[1].Value.ToUpperInvariant();$end=(Get-Date).AddSeconds(10)
+  do{
+   $dialog=Find-Control '湛箴 DSH 任務與驗證閘';$rect=$dialog.Current.BoundingRectangle
+   $pixel=[System.Drawing.Bitmap]::new(1,1);$graphics=[System.Drawing.Graphics]::FromImage($pixel)
+   try{$graphics.CopyFromScreen(([int]$rect.Left+18),([int]$rect.Top+18),0,0,[System.Drawing.Size]::new(1,1));$color=$pixel.GetPixel(0,0);$actual='#{0:X2}{1:X2}{2:X2}' -f $color.R,$color.G,$color.B}finally{$graphics.Dispose();$pixel.Dispose()}
+   if($actual -ne $expected){Start-Sleep -Milliseconds 200}
+  }until($actual -eq $expected -or (Get-Date) -gt $end)
+  if($actual -ne $expected){throw "Actual native-clicked theme differs from authority token: $label expected $expected got $actual"}
+  $script:themeProof+=@{label=$label;actualColor=$actual;authorityColor=$expected;interaction='visible UIA GetClickablePoint + actual native mouse click'}
  }
  function Complete-Demo([bool]$accept){
   $before=@((State).tasks.psobject.Properties.Name);Click '用完整 DSH Agent Loop 執行離線修復示例';$end=(Get-Date).AddSeconds(25)
@@ -87,7 +115,16 @@ try{
  $models=$null;foreach($label in @('Models','模型')){try{$models=Find-Control $label ([System.Windows.Automation.InvokePattern]::Pattern);break}catch{}}
  if(!$models){throw 'Original full DSH Models settings navigation missing'};$models.GetCurrentPattern([System.Windows.Automation.InvokePattern]::Pattern).Invoke();Start-Sleep -Seconds 1
  Screenshot 'full-dsh-native-model-settings'
- @{fullUpstreamApp=$true;engine='FULL official DeepSeek Harness Electron';upstream='39163dd30f703a79079e2d2446545cff3c453738';nativeGUI=$true;productDisplayName='湛箴_ymzz';nativeSidebarSlotPluginVerified=$true;originalDSHLayoutPreserved=$true;pluginLoadedViaProductionAssembly=$true;nicknameViaGUI=$true;approvals=$approvals;accepted=$accepted;rollback=$rollback;actualNodeTests=$true;deterministicFakeTransport=$true;liveInference=$false;nativeModelSettingsOpened=$true;nativeDarkThemeSelectionVerified=$true;providerConfigured=$false;modelWorking=$false;unicodeSpaceInstalledPath=$true;actualNSISInstalled=$true;nodeVersion=$nodeVersion;primaryNodeSHA256=(Get-FileHash $nodeExe -Algorithm SHA256).Hash;installerSHA256=(Get-FileHash $installer.FullName -Algorithm SHA256).Hash;exeSHA256=(Get-FileHash $exe -Algorithm SHA256).Hash;exeBytes=(Get-Item $exe).Length;actualUserIcon='Latest owner SVG-derived ICO, checked separately against PE resources';inheritedDSHProtocolRegistration=$true;customRegistryScript=$false;binaryDistribution='Not cleared until actual payload and corresponding-source compliance gates pass'}|ConvertTo-Json -Depth 30|Set-Content -Encoding utf8 (Join-Path $proof 'full-dsh-gui.json')
+ # Read-only official built-in plugin inventory, not marketplace/install/update actions.
+ $builtins=$null;foreach($label in @('Built-in plugins','内置插件')){try{$builtins=Find-Control $label ([System.Windows.Automation.InvokePattern]::Pattern);break}catch{}}
+ if(!$builtins){throw 'Original built-in plugin inventory navigation missing'};$builtins.GetCurrentPattern([System.Windows.Automation.InvokePattern]::Pattern).Invoke()
+ $search=$null;foreach($label in @('Search plugins','搜索插件')){try{$search=Find-Control $label ([System.Windows.Automation.ValuePattern]::Pattern);break}catch{}}
+ if(!$search){throw 'Native built-in plugin inventory filter missing'};$search.GetCurrentPattern([System.Windows.Automation.ValuePattern]::Pattern).SetValue('@ymzz/dsh-product')
+ $end=(Get-Date).AddSeconds(30);$pluginRow=$null
+ do{foreach($candidate in $Element.FindAll([System.Windows.Automation.TreeScope]::Descendants,[System.Windows.Automation.Condition]::TrueCondition)){if($candidate.Current.Name -match '@ymzz/dsh-product|ymzz-product' -and $candidate.Current.ControlType -eq [System.Windows.Automation.ControlType]::Button){try{$null=$candidate.GetCurrentPattern([System.Windows.Automation.InvokePattern]::Pattern);$pluginRow=$candidate;break}catch{}}};if(!$pluginRow){Start-Sleep -Milliseconds 200}}until($pluginRow -or (Get-Date) -gt $end)
+ if(!$pluginRow -or $pluginRow.Current.Name -match 'Failed|Disabled|失败|禁用'){throw 'Native inventory did not show the actual enabled ymzz plugin'}
+ $nativePluginRow=$pluginRow.Current.Name;$pluginRow.GetCurrentPattern([System.Windows.Automation.InvokePattern]::Pattern).Invoke();Screenshot 'full-dsh-native-plugin-inventory'
+ @{fullUpstreamApp=$true;engine='FULL official DeepSeek Harness Electron';upstream='39163dd30f703a79079e2d2446545cff3c453738';nativeGUI=$true;productDisplayName='湛箴_ymzz';nativeSidebarSlotPluginVerified=$true;originalDSHLayoutPreserved=$true;pluginLoadedViaProductionAssembly=$true;nicknameViaGUI=$true;approvals=$approvals;accepted=$accepted;rollback=$rollback;actualNodeTests=$true;deterministicFakeTransport=$true;liveInference=$false;nativeModelSettingsOpened=$true;nativeDarkThemeSelectionVerified=$true;nativeThemeProof=$script:themeProof;nativePluginInventoryRow=$nativePluginRow;providerConfigured=$false;modelWorking=$false;unicodeSpaceInstalledPath=$true;actualNSISInstalled=$true;nodeVersion=$nodeVersion;primaryNodeSHA256=(Get-FileHash $nodeExe -Algorithm SHA256).Hash;installerSHA256=(Get-FileHash $installer.FullName -Algorithm SHA256).Hash;exeSHA256=(Get-FileHash $exe -Algorithm SHA256).Hash;exeBytes=(Get-Item $exe).Length;actualUserIcon='Latest owner SVG-derived ICO, checked separately against PE resources';inheritedDSHProtocolRegistration=$true;customRegistryScript=$false;binaryDistribution='Not cleared until actual payload and corresponding-source compliance gates pass'}|ConvertTo-Json -Depth 30|Set-Content -Encoding utf8 (Join-Path $proof 'full-dsh-gui.json')
  "YMZZ_INSTALLED_PRODUCT=$portable"|Out-File -Append -Encoding utf8 $env:GITHUB_ENV
 }catch{
  Screenshot 'full-dsh-failure'
