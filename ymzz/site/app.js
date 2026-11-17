@@ -127,7 +127,7 @@
   const message = (key, fallback) => document.querySelector('[data-i18n="'+key+'"]')?.textContent || fallback;
   function safeReleaseAsset(a) {
     if(!a || typeof a.name!=="string" || a.name.length>255 || a.state!=="uploaded")return false;
-    try { const u=new URL(a.browser_download_url);return u.protocol==="https:" && u.hostname==="github.com" && !u.username && !u.password && !u.search && !u.hash && /^\/Ya-MiC\/ymzz\/releases\/download\//i.test(u.pathname); }catch{return false}
+    try { const u=new URL(a.browser_download_url);return u.origin==="https://github.com" && !u.username && !u.password && !u.search && !u.hash && /^\/Ya-MiC\/ymzz\/releases\/download\//i.test(u.pathname); }catch{return false}
   }
   function assetLooksLikeInstaller(name) {
     return /\.(exe|msi|msix|dmg|pkg|appimage|deb|rpm|zip|7z)$/i.test(name || "");
@@ -144,7 +144,7 @@
     releaseRequest?.abort(); releaseRequest=new AbortController();
     try {
       const res = await fetch(cfg.releasesApi, {
-        headers: { Accept: "application/vnd.github+json" },
+        headers: { Accept: "application/vnd.github+json" }, redirect: "error",
         credentials: "omit", referrerPolicy: "no-referrer", cache: "no-store", signal: AbortSignal.any([AbortSignal.timeout(8000),releaseRequest.signal])
       });
       if (!res.ok) throw new Error("PUBLIC_RELEASE_LOOKUP_FAILED");

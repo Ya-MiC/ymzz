@@ -79,7 +79,7 @@
   <div class="panel sec-head">
     <p class="label" data-i18n="status.k">現況（據實）</p>
     <h2 data-i18n="status.h">這是產品官網，不是已完成的跨平台安裝包商店</h2>
-    <p class="lede" data-i18n="status.p">倉庫已在 GitHub 的 master 主線公開。應用名稱、四套溫潤主題與預裝插件仍在整合中。本頁不會把稟冊的舊草稿安裝包說成這個智能體的發行版。</p>
+    <p class="lede" data-i18n="status.p">master 已接入完整 DSH 與原生 ymzz 插件：精確品牌、四套原生主題、9個固定來源指令技能。Linux artifacts 建置與真實逐次核准／失敗修復／驗收還原工具測試通過；Windows GUI、安裝包與真模型推論仍未驗收。</p>
   </div>
   <ul class="facts">
     <li class="fact"><span class="bn">01</span><h3 data-i18n="status.1h">從原始碼運行</h3><p data-i18n="status.1p">這是目前真實可用的入口。需要 Node、Git 與 pnpm，步驟見開始頁。</p></li>
@@ -97,7 +97,7 @@
       <p class="lede" data-i18n="get.p">主按鈕只指向實際可用的合格發佈。在公開 Releases 出現已驗收資產之前，這裡不會放空的下載按鈕。</p>
     </div>
     <div id="download" class="table-wrap">
-      <p class="status-note" data-i18n="get.pending">發佈頁目前沒有公開版本。若之後出現非草稿的合格資產，本節會改列真實檔名與連結。</p>
+      <p class="status-note" data-i18n="get.pending">目前沒有公開正式產品安裝包。只有勾選允許並按下手動檢查，才查詢 GitHub 公開 Release 資料。</p>
       <p><a href="https://github.com/Ya-MiC/ymzz/releases" rel="noopener noreferrer" data-i18n="get.releases">查看 GitHub Releases（目前為空）</a></p>
     </div>
   </div>
@@ -108,12 +108,12 @@
     <div class="sec-head">
       <p class="label" data-i18n="product.k">產品</p>
       <h2 data-i18n="product.h">三十輻共一轂</h2>
-      <p class="lede" data-i18n="product.p">智能體本體是空的轂，技能與插件是可換的輻。本地優先、零遙測、乾淨安裝與卸載。MIT 開源可商用；這不是 DeepSeek 官方產品。</p>
+      <p class="lede" data-i18n="product.p">Agent 本體為轂，技能與原生插件為可換的輻。新增程式為 MIT、不新增遙測、連線須明確同意；實際原生第三方授權與安裝行為仍是發版閘，非 DeepSeek 官方產品。</p>
     </div>
     <ul class="facts">
       <li class="fact"><h3 data-i18n="product.1h">完整官方 DSH</h3><p data-i18n="product.1p">以完整 DeepSeek Harness 為底，保留原生佈局與元件位置，不另做一套 Tauri 重寫。</p></li>
-      <li class="fact"><h3 data-i18n="product.2h">一切皆是插件</h3><p data-i18n="product.2p">新增能力以原生插件與技能池接入。預裝 ymzz 插件目前尚無；後續由維護者審核後再推給用戶。</p></li>
-      <li class="fact"><h3 data-i18n="product.3h">溫潤四主題</h3><p data-i18n="product.3p">雲箋淺、雲箋暗、陶土淺、陶土暗。本官網已可切換；應用內主題整合尚未完成。</p></li>
+      <li class="fact"><h3 data-i18n="product.2h">一切皆是插件</h3><p data-i18n="product.2p">一個原生 ymzz 插件註冊品牌／主題插槽、9個固定來源指令技能與真正 DSH 核准任務。審核更新目前只到簽署清單的本機驗證暫存，不冒充正式安裝通道。</p></li>
+      <li class="fact"><h3 data-i18n="product.3h">溫潤四主題</h3><p data-i18n="product.3p">雲箋淺、雲箋暗、陶土淺、陶土暗。已在真正 DSH 主題服務註冊，本站也可切換；Windows 打包後的呈現仍待 GUI 驗收。</p></li>
       <li class="fact"><h3 data-i18n="product.4h">支付另接</h3><p data-i18n="product.4p">收費與支付由作者自行接入，本站不提供支付介面，也不收集付款資料。</p></li>
     </ul>
   </div>
@@ -124,7 +124,7 @@
     <div class="sec-head">
       <p class="label" data-i18n="plugins.k">插件哲學</p>
       <h2 data-i18n="plugins.h">轂是空的，輻可以換</h2>
-      <p class="lede" data-i18n="plugins.p">本頁不把尚未接入應用的技能說成已經內建。技能來源與授權會逐項核對後再進入發行。</p>
+      <p class="lede" data-i18n="plugins.p">9個指令技能已透過官方 ctx.skills 註冊，596個複製檔案與固定上游雜湊一致。不代表第三方 CLI 已安裝，不授予執行／網路／付費權限；發佈授權閘未放寬。</p>
     </div>
   </div>
 </section>

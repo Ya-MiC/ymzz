@@ -57,7 +57,7 @@
   <p class="eyebrow" data-i18n="start.eyebrow">開始 · 目前真實入口</p>
   <h1 data-i18n="start.h">從原始碼運行</h1>
   <p class="lede" data-i18n="start.lede">這不是安裝包下載頁。Windows / macOS / Linux 合格安裝包都還沒有。下面是倉庫 README 記載的真實上游入口；本 checkout 的完整桌面驗收尚未完成。</p>
-  <p class="status-note" data-i18n="start.status">沒有附模型金鑰，也沒有做 live／付費推論。未設定 provider 不能說模型已可用。開發時請設定產品獨立的 DSH_HOME，不要默默寫入共用的 ~/.dsh 就當作發行設定。</p>
+  <p class="status-note" data-i18n="start.status">沒有附模型金鑰，未做 live／付費推論。產品啟動器直接運行完整官方 DSH CLI，預設獨立 ~/.ymzz（可用 YMZZ_HOME 指定）；設定端點不等於模型已驗證。</p>
 </section>
 
 <section class="panel" id="requirements">
@@ -83,9 +83,8 @@ git checkout master</pre></div></li>
 pnpm install
 pnpm run build:artifacts</pre></div></li>
     <li><span class="n">03</span><div><h3 data-i18n="start.s3h">啟動（開發入口）</h3>
-      <pre class="codeblock" tabindex="0">export DSH_HOME="$HOME/.zhanzhen-ymzz"
-pnpm dsh web --no-open --port 3081</pre>
-      <p data-i18n="start.s3p">然後在瀏覽器打開本機埠 3081。這是原始碼運行，不是已驗收的桌面安裝包。</p></div></li>
+      <pre class="codeblock" tabindex="0">pnpm exec node ymzz/scripts/dev.mjs --no-open --port 3081</pre>
+      <p data-i18n="start.s3p">打開本機輸出的 3081 私人啟動連結，切勿公開驗證 token。這是原始碼運行，不是已驗收的桌面安裝包。</p></div></li>
   </ol>
 </section>
 
