@@ -35,6 +35,10 @@ const allText = walk(site).filter((p) => /\.(html|js|css|txt|xml|md|json)$/.test
 assert.doesNotMatch(allText, trackerRe, 'TRACKER_OR_FONT_CDN')
 assert.doesNotMatch(allText, /cdn\.jsdelivr|unpkg\.com|cdnjs\.cloudflare|ajax\.googleapis/i, 'REMOTE_SCRIPT_CDN')
 
+assert.doesNotMatch(read('app.js'),/DOMContentLoaded[\s\S]{0,20}hydrateReleases/,'AUTOMATIC_RELEASE_EGRESS')
+assert.match(read('app.js'),/allow\.checked=false/)
+assert.match(read('app.js'),/AbortSignal\.timeout\(8000\)/)
+
 // Identity
 assert.match(read('index.html'), /湛箴_ymzz/)
 assert.match(allText, new RegExp(meaning))

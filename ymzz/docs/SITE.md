@@ -1,3 +1,11 @@
+# Deployment integration update
+
+The website is integrated into the same `master`. A dedicated `.github/workflows/ymzz-pages.yml` validates and uploads only `ymzz/site`; Pages was explicitly enabled through the normal API for THIS new repository. No inherited workflow or old Loop environment was enabled/changed. Actual live deployment evidence follows only after Actions succeeds.
+
+Latest owner correction: Loop is a completed, separate project-management product; the site is a visual reference only. All three languages and fallback HTML state this; no application/data migration is provided. Release API networking is off by default and manual-only.
+
+---
+
 # 湛箴_ymzz official website
 
 Source lives in [`ymzz/site/`](../site/). This is the product-specific official site for **湛箴_ymzz**, not 稟冊 and not the upstream DeepSeek Harness `website/` tree.

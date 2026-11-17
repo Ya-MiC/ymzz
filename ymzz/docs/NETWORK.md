@@ -1,5 +1,16 @@
 # Network inventory / 新增對外請求
 
-M1 adds **zero runtime network requests** and zero telemetry. No runtime code, polling, update channel, analytics or payment service is added/enabled. README hyperlinks are user navigation, not background requests.
+No analytics/telemetry is added. The product composition disables upstream `desktop-product-telemetry` and `product-analytics`; the product source launcher sets `DSH_TELEMETRY_DISABLED=1`. This is not an OS firewall or an assertion that every native DSH network capability has disappeared.
 
-Development operations: git/gh contact github.com / api.github.com for explicitly requested source/fork/settings/read-only release checks. These are maintainer actions, not shipped telemetry. pnpm dependency downloads and upstream runtime networking are not falsely described as zero-network; M2 has not run in this checkout. Future added runtime requests must list endpoint, purpose, consent, data sent, timeout and a setting to disable them before merging. Never include keys or local auth launch tokens in evidence.
+| Surface | Destination / data | Trigger, bounds and disable control |
+|---|---|---|
+| Native plugin local-provider adapter | Exact user-selected `http://127.0.0.1:<port>/v1/chat/completions` or `[::1]`; selected task prompt, bounded selected-workspace contents and approved tool results; no API keys | Disabled by default. User configures endpoint/model, explicitly enables, chooses workspace and starts task. Settings → plugin dialog → disable local model requests. No redirects/DNS/remote host,20s timeout,256KiB request/128KiB response,24 model steps/16 tools/10min task ceiling. A response is not a model-quality certification. |
+| Plugin UI | Same-origin authenticated local DSH `/ymzz/*` state/actions | Open dialog only; state refresh while open, explicit mutation buttons and native DSH approvals. Closing dialog stops state refresh. No external server. |
+| Reviewed updater | None | Local signed-manifest/ZIP verification and staging only; no remote polling, download, extraction, code execution or install channel configured. |
+| Official website translations/fonts/assets | Same-origin GitHub Pages resources | Ordinary site loading/language selection; fonts are local OFL files, no font CDN. |
+| Website release lookup | `https://api.github.com/repos/Ya-MiC/ymzz/releases?per_page=10`; public release metadata only | No request at page load. Off-by-default checkbox plus explicit manual button;8s timeout, credentials/referrer omitted. Uncheck to disable. No automatic installer execution. |
+| Optional independent-product hyperlinks | Original public sites, including completed separate Loop project-management product | Only normal explicit link navigation. No Loop code/data/runtime import or migration. |
+
+Maintainer git/gh/pnpm/CI operations contact GitHub/npm and upstream build dependencies as explicitly requested development operations, not shipped telemetry. No secret or local authentication launch token belongs in evidence. No live/paid/NIM inference, payment connection, or private-document import was performed.
+
+Windows distribution is NOT yet cleared. Unchanged upstream unsigned-Windows packaging requires a mandatory HTTPS policy service and retains native standard installer/protocol behavior; there is no invented service or claim that these are silently disabled. See [Windows blockers](WINDOWS-BLOCKERS.md).

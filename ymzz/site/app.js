@@ -137,7 +137,8 @@
     if (!cfg.releasesApi || !box) return;
     try {
       const res = await fetch(cfg.releasesApi, {
-        headers: { Accept: "application/vnd.github+json" }
+        headers: { Accept: "application/vnd.github+json" },
+        credentials: "omit", referrerPolicy: "no-referrer", cache: "no-store", signal: AbortSignal.timeout(8000)
       });
       if (!res.ok) return;
       const list = await res.json();
@@ -190,9 +191,15 @@
   bootChrome();
   hidePre();
   readbar();
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", hydrateReleases);
-  } else {
-    hydrateReleases();
+  // No automatic third-party request: one explicit user-triggered check, with an off switch.
+  const download=document.getElementById("download");
+  if(download){
+    const preferences=document.createElement("div"),label=document.createElement("label"),allow=document.createElement("input"),button=document.createElement("button");
+    allow.type="checkbox";allow.checked=false;allow.setAttribute("aria-label","允許手動連線 GitHub 公開發佈 API");
+    label.append(allow,document.createTextNode(" 允許本次手動連線 GitHub 公開發佈 API（可隨時關閉）"));
+    button.type="button";button.className="btn ghost";button.textContent="手動檢查公開發佈 / Check releases";button.disabled=true;
+    allow.addEventListener("change",()=>{button.disabled=!allow.checked});
+    button.addEventListener("click",()=>{if(allow.checked)void hydrateReleases()});
+    preferences.append(label,button);download.append(preferences);
   }
 })();
