@@ -12,6 +12,7 @@ export function applyApplicationBranding({dryRun=false}={}){
    if(!text.includes("DSH_CLIENT_TITLE: '湛箴_ymzz',\n    ...inherited"))text=text.replace('  return {\n    ...inherited,',"  return {\n    DSH_CLIENT_TITLE: '湛箴_ymzz',\n    ...inherited,");
    if(!text.includes("DSH_CLIENT_BUILD_PROFILE: 'local',\n        DSH_CLIENT_TITLE: '湛箴_ymzz'"))text=text.replace("DSH_CLIENT_BUILD_PROFILE: 'local',","DSH_CLIENT_BUILD_PROFILE: 'local',\n        DSH_CLIENT_TITLE: '湛箴_ymzz',");
   }else if(file.endsWith('electron-builder-config.mjs')){
+   text=text.replace('const policy = packagesMacOS && unsigned ? undefined : resolveDesktopPolicyEnvironment(env)','const policy = unsigned ? undefined : resolveDesktopPolicyEnvironment(env)');
    text=text.replace("productName: 'DeepSeek Harness'","productName: '湛箴_ymzz'").replace('artifactName: `deepseek-harness-','artifactName: `湛箴_ymzz-');
   }else if(file.endsWith('smoke-packaged-runtime.ts'))text=text.replace("join(application, 'DeepSeek Harness.exe')","join(application, '湛箴_ymzz.exe')");
   else if(file.endsWith('locale.ts'))text=text.replaceAll('DeepSeek Harness','湛箴_ymzz');

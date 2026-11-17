@@ -54,7 +54,7 @@ First plugin opening asks for a nickname; without a consented real phone suffix 
 
 ## Development / provenance
 
-Only `master`. All34 inherited workflows stay disabled; only narrowly scoped ymzz workflows are enabled. No upstream file is deleted, no `@deepseek-ai/*` package is renamed, and no custom agent core replaces DSH. Added code is under `ymzz/` and `packages/ymzz/`; upstream changes are documented branding and necessary package registrations.
+Only `master`. All34 inherited workflows stay disabled; only narrowly scoped ymzz workflows are enabled. No upstream file is deleted, no `@deepseek-ai/*` package is renamed, and no custom agent core replaces DSH. Added code is under `ymzz/` and `packages/ymzz/`; upstream changes are documented branding, necessary package registrations and the owner-approved two unsigned Windows policy conditionals (signed validation retained).
 
 ```sh
 node --test packages/ymzz/product/tests/*.test.mjs
@@ -62,7 +62,7 @@ node ymzz/scripts/check-site.mjs
 node ymzz/scripts/audit-production.mjs --enforce
 ```
 
-The last command currently **fails closed for distribution policy**; LGPL/MPL native dependencies are not falsely relabeled MIT or confused with GPL/AGPL. [Exact blockers and proposed approval scope](ymzz/docs/WINDOWS-BLOCKERS.md).
+The last command currently **fails closed for distribution policy**; LGPL/MPL native dependencies are not falsely relabeled MIT or confused with GPL/AGPL. [Approved scope and remaining compliance qualification](ymzz/docs/WINDOWS-BLOCKERS.md).
 
 [Branding points](ymzz/docs/BRANDING-POINTS.md) · [Network/disable controls](ymzz/docs/NETWORK.md) · [Skills/provenance](ymzz/docs/SKILLS.md) · [Upstream sync](ymzz/docs/UPSTREAM-SYNC.md) · [Original README](ymzz/docs/upstream/README.md) · [All source links](ymzz/docs/RESOURCES.md)
 

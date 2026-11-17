@@ -1,4 +1,4 @@
-name: ymzz Windows source qualification (not an installer release)
+name: ymzz official Windows packaging qualification (not a release)
 on:
   workflow_dispatch:
 permissions:
@@ -9,7 +9,7 @@ concurrency:
 jobs:
   native-runtime-and-preflight:
     runs-on: windows-latest
-    timeout-minutes: 45
+    timeout-minutes: 90
     env:
       DSH_TELEMETRY_DISABLED: "1"
       PYTHONUTF8: "1"
@@ -39,9 +39,14 @@ jobs:
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           node ymzz/scripts/check-site.mjs
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          corepack pnpm exec tsx --test ymzz/packaging/tests/unsigned-policy.test.mjs
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          corepack pnpm exec vitest run apps/desktop/tests/desktop-policy-environment.spec.ts
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           node --test packages/ymzz/product/tests/*.test.mjs
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
       - name: Build complete official DSH artifacts, including native ymzz client plugin
+        id: artifacts
         shell: pwsh
         run: corepack pnpm run build:artifacts
       - name: Real full DSH approval, failure-repair, acceptance, memory and rollback in Chinese-space data path
@@ -71,6 +76,7 @@ jobs:
         shell: pwsh
         run: node ymzz/scripts/audit-production.mjs --enforce
       - name: Official unsigned Windows packaging preflight (no invented policy service)
+        id: preflight
         if: always()
         shell: pwsh
         run: |
@@ -79,6 +85,15 @@ jobs:
           DSH_DESKTOP_AUTO_UPDATE_ENV=production
           '@ | Set-Content -Encoding utf8 apps/desktop/.env.windows
           corepack pnpm run package:desktop:win:x64:unsigned --check
+      - name: Build actual official unsigned Windows Electron installer for local qualification
+        id: package
+        if: ${{ !cancelled() && steps.artifacts.conclusion == 'success' && steps.preflight.conclusion == 'success' }}
+        shell: pwsh
+        run: corepack pnpm run package:desktop:win:x64:unsigned
+      - name: Install actual product and exercise native GUI in Chinese-space paths
+        if: ${{ !cancelled() && steps.package.conclusion == 'success' }}
+        shell: pwsh
+        run: ./ymzz/scripts/windows-gui-smoke.ps1 -BuildRoot apps/desktop/.desktop-build/targets/win-x64/unsigned-artifacts
       - name: Preserve qualification evidence only, NEVER a failed/unqualified executable
         if: always()
         uses: actions/upload-artifact@v4
@@ -87,4 +102,5 @@ jobs:
           path: |
             ymzz/docs/evidence/windows-full-dsh-web.json
             ymzz/docs/evidence/production-license-win32.json
+            ymzz/docs/evidence/windows/
           if-no-files-found: warn

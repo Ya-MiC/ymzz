@@ -2,6 +2,10 @@
 
 The full DSH application and native product plugin build and run locally. This does not qualify a Windows installer. No old Tauri/Loop executable is substituted, and no public installer is published.
 
+## Owner-approved exceptions (2026-11-17 15:04 KST)
+
+The owner explicitly approved the two narrow unsigned-policy conditionals below and actual LGPL/MPL redistribution with full compliance materials. This is not approval to relabel dependencies MIT, permit GPL/AGPL/Commons Clause, or publish an unqualified executable. Implementation and lawful redistribution qualification are separate.
+
 ## 1. Official unsigned Windows policy requirement
 
 The real command `pnpm run package:desktop:win:x64:unsigned --check` on this Linux box rejects with `win-x64 requires a Windows x64 build host`. Actual Windows run44024932861 independently reproduced the same required-policy error on native Windows x64; see evidence/windows-first-qualification.json. Do not call the Linux run a Windows build.
@@ -11,11 +15,11 @@ The official `validateDesktopPackageEnvironment` API, invoked with the actual Wi
 - `apps/desktop/scripts/electron-builder-config.mjs:69` omits policy only for unsigned macOS.
 - `apps/desktop/src/mandatory-update-policy.ts` disables queries only when policy configuration is absent; configured policy polls automatically.
 
-No endpoint is invented and no upstream protection/configuration check was bypassed. Under v2's allowlist these are not merely display-branding/package-registration changes, so the following narrowly scoped exception needs owner approval before implementation:
+No endpoint is invented and no upstream protection/configuration check was bypassed. Under v2's allowlist these are not merely display-branding/package-registration changes, the owner has now approved and we applied exactly these two narrowly scoped conditionals:
 1. Change `if (target.platform !== 'darwin' || !options.unsigned) resolveDesktopPolicyEnvironment(environment)` to `if (!options.unsigned) resolveDesktopPolicyEnvironment(environment)`.
 2. Change `const policy = packagesMacOS && unsigned ? undefined : resolveDesktopPolicyEnvironment(env)` to `const policy = unsigned ? undefined : resolveDesktopPolicyEnvironment(env)`.
 
-This would extend the existing unsigned-macOS policy to unsigned Windows, not disable signed-release validation. It must gain regression tests proving unsigned Windows omits policy metadata/network polling while signed builds still require the service. It has NOT been applied. Standard installer/OS/protocol writes still need honest assessment; no claim of a registry-free installer is made.
+This extends the existing unsigned-macOS policy to unsigned Windows, not disable signed-release validation. Nine regression tests now pass against the actual builder/validator/native resolver, plus all25 existing policy-environment tests: unsigned Windows omits policy metadata, and the unchanged native main only constructs/polls policy when metadata exists; signed builds still reject absent/non-HTTPS/credential/path/query origins. No live service is invented. Standard installer/OS/protocol writes still need honest assessment; no claim of a registry-free installer is made.
 
 ## 2. Actual native dependencies versus strict permissive-only policy
 
@@ -28,8 +32,12 @@ Investigated options:
 - A permissive image adapter could be separately ported/qualified, but would require replacing the active attachment backend/import and would not resolve Office/FFmpeg.
 - Electron's official codec-reduced FFmpeg DLL changes codec flags, not the LGPL license. FFmpeg's own legal page says it is not available under other licensing terms. Dropping it or Office would silently remove functionality and is not done.
 
-Decision needed: either explicitly permit the actual LGPL/MPL components with their full compliance/source materials, or authorize/qualify broader feature-preserving backend replacements beyond v2's current allowlist. Until then strict license enforcement remains failing and no binary release is cleared. See `evidence/native-license-research.json` and `evidence/production-license-*.json`.
+Approval received for actual LGPL/MPL components only. Full matching native archives/notices/build recipes and corresponding-source materials are being assembled and verified; this is not a license-list-only waiver. The strict gate remains failing until the scoped approved policy and actual payload/source evidence qualify. No binary release is cleared. See `evidence/native-license-research.json` and `evidence/production-license-*.json`.
 
 ## 3. Reviewed updates
 
 The plugin has tested Ed25519 signed-manifest compatibility/hash/license-gated staging and staging rollback only. Production maintainer public key/channel is absent. No private signing key, signature, live update feed, install/restart success or automatic remote code execution is invented.
+
+## Actual installer behavior
+
+The official NSIS installer makes normal per-user installation/uninstall registrations and shortcuts. The preserved upstream app also calls `setAsDefaultProtocolClient('dsh')` on packaged startup. We add no registry-edit script, but do **not** claim registry-free installation or startup. Qualification installs only into an ephemeral CI Windows runner, never the owner's computer. `windows-gui-smoke.ps1` targets the real branded NSIS payload rather than the upstream synthetic installer fixture.
