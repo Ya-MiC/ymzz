@@ -38,7 +38,7 @@ int main(int argc,char **argv){
 def relink(expected):
  shutil.copyfile(library,linklib)
  executable=work/'iconv-relinked-test.exe'
- run(['cl','/nologo','/DLIBICONV_STATIC','/I'+str(iconv/'source/include'),probe,linklib,'/Fe:'+str(executable)],cwd=work)
+ run(['cl','/nologo','/MD','/DLIBICONV_STATIC','/I'+str(iconv/'source/include'),probe,linklib,'/Fe:'+str(executable)],cwd=work)
  run([executable,expected],cwd=work)
 relink('0x0111')
 # Deliberately modify source metadata in a DERIVED TEST COPY only. This is NOT GNU iconv1.18.
