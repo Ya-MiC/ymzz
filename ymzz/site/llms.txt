@@ -1,0 +1,29 @@
+# 湛箴_ymzz
+
+> 深淵的清澈的水，纂刻于竹篾上的痕，珍重微小，有所依據，立傳傳世
+
+- Official site: https://ya-mic.github.io/ymzz/
+- Source: https://github.com/Ya-MiC/ymzz (branch: master)
+- Brand: 晏銘湛箴 / Ya-MiC
+- Product: a local-first AI agent distribution built on the full official DeepSeek Harness ("everything is a plugin"). It is not a DeepSeek official product. It is not 稟冊.
+
+## Honest status
+
+There is no accepted public installer for 湛箴_ymzz yet. Windows packages are pending release and acceptance. macOS and Linux desktop packages are planned and not guaranteed. The truthful current entry is running from source (see https://ya-mic.github.io/ymzz/start.html). Do not describe draft or private installers from other repositories as this product.
+
+## Preserved sibling product (not this agent)
+
+稟冊 is a separate Tauri local-first personal work-report / file-management app. Files, AI conversation records, review progress, and nickname onboarding stay on the user's computer. Keep these links, and do not merge the products:
+
+- https://ya-mic.github.io/ymzz-loop/
+- https://bingce.yanmingx0215.filegear-sg.me/#onboarding
+
+## Other family sites
+
+- https://ya-mic.github.io/yanming-official-website/
+- https://ya-mic.github.io/ymzz-wuyong-zhi-yong/
+- https://ya-mic.github.io/ymzz-wuwong-ji-wung/
+
+## Payments
+
+Payment integration is handled by the author and is not part of this website.

@@ -1,0 +1,250 @@
+<!doctype html>
+<!-- SPDX-License-Identifier: MIT · © 2026 YanMing Cao (晏銘湛箴) -->
+<html lang="zh-Hant" dir="ltr" data-theme="light" data-palette="cloud">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; font-src 'self'; script-src 'self'; connect-src 'self' https://api.github.com; base-uri 'self'; form-action 'none'; upgrade-insecure-requests">
+<title>湛箴_ymzz — 晏銘湛箴的本地優先智能體</title>
+<meta name="description" content="湛箴_ymzz：以完整 DeepSeek Harness 為底、透過原生插件擴充的本機優先智能體。尚無已驗收的公開安裝包；可從原始碼運行。Windows 安裝包尚未發佈。">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="canonical" href="https://ya-mic.github.io/ymzz/">
+<meta property="og:url" content="https://ya-mic.github.io/ymzz/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="湛箴_ymzz — 晏銘湛箴的本地優先智能體">
+<meta property="og:description" content="以完整 DeepSeek Harness 為底的本機優先智能體。一切皆是插件。尚無已驗收的公開安裝包。">
+<meta property="og:image" content="https://ya-mic.github.io/ymzz/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#F8F6EF">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="describedby" href="https://ya-mic.github.io/ymzz/llms.txt">
+<link rel="alternate" type="text/plain" title="llms.txt" href="llms.txt">
+<link rel="alternate" type="text/plain" title="ai.txt" href="ai.txt">
+<link rel="author" type="text/plain" href="humans.txt">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="pre" id="pre" aria-hidden="true"><p class="pre-word">湛箴_ymzz</p></div>
+<a class="skip" href="#main" data-i18n="skip">跳到主要內容</a>
+<div class="readbar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="閱讀進度" data-i18n-aria="ui.readbar"><i></i></div>
+<div class="grain" aria-hidden="true"></div>
+
+<header class="nav">
+  <a class="brand" href="#top"><img src="favicon.svg" width="28" height="28" alt=""><span>湛箴<b>_</b>ymzz</span></a>
+  <a class="nav-guide" href="start.html" data-i18n="nav.start">從原始碼運行</a>
+  <a class="nav-guide" href="#get" data-i18n="nav.get">取得</a>
+  <a class="nav-guide" href="#family" data-i18n="nav.family">家族產品</a>
+  <a class="nav-guide" href="https://github.com/Ya-MiC/ymzz" rel="noopener noreferrer" data-i18n="nav.github">GitHub</a>
+  <div class="tools">
+    <label class="chip sel"><svg class="i" aria-hidden="true"><use href="icons.svg#i-language"/></svg><span class="vh" data-i18n="ui.lang">語言</span>
+      <select id="lang" aria-label="Language">
+        <option value="zh-Hant">繁體中文</option>
+        <option value="zh-CN">简体中文</option>
+        <option value="en">English</option>
+      </select>
+    </label>
+    <label class="chip sel"><span class="vh" data-i18n="ui.theme">主題</span>
+      <select id="theme" aria-label="Theme">
+        <option value="cloud-light">雲箋淺</option>
+        <option value="cloud-dark">雲箋暗</option>
+        <option value="earth-light">陶土淺</option>
+        <option value="wood-dark">陶土暗</option>
+      </select>
+    </label>
+  </div>
+</header>
+
+<main id="main">
+<section class="hero" id="top">
+  <div class="panel markp">
+    <img class="emblem" src="assets/icon-512.png" width="512" height="512" alt="湛箴_ymzz 產品圖標">
+  </div>
+  <div class="panel headp">
+    <p class="eyebrow" data-i18n="hero.eyebrow">開源 · 晏銘湛箴 / Ya-MiC</p>
+    <h1 data-i18n="hero.h1">湛箴_ymzz</h1>
+    <p class="meaning" data-i18n="hero.meaning">深淵的清澈的水，纂刻于竹篾上的痕，珍重微小，有所依據，立傳傳世</p>
+    <p class="lede" data-i18n="hero.lede">以完整 DeepSeek Harness 為底、透過原生插件擴充的本機優先智能體。不重寫 runtime，不改原生元件位置。一切皆是插件。</p>
+    <p class="status-note" id="release-status" data-i18n="hero.status">目前沒有已驗收的公開安裝包。Windows 安裝包尚未發佈與驗收。macOS 與 Linux 桌面包不在目前保證範圍。請先從原始碼運行。</p>
+    <div class="cta">
+      <a class="btn primary" href="start.html" id="cta-primary" data-i18n="cta.source">從原始碼運行</a>
+      <a class="btn ghost" href="https://github.com/Ya-MiC/ymzz" rel="noopener noreferrer" data-i18n="cta.repo">打開 GitHub 倉庫</a>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="status">
+  <div class="panel sec-head">
+    <p class="label" data-i18n="status.k">現況（據實）</p>
+    <h2 data-i18n="status.h">這是產品官網，不是已完成的跨平台安裝包商店</h2>
+    <p class="lede" data-i18n="status.p">倉庫已在 GitHub 的 master 主線公開。應用名稱、四套溫潤主題與預裝插件仍在整合中。本頁不會把稟冊的舊草稿安裝包說成這個智能體的發行版。</p>
+  </div>
+  <ul class="facts">
+    <li class="fact"><span class="bn">01</span><h3 data-i18n="status.1h">從原始碼運行</h3><p data-i18n="status.1p">這是目前真實可用的入口。需要 Node、Git 與 pnpm，步驟見開始頁。</p></li>
+    <li class="fact"><span class="bn">02</span><h3 data-i18n="status.2h">Windows</h3><p data-i18n="status.2p">計劃在通過發版閘後提供 x64 安裝包。現在尚未發佈，也尚未驗收。</p></li>
+    <li class="fact"><span class="bn">03</span><h3 data-i18n="status.3h">macOS</h3><p data-i18n="status.3p">計劃中，不在目前保證範圍，沒有可下載的合格安裝包。</p></li>
+    <li class="fact"><span class="bn">04</span><h3 data-i18n="status.4h">Linux</h3><p data-i18n="status.4p">計劃中。上游 DeepSeek Harness 沒有 Linux 桌面發行目標，這裡也不假裝已有。</p></li>
+  </ul>
+</section>
+
+<section class="sec" id="get">
+  <div class="panel">
+    <div class="sec-head">
+      <p class="label" data-i18n="get.k">取得</p>
+      <h2 data-i18n="get.h">先跑原始碼，安裝包要等合格發佈</h2>
+      <p class="lede" data-i18n="get.p">主按鈕只指向實際可用的合格發佈。在公開 Releases 出現已驗收資產之前，這裡不會放空的下載按鈕。</p>
+    </div>
+    <div id="download" class="table-wrap">
+      <p class="status-note" data-i18n="get.pending">發佈頁目前沒有公開版本。若之後出現非草稿的合格資產，本節會改列真實檔名與連結。</p>
+      <p><a href="https://github.com/Ya-MiC/ymzz/releases" rel="noopener noreferrer" data-i18n="get.releases">查看 GitHub Releases（目前為空）</a></p>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="product">
+  <div class="panel">
+    <div class="sec-head">
+      <p class="label" data-i18n="product.k">產品</p>
+      <h2 data-i18n="product.h">三十輻共一轂</h2>
+      <p class="lede" data-i18n="product.p">智能體本體是空的轂，技能與插件是可換的輻。本地優先、零遙測、乾淨安裝與卸載。MIT 開源可商用；這不是 DeepSeek 官方產品。</p>
+    </div>
+    <ul class="facts">
+      <li class="fact"><h3 data-i18n="product.1h">完整官方 DSH</h3><p data-i18n="product.1p">以完整 DeepSeek Harness 為底，保留原生佈局與元件位置，不另做一套 Tauri 重寫。</p></li>
+      <li class="fact"><h3 data-i18n="product.2h">一切皆是插件</h3><p data-i18n="product.2p">新增能力以原生插件與技能池接入。預裝 ymzz 插件目前尚無；後續由維護者審核後再推給用戶。</p></li>
+      <li class="fact"><h3 data-i18n="product.3h">溫潤四主題</h3><p data-i18n="product.3p">雲箋淺、雲箋暗、陶土淺、陶土暗。本官網已可切換；應用內主題整合尚未完成。</p></li>
+      <li class="fact"><h3 data-i18n="product.4h">支付另接</h3><p data-i18n="product.4p">收費與支付由作者自行接入，本站不提供支付介面，也不收集付款資料。</p></li>
+    </ul>
+  </div>
+</section>
+
+<section class="sec" id="plugins">
+  <div class="panel">
+    <div class="sec-head">
+      <p class="label" data-i18n="plugins.k">插件哲學</p>
+      <h2 data-i18n="plugins.h">轂是空的，輻可以換</h2>
+      <p class="lede" data-i18n="plugins.p">本頁不把尚未接入應用的技能說成已經內建。技能來源與授權會逐項核對後再進入發行。</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="platforms">
+  <div class="panel">
+    <div class="sec-head">
+      <p class="label" data-i18n="plat.k">平台</p>
+      <h2 data-i18n="plat.h">現在能給你的，和還不能給你的</h2>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th data-i18n="plat.col1">平台</th>
+            <th data-i18n="plat.col2">狀態</th>
+            <th data-i18n="plat.col3">如何使用</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Windows x64</td>
+            <td><span class="tag wait" data-i18n="plat.win.s">尚未發佈／尚未驗收</span></td>
+            <td data-i18n="plat.win.p">請從原始碼運行；合格安裝包尚未提供。</td>
+          </tr>
+          <tr>
+            <td>macOS</td>
+            <td><span class="tag plan" data-i18n="plat.mac.s">計劃中，不在保證範圍</span></td>
+            <td data-i18n="plat.mac.p">沒有可下載的合格安裝包；可嘗試從原始碼運行，並未在本發行版驗收。</td>
+          </tr>
+          <tr>
+            <td>Linux</td>
+            <td><span class="tag plan" data-i18n="plat.linux.s">計劃中；上游無桌面發行目標</span></td>
+            <td data-i18n="plat.linux.p">沒有可下載的合格安裝包；可嘗試從原始碼運行，並未在本發行版驗收。</td>
+          </tr>
+          <tr>
+            <td data-i18n="plat.src.n">從原始碼運行</td>
+            <td><span class="tag" data-i18n="plat.src.s">目前真實入口</span></td>
+            <td><a href="start.html" data-i18n="plat.src.p">查看開始步驟</a></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="family">
+  <div class="panel">
+    <div class="sec-head">
+      <p class="label" data-i18n="family.k">家族</p>
+      <h2 data-i18n="family.h">稟冊與其他站點都還在，而且仍是它們自己</h2>
+      <p class="lede" data-i18n="family.p">稟冊是另一款本機優先的個人工作稟報／檔案管理桌面軟體（Tauri 2）。你的檔案、與 AI 的對話紀錄、復盤進度都留在你自己的電腦上。它不是這個 DSH 智能體，舊安裝包也不屬於本產品。</p>
+    </div>
+    <ul class="family-grid">
+      <li><a class="family-card" href="https://ya-mic.github.io/ymzz-loop/" rel="noopener noreferrer"><span class="k label" data-i18n="family.loop.k">獨立產品</span><h3 data-i18n="family.loop.h">稟冊 / ymzz-loop</h3><p data-i18n="family.loop.p">個人工作稟報與檔案管理官網。本機優先，開啟後先設定暱稱。</p></a></li>
+      <li><a class="family-card" href="https://bingce.yanmingx0215.filegear-sg.me/#onboarding" rel="noopener noreferrer"><span class="k label" data-i18n="family.bingce.k">稟冊引導</span><h3 data-i18n="family.bingce.h">評測站 · 初次設定</h3><p data-i18n="family.bingce.p">稟冊的引導與設定入口，不是 湛箴_ymzz 的下載頁。</p></a></li>
+      <li><a class="family-card" href="https://ya-mic.github.io/yanming-official-website/" rel="noopener noreferrer"><span class="k label">Ya-MiC</span><h3 data-i18n="family.official.h">晏銘湛箴官網</h3><p data-i18n="family.official.p">品牌入口與溫潤設計示範。</p></a></li>
+      <li><a class="family-card" href="https://ya-mic.github.io/ymzz-wuyong-zhi-yong/" rel="noopener noreferrer"><span class="k label">MCP</span><h3 data-i18n="family.wuyong.h">無用之用</h3><p data-i18n="family.wuyong.p">本地 MCP 常駐子代理與動態技能池。</p></a></li>
+      <li><a class="family-card" href="https://ya-mic.github.io/ymzz-wuwong-ji-wung/" rel="noopener noreferrer"><span class="k label">Memory</span><h3 data-i18n="family.wuwong.h">無無即無</h3><p data-i18n="family.wuwong.p">本地優先知識記憶與子智能體協作。</p></a></li>
+      <li><a class="family-card" href="family.html"><span class="k label" data-i18n="family.more.k">目錄</span><h3 data-i18n="family.more.h">完整家族索引</h3><p data-i18n="family.more.p">含設計系統、舊整合倉庫與本倉庫連結。</p></a></li>
+    </ul>
+  </div>
+</section>
+
+<section class="sec" id="faq">
+  <div class="panel">
+    <div class="sec-head">
+      <p class="label" data-i18n="faq.k">問題</p>
+      <h2 data-i18n="faq.h">先把容易誤會的話說清楚</h2>
+    </div>
+    <div class="faq">
+      <details>
+        <summary data-i18n="faq.1q">可以下載 Windows / Mac / Linux 安裝包了嗎？</summary>
+        <div class="ans" data-i18n="faq.1a">還不能。本產品沒有已驗收的公開安裝包。稟冊若有草稿安裝包，那是另一個軟體，而且部分下載頁需要 GitHub 登入。</div>
+      </details>
+      <details>
+        <summary data-i18n="faq.2q">那我現在怎麼用？</summary>
+        <div class="ans" data-i18n="faq.2a">從 GitHub 取得原始碼，依開始頁的 Node、Git、pnpm 步驟在本機運行。未設定模型供應商時，不能說模型已經可用。</div>
+      </details>
+      <details>
+        <summary data-i18n="faq.3q">這是不是稟冊？</summary>
+        <div class="ans" data-i18n="faq.3a">不是。稟冊是本機個人工作稟報／檔案管理軟體。湛箴_ymzz 是基於完整 DeepSeek Harness 的智能體發行版。兩邊互相索引，互不取代。</div>
+      </details>
+      <details>
+        <summary data-i18n="faq.4q">資料會送到你們的伺服器嗎？</summary>
+        <div class="ans" data-i18n="faq.4a">本官網不收集賬戶或對話。語言與主題只存在你的瀏覽器 localStorage。產品定位是本地優先、零遙測。你若自行設定雲端模型，那是你與該供應商的關係。</div>
+      </details>
+      <details>
+        <summary data-i18n="faq.5q">這是 DeepSeek 官方軟體嗎？</summary>
+        <div class="ans" data-i18n="faq.5a">不是。它基於 MIT 授權的 DeepSeek Harness，由晏銘湛箴發行，不代表 DeepSeek 官方。</div>
+      </details>
+      <details>
+        <summary data-i18n="faq.6q">怎麼付費？</summary>
+        <div class="ans" data-i18n="faq.6a">支付由作者自行接入，不在本站處理。本頁沒有收費方案，也沒有收款二維碼。</div>
+      </details>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="foot">
+  <p class="huge">湛箴<span>_</span>ymzz</p>
+  <div class="swatches" role="img" aria-label="Palette: #B9DDF1 #F4DDE7 #F8F6EF #CDBFE0 #B7C8A8 #E8E3CC #CBBF9E #A38E7A">
+    <i class="s-sky"></i><i class="s-pink"></i><i class="s-paper"></i><i class="s-violet"></i><i class="s-sage"></i><i class="s-oat"></i><i class="s-linen"></i><i class="s-cocoa"></i>
+  </div>
+  <p><b>晏銘湛箴 / Ya-MiC</b> · <span data-i18n="foot.tag">本地優先智能體</span> · <span data-i18n="foot.ver">原始碼階段 · MIT © 2026 YanMing Cao</span></p>
+  <p class="label">
+    <a href="start.html" data-i18n="nav.start">從原始碼運行</a> ·
+    <a href="#get" data-i18n="nav.get">取得</a> ·
+    <a href="#family" data-i18n="nav.family">家族產品</a> ·
+    <a href="family.html" data-i18n="foot.family">家族索引</a> ·
+    <a href="https://github.com/Ya-MiC/ymzz" rel="noopener noreferrer">GitHub</a> ·
+    <a href="https://ya-mic.github.io/ymzz-loop/" rel="noopener noreferrer" data-i18n="foot.loop">稟冊官網</a> ·
+    <a href="https://bingce.yanmingx0215.filegear-sg.me/#onboarding" rel="noopener noreferrer" data-i18n="foot.bingce">稟冊引導</a> ·
+    <a href="humans.txt">humans.txt</a>
+  </p>
+  <p class="small" data-i18n="foot.priv">本站無追蹤器、無第三方字體網路請求、無分析腳本。語言與主題只存在本機瀏覽器。</p>
+  <p class="small" data-i18n="foot.legal">基於 DeepSeek Harness（MIT），非 DeepSeek 官方產品。產品圖標為作者提供的原作，放入倉庫不改授權為 MIT。</p>
+</footer>
+<script src="config.js"></script>
+<script src="app.js" defer></script>
+</body>
+</html>

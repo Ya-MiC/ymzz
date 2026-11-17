@@ -1,0 +1,118 @@
+<!doctype html>
+<!-- SPDX-License-Identifier: MIT · © 2026 YanMing Cao (晏銘湛箴) -->
+<html lang="zh-Hant" dir="ltr" data-theme="light" data-palette="cloud">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; font-src 'self'; script-src 'self'; connect-src 'self' https://api.github.com; base-uri 'self'; form-action 'none'; upgrade-insecure-requests">
+<title>從原始碼運行 湛箴_ymzz</title>
+<meta name="description" content="在尚未發佈合格安裝包之前，從 GitHub 原始碼本機運行 湛箴_ymzz 的實際步驟。">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="canonical" href="https://ya-mic.github.io/ymzz/start.html">
+<meta property="og:url" content="https://ya-mic.github.io/ymzz/start.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="從原始碼運行 湛箴_ymzz">
+<meta property="og:description" content="在尚未發佈合格安裝包之前，從 GitHub 原始碼本機運行 湛箴_ymzz 的實際步驟。">
+<meta property="og:image" content="https://ya-mic.github.io/ymzz/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#F8F6EF">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="author" type="text/plain" href="humans.txt">
+<link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+<a class="skip" href="#main" data-i18n="skip">跳到主要內容</a>
+<div class="grain" aria-hidden="true"></div>
+<header class="nav">
+  <a class="brand" href="index.html#top"><img src="favicon.svg" width="28" height="28" alt=""><span>湛箴<b>_</b>ymzz</span></a>
+  <a class="nav-guide" href="start.html" data-i18n="nav.start">從原始碼運行</a>
+  <a class="nav-guide" href="index.html#get" data-i18n="nav.get">取得</a>
+  <a class="nav-guide" href="family.html" data-i18n="nav.family">家族產品</a>
+  <a class="nav-guide" href="https://github.com/Ya-MiC/ymzz" rel="noopener noreferrer" data-i18n="nav.github">GitHub</a>
+  <div class="tools">
+    <label class="chip sel"><svg class="i" aria-hidden="true"><use href="icons.svg#i-language"/></svg><span class="vh" data-i18n="ui.lang">語言</span>
+      <select id="lang" aria-label="Language">
+        <option value="zh-Hant">繁體中文</option>
+        <option value="zh-CN">简体中文</option>
+        <option value="en">English</option>
+      </select>
+    </label>
+    <label class="chip sel"><span class="vh" data-i18n="ui.theme">主題</span>
+      <select id="theme" aria-label="Theme">
+        <option value="cloud-light">雲箋淺</option>
+        <option value="cloud-dark">雲箋暗</option>
+        <option value="earth-light">陶土淺</option>
+        <option value="wood-dark">陶土暗</option>
+      </select>
+    </label>
+  </div>
+</header>
+
+<main id="main">
+<section class="panel subhero" id="top">
+  <p class="eyebrow" data-i18n="start.eyebrow">開始 · 目前真實入口</p>
+  <h1 data-i18n="start.h">從原始碼運行</h1>
+  <p class="lede" data-i18n="start.lede">這不是安裝包下載頁。Windows / macOS / Linux 合格安裝包都還沒有。下面是倉庫 README 記載的真實上游入口；本 checkout 的完整桌面驗收尚未完成。</p>
+  <p class="status-note" data-i18n="start.status">沒有附模型金鑰，也沒有做 live／付費推論。未設定 provider 不能說模型已可用。開發時請設定產品獨立的 DSH_HOME，不要默默寫入共用的 ~/.dsh 就當作發行設定。</p>
+</section>
+
+<section class="panel" id="requirements">
+  <div class="sec-head">
+    <p class="label" data-i18n="start.req.k">環境</p>
+    <h2 data-i18n="start.req.h">你需要的東西</h2>
+    <p class="lede" data-i18n="start.req.p">Node ≥ 24.9、Git ≥ 2.26，以及經 Corepack 啟用的 pnpm 11.28.5（以倉庫根目錄 packageManager 為準，不要自行改版號來宣稱相容）。</p>
+  </div>
+</section>
+
+<section class="panel" id="steps">
+  <div class="sec-head">
+    <p class="label" data-i18n="start.steps.k">步驟</p>
+    <h2 data-i18n="start.steps.h">在倉庫根目錄執行</h2>
+  </div>
+  <ol class="steps">
+    <li><span class="n">01</span><div><h3 data-i18n="start.s1h">取得原始碼</h3>
+      <pre class="codeblock" tabindex="0">git clone https://github.com/Ya-MiC/ymzz.git
+cd ymzz
+git checkout master</pre></div></li>
+    <li><span class="n">02</span><div><h3 data-i18n="start.s2h">安裝與建置</h3>
+      <pre class="codeblock" tabindex="0">corepack enable
+pnpm install
+pnpm run build:artifacts</pre></div></li>
+    <li><span class="n">03</span><div><h3 data-i18n="start.s3h">啟動（開發入口）</h3>
+      <pre class="codeblock" tabindex="0">export DSH_HOME="$HOME/.zhanzhen-ymzz"
+pnpm dsh web --no-open --port 3081</pre>
+      <p data-i18n="start.s3p">然後在瀏覽器打開本機埠 3081。這是原始碼運行，不是已驗收的桌面安裝包。</p></div></li>
+  </ol>
+</section>
+
+<section class="panel" id="windows">
+  <div class="sec-head">
+    <p class="label">Windows</p>
+    <h2 data-i18n="start.win.h">Windows 安裝包仍待發佈</h2>
+    <p class="lede" data-i18n="start.win.p">合格的 Windows x64 安裝包必須通過發版閘，並以公開（非草稿）Release 資產提供。在那之前，請不要把其他倉庫的舊 EXE／MSI 當成 湛箴_ymzz。</p>
+    <p><a class="btn ghost" href="https://github.com/Ya-MiC/ymzz/releases" rel="noopener noreferrer" data-i18n="get.releases">查看 GitHub Releases（目前為空）</a></p>
+  </div>
+</section>
+</main>
+
+<footer class="foot">
+  <p class="huge">湛箴<span>_</span>ymzz</p>
+  <p><b>晏銘湛箴 / Ya-MiC</b> · <span data-i18n="foot.ver">原始碼階段 · MIT © 2026 YanMing Cao</span></p>
+  <p class="label">
+    <a href="index.html" data-i18n="nav.home">首頁</a> ·
+    <a href="start.html" data-i18n="nav.start">從原始碼運行</a> ·
+    <a href="family.html" data-i18n="foot.family">家族索引</a> ·
+    <a href="https://github.com/Ya-MiC/ymzz" rel="noopener noreferrer">GitHub</a> ·
+    <a href="https://ya-mic.github.io/ymzz-loop/" rel="noopener noreferrer" data-i18n="foot.loop">稟冊官網</a> ·
+    <a href="https://bingce.yanmingx0215.filegear-sg.me/#onboarding" rel="noopener noreferrer" data-i18n="foot.bingce">稟冊引導</a>
+  </p>
+  <p class="small" data-i18n="foot.priv">本站無追蹤器、無第三方字體網路請求、無分析腳本。語言與主題只存在本機瀏覽器。</p>
+</footer>
+<script src="config.js"></script>
+<script src="app.js" defer></script>
+</body>
+</html>

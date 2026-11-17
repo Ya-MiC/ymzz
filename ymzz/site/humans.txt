@@ -1,0 +1,17 @@
+/* TEAM */
+Owner: YanMing Cao (曹晏銘 / 晏銘湛箴 / Ya-MiC)
+Site: https://ya-mic.github.io/ymzz/
+Repo: https://github.com/Ya-MiC/ymzz
+
+/* SITE */
+Name: 湛箴_ymzz official website
+Product: local-first agent distribution based on the full official DeepSeek Harness, extended with native plugins
+Meaning: 深淵的清澈的水，纂刻于竹篾上的痕，珍重微小，有所依據，立傳傳世
+Language: zh-Hant, zh-CN, en (UI strings only; no user-account data)
+Privacy: no trackers, no analytics, no font CDN, no payment forms
+Storage: language and theme in localStorage only
+Visual: ymzz-loop marketing grammar + wenrun four palettes
+Fonts: self-hosted Fraunces, Inter, JetBrains Mono (SIL OFL 1.1); CJK uses the system stack, including Noto Sans SC when installed
+Icons: Tabler Icons (MIT)
+Icon artwork: user-supplied; bundling does not relicense it as MIT
+Status at publish: no qualified public installers; source-running is the truthful entry

@@ -1,0 +1,36 @@
+# PROPOSED workflow — copy to .github/workflows/ymzz-pages.yml when the
+# maintainer is ready to enable GitHub Pages for this public repository.
+# Do not enable inherited upstream workflows (docs-pages, desktop-rollout, etc.).
+# Do not set Pages source to website/ or docs/.
+# This file is documentation until copied; it is not active in .github/workflows/.
+name: ymzz official site
+on:
+  push:
+    branches: [master]
+    paths:
+      - "ymzz/site/**"
+      - ".github/workflows/ymzz-pages.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+concurrency:
+  group: ymzz-official-pages
+  cancel-in-progress: true
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.d.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      # Pages must already be enabled in Settings → Pages → Source: GitHub Actions.
+      # enablement is intentionally omitted so this workflow cannot silently turn Pages on.
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: ymzz/site
+      - id: d
+        uses: actions/deploy-pages@v4

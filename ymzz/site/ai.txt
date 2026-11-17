@@ -1,0 +1,8 @@
+# AI crawl notes for 湛箴_ymzz
+# Official site: https://ya-mic.github.io/ymzz/
+# See also: llms.txt
+# No training-data claim is made here. This file exists so agents can read an honest product summary.
+
+Product: 湛箴_ymzz (晏銘湛箴 / Ya-MiC)
+Not: DeepSeek official software; not 稟冊; not a finished cross-platform installer store.
+Current entry: run from source. No qualified public Windows/macOS/Linux installers at the time this site was written.
