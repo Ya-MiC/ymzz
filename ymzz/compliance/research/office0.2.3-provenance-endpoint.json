@@ -1,0 +1,10 @@
+{
+  "scope": "Official public npm provenance endpoint recheck, not proof preferred source exists",
+  "url": "https://registry.npmjs.org/-/npm/v1/attestations/@deepseek-ai/libreoffice-kit@0.2.3",
+  "response": {
+    "status": 404,
+    "body": "{\"error\":\"Not found\"}"
+  },
+  "matchingPreferredSourceVerified": false,
+  "releaseCleared": false
+}
