@@ -1,0 +1,74 @@
+{
+  "testedAtKST": "2026-11-17T14:34:53.296583+09:00",
+  "url": "https://ya-mic.github.io/ymzz/",
+  "publishedCommit": "66b43aea532f29e7402572b94995e185ecb3573d",
+  "pagesRun": "https://github.com/Ya-MiC/ymzz/actions/runs/44024830914",
+  "deploymentPassed": true,
+  "browserVisualVerified": false,
+  "platformInstallersAvailable": false,
+  "files": [
+    {
+      "path": "index.html",
+      "status": 200,
+      "bytes": 17166,
+      "sha256": "a9043a4f945a9594acfa555b39d48bc74a16081300646e29697aa8fcf3ae01c0",
+      "matchesPublishedCommit": true
+    },
+    {
+      "path": "start.html",
+      "status": 200,
+      "bytes": 6854,
+      "sha256": "67c8a67cf228140fc1ca9400cde60ae6256a5deba602db17e5272c5d0b6a1503",
+      "matchesPublishedCommit": true
+    },
+    {
+      "path": "family.html",
+      "status": 200,
+      "bytes": 7376,
+      "sha256": "b5e2818fb2e7c967c7b4b3bb8740cd14fc7577be44cca22436e4eef2ad1616a8",
+      "matchesPublishedCommit": true
+    },
+    {
+      "path": "app.js",
+      "status": 200,
+      "bytes": 9885,
+      "sha256": "402d267547a15416c4faa32723cd283c8c5e442cbf33403604cb40f69648eb5c",
+      "matchesPublishedCommit": true
+    },
+    {
+      "path": "style.css",
+      "status": 200,
+      "bytes": 18851,
+      "sha256": "4a6c8ff00aca192c0985622ea29489e3dc7fefe8c4657d93e1cf5c996cd415a1",
+      "matchesPublishedCommit": true
+    },
+    {
+      "path": "i18n/zh-Hant.json",
+      "status": 200,
+      "bytes": 10089,
+      "sha256": "189d91d83d2a156e75423931fb05dd16d718dd9ae9bf2696e9a5c127d363d432",
+      "matchesPublishedCommit": true
+    },
+    {
+      "path": "i18n/zh-CN.json",
+      "status": 200,
+      "bytes": 10096,
+      "sha256": "ca8828068d9c83af2698f23e69500d5a6fca781706ceaee8e2f0b16d5b975ba6",
+      "matchesPublishedCommit": true
+    },
+    {
+      "path": "i18n/en.json",
+      "status": 200,
+      "bytes": 11160,
+      "sha256": "84734a270bab13e291315a8d4f977e17abae2a84b7cbb0bdeb4405980e70be51",
+      "matchesPublishedCommit": true
+    },
+    {
+      "path": "assets/icon.svg",
+      "status": 200,
+      "bytes": 635476,
+      "sha256": "c3acc8a88148cadc3648f1a3b5c14b78d2bdf19c3d985ae7e6eeb0fbf14b0872",
+      "matchesPublishedCommit": true
+    }
+  ]
+}

@@ -203,6 +203,7 @@
   const download=document.getElementById("download");
   if(download){
     const preferences=document.createElement("div"),label=document.createElement("label"),allow=document.createElement("input"),button=document.createElement("button");
+    preferences.className="release-controls";
     allow.type="checkbox";allow.checked=false;allow.setAttribute("aria-label","允許手動連線 GitHub 公開發佈 API");allow.setAttribute("data-i18n-aria","release.consent");
     const consent=document.createElement("span");consent.dataset.i18n="release.consent";consent.textContent=" 允許本次手動連線 GitHub 公開發佈 API（可隨時關閉）";label.append(allow,consent);
     button.type="button";button.className="btn ghost";button.textContent="手動檢查公開發佈";button.dataset.i18n="release.check";button.disabled=true;

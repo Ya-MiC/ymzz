@@ -208,3 +208,5 @@ console.log(JSON.stringify({
 
 assert.match(read('app.js'),/safeReleaseAsset\(a\)/)
 assert.match(read('app.js'),/asset\.name\.startsWith\("湛箴_ymzz-"\)/)
+
+assert.match(read('style.css'),/\.release-controls label\{[^}]*min-height:44px/)
