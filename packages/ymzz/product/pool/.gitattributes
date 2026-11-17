@@ -1,0 +1,4 @@
+# Immutable third-party Markdown: retain original upstream formatting/hard line breaks.
+# Every copied file is independently SHA256-verified by pinned-pool.test.mjs.
+# This exception applies ONLY to vendored Markdown, not our code or any license gate.
+*.md whitespace=-blank-at-eol,-blank-at-eof

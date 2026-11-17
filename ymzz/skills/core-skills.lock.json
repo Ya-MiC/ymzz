@@ -1,7 +1,62 @@
 {
   "schema": 1,
-  "status": "M1-not-installed",
   "scope": "product-only",
-  "skills": [],
-  "note": "No skill is claimed installed. Real commit/checksum/license review is required before populating this lock."
+  "package": "@ymzz/dsh-product",
+  "lock": "../../packages/ymzz/product/core-skills.lock.json",
+  "skills": [
+    {
+      "id": "find-skills",
+      "commit": "af860243b8c68053b3b5151e3732b9322933674d",
+      "license": "MIT",
+      "installedAs": "instructions-only"
+    },
+    {
+      "id": "agent-browser",
+      "commit": "53384771fbafc261ba67608ac806dd5aa70b84f0",
+      "license": "Apache-2.0",
+      "installedAs": "instructions-only"
+    },
+    {
+      "id": "grill-me",
+      "commit": "5863806dd4e15c63174bee4e7515a4256792ecfa",
+      "license": "MIT",
+      "installedAs": "instructions-only"
+    },
+    {
+      "id": "hyperframes-cli",
+      "commit": "1b29623f18b5e7e8970605405a7b2a34ddbe6aea",
+      "license": "Apache-2.0",
+      "installedAs": "instructions-only"
+    },
+    {
+      "id": "hyperframes",
+      "commit": "1b29623f18b5e7e8970605405a7b2a34ddbe6aea",
+      "license": "Apache-2.0",
+      "installedAs": "instructions-only"
+    },
+    {
+      "id": "modern-web-guidance",
+      "commit": "4dd968349e54ca45a05dd5c818fb035c9054b022",
+      "license": "Apache-2.0",
+      "installedAs": "instructions-only"
+    },
+    {
+      "id": "impeccable",
+      "commit": "d41d9860b0094dcb68030657da63461212835aaa",
+      "license": "Apache-2.0",
+      "installedAs": "instructions-only"
+    },
+    {
+      "id": "hallmark",
+      "commit": "04977e15f3dfd6ee4b74c887dac3eb52665d6c92",
+      "license": "MIT",
+      "installedAs": "instructions-only"
+    },
+    {
+      "id": "taste-skill",
+      "commit": "f6b76575f949707b4e3c37cd86cb44b0b98643e8",
+      "license": "MIT",
+      "installedAs": "instructions-only"
+    }
+  ]
 }

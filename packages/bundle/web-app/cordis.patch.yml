@@ -625,3 +625,15 @@
       name: '@deepseek-ai/dsh-agent-preset-registry'
       config:
         default: standard
+
+# 湛箴 product composition. Original DSH layout/components remain intact.
+- id: desktop-product-telemetry
+  disabled: true
+- id: product-analytics
+  disabled: true
+- id: ui-brand-official
+  disabled: true
+- insert:
+    - id: ymzz-product
+      name: '@ymzz/dsh-product'
+      config: {}

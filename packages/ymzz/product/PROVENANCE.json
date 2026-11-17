@@ -1,0 +1,10 @@
+{
+  "repository": "https://github.com/Ya-MiC/ymzz-zhanzhen",
+  "commit": "d759910f5bea821dac9d60e9fe70b474663b9cd9",
+  "reuse": "Selected MIT full-DSH plugin and confined-tool implementation, adapted to native clean fork; NOT old Tauri/runtime shell.",
+  "designAuthority": {
+    "repository": "https://github.com/Ya-MiC/ymzz-wenrun-design-skill",
+    "commit": "d33fb4bae0af86d30891c273103a9659552a926a",
+    "tokensSHA256": "217ca41de8a15fc612b17ec33b428470ffa155bedb8ddec73a47dba67aa85ad4"
+  }
+}

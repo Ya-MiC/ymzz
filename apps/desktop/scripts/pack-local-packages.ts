@@ -2,6 +2,8 @@
 
 import { resolve } from 'node:path'
 import { parseArgs } from 'node:util'
+import { execa } from 'execa'
+import { pnpmInvocation } from '../../../scripts/pnpm-invocation.ts'
 import {
   readClientBuildRecord,
   repositoryClientBuildEnvironment,
@@ -22,6 +24,10 @@ async function main(): Promise<void> {
   readClientBuildRecord(root, environment)
   const destination = resolve(root, values.out)
   const packed = await packFamilyMembers(root, releaseFamily('dsh'), destination, concurrency)
+  // Private ymzz package is intentionally NOT an upstream release-family/npm publication member.
+  const ymzz = pnpmInvocation(['--dir', 'packages/ymzz/product', 'pack', '--pack-destination', destination])
+  await execa(ymzz.command, ymzz.args, { cwd: root, stdio: 'inherit' })
+  console.log('ymzz desktop local pack: 1 additional private product plugin tarball')
   console.log(`desktop local pack: ${String(packed.length)} tarball(s) in ${destination}`)
 }
 
