@@ -1,0 +1,80 @@
+{
+  "schema": 1,
+  "scope": "Behavioral equivalence on box Linux lxml, using exact Windows-wheel reference transforms. NOT actual installed Windows payload proof.",
+  "platform": "Linux",
+  "lxml": [
+    6,
+    1,
+    3,
+    0
+  ],
+  "libxml": [
+    2,
+    14,
+    6
+  ],
+  "libxslt": [
+    1,
+    1,
+    43
+  ],
+  "wheelSHA256": "3e9a00d1c2c30936f7add097c41afc5da6556c580909104aafd382cac92a855c",
+  "checks": [
+    {
+      "candidate": "ExtractSchFromRNG.xsl",
+      "case": "embedded",
+      "canonicalOutputSHA256": "12c029b946295f45ca12e87250d27e9a67013f037d11b5d9e598497c6e90416e",
+      "byteEquivalentCanonicalOutput": true,
+      "ruleValidationChecked": true
+    },
+    {
+      "candidate": "ExtractSchFromRNG.xsl",
+      "case": "included",
+      "canonicalOutputSHA256": "12c029b946295f45ca12e87250d27e9a67013f037d11b5d9e598497c6e90416e",
+      "byteEquivalentCanonicalOutput": true,
+      "ruleValidationChecked": true
+    },
+    {
+      "candidate": "ExtractSchFromRNG.xsl",
+      "case": "empty",
+      "canonicalOutputSHA256": "bfb2cb178c622622dd96b1c1c5fb9d31626e82628306cf27974e8c724d8357b5",
+      "byteEquivalentCanonicalOutput": true,
+      "ruleValidationChecked": false
+    },
+    {
+      "candidate": "ExtractSchFromRNG.xsl",
+      "case": "element-root",
+      "canonicalOutputSHA256": "12c029b946295f45ca12e87250d27e9a67013f037d11b5d9e598497c6e90416e",
+      "byteEquivalentCanonicalOutput": true,
+      "ruleValidationChecked": true
+    },
+    {
+      "candidate": "ExtractSchFromXSD.xsl",
+      "case": "embedded",
+      "canonicalOutputSHA256": "32196b2a012c6864c62d7232134ed9a41f0bb75320e8ddbb3f1b56e2279b7b2a",
+      "byteEquivalentCanonicalOutput": true,
+      "ruleValidationChecked": true
+    },
+    {
+      "candidate": "ExtractSchFromXSD.xsl",
+      "case": "included",
+      "canonicalOutputSHA256": "32196b2a012c6864c62d7232134ed9a41f0bb75320e8ddbb3f1b56e2279b7b2a",
+      "byteEquivalentCanonicalOutput": true,
+      "ruleValidationChecked": true
+    },
+    {
+      "candidate": "ExtractSchFromXSD.xsl",
+      "case": "empty",
+      "canonicalOutputSHA256": "621c516dfd6974d609de793a48fa559857b39deaada37df2f0cc525e3b458d57",
+      "byteEquivalentCanonicalOutput": true,
+      "ruleValidationChecked": false
+    }
+  ],
+  "passed": true,
+  "derivedStagingOverlayQualified": true,
+  "idempotencyVerified": true,
+  "unknownInputRejectedBeforeAnyWrite": true,
+  "productionRuntimeReplaced": false,
+  "packagedWindowsQualified": false,
+  "releaseCleared": false
+}

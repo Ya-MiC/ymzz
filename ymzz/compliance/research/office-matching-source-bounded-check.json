@@ -1,0 +1,86 @@
+{
+  "schema": 1,
+  "checkedAtKST": "2026-11-17T16:50:57.599843+09:00",
+  "scope": "Bounded exact-version source-boundary check, not a finding of illegality or full legal clearance",
+  "entryArchiveSHA256": "e39ad8e51819217716bff95ea21828d010acf079929df7fc27bf4a5e499977c6",
+  "npmIntegrityVerified": true,
+  "entrySource": "https://registry.npmjs.org/@deepseek-ai/libreoffice-kit/0.2.3",
+  "npmGitHead": null,
+  "npmAttestations": null,
+  "publishedEditor": {
+    "file": "package/lib/editor.js",
+    "sha256": "b00d8aa35eb5acbbe50bc9eaa5e9c52aa9e535c13a1a43a994590774cee814b5",
+    "bytes": 80777,
+    "bundledModuleMarkers": [
+      "lib/types/font-file-identity.js",
+      "lib/types/fonts.js",
+      "lib/types/font-metadata-cache.js",
+      "lib/types/options.js",
+      "lib/types/engine.js",
+      "lib/types/errors.js",
+      "lib/types/font-snapshot-state.js",
+      "lib/types/ooxml.js",
+      "lib/types/document.js",
+      "lib/types/font-loader.js",
+      "lib/types/native-process.js",
+      "lib/types/profile.js",
+      "lib/types/native-font-names.js",
+      "lib/types/native.js",
+      "lib/types/editor-protocol.js",
+      "lib/types/editor-transport.js",
+      "lib/types/editor.js"
+    ],
+    "rootMPLLicensePresent": true
+  },
+  "nestedFrameForwarding": {
+    "license": "MIT",
+    "sha256": "ebb4f09972aee8608be255debaf78451a68e95c290f55c240dec2ecfa16ea6be",
+    "typescriptDeliveryObligationNotAssumed": true
+  },
+  "implementationTypeScriptOrSourceMapsInEntry": [],
+  "publicSource": {
+    "source": "https://github.com/deepseek-ai/dsh-libreoffice-kit/tree/b19bb73c74ed893b8a5d1716d32df32a113ed31b",
+    "archiveSHA256": "33839347e44b8df44c59115b566e9664e7db04a612a8f37ee2b220d7e501c036",
+    "matchingFileSearchAcrossEntireArchive": {
+      "editor.ts": [],
+      "editor-protocol.ts": [],
+      "editor-transport.ts": [],
+      "native-process.ts": []
+    }
+  },
+  "officialAPIObserved": {
+    "branchesURL": "https://api.github.com/repos/deepseek-ai/dsh-libreoffice-kit/branches",
+    "branches": [
+      {
+        "name": "master",
+        "sha": "b19bb73c74ed893b8a5d1716d32df32a113ed31b"
+      }
+    ],
+    "editorHistoryURL": "https://api.github.com/repos/deepseek-ai/dsh-libreoffice-kit/commits?path=packages/entry/src/editor.ts&per_page=1",
+    "editorHistoryResponse": []
+  },
+  "platformSourceChecks": [
+    {
+      "archive": "deepseek-ai-libreoffice-kit-win32-x64-0.2.3.tgz",
+      "relevantSourceOrEditorCandidates": [
+        "package/sources/engine/native/editor-session.cxx",
+        "package/sources/engine/native/editor-pixels.hxx",
+        "package/sources/engine/native/editor-render.hxx",
+        "package/sources/engine/native/patches/0066-native-editor-event-pump.patch",
+        "package/sources/engine/native/patches/0077-native-editor-active-frame.patch"
+      ]
+    },
+    {
+      "archive": "deepseek-ai-libreoffice-kit-wasm-0.2.3.tgz",
+      "relevantSourceOrEditorCandidates": []
+    }
+  ],
+  "authoritativeLicense": "https://www.mozilla.org/en-US/MPL/2.0/",
+  "applicableSections": [
+    "1.13 preferred form for modifications",
+    "3.2(a) corresponding Source Code Form availability for Executable Form distribution"
+  ],
+  "matchingPreferredSourceVerified": false,
+  "ownerPolicyWaiverCannotSupplyThirdPartySourceGrant": true,
+  "releaseCleared": false
+}
