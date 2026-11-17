@@ -205,3 +205,6 @@ console.log(JSON.stringify({
   i18nKeys: htmlKeys.size,
   official,
 }, null, 2))
+
+assert.match(read('app.js'),/safeReleaseAsset\(a\)/)
+assert.match(read('app.js'),/asset\.name\.startsWith\("湛箴_ymzz-"\)/)

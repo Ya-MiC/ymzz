@@ -125,5 +125,9 @@
   "ui.readbar": "閱讀進度",
   "doc.title": "湛箴_ymzz — 晏銘湛箴的本地優先智能體",
   "start.doc.title": "從原始碼運行 湛箴_ymzz",
-  "family.doc.title": "家族產品 · 湛箴_ymzz"
+  "family.doc.title": "家族產品 · 湛箴_ymzz",
+  "release.consent": "允許本次手動連線 GitHub 公開發佈 API（可隨時關閉）",
+  "release.check": "手動檢查公開發佈",
+  "release.none": "尚無公開正式產品安裝包；保留未發佈狀態。",
+  "release.error": "GitHub 查詢失敗或已停用；保留未發佈狀態。"
 }

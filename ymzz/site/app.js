@@ -73,7 +73,7 @@
     store(cfg.storageLang, code);
     try {
       const res = await fetch("i18n/" + code + ".json", { credentials: "same-origin" });
-      if (!res.ok) return;
+      if (!res.ok) throw new Error("PUBLIC_RELEASE_LOOKUP_FAILED");
       dict = await res.json();
       applyDict();
       const file = (location.pathname.split("/").pop() || "index.html") || "index.html";
@@ -123,6 +123,12 @@
     onScroll();
   }
 
+  let releaseRequest;
+  const message = (key, fallback) => document.querySelector('[data-i18n="'+key+'"]')?.textContent || fallback;
+  function safeReleaseAsset(a) {
+    if(!a || typeof a.name!=="string" || a.name.length>255 || a.state!=="uploaded")return false;
+    try { const u=new URL(a.browser_download_url);return u.protocol==="https:" && u.hostname==="github.com" && !u.username && !u.password && !u.search && !u.hash && /^\/Ya-MiC\/ymzz\/releases\/download\//i.test(u.pathname); }catch{return false}
+  }
   function assetLooksLikeInstaller(name) {
     return /\.(exe|msi|msix|dmg|pkg|appimage|deb|rpm|zip|7z)$/i.test(name || "");
   }
@@ -134,13 +140,14 @@
     const box = document.getElementById("download");
     const status = document.getElementById("release-status");
     const cta = document.getElementById("cta-primary");
-    if (!cfg.releasesApi || !box) return;
+    if (cfg.releasesApi!=="https://api.github.com/repos/Ya-MiC/ymzz/releases?per_page=10" || !box) return;
+    releaseRequest?.abort(); releaseRequest=new AbortController();
     try {
       const res = await fetch(cfg.releasesApi, {
         headers: { Accept: "application/vnd.github+json" },
-        credentials: "omit", referrerPolicy: "no-referrer", cache: "no-store", signal: AbortSignal.timeout(8000)
+        credentials: "omit", referrerPolicy: "no-referrer", cache: "no-store", signal: AbortSignal.any([AbortSignal.timeout(8000),releaseRequest.signal])
       });
-      if (!res.ok) return;
+      if (!res.ok) throw new Error("PUBLIC_RELEASE_LOOKUP_FAILED");
       const list = await res.json();
       if (!Array.isArray(list)) return;
       const published = list.filter((r) => r && r.draft === false);
@@ -148,14 +155,14 @@
       const assets = [];
       stable.forEach((r) => {
         (r.assets || []).forEach((a) => {
-          if (a && a.browser_download_url && a.name && a.state === "uploaded") {
+          if (safeReleaseAsset(a)) {
             assets.push({ release: r, asset: a });
           }
         });
       });
-      if (!assets.length) return; // keep honest static pending copy
+      if (!assets.length) { if(status)status.textContent=message("release.none","尚無公開正式產品安裝包；保留未發佈狀態。"); return; }
       const listEl = document.createElement("ul");
-      listEl.className = "facts";
+      listEl.className = "facts"; listEl.id="ymzz-public-releases";
       assets.forEach(({ release, asset }) => {
         const li = document.createElement("li");
         li.className = "fact";
@@ -172,9 +179,10 @@
         listEl.append(li);
       });
       const note = box.querySelector(".status-note");
-      if (note) note.remove();
+      document.getElementById("ymzz-public-releases")?.remove();
       box.prepend(listEl);
-      const win = assets.find(({ asset }) => isWindowsAsset(asset.name) && assetLooksLikeInstaller(asset.name));
+      const win = assets.find(({ asset }) => asset.name.startsWith("湛箴_ymzz-") && isWindowsAsset(asset.name) && assetLooksLikeInstaller(asset.name));
+      if(win && note)note.remove();
       if (win && cta) {
         cta.href = win.asset.browser_download_url;
         cta.rel = "noopener noreferrer";
@@ -184,7 +192,7 @@
         status.textContent = "已找到公開（非草稿、非預發佈）Release 資產。請自行核對發版說明與校驗值；本頁不把其他產品的安裝包算進來。";
       }
     } catch {
-      /* keep static honesty when GitHub is unreachable */
+      if(status)status.textContent=message("release.error","GitHub 查詢失敗或已停用；保留未發佈狀態。");
     }
   }
 
@@ -195,11 +203,12 @@
   const download=document.getElementById("download");
   if(download){
     const preferences=document.createElement("div"),label=document.createElement("label"),allow=document.createElement("input"),button=document.createElement("button");
-    allow.type="checkbox";allow.checked=false;allow.setAttribute("aria-label","允許手動連線 GitHub 公開發佈 API");
-    label.append(allow,document.createTextNode(" 允許本次手動連線 GitHub 公開發佈 API（可隨時關閉）"));
-    button.type="button";button.className="btn ghost";button.textContent="手動檢查公開發佈 / Check releases";button.disabled=true;
-    allow.addEventListener("change",()=>{button.disabled=!allow.checked});
+    allow.type="checkbox";allow.checked=false;allow.setAttribute("aria-label","允許手動連線 GitHub 公開發佈 API");allow.setAttribute("data-i18n-aria","release.consent");
+    const consent=document.createElement("span");consent.dataset.i18n="release.consent";consent.textContent=" 允許本次手動連線 GitHub 公開發佈 API（可隨時關閉）";label.append(allow,consent);
+    button.type="button";button.className="btn ghost";button.textContent="手動檢查公開發佈";button.dataset.i18n="release.check";button.disabled=true;
+    allow.addEventListener("change",()=>{button.disabled=!allow.checked;if(!allow.checked)releaseRequest?.abort()});
     button.addEventListener("click",()=>{if(allow.checked)void hydrateReleases()});
+    for(const [key,text]of [["release.none","尚無公開正式產品安裝包；保留未發佈狀態。"],["release.error","GitHub 查詢失敗或已停用；保留未發佈狀態。"]]){const span=document.createElement("span");span.hidden=true;span.dataset.i18n=key;span.textContent=text;preferences.append(span)}
     preferences.append(label,button);download.append(preferences);
   }
 })();
