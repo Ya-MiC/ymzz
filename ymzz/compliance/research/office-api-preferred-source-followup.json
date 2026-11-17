@@ -1,0 +1,42 @@
+{
+  "officialPublicCommit": "b19bb73c74ed893b8a5d1716d32df32a113ed31b",
+  "publicVersion": "0.1.3",
+  "actualPublishedVersion": "0.2.3",
+  "oldExports": [
+    ".",
+    "./package.json",
+    "./cli"
+  ],
+  "publishedExports": [
+    ".",
+    "./package.json",
+    "./cli",
+    "./editor",
+    "./frame-forwarding",
+    "./frame-forwarding/sdk",
+    "./frame-forwarding/verify",
+    "./frame-forwarding/browser",
+    "./frame-forwarding/electron",
+    "./frame-forwarding/electron/preload"
+  ],
+  "exportsNotInPublicVersion": [
+    "./editor",
+    "./frame-forwarding",
+    "./frame-forwarding/browser",
+    "./frame-forwarding/electron",
+    "./frame-forwarding/electron/preload",
+    "./frame-forwarding/sdk",
+    "./frame-forwarding/verify"
+  ],
+  "npmGitHead": null,
+  "officialTags": [],
+  "officialReleases": [],
+  "publicFrameForwardingPreferredSourcePresent": false,
+  "publishedTypeScriptImplementationPresent": false,
+  "noUnlawfulnessConclusionFromMissingExtensionAlone": true,
+  "matchingPreferredSourceVerified": false,
+  "nestedFrameForwardingLicense": "MIT, verified actual package/frame-forwarding/LICENSE",
+  "nestedFrameForwardingLicenseSHA256": "ebb4f09972aee8608be255debaf78451a68e95c290f55c240dec2ecfa16ea6be",
+  "nestedMITFilesDoNotRequireTSForMPLCompliance": true,
+  "remainingRootImplementationExample": "MPL-scoped package/lib/editor.js has no corresponding editor source in the public0.1.3 entry tree; preferred Source Code Form remains unverified, not automatically unlawful."
+}

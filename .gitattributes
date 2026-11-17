@@ -26,3 +26,6 @@ snapshots/** dsh-review-layer=test
 *.i18n.yaml dsh-review-layer=test
 packages/*/*/src/types.ts dsh-review-layer=interface
 README.md merge=ours
+
+# Preserve exact authoritative MIT candidate bytes and their original legal comments.
+ymzz/compliance/candidates/schematron/*.xsl -text -whitespace

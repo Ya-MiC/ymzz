@@ -1,0 +1,29 @@
+{
+  "schema": 1,
+  "status": "REVIEWED CANDIDATES ONLY; NOT APPLIED TO THE PRODUCTION RUNTIME",
+  "originalWheelSHA256": "3e9a00d1c2c30936f7add097c41afc5da6556c580909104aafd382cac92a855c",
+  "files": [
+    {
+      "originalWheelPath": "lxml/isoschematron/resources/xsl/RNG2Schtrn.xsl",
+      "originalSHA256": "832f84eb1476a77e522bdc1715386b68f24423d35da084cd1dde319aacbba316",
+      "candidate": "ExtractSchFromRNG.xsl",
+      "candidateSHA256": "e219462b395e0b87c8e0e969343fbc3fcac7195d0e0587dd2c7d6db7dca0ea2a",
+      "source": "https://github.com/Schematron/schematron/blob/ecb9f3e19c52e2bf7d2111bdbacdf08e5c7e6dee/trunk/converters/code/ExtractSchFromRNG.xsl",
+      "license": "MIT",
+      "structuralSHA256": "d6c6ef9411bfaa01f9c71d02749486958a632f79ad4d2192317b4450034cd7f3",
+      "matchesActualShippedTransformIgnoringCommentsFormatting": true
+    },
+    {
+      "originalWheelPath": "lxml/isoschematron/resources/xsl/XSD2Schtrn.xsl",
+      "originalSHA256": "430791ac820cfb315c820f7c19703609a59f21b8151345ca11e6127efbfaec0d",
+      "candidate": "ExtractSchFromXSD.xsl",
+      "candidateSHA256": "2ba1909929c4bbbca5febd68627f2640ee1afe1b86923e7a15464770141e6d65",
+      "source": "https://github.com/Schematron/schematron/blob/ecb9f3e19c52e2bf7d2111bdbacdf08e5c7e6dee/trunk/converters/code/ExtractSchFromXSD.xsl",
+      "license": "MIT",
+      "structuralSHA256": "b22715779ee6160e284b899b4c0c87def2d95ffebb8ff23fafdcf63fc7b1e858",
+      "matchesActualShippedTransformIgnoringCommentsFormatting": true
+    }
+  ],
+  "oldUnlicensedFilesNotRelabeled": true,
+  "payloadReplacementQualified": false
+}
