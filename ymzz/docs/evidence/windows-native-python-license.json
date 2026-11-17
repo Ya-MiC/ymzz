@@ -1,0 +1,26 @@
+{
+  "schema": 1,
+  "scope": "Actual prepared primary runtime payload, no interpreter execution",
+  "package": "numpy",
+  "version": "2.3.5",
+  "nativeBinaries": [
+    {
+      "file": "dependencies/python/Lib/site-packages/numpy.libs/libscipy_openblas64_-9e3e5a4229c1ca39f10dc82bba9e2b2b.dll",
+      "sha256": "9e3e5a4229c1ca39f10dc82bba9e2b2bf48037790932566f37aff1a7ccf3588f",
+      "bytes": 20403712
+    }
+  ],
+  "findings": [
+    {
+      "file": "dependencies/python/Lib/site-packages/numpy-2.3.5.dist-info/LICENSE.txt",
+      "sha256": "596b953e1dcbe829b32ae444387efa15003fc6abdeca8a2179f364a6364c286e",
+      "expression": "GPL-3.0-or-later WITH GCC-exception-3.1",
+      "vendorDeclaredStaticallyLinkedRuntime": true
+    }
+  ],
+  "ownerApproved": false,
+  "policyReason": "LGPL/MPL approval does not cover a separate GPL-with-GCC-runtime-exception category. Owner decision required; not silently allowed.",
+  "doesNotMeanApplicationBecomesGPL": true,
+  "exceptionMeaning": "The actual license grants eligible combinations permission to distribute non-GPL/proprietary independent modules. This is not plain GPL and is not LGPL.",
+  "releaseCleared": false
+}

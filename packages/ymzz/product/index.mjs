@@ -1,3 +1,4 @@
+import {approvalOnce} from './ui-approval.mjs';
 // MIT. A real plugin loaded by the FULL official DSH application, not a second agent loop.
 import fs from 'node:fs';
 import {providerConfig,requestCompletion,completionChunks} from './local-provider.mjs';
@@ -94,7 +95,7 @@ export async function apply(ctx,config={}){
  }
  const state=()=>({engine:'FULL official DeepSeek Harness',plugin:name,upstream:'39163dd30f703a79079e2d2446545cff3c453738',nickname:saved.nickname,provider:{...saved.provider,modelInferenceVerified:false},selected:[...selected].map(([id,w])=>({id,path:w.root,files:w.files()})),memory:saved.memory,updates:updates.state(),skills:lock.skills.map(s=>s.id),tasks:Object.values(saved.tasks).map(view),pending:[...pending.values()].map(({settle,...p})=>p),evidenceValid:valid(),events:saved.events});
  const ui=fs.readFileSync(path.join(import.meta.dirname,'ui.js'),'utf8'),tokens=fs.readFileSync(path.join(root,'wenrun-tokens.css'),'utf8'),css=fs.readFileSync(path.join(import.meta.dirname,'wenrun.css'),'utf8');
- ctx.on('webserver/index-inject',table=>{table.push({kind:'global',name:'__YMZZ_DSH_BRAND__',value:'data:image/png;base64,'+fs.readFileSync(path.join(root,'icon-128.png')).toString('base64')},{kind:'style',text:tokens+'\n'+css},{kind:'script',placement:'body',text:ui})});
+ ctx.on('webserver/index-inject',table=>{table.push({kind:'global',name:'__YMZZ_DSH_BRAND__',value:'data:image/png;base64,'+fs.readFileSync(path.join(root,'icon-128.png')).toString('base64')},{kind:'style',text:tokens+'\n'+css},{kind:'script',placement:'body',text:'const __YMZZ_APPROVAL_ONCE__='+approvalOnce.toString()+';\n'+ui})});
  ctx.effect(()=>ctx.webServer.register({kind:'prefix',path:'/ymzz',auth:'required',handler:async(req,res)=>{
   try{const url=new URL(req.url,'http://127.0.0.1');let out;
    if(req.method==='GET'&&url.pathname==='/ymzz/state')out=state();

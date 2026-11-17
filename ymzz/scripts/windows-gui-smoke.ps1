@@ -32,7 +32,7 @@ function State {
 }
 function Find-Control([string]$name,$pattern=$null){
  $condition=[System.Windows.Automation.PropertyCondition]::new([System.Windows.Automation.AutomationElement]::NameProperty,$name);$end=(Get-Date).AddSeconds(30)
- do{$found=$null;foreach($candidate in $Element.FindAll([System.Windows.Automation.TreeScope]::Descendants,$condition)){if(!$pattern){$found=$candidate;break};try{$null=$candidate.GetCurrentPattern($pattern);$found=$candidate;break}catch{}};if(!$found){Start-Sleep -Milliseconds 200}}until($found -or (Get-Date) -gt $end)
+ do{$found=$null;foreach($candidate in $Element.FindAll([System.Windows.Automation.TreeScope]::Descendants,$condition)){if(!$pattern){$found=$candidate;break};if(!$candidate.Current.IsEnabled){continue};try{$null=$candidate.GetCurrentPattern($pattern);$found=$candidate;break}catch{}};if(!$found){Start-Sleep -Milliseconds 200}}until($found -or (Get-Date) -gt $end)
  if(!$found){throw "Missing genuine FULL DSH GUI control: $name"};return $found
 }
 function Click([string]$name){$c=Find-Control $name ([System.Windows.Automation.InvokePattern]::Pattern);$c.GetCurrentPattern([System.Windows.Automation.InvokePattern]::Pattern).Invoke();Start-Sleep -Milliseconds 250}
@@ -50,12 +50,23 @@ try{
  $nativeDocument=Find-Control '湛箴_ymzz';if($Element.Current.Name -ne '湛箴_ymzz'){throw "Actual native window title differs from requested product name: $($Element.Current.Name)"}
  Screenshot 'full-dsh-onboarding'
  $approvals=0
- $theme=Find-Control '湛箴四套溫潤主題';$theme.SetFocus();[System.Windows.Forms.SendKeys]::SendWait('{HOME}');Start-Sleep -Milliseconds 200;[System.Windows.Forms.SendKeys]::SendWait('{DOWN}{ENTER}');Start-Sleep -Milliseconds 500;Screenshot 'full-dsh-wenrun-dark';$theme.SetFocus();[System.Windows.Forms.SendKeys]::SendWait('{HOME}{ENTER}')
+ # Actual UIA option selection, not unverified foreground SendKeys (which left light selected).
+ function Select-Theme([string]$label){
+  $theme=Find-Control '湛箴四套溫潤主題';try{$theme.GetCurrentPattern([System.Windows.Automation.ScrollItemPattern]::Pattern).ScrollIntoView()}catch{};$expand=$theme.GetCurrentPattern([System.Windows.Automation.ExpandCollapsePattern]::Pattern);$expand.Expand()
+  $option=Find-Control $label ([System.Windows.Automation.SelectionItemPattern]::Pattern);$selection=$option.GetCurrentPattern([System.Windows.Automation.SelectionItemPattern]::Pattern);$selection.Select();Start-Sleep -Milliseconds 300
+  if(!$selection.Current.IsSelected){throw "Actual theme option was not selected: $label"}
+  if($expand.Current.ExpandCollapseState -ne [System.Windows.Automation.ExpandCollapseState]::Collapsed){$expand.Collapse()};Start-Sleep -Milliseconds 500
+ }
  function Complete-Demo([bool]$accept){
   $before=@((State).tasks.psobject.Properties.Name);Click '用完整 DSH Agent Loop 執行離線修復示例';$end=(Get-Date).AddSeconds(25)
   do{$s=State;$id=@($s.tasks.psobject.Properties.Name|Where-Object {$_ -notin $before})[0];if(!$id){Start-Sleep -Milliseconds 200}}until($id -or (Get-Date) -gt $end)
   if(!$id){throw 'Native GUI did not create actual full DSH AgentRegistry session'}
-  foreach($tool in @('ymzz_read','ymzz_read','ymzz_patch','ymzz_test','ymzz_patch','ymzz_test')){Click "僅核准這次 $tool";$script:approvals++}
+  $decisions=0
+  foreach($tool in @('ymzz_read','ymzz_read','ymzz_patch','ymzz_test','ymzz_patch','ymzz_test')){
+   Click "僅核准這次 $tool";$decisions++;$end=(Get-Date).AddSeconds(10)
+   do{$recorded=@((State).events|Where-Object {$_.id -eq $id -and $_.kind -eq 'human-tool-approval'}).Count;if($recorded -lt $decisions){Start-Sleep -Milliseconds 100}}until($recorded -ge $decisions -or (Get-Date) -gt $end)
+   if($recorded -ne $decisions){throw 'Native approval was not recorded exactly once for this task'};$script:approvals++
+  }
   $end=(Get-Date).AddSeconds(35);do{$t=(State).tasks.$id;if($t.state -ne 'review'){Start-Sleep -Milliseconds 250}}until($t.state -eq 'review' -or (Get-Date) -gt $end)
   if($t.state -ne 'review' -or @($t.gates).Count -ne 2 -or $t.gates[0].passed -or !$t.gates[1].passed){throw 'Full DSH did not execute genuine failing test -> repair -> passing test'}
   Start-Sleep -Seconds 2
@@ -68,6 +79,7 @@ try{
  if(@((State).memory).Count -ne 1){throw 'Explicit DSH plugin memory confirmation was not persisted'}
  Screenshot 'full-dsh-task-board'
  @{accepted=$accepted;rollback=$rollback;approvals=$approvals;memoryConfirmed=@((State).memory).Count;engine='FULL official DeepSeek Harness';deterministicFakeTransport=$true;liveInference=$false}|ConvertTo-Json -Depth 30|Set-Content -Encoding utf8 (Join-Path $proof 'full-dsh-gui-task-checkpoint.json')
+ Select-Theme '雲箋 · 暗（暮靄）';Screenshot 'full-dsh-wenrun-dark';Select-Theme '雲箋 · 淺'
  Click '回到完整 DSH 工作區';Find-Control '湛箴_ymzz 插件與驗證閘' ([System.Windows.Automation.InvokePattern]::Pattern)|Out-Null;Screenshot 'full-dsh-native-workspace'
  # Native upstream settings are retained. Configuration only: never enter credentials or make inference.
  # The top-level Chromium UIA pane is not focusable. Use the REAL accessible native menu instead.
@@ -75,11 +87,11 @@ try{
  $models=$null;foreach($label in @('Models','模型')){try{$models=Find-Control $label ([System.Windows.Automation.InvokePattern]::Pattern);break}catch{}}
  if(!$models){throw 'Original full DSH Models settings navigation missing'};$models.GetCurrentPattern([System.Windows.Automation.InvokePattern]::Pattern).Invoke();Start-Sleep -Seconds 1
  Screenshot 'full-dsh-native-model-settings'
- @{fullUpstreamApp=$true;engine='FULL official DeepSeek Harness Electron';upstream='39163dd30f703a79079e2d2446545cff3c453738';nativeGUI=$true;productDisplayName='湛箴_ymzz';nativeSidebarSlotPluginVerified=$true;originalDSHLayoutPreserved=$true;pluginLoadedViaProductionAssembly=$true;nicknameViaGUI=$true;approvals=$approvals;accepted=$accepted;rollback=$rollback;actualNodeTests=$true;deterministicFakeTransport=$true;liveInference=$false;nativeModelSettingsOpened=$true;providerConfigured=$false;modelWorking=$false;unicodeSpaceInstalledPath=$true;actualNSISInstalled=$true;nodeVersion=$nodeVersion;primaryNodeSHA256=(Get-FileHash $nodeExe -Algorithm SHA256).Hash;installerSHA256=(Get-FileHash $installer.FullName -Algorithm SHA256).Hash;exeSHA256=(Get-FileHash $exe -Algorithm SHA256).Hash;exeBytes=(Get-Item $exe).Length;actualUserIcon='Latest owner SVG-derived ICO, checked separately against PE resources';inheritedDSHProtocolRegistration=$true;customRegistryScript=$false;binaryDistribution='Not cleared until actual payload and corresponding-source compliance gates pass'}|ConvertTo-Json -Depth 30|Set-Content -Encoding utf8 (Join-Path $proof 'full-dsh-gui.json')
+ @{fullUpstreamApp=$true;engine='FULL official DeepSeek Harness Electron';upstream='39163dd30f703a79079e2d2446545cff3c453738';nativeGUI=$true;productDisplayName='湛箴_ymzz';nativeSidebarSlotPluginVerified=$true;originalDSHLayoutPreserved=$true;pluginLoadedViaProductionAssembly=$true;nicknameViaGUI=$true;approvals=$approvals;accepted=$accepted;rollback=$rollback;actualNodeTests=$true;deterministicFakeTransport=$true;liveInference=$false;nativeModelSettingsOpened=$true;nativeDarkThemeSelectionVerified=$true;providerConfigured=$false;modelWorking=$false;unicodeSpaceInstalledPath=$true;actualNSISInstalled=$true;nodeVersion=$nodeVersion;primaryNodeSHA256=(Get-FileHash $nodeExe -Algorithm SHA256).Hash;installerSHA256=(Get-FileHash $installer.FullName -Algorithm SHA256).Hash;exeSHA256=(Get-FileHash $exe -Algorithm SHA256).Hash;exeBytes=(Get-Item $exe).Length;actualUserIcon='Latest owner SVG-derived ICO, checked separately against PE resources';inheritedDSHProtocolRegistration=$true;customRegistryScript=$false;binaryDistribution='Not cleared until actual payload and corresponding-source compliance gates pass'}|ConvertTo-Json -Depth 30|Set-Content -Encoding utf8 (Join-Path $proof 'full-dsh-gui.json')
  "YMZZ_INSTALLED_PRODUCT=$portable"|Out-File -Append -Encoding utf8 $env:GITHUB_ENV
 }catch{
  Screenshot 'full-dsh-failure'
  @{error=$_.Exception.Message;fullUpstreamApp=$true;liveInference=$false;binaryDistributed=$false}|ConvertTo-Json|Set-Content -Encoding utf8 (Join-Path $proof 'failure.json')
- if($Element){@($Element.FindAll([System.Windows.Automation.TreeScope]::Descendants,[System.Windows.Automation.Condition]::TrueCondition)|ForEach-Object {@{name=$_.Current.Name;type=$_.Current.ControlType.ProgrammaticName}})|ConvertTo-Json -Depth 4|Set-Content -Encoding utf8 (Join-Path $proof 'accessibility-diagnostic.json')}
+ if($Element){@($Element.FindAll([System.Windows.Automation.TreeScope]::Descendants,[System.Windows.Automation.Condition]::TrueCondition)|ForEach-Object {@{name=$_.Current.Name;type=$_.Current.ControlType.ProgrammaticName;enabled=$_.Current.IsEnabled;automationId=$_.Current.AutomationId}})|ConvertTo-Json -Depth 4|Set-Content -Encoding utf8 (Join-Path $proof 'accessibility-diagnostic.json')}
  throw
 }finally{if($p -and !$p.HasExited){taskkill /PID $p.Id /T /F 2>$null|Out-Null}}

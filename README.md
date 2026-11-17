@@ -76,4 +76,4 @@ pnpm run package:desktop:win:x64:unsigned --check
 pnpm run package:desktop:win:x64:unsigned
 ```
 
-Use a Windows x64 build host and documented public `.env.windows` product settings. No mandatory-update endpoint is required for unsigned builds; signed HTTPS validation remains. Normal upstream NSIS install/uninstall/protocol registrations are not called “registry free”. [Latest measured Windows attempt](https://github.com/Ya-MiC/ymzz/actions/runs/44029913700) built the real installer; the final native GUI/compliance gates are not yet green, so there is deliberately no executable download.
+Use a Windows x64 build host and documented public `.env.windows` product settings. No mandatory-update endpoint is required for unsigned builds; signed HTTPS validation remains. Normal upstream NSIS install/uninstall/protocol registrations are not called “registry free”. [Latest measured Windows attempt](https://github.com/Ya-MiC/ymzz/actions/runs/44032750165) built the real installer; the final native GUI/compliance gates are not yet green, so there is deliberately no executable download.

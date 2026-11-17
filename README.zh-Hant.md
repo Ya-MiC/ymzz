@@ -8,7 +8,7 @@
 
 ## 下載與真實狀態
 
-- Windows x64：**尚未發佈**。v0.1.0 發佈後填 Release 連結；打包、真實 GUI 與授權閘尚未通過，不提供舊 Tauri 安裝包冒充。
+- Windows x64：**尚未發佈**。官方 Electron/NSIS 安裝包已實際建置並裝入中文空格路徑，隨包 Node 已執行；完整安裝後 GUI／任務的後續資格驗證仍在進行，授權發佈閘尚未清除。不提供舊 Tauri 安裝包冒充。
 - macOS / Linux 桌面版：計劃中，不在 v0.1 保證範圍。
 - 已驗證：完整上游8個 artifacts 建置閘、受驗證 HTTP200、真正 DSH Agent Loop 的工具逐次核准／真實測試失敗→修復→通過／差異驗收、還原、確認記憶。模型 transport 明確是假模型，未做 live／付費／NIM 推論。
 
@@ -28,15 +28,22 @@ pnpm exec node ymzz/scripts/dev.mjs --no-open --port 3081
 
 單一私有 workspace 包 `@ymzz/dsh-product`，由完整 DSH 原生組合載入：品牌/sidebar 既有插槽、雲箋淺／雲箋暗／陶土淺／陶土暗、9個固定來源的指令技能、官方 agents/tools/approval 的有界任務與人工差異驗收／記憶、本機 OpenAI 相容設定、經簽署清單的更新暫存與暫存還原。
 
-原生對話、檔案／工作區面板、模型設定與插件系統都留在原位。工作區操作不是 OS／網路沙盒；本機真模型、Windows 目錄選擇器 GUI、EXE/PE圖標與安裝流程仍未完成資格驗證。更新只有暫存，不冒充已安裝／一鍵重啟；正式公鑰與通道尚未配置。支付由作者自己處理。
+原生對話、檔案／工作區面板、模型設定與插件系統都留在原位。首次啟動可依原生畫面選 **Add API Key → Set up later**，再設定暱稱，不用捏造金鑰。工作區操作不是 OS／網路沙盒；本機真模型、Windows 原生目錄選擇器 GUI 仍未驗證，沒有宣稱 live 推論。更新只有暫存，不冒充已安裝／一鍵重啟；正式公鑰與通道尚未配置。支付由作者自己處理。
 
 ## Loop 是另一個已完成的產品
 
 [Loop](https://ya-mic.github.io/ymzz-loop/) 是**獨立、已完成的專案管理產品**；這裡只借鑑其官網呈現風格，不匯入其運行時、不合併其 Tauri 軟體、不遷移資料、不取代下載。既有稟冊等其他軟體仍保留在原處；歷史安裝包不等於本 Agent 安裝包。
 
-## 尚待決定的 Windows 發佈阻擋
+## Windows 發佈資格與具體阻擋
 
-[完整證據與最小變更提案](ymzz/docs/WINDOWS-BLOCKERS.md)：上游未簽署 Windows 仍強制要求真實 HTTPS 更新政策服務；目前允許清單不含修改此政策。實際圖片／Office／Electron 原生依賴含 LGPL/MPL，不把它們誤稱 GPL/AGPL，但也不能偷偷放寬既有 permissive-only 閘。未驗收、未發 Release。
+[完整證據](ymzz/docs/WINDOWS-BLOCKERS.md)：作者於 **2026-11-17 15:04 KST** 明確批准兩處 unsigned 打包判斷，以及實際 LGPL/MPL 元件合規分發；signed 版本仍嚴格要求有效 HTTPS 政策服務，沒有偽造端點。已準備實際來源／原始授權材料，第三方沒有改標 MIT。
+
+目前仍有兩項**新的精確問題**，不是重複原先 LGPL 異議：
+
+1. 隨包 NumPy 2.3.5 Windows 的 OpenBLAS DLL 含靜態 GCC runtime，原始聲明為 **GPL-3.0-or-later WITH GCC-exception-3.1**。這個例外不等於普通 GPL，也不把產品改成 GPL；但仍超出已批准的 LGPL/MPL 範圍，沒有偷偷放行。原始聲明、確切 wheel／DLL 雜湊與實際包檢查皆已加入。
+2. LibreOffice API 0.2.3 的 npm 包只有編譯後 JS／宣告、缺少 TypeScript 實作；可取得的公開 preferred-source 版本仍為 0.1.3，不能拿舊版冒充匹配來源。0.2.3 native engine 已附修改過的 C++ 原始碼，不能誤稱全部缺失；API 對應來源完整性仍未確認。
+
+發佈閘維持 fail-closed；未公開未驗收 EXE，也未發 Release。標準安裝與上游 protocol handler 會產生正常 OS／使用者登錄項，不宣稱完全不寫登錄檔；沒有自訂 registry 修改腳本。
 
 [基線證據](ymzz/docs/evidence/m2-baseline.json) · [真實 DSH 任務證據](ymzz/docs/evidence/full-dsh-product-web.json) · [網路與關閉控制](ymzz/docs/NETWORK.md) · [來源索引](ymzz/docs/RESOURCES.md)
 
