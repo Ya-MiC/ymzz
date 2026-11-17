@@ -1,0 +1,15 @@
+{
+  "testedAtKST": "2026-11-17T13:49:01.067805+09:00",
+  "sourceHead": "039646ca3ff8eaaf9f62cefa478c4620c4d63a63",
+  "node": "24.22.1",
+  "pnpm": "11.28.5",
+  "installSeconds": 10.374,
+  "buildSeconds": 426.937,
+  "artifactsGates": 8,
+  "authenticatedHeadHTTP": 200,
+  "unauthenticatedHeadHTTP": 401,
+  "upstreamAuthenticationPreserved": true,
+  "baselinePrivateLogNotCommitted": true,
+  "windowsVerified": false,
+  "liveInference": false
+}
