@@ -1,6 +1,6 @@
 # 湛箴_ymzz
 
-<img src="ymzz/branding/icon-source.png" width="88" alt="湛箴_ymzz 使用者提供的產品圖標">
+<img src="ymzz/branding/generated/preview-512.png" width="88" alt="湛箴_ymzz 使用者提供的產品圖標">
 
 **A local-first agent distribution of the complete DeepSeek Harness, extended through real plugins—not a rewritten runtime.**
 
@@ -8,7 +8,7 @@
 
 [繁體中文](README.zh-Hant.md) · [Releases](https://github.com/Ya-MiC/ymzz/releases) · [Roadmap](ROADMAP.md) · [Preserved 稟冊](https://ya-mic.github.io/ymzz-loop/)
 
-**Completed milestone: M1 repository foundation. No 湛箴_ymzz Windows installer has been qualified or published in this fork.** Original DSH chat, tools, agent runtime and plugin system remain upstream code; our branding and plugins are not yet applied. The next baseline gate is M2. Do not mistake old Tauri/稟冊 binaries or old-repository fake-transport demonstrations for this product.
+**Completed milestone: M1 repository foundation. No 湛箴_ymzz Windows installer has been qualified or published in this fork.** Original DSH chat, tools, agent runtime and plugin system remain upstream code. The owner-supplied product icon is applied to documented desktop, tray, installer-source and web favicon resources; product name, themes and plugins are not yet applied, and no packaged Windows installer has been rebuilt or verified. The next baseline gate is M2. Do not mistake old Tauri/稟冊 binaries or old-repository fake-transport demonstrations for this product.
 
 ## Downloads
 

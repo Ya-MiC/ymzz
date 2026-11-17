@@ -1,0 +1,73 @@
+{
+  "source": "/workspace/ymzz-v2-20261116-2221/ymzz/ymzz/branding/icon.svg",
+  "sourceSha256": "c3acc8a88148cadc3648f1a3b5c14b78d2bdf19c3d985ae7e6eeb0fbf14b0872",
+  "embeddedDeclaredMime": "image/png",
+  "embeddedMagic": "ffd8ffe0",
+  "embeddedFormat": "JPEG",
+  "embeddedSize": [
+    1536,
+    1536
+  ],
+  "outputs": {
+    "icon-1536.png": {
+      "file": "icon-1536.png",
+      "bytes": 1404350,
+      "sha256": "084f27b549422d8d0faa9ed61512e20dc0730a7ead1ef3da49afa81c5722a4fb"
+    },
+    "preview-512.png": {
+      "file": "preview-512.png",
+      "bytes": 276388,
+      "sha256": "cbcbf6e9f10fef6b02b0d675d9b0d74af5b8b642f0cde75340cfa4e8857374da"
+    },
+    "icon-1024.png": {
+      "file": "icon-1024.png",
+      "bytes": 798710,
+      "sha256": "5c2a92d369ba06c9a2e75afa960b40f757877a86e8ddace5b1411a8a503bbda5"
+    },
+    "icon-1104.png": {
+      "file": "icon-1104.png",
+      "bytes": 806833,
+      "sha256": "84e488ec3cb00a304ec32999ea99828b67b22a7fb10ea8a4bde66efd6f4565a7"
+    },
+    "icon-192.png": {
+      "file": "icon-192.png",
+      "bytes": 57850,
+      "sha256": "0f8d1f8c26b753185d90ec803975629039c1b696121d96f3b3640b9e128abcc6"
+    },
+    "icon-180.png": {
+      "file": "icon-180.png",
+      "bytes": 52547,
+      "sha256": "4e5e6cb798706ce31d22d4f7f2788674fe7241ded631d3b769d8379f108f0c87"
+    },
+    "icon-maskable-512.png": {
+      "file": "icon-maskable-512.png",
+      "bytes": 209948,
+      "sha256": "5856ed4ec2baa40d565ee25624ebc1e21a54dba26f79d96c61fc756907ebe61f"
+    },
+    "tray-windows.ico": {
+      "file": "tray-windows.ico",
+      "bytes": 27309,
+      "sha256": "c82d651290ffb0f1d4a367908b7abd2683568ce048ee85557fb7c255d96d8113"
+    },
+    "icon.ico": {
+      "file": "icon.ico",
+      "bytes": 144134,
+      "sha256": "1e8470ca6e0ed93b779c194255cabce86b966e697d9878aa369d3f4238251663"
+    },
+    "favicon-256.png": {
+      "file": "favicon-256.png",
+      "bytes": 92381,
+      "sha256": "66469dcaa7788868b41debf5e89bbbcd53d5d8a025956ea9e8ab16adff5027ea"
+    },
+    "favicon.svg": {
+      "file": "favicon.svg",
+      "bytes": 246704,
+      "sha256": "22cbfea31e712b1c5540c6e1f6b7fcb1884ca886edc39c1a4d00602a7c1cfed6"
+    }
+  },
+  "notes": {
+    "svgExecution": "never; data URI extracted by text scan only",
+    "maskable": "artwork scaled to 82% on the source corner colour, no redesign",
+    "icon-1104": "1024 artwork placed at DSH tile inset (40, 32) on a transparent 1104 canvas"
+  }
+}

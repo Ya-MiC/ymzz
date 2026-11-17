@@ -1,12 +1,14 @@
 # 湛箴_ymzz
 
+<img src="ymzz/branding/generated/preview-512.png" width="88" alt="湛箴_ymzz 使用者提供的產品圖標">
+
 **以完整 DeepSeek Harness 為底、透過原生插件擴充的本機優先智能體發行版；不重寫 runtime、不改原生元件位置。**
 
 > 深淵的清澈的水，纂刻于竹篾上的痕，珍重微小，有所依據，立傳傳世
 
 [English](README.md) · [發佈頁](https://github.com/Ya-MiC/ymzz/releases) · [路線圖](ROADMAP.md)
 
-已完成 **M1 倉庫基礎**，不是成品交付。本 fork 尚未通過 M2 基線，沒有已驗收的 湛箴_ymzz Windows 安裝包；品牌／四主題／新增插件尚未套入應用程式。預裝 ymzz 插件：**尚無**。
+已完成 **M1 倉庫基礎**，不是成品交付。本 fork 尚未通過 M2 基線，沒有已驗收的 湛箴_ymzz Windows 安裝包。產品圖標已套入已核對的桌面／工作列／安裝包來源與網頁 favicon 資源，但產品名稱、四主題與新增插件尚未套入應用程式。預裝 ymzz 插件：**尚無**。
 
 | 平台 | 狀態 |
 |---|---|
