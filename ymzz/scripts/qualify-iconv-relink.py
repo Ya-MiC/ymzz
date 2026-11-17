@@ -57,6 +57,7 @@ for name,digest in libs:
  roots.append(next(d for d in target.iterdir()if d.is_dir()))
 lxmlArchive=fetch('https://files.pythonhosted.org/packages/23/ad/28ecd7cb894d172f3c9c80a075eeeb2017ac62e3632cee05a5f9493547eb/lxml-6.1.3.tar.gz','45222d94ddd511536f3b2f7d9deae3b2339b4ce0f075f1ca25703b07cad9dd21','lxml-source.tar.gz')
 lxml=untar(lxmlArchive,work/'lxml-source');env=os.environ.copy();env.pop('STATICBUILD',None);env.pop('STATIC_DEPS',None)
+env['CFLAGS']='/DLIBXML_STATIC /DLIBXSLT_STATIC /DLIBEXSLT_STATIC /DLIBICONV_STATIC'
 env['INCLUDE']=';'.join([str(iconv/'source/include'),*[str(r/'include')for r in roots],env.get('INCLUDE','')]);env['LIBRARY']=';'.join([str(linkdir),*[str(r/'lib')for r in roots]])
 run([sys.executable,'setup.py','--static','--without-cython','build_ext','--inplace'],cwd=lxml,env=env)
 code="import sys,json;sys.path.insert(0,sys.argv[1]);from lxml import etree;assert etree.ICONV_COMPILED_VERSION==(1,18),etree.ICONV_COMPILED_VERSION;assert etree.fromstring(b'<root>caf\\xe9</root>',etree.XMLParser(encoding='ISO-8859-1')).text=='caf\u00e9';print(json.dumps({'modifiedTestIconvCompiled':etree.ICONV_COMPILED_VERSION,'libxml':etree.LIBXML_COMPILED_VERSION,'libxslt':etree.LIBXSLT_COMPILED_VERSION,'lxml':etree.LXML_VERSION}))"

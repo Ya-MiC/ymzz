@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "scope": "Actual native original/modified iconv static-library source rebuild and C relink passed; lxml extension rebuild still pending",
+  "buildPython": "3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)]",
+  "originalIconvGitlink": "880a1fa8b5581e37e136a7b051947d3ea39097b6",
+  "originalHeaderSHA256": "212dec8135b542f78dc34a6cddb59ad0665125b2c6ace6ce631778a07cb1d5be",
+  "modifiedTestHeaderSHA256": "f741343451bc09aa9132925c0c02746d29b5fe7fbb03ee8be62557fdb241b8ab",
+  "testOnlyMetadataModificationIsNotGNUIconv18": true,
+  "originalAndModifiedStaticRelinkUTF8ConversionPassed": true,
+  "actualModifiedLxmlRebuild": false,
+  "inputs": [
+    {
+      "url": "https://codeload.github.com/winlibs/libiconv/tar.gz/880a1fa8b5581e37e136a7b051947d3ea39097b6",
+      "sha256": "89dd45d7f074ddae04dcd25cc4ceace3432c04b72dc36a6508854aac713f3eb6",
+      "bytes": 5313881
+    }
+  ],
+  "productionRuntimeChanged": false,
+  "releaseCleared": false
+}
