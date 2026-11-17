@@ -20,3 +20,5 @@ Tabler Icons, MIT, `licenses/tabler-icons-LICENSE.txt`.
 
 - Public Loop site HTML/CSS grammar: https://ya-mic.github.io/ymzz-loop/ and https://github.com/Ya-MiC/ymzz-loop
 - Wenrun tokens and four palettes: https://github.com/Ya-MiC/ymzz-wenrun-design-skill
+
+Loop is a completed, separate project-management product. Visual reference only: no Loop application/runtime, data, installers, or migration code is included in the Agent.

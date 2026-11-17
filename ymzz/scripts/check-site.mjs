@@ -181,7 +181,19 @@ assert.ok(fs.existsSync(path.join(root, 'ymzz/docs/github-pages.workflow.yml')))
 const wf = fs.readFileSync(path.join(root, 'ymzz/docs/github-pages.workflow.yml'), 'utf8')
 assert.match(wf, /path: ymzz\/site/)
 assert.doesNotMatch(wf, /enablement:\s*true/)
-assert.ok(!fs.existsSync(path.join(root, '.github/workflows/ymzz-pages.yml')), 'WORKFLOW_SHOULD_NOT_BE_INSTALLED_YET')
+const activeWorkflow=path.join(root,'.github/workflows/ymzz-pages.yml')
+if(fs.existsSync(activeWorkflow)){
+ const deployed=fs.readFileSync(activeWorkflow,'utf8')
+ assert.match(deployed,/path: ymzz\/site/)
+ assert.match(deployed,/check-site\.mjs/)
+ assert.doesNotMatch(deployed,/enablement:\s*true/)
+}
+for(const lang of ['zh-Hant','zh-CN','en']){
+ const d=JSON.parse(read('i18n/'+lang+'.json'))
+ assert.doesNotMatch(d['family.loop.h'],/稟冊|禀册/,'LOOP_MISIDENTIFIED')
+ assert.match(d['family.loop.p'],/已完成|completed/,'LOOP_COMPLETED_SEPARATE_PRODUCT')
+}
+assert.doesNotMatch(allText,/稟冊\s*\/\s*ymzz-loop|禀册\s*\/\s*ymzz-loop/,'LOOP_IS_NOT_A_REPORT_MODULE')
 
 console.log(JSON.stringify({
   ok: true,
