@@ -25,7 +25,7 @@
     },
     "upstreamArchive": "archive/upstream-dsh-icons"
   },
-  "applicationBrandingApplied": false,
+  "applicationBrandingApplied": true,
   "layout": "Preserve native DSH component placement",
   "themes": [
     "雲箋淺",

@@ -3,6 +3,7 @@
 // icon resources only. Does not rename packages, edit runtime, or change
 // DSH layout. Archives previous/upstream icon bytes instead of deleting them.
 import { spawnSync } from 'node:child_process'
+import { applyApplicationBranding } from './application-branding.mjs'
 import { createHash } from 'node:crypto'
 import fs from 'node:fs'
 import path from 'node:path'
@@ -239,6 +240,7 @@ export function applyBranding({ dryRun = false } = {}) {
 function main() {
   const dryRun = process.argv.includes('--dry-run')
   const report = applyBranding({ dryRun })
+  if (process.argv.includes('--application')) report.application = applyApplicationBranding({ dryRun })
   console.log(JSON.stringify(report, null, 2))
 }
 
