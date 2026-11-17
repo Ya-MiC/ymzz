@@ -8,7 +8,7 @@ concurrency:
   cancel-in-progress: false
 jobs:
   source-relink:
-    runs-on: windows-latest
+    runs-on: windows-2022
     timeout-minutes: 35
     steps:
       - uses: actions/checkout@v4
