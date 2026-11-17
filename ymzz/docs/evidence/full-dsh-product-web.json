@@ -1,0 +1,497 @@
+{
+  "testedAtKST": "2026-11-17T14:27:23.755924+09:00",
+  "fullUpstreamApp": true,
+  "upstream": "39163dd30f703a79079e2d2446545cff3c453738",
+  "pnpm": "11.28.5",
+  "buildArtifacts": "8 gates passed",
+  "engine": "FULL official DeepSeek Harness",
+  "plugin": "ymzz-product",
+  "modelConfigured": false,
+  "modelInferenceVerified": false,
+  "approvals": [
+    "ymzz_read",
+    "ymzz_read",
+    "ymzz_patch",
+    "ymzz_test",
+    "ymzz_patch",
+    "ymzz_test",
+    "ymzz_read",
+    "ymzz_read",
+    "ymzz_patch",
+    "ymzz_test",
+    "ymzz_patch",
+    "ymzz_test"
+  ],
+  "liveInference": false,
+  "deterministicFixture": true,
+  "tasks": [
+    {
+      "id": "4dc74ee7-01b6-460a-a364-7f32479a0d65",
+      "state": "accepted",
+      "title": "修正 add(2,3)：明確假模型／真實 DSH 工具",
+      "testFile": "calculator.test.mjs",
+      "pendingWrite": false,
+      "agentStatus": "idle",
+      "mode": "offline-fixture",
+      "round": 8,
+      "gates": [
+        {
+          "passed": false,
+          "exitCode": 1
+        },
+        {
+          "passed": true,
+          "exitCode": 0
+        }
+      ],
+      "error": "",
+      "changed": [
+        {
+          "path": "calculator.mjs",
+          "before": "export function add(a, b) { return a - b; }\n",
+          "beforeExists": true,
+          "after": "export function add(a, b) { return a + b; }\n"
+        }
+      ],
+      "memory": true
+    },
+    {
+      "id": "822d2566-fd0b-42aa-8d18-ecfb9a2a69d8",
+      "state": "rolled-back",
+      "title": "修正 add(2,3)：明確假模型／真實 DSH 工具",
+      "testFile": "calculator.test.mjs",
+      "pendingWrite": false,
+      "agentStatus": "idle",
+      "mode": "offline-fixture",
+      "round": 8,
+      "gates": [
+        {
+          "passed": false,
+          "exitCode": 1
+        },
+        {
+          "passed": true,
+          "exitCode": 0
+        }
+      ],
+      "error": "",
+      "changed": [
+        {
+          "path": "calculator.mjs",
+          "before": "export function add(a, b) { return a - b; }\n",
+          "beforeExists": true,
+          "after": "export function add(a, b) { return a + b; }\n"
+        }
+      ],
+      "memory": false
+    },
+    {
+      "id": "852114a1-ef8a-45c2-86ee-44854a1300c4",
+      "state": "interrupted",
+      "title": "修正 add(2,3)：明確假模型／真實 DSH 工具",
+      "testFile": "calculator.test.mjs",
+      "pendingWrite": false,
+      "agentStatus": "idle",
+      "mode": "offline-fixture",
+      "round": 2,
+      "gates": [],
+      "error": "TOOL_NOT_APPROVED",
+      "changed": [],
+      "memory": false
+    }
+  ],
+  "adversarial": [
+    "unauthenticated route blocked",
+    "cross-site mutation blocked",
+    "invalid nickname rejected",
+    "unknown approval rejected",
+    "review requires human consent",
+    "post-gate test edit blocks acceptance",
+    "duplicate memory rejected",
+    "denied tool cancels native agent without writes",
+    "remote endpoint rejected",
+    "no-provider task rejected",
+    "plugin task evidence exported from actual tasks"
+  ],
+  "evidenceValid": true,
+  "events": [
+    {
+      "id": "4dc74ee7-01b6-460a-a364-7f32479a0d65",
+      "kind": "dsh-agent-created",
+      "payload": {
+        "engine": "@deepseek-ai/dsh-agent-loop",
+        "transport": "explicit deterministic fixture",
+        "liveInference": false
+      },
+      "prev": "0000000000000000000000000000000000000000000000000000000000000000",
+      "hash": "d186c1e521bac7e104dd025c1fd640be35b15e68b9156207f356588bdb9b83f7"
+    },
+    {
+      "id": "4dc74ee7-01b6-460a-a364-7f32479a0d65",
+      "kind": "human-tool-approval",
+      "payload": {
+        "tool": "ymzz_read",
+        "allowed": true
+      },
+      "prev": "d186c1e521bac7e104dd025c1fd640be35b15e68b9156207f356588bdb9b83f7",
+      "hash": "d2c4ad32782afa890ae41e3ae9cb167b5e98eb34c3162d95bc2c7f746279fd27"
+    },
+    {
+      "id": "4dc74ee7-01b6-460a-a364-7f32479a0d65",
+      "kind": "read",
+      "payload": {
+        "path": "calculator.mjs",
+        "hash": "1ede7a44da5464fef7aea5b514ee532ec0ff93089311caf491946e1bcba94d4f"
+      },
+      "prev": "d2c4ad32782afa890ae41e3ae9cb167b5e98eb34c3162d95bc2c7f746279fd27",
+      "hash": "6832a8dad6be89c85f3461a01c6cd5e4f00845b2b2a822461c9a6df2eb145f5f"
+    },
+    {
+      "id": "4dc74ee7-01b6-460a-a364-7f32479a0d65",
+      "kind": "human-tool-approval",
+      "payload": {
+        "tool": "ymzz_read",
+        "allowed": true
+      },
+      "prev": "6832a8dad6be89c85f3461a01c6cd5e4f00845b2b2a822461c9a6df2eb145f5f",
+      "hash": "6381bc9a9aa458ac45b0a76a705a70ee0acdc05833263ca9eab2e9be817567ed"
+    },
+    {
+      "id": "4dc74ee7-01b6-460a-a364-7f32479a0d65",
+      "kind": "read",
+      "payload": {
+        "path": "calculator.test.mjs",
+        "hash": "f7e4718aa06b25cb3d53bf8983df792cb74fda069f7ac34614bf5afff6cb9abf"
+      },
+      "prev": "6381bc9a9aa458ac45b0a76a705a70ee0acdc05833263ca9eab2e9be817567ed",
+      "hash": "896d97fd4ab1d0d495646204d39fbabf36bf04148e9ff0fc375b0ca70a303666"
+    },
+    {
+      "id": "4dc74ee7-01b6-460a-a364-7f32479a0d65",
+      "kind": "human-tool-approval",
+      "payload": {
+        "tool": "ymzz_patch",
+        "allowed": true
+      },
+      "prev": "896d97fd4ab1d0d495646204d39fbabf36bf04148e9ff0fc375b0ca70a303666",
+      "hash": "948495e1bf28fee94e3bfe6ea302cb28b7526502aea37da1da83ac479d6cac82"
+    },
+    {
+      "id": "4dc74ee7-01b6-460a-a364-7f32479a0d65",
+      "kind": "patch",
+      "payload": {
+        "path": "calculator.mjs",
+        "before": "1ede7a44da5464fef7aea5b514ee532ec0ff93089311caf491946e1bcba94d4f",
+        "after": "f2d8645e9d41dd6af37b0454dfdeb26499ed48a9b0da7436647dbf9128cbc667"
+      },
+      "prev": "948495e1bf28fee94e3bfe6ea302cb28b7526502aea37da1da83ac479d6cac82",
+      "hash": "aa4a53c5dc276fb4399a2e6e153d39cc52203762efa85761f75b03115f7270c4"
+    },
+    {
+      "id": "4dc74ee7-01b6-460a-a364-7f32479a0d65",
+      "kind": "human-tool-approval",
+      "payload": {
+        "tool": "ymzz_test",
+        "allowed": true
+      },
+      "prev": "aa4a53c5dc276fb4399a2e6e153d39cc52203762efa85761f75b03115f7270c4",
+      "hash": "6770b1cd1200f9e2a8bbce8b60b339d7c7d99402f07c0d91a5462fa332c62a33"
+    },
+    {
+      "id": "4dc74ee7-01b6-460a-a364-7f32479a0d65",
+      "kind": "gate",
+      "payload": {
+        "passed": false,
+        "exitCode": 1,
+        "outputHash": "9afe0703a2764b47520cc6a5b5c7f635801d0f85137ce437d420e0eaf9694073"
+      },
+      "prev": "6770b1cd1200f9e2a8bbce8b60b339d7c7d99402f07c0d91a5462fa332c62a33",
+      "hash": "e9303e24394c3d8b6f8fadcd37f7ef1df06abee8d5a71012b94e6f5fe2e92a9d"
+    },
+    {
+      "id": "4dc74ee7-01b6-460a-a364-7f32479a0d65",
+      "kind": "human-tool-approval",
+      "payload": {
+        "tool": "ymzz_patch",
+        "allowed": true
+      },
+      "prev": "e9303e24394c3d8b6f8fadcd37f7ef1df06abee8d5a71012b94e6f5fe2e92a9d",
+      "hash": "1f342a92c5fe5a62392760b145b0da42a9fd9d9c89fb9216a184e0b96dde0459"
+    },
+    {
+      "id": "4dc74ee7-01b6-460a-a364-7f32479a0d65",
+      "kind": "patch",
+      "payload": {
+        "path": "calculator.mjs",
+        "before": "f2d8645e9d41dd6af37b0454dfdeb26499ed48a9b0da7436647dbf9128cbc667",
+        "after": "76f26bd292166033d02e77bdb8fe6aec01e915ccb8cb3f93b8971f9dcd78250e"
+      },
+      "prev": "1f342a92c5fe5a62392760b145b0da42a9fd9d9c89fb9216a184e0b96dde0459",
+      "hash": "42ed5c19c988f23fa475d36ea8a9d16dea7e52c6a79bcce5362d15d39cd6b2e0"
+    },
+    {
+      "id": "4dc74ee7-01b6-460a-a364-7f32479a0d65",
+      "kind": "human-tool-approval",
+      "payload": {
+        "tool": "ymzz_test",
+        "allowed": true
+      },
+      "prev": "42ed5c19c988f23fa475d36ea8a9d16dea7e52c6a79bcce5362d15d39cd6b2e0",
+      "hash": "df8f68a27db87e1c5f879672bc58a76837d379e491a145845d06c2f1e380509e"
+    },
+    {
+      "id": "4dc74ee7-01b6-460a-a364-7f32479a0d65",
+      "kind": "gate",
+      "payload": {
+        "passed": true,
+        "exitCode": 0,
+        "outputHash": "3caea6d4e1c7671a903cba0de61ed8c9ace6a47855737e1e2a2ec856413c0f35"
+      },
+      "prev": "df8f68a27db87e1c5f879672bc58a76837d379e491a145845d06c2f1e380509e",
+      "hash": "35a7957d6574b1783129b875000eebb854da3062eeaf18f285de3c379dae4707"
+    },
+    {
+      "id": "4dc74ee7-01b6-460a-a364-7f32479a0d65",
+      "kind": "dsh-loop-completed",
+      "payload": {
+        "gates": [
+          {
+            "passed": false,
+            "exitCode": 1
+          },
+          {
+            "passed": true,
+            "exitCode": 0
+          }
+        ],
+        "revision": 2
+      },
+      "prev": "35a7957d6574b1783129b875000eebb854da3062eeaf18f285de3c379dae4707",
+      "hash": "db4f3eac0f32fa047812d772a474ab56f55ab81701b3653022bc49f7ab5dba86"
+    },
+    {
+      "id": "4dc74ee7-01b6-460a-a364-7f32479a0d65",
+      "kind": "accepted",
+      "payload": {
+        "files": [
+          "calculator.mjs"
+        ]
+      },
+      "prev": "db4f3eac0f32fa047812d772a474ab56f55ab81701b3653022bc49f7ab5dba86",
+      "hash": "88ce552eb7eac6eb555b6766b0962eaa433f24fb9136260d28a3aaba84cbd4fb"
+    },
+    {
+      "id": "4dc74ee7-01b6-460a-a364-7f32479a0d65",
+      "kind": "memory-confirmed",
+      "payload": {},
+      "prev": "88ce552eb7eac6eb555b6766b0962eaa433f24fb9136260d28a3aaba84cbd4fb",
+      "hash": "648e002c4bd593f54c17249207370d7ede4cb53d26dd1aca5337b277ac354f93"
+    },
+    {
+      "id": "822d2566-fd0b-42aa-8d18-ecfb9a2a69d8",
+      "kind": "dsh-agent-created",
+      "payload": {
+        "engine": "@deepseek-ai/dsh-agent-loop",
+        "transport": "explicit deterministic fixture",
+        "liveInference": false
+      },
+      "prev": "648e002c4bd593f54c17249207370d7ede4cb53d26dd1aca5337b277ac354f93",
+      "hash": "b3f7ea23a81fb7ffd03e5dbd57867608af0c9b77b61e146fe05616cc2696898c"
+    },
+    {
+      "id": "822d2566-fd0b-42aa-8d18-ecfb9a2a69d8",
+      "kind": "human-tool-approval",
+      "payload": {
+        "tool": "ymzz_read",
+        "allowed": true
+      },
+      "prev": "b3f7ea23a81fb7ffd03e5dbd57867608af0c9b77b61e146fe05616cc2696898c",
+      "hash": "3f01b838322704755f2817943d317528e882e78c5c534f4e31fb3b1ed875b453"
+    },
+    {
+      "id": "822d2566-fd0b-42aa-8d18-ecfb9a2a69d8",
+      "kind": "read",
+      "payload": {
+        "path": "calculator.mjs",
+        "hash": "1ede7a44da5464fef7aea5b514ee532ec0ff93089311caf491946e1bcba94d4f"
+      },
+      "prev": "3f01b838322704755f2817943d317528e882e78c5c534f4e31fb3b1ed875b453",
+      "hash": "b8d1212384f245a1e9f6a1ad1a0e9358892b14ee43061a8c23d16412c6ee0c1a"
+    },
+    {
+      "id": "822d2566-fd0b-42aa-8d18-ecfb9a2a69d8",
+      "kind": "human-tool-approval",
+      "payload": {
+        "tool": "ymzz_read",
+        "allowed": true
+      },
+      "prev": "b8d1212384f245a1e9f6a1ad1a0e9358892b14ee43061a8c23d16412c6ee0c1a",
+      "hash": "762f31beb2abd56db8910fe29c36ec5410366b9d80d434f89ff7bb5afe59cac0"
+    },
+    {
+      "id": "822d2566-fd0b-42aa-8d18-ecfb9a2a69d8",
+      "kind": "read",
+      "payload": {
+        "path": "calculator.test.mjs",
+        "hash": "f7e4718aa06b25cb3d53bf8983df792cb74fda069f7ac34614bf5afff6cb9abf"
+      },
+      "prev": "762f31beb2abd56db8910fe29c36ec5410366b9d80d434f89ff7bb5afe59cac0",
+      "hash": "527f1c5d675dcd3116b5317a6824ef8b8aeac39513e22639517e7b8149dc796a"
+    },
+    {
+      "id": "822d2566-fd0b-42aa-8d18-ecfb9a2a69d8",
+      "kind": "human-tool-approval",
+      "payload": {
+        "tool": "ymzz_patch",
+        "allowed": true
+      },
+      "prev": "527f1c5d675dcd3116b5317a6824ef8b8aeac39513e22639517e7b8149dc796a",
+      "hash": "4fa92c91e2bdd8ab7292b424c6ef8336ccf0af8e8bf40a40b56f9b9c02ccd69a"
+    },
+    {
+      "id": "822d2566-fd0b-42aa-8d18-ecfb9a2a69d8",
+      "kind": "patch",
+      "payload": {
+        "path": "calculator.mjs",
+        "before": "1ede7a44da5464fef7aea5b514ee532ec0ff93089311caf491946e1bcba94d4f",
+        "after": "f2d8645e9d41dd6af37b0454dfdeb26499ed48a9b0da7436647dbf9128cbc667"
+      },
+      "prev": "4fa92c91e2bdd8ab7292b424c6ef8336ccf0af8e8bf40a40b56f9b9c02ccd69a",
+      "hash": "d7cd3ba07ddf507f32368d31311dade87d1617b087779e1e1ead13c910167ba6"
+    },
+    {
+      "id": "822d2566-fd0b-42aa-8d18-ecfb9a2a69d8",
+      "kind": "human-tool-approval",
+      "payload": {
+        "tool": "ymzz_test",
+        "allowed": true
+      },
+      "prev": "d7cd3ba07ddf507f32368d31311dade87d1617b087779e1e1ead13c910167ba6",
+      "hash": "4b273c250ae7e0fd39f5cd7afc0b6c8e8f8f5ebbfa002c917fd8231002b73279"
+    },
+    {
+      "id": "822d2566-fd0b-42aa-8d18-ecfb9a2a69d8",
+      "kind": "gate",
+      "payload": {
+        "passed": false,
+        "exitCode": 1,
+        "outputHash": "154102eb7480718c571949ff448d35d8a7a95a084d29f4c5c654b8be98b72d41"
+      },
+      "prev": "4b273c250ae7e0fd39f5cd7afc0b6c8e8f8f5ebbfa002c917fd8231002b73279",
+      "hash": "74219a6ba1c69d467a28bf7d73388751dc3917efdb30c558975e9eb4253d4d49"
+    },
+    {
+      "id": "822d2566-fd0b-42aa-8d18-ecfb9a2a69d8",
+      "kind": "human-tool-approval",
+      "payload": {
+        "tool": "ymzz_patch",
+        "allowed": true
+      },
+      "prev": "74219a6ba1c69d467a28bf7d73388751dc3917efdb30c558975e9eb4253d4d49",
+      "hash": "da9002ecfd1215b90fb1ffb162f2d8943e73b9caebe8bc0e26fddff6731d19a4"
+    },
+    {
+      "id": "822d2566-fd0b-42aa-8d18-ecfb9a2a69d8",
+      "kind": "patch",
+      "payload": {
+        "path": "calculator.mjs",
+        "before": "f2d8645e9d41dd6af37b0454dfdeb26499ed48a9b0da7436647dbf9128cbc667",
+        "after": "76f26bd292166033d02e77bdb8fe6aec01e915ccb8cb3f93b8971f9dcd78250e"
+      },
+      "prev": "da9002ecfd1215b90fb1ffb162f2d8943e73b9caebe8bc0e26fddff6731d19a4",
+      "hash": "05abb4cb5f9b0bfce30483f12e1eb508cc557969f91641fbea18fdfae065e29e"
+    },
+    {
+      "id": "822d2566-fd0b-42aa-8d18-ecfb9a2a69d8",
+      "kind": "human-tool-approval",
+      "payload": {
+        "tool": "ymzz_test",
+        "allowed": true
+      },
+      "prev": "05abb4cb5f9b0bfce30483f12e1eb508cc557969f91641fbea18fdfae065e29e",
+      "hash": "7ef95524b871ef405550a5e5dea390f0177fb697f19a21fcd5bad0271dba424e"
+    },
+    {
+      "id": "822d2566-fd0b-42aa-8d18-ecfb9a2a69d8",
+      "kind": "gate",
+      "payload": {
+        "passed": true,
+        "exitCode": 0,
+        "outputHash": "97dfd60fc8d60ea9762cd022a69ad6be3c63b6dcc26e351a8d86dca47d8e73d7"
+      },
+      "prev": "7ef95524b871ef405550a5e5dea390f0177fb697f19a21fcd5bad0271dba424e",
+      "hash": "847d60afb42ea44ecdc3a4e0e7ab5d332b892d6f0409570e291785cf680fd93e"
+    },
+    {
+      "id": "822d2566-fd0b-42aa-8d18-ecfb9a2a69d8",
+      "kind": "dsh-loop-completed",
+      "payload": {
+        "gates": [
+          {
+            "passed": false,
+            "exitCode": 1
+          },
+          {
+            "passed": true,
+            "exitCode": 0
+          }
+        ],
+        "revision": 2
+      },
+      "prev": "847d60afb42ea44ecdc3a4e0e7ab5d332b892d6f0409570e291785cf680fd93e",
+      "hash": "7f75059aaffca98fd8a88e8f5ce160790c4cd8b7b4368b208425f1d0ec42372f"
+    },
+    {
+      "id": "822d2566-fd0b-42aa-8d18-ecfb9a2a69d8",
+      "kind": "rolled-back",
+      "payload": {
+        "files": [
+          "calculator.mjs"
+        ]
+      },
+      "prev": "7f75059aaffca98fd8a88e8f5ce160790c4cd8b7b4368b208425f1d0ec42372f",
+      "hash": "5fdf0e7d0c0ff749c7a2f20dd754aa7eac2553e958cde1ec2b1c897ad936969f"
+    },
+    {
+      "id": "852114a1-ef8a-45c2-86ee-44854a1300c4",
+      "kind": "dsh-agent-created",
+      "payload": {
+        "engine": "@deepseek-ai/dsh-agent-loop",
+        "transport": "explicit deterministic fixture",
+        "liveInference": false
+      },
+      "prev": "5fdf0e7d0c0ff749c7a2f20dd754aa7eac2553e958cde1ec2b1c897ad936969f",
+      "hash": "fffc0c926c7532888a08e72d265d7664f8e5d72bd491f2d8d8698b88d515f85f"
+    },
+    {
+      "id": "852114a1-ef8a-45c2-86ee-44854a1300c4",
+      "kind": "human-tool-approval",
+      "payload": {
+        "tool": "ymzz_read",
+        "allowed": false
+      },
+      "prev": "fffc0c926c7532888a08e72d265d7664f8e5d72bd491f2d8d8698b88d515f85f",
+      "hash": "673e92699893360dc5700caf584cef4879b490f2b5777ddf33268bffdf0f498e"
+    }
+  ],
+  "documentTitle": "湛箴_ymzz",
+  "titleAuthenticatedHTTPVerified": true,
+  "nativeClientPluginBuilt": true,
+  "nativeSlotBrowserVisualVerified": false,
+  "dataPathContainsChineseAndSpace": true,
+  "ownLauncher": "ymzz/scripts/dev.mjs",
+  "realModelInferenceVerified": false,
+  "windowsPackagedGUIVerified": false,
+  "unitTests": {
+    "passed": 50,
+    "failed": 0,
+    "skipped": 0
+  },
+  "sourcePreservation": "check-product-source.mjs passed; zero external dependency versions added;596 pinned instruction files byte-identical",
+  "completeArtifactBuild": {
+    "passed": 8,
+    "failed": 0,
+    "skipped": 0,
+    "seconds": 30.53
+  }
+}

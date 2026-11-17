@@ -1,0 +1,90 @@
+name: ymzz Windows source qualification (not an installer release)
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: ymzz-windows-source
+  cancel-in-progress: false
+jobs:
+  native-runtime-and-preflight:
+    runs-on: windows-latest
+    timeout-minutes: 45
+    env:
+      DSH_TELEMETRY_DISABLED: "1"
+      PYTHONUTF8: "1"
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24.22.1
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - name: Activate exact pinned pnpm and install frozen graph
+        shell: pwsh
+        run: |
+          corepack enable
+          corepack pnpm --version
+          corepack pnpm install --frozen-lockfile
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - name: Verify preserved source, icon bytes, website and actual tools
+        shell: pwsh
+        run: |
+          node ymzz/scripts/check-product-source.mjs
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          node ymzz/scripts/check-icons.mjs
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          node ymzz/scripts/check-site.mjs
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          node --test packages/ymzz/product/tests/*.test.mjs
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - name: Build complete official DSH artifacts, including native ymzz client plugin
+        shell: pwsh
+        run: corepack pnpm run build:artifacts
+      - name: Real full DSH approval, failure-repair, acceptance, memory and rollback in Chinese-space data path
+        shell: pwsh
+        run: |
+          $env:YMZZ_HOME = Join-Path $env:RUNNER_TEMP '湛箴 中文 space'
+          $env:YMZZ_AGENTS_HOME = Join-Path $env:YMZZ_HOME 'agents'
+          $log = Join-Path $env:RUNNER_TEMP 'private-launch.log'
+          $errlog = Join-Path $env:RUNNER_TEMP 'private-launch-error.log'
+          $server = Start-Process -FilePath (Get-Command node).Source -ArgumentList @('ymzz/scripts/dev.mjs','--no-open','--port','3081') -RedirectStandardOutput $log -RedirectStandardError $errlog -PassThru -WorkingDirectory $env:GITHUB_WORKSPACE
+          try {
+            $ready = $false
+            for ($i=0; $i -lt 120; $i++) {
+              if (Test-Path $log) { if ((Get-Content $log -Raw) -match 'dsh web: http://127\.0\.0\.1:3081/\?token=') { $ready=$true; break } }
+              if ($server.HasExited) { throw 'Official DSH server exited before readiness; private authentication logs are not uploaded.' }
+              Start-Sleep -Seconds 1
+            }
+            if (-not $ready) { throw 'DSH readiness deadline exceeded; no token/log upload.' }
+            python ymzz/scripts/smoke-product.py --launch-log $log --state-file "$env:YMZZ_HOME/ymzz/tasks.json" --output ymzz/docs/evidence/windows-full-dsh-web.json
+            if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          } finally {
+            taskkill /PID $server.Id /T /F 2>$null
+            Remove-Item $log,$errlog -ErrorAction SilentlyContinue
+          }
+      - name: Audit actual Windows production dependencies (strict release gate)
+        if: always()
+        shell: pwsh
+        run: node ymzz/scripts/audit-production.mjs --enforce
+      - name: Official unsigned Windows packaging preflight (no invented policy service)
+        if: always()
+        shell: pwsh
+        run: |
+          @'
+          DSH_DESKTOP_APP_ID=me.yanming.ymzz
+          DSH_DESKTOP_AUTO_UPDATE_ENV=production
+          '@ | Set-Content -Encoding utf8 apps/desktop/.env.windows
+          corepack pnpm run package:desktop:win:x64:unsigned --check
+      - name: Preserve qualification evidence only, NEVER a failed/unqualified executable
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ymzz-windows-source-evidence-${{ github.sha }}
+          path: |
+            ymzz/docs/evidence/windows-full-dsh-web.json
+            ymzz/docs/evidence/production-license-win32.json
+          if-no-files-found: warn

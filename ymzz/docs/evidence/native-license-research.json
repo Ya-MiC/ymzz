@@ -1,0 +1,38 @@
+{
+  "checkedAtKST": "2026-11-17T14:11:20.642792+09:00",
+  "publicRegistryMetadata": [
+    {
+      "name": "@img/sharp-win32-x64",
+      "version": "0.35.5",
+      "license": "Apache-2.0 AND LGPL-3.0-or-later",
+      "integrity": "sha512-x76eH0vEiHlcMQu8Y8IenntaACtddpT6W0wmXtWrnKcnKI7ME5DdgqhAD6SEWOEl1v2zDvkZDhFA9KnURwpfqg=="
+    },
+    {
+      "name": "@deepseek-ai/libreoffice-kit",
+      "version": "0.2.3",
+      "license": "MPL-2.0",
+      "integrity": "sha512-MbpucYPrZpeec/smy7u8Z066JeQU6lMVK6A1oysUv1R/OATDvtlVmrsIlfcIz6bVbfJVpgregIK86dOdat9qdA=="
+    }
+  ],
+  "electronVersion": "^44.7.0",
+  "supportedSharpExclusionAssessment": {
+    "runtimeConsumer": "packages/attachment/attachment-local/src/sharp.ts:7",
+    "use": "first raster operation lazy-requires sharp; used by metadata, normalization and model request-image conversion",
+    "safeFeaturePreservingOptionalExclusionFound": false,
+    "reason": "Excluding the active platform binary without a separately qualified compatible replacement leaves sharp unable to perform the required raster operations."
+  },
+  "electronAlternativeAssessment": {
+    "officialCodecReducedFfmpeg": "https://github.com/electron/electron/blob/master/build/args/ffmpeg.gn",
+    "stillLGPL": true,
+    "licenseStatement": "https://www.ffmpeg.org/legal.html",
+    "reason": "The official patent-reduced FFmpeg build changes codec flags, not FFmpeg to a permissive license; cannot relabel it or silently remove media support."
+  },
+  "officeAssessment": {
+    "wrapperAndEngineLicense": "MPL-2.0",
+    "requiredNoticesAndSourceMaterials": true,
+    "reason": "Preserving the native/full Office capability retains the actual engine license; a DSH MIT wrapper does not relicense it."
+  },
+  "GPLorAGPLClaimedForTheseComponents": false,
+  "policyExceptionAssumed": false,
+  "releaseCleared": false
+}

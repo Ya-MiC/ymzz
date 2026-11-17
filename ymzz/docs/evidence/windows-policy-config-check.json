@@ -1,0 +1,8 @@
+{
+  "officialConfigurationAccepted": false,
+  "error": "desktop package: DSH_DESKTOP_MANDATORY_UPDATE_PROD_ORIGIN requires an HTTPS origin",
+  "nativeWindowsHost": false,
+  "configurationAPIOnly": true,
+  "upstreamPolicyUnchanged": true,
+  "originInvented": false
+}

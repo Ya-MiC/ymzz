@@ -1,3 +1,5 @@
+> 最新作者校正：Loop 是已完成、獨立的專案管理產品，不是 Agent 模組。以下保留歷史資產核對紀錄與當時的名稱；不代表要匯入、合併或遷移任何 Loop 程式、資料或安裝包。原倉庫與站點未更動。
+
 # Preserved 稟冊 / Loop — actual checks, not new-product claims
 
 Checked read-only on 2026-11-16 22:23 KST. No old source, site, branch, release or user data is deleted/modified by this check.

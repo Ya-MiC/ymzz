@@ -1,55 +1,69 @@
 # 湛箴_ymzz
 
-<img src="ymzz/branding/generated/preview-512.png" width="88" alt="湛箴_ymzz 使用者提供的產品圖標">
+<img src="ymzz/branding/generated/preview-512.png" width="88" alt="Owner-supplied 湛箴_ymzz product icon">
 
-**A local-first agent distribution of the complete DeepSeek Harness, extended through real plugins—not a rewritten runtime.**
+**The complete DeepSeek Harness application, with a small native ymzz plugin extension, our name/icon and four Wenrun themes. Not a rewritten agent runtime.**
 
 > 深淵的清澈的水，纂刻于竹篾上的痕，珍重微小，有所依據，立傳傳世
 
-[繁體中文](README.zh-Hant.md) · [Releases](https://github.com/Ya-MiC/ymzz/releases) · [Roadmap](ROADMAP.md) · [Preserved 稟冊](https://ya-mic.github.io/ymzz-loop/)
+[Official website](https://ya-mic.github.io/ymzz/) · [繁體中文](README.zh-Hant.md) · [Releases](https://github.com/Ya-MiC/ymzz/releases) · [Separate completed Loop product](https://ya-mic.github.io/ymzz-loop/)
 
-**Completed milestone: M1 repository foundation. No 湛箴_ymzz Windows installer has been qualified or published in this fork.** Original DSH chat, tools, agent runtime and plugin system remain upstream code. The owner-supplied product icon is applied to documented desktop, tray, installer-source and web favicon resources; product name, themes and plugins are not yet applied, and no packaged Windows installer has been rebuilt or verified. The next baseline gate is M2. Do not mistake old Tauri/稟冊 binaries or old-repository fake-transport demonstrations for this product.
+## Download / current status
 
-## Downloads
-
-| Platform | Status |
+| Platform | Availability |
 |---|---|
-| Windows x64 | v0.1.0 發佈後填 Release 連結 — not released or verified yet |
-| macOS | 計劃中 / Planned; not guaranteed in v0.1 |
-| Linux | 計劃中 / Planned; upstream does not target Linux desktop releases |
-| From source (any system) | Commands below; this fork's M2 build/run gate is pending |
+| Windows x64 | **Not released.** v0.1.0 發佈後填 Release 連結. Native packaging, GUI and license gates must pass first. |
+| macOS / Linux desktop | Planned; not guaranteed in v0.1. |
+| From source | Full DSH eight-gate artifact build and authenticated HTTP200 passed on Linux; actual native-agent tool/task tests passed. |
 
-## Run from source
+[Measured baseline](ymzz/docs/evidence/m2-baseline.json) · [Real full-DSH task evidence](ymzz/docs/evidence/full-dsh-product-web.json) · [Windows release hold](ymzz/docs/WINDOWS-BLOCKERS.md)
 
-Prerequisites: Node ≥24.9 (24.22.1 available on the development box), Git ≥2.26 and Corepack-enabled **pnpm 11.28.5**, pinned by the unchanged upstream `package.json`. Commands run at the repository root:
+No old Tauri/Loop installer is presented as this product. No live/paid/NIM inference has been performed. A deterministic fake model is explicitly labeled fake; its real DSH agent loop, tool approvals, file patches and failing→repair→passing Node tests are not mocks.
+
+## Three-step source setup
+
+Node≥24.9, Git≥2.26 and Corepack-enabled **pnpm11.28.5**, exactly pinned upstream. From the repository root:
 
 ```sh
 pnpm install
 pnpm run build:artifacts
-pnpm dsh web --no-open --port 3081
+pnpm exec node ymzz/scripts/dev.mjs --no-open --port 3081
 ```
 
-These are verified upstream entrypoints, **not a claim that M2 has passed in this checkout**. DSH's default data directory is `~/.dsh`; use `DSH_HOME` to choose a product-owned development profile. No model credentials are bundled and no live model inference was performed. Do not enter secrets in issue reports or logs.
+Open the private launch link printed locally; never publish its authentication token. The launcher runs the official DSH CLI and isolates source-run data under `~/.ymzz` (`YMZZ_HOME` overrides it); no registry edits or alternate runtime. The original `pnpm dsh web` remains available and uses upstream `DSH_HOME` behavior.
 
-## Preinstalled ymzz plugins
+## Native plugin map
 
-**None yet.** M4 must register a minimal real plugin before it appears here. Native DSH layout/component positions and the Wenrun palette are to be retained. The icon is the owner's actual image; no DeepSeek logo is presented as our product logo.
+One private workspace package, [`@ymzz/dsh-product`](packages/ymzz/product), is loaded by the **full** DSH web/desktop composition. Original DSH navigation, chat, workspace/file panels, model settings, tools and plugin system remain in their native positions.
 
-## Existing products are preserved
+| Extension | What actually exists |
+|---|---|
+| Brand / Wenrun | Original user SVG and generated icons; exact product title/EXE resource branding; native sidebar brand/footer slots and four registered themes: 雲箋淺、雲箋暗、陶土淺、陶土暗. Windows rendering/PE identity still needs GUI qualification. |
+| Bounded task / gates | Official `ctx.agents`, `ctx.tools`, `ctx.approval`; explicit proposals, selected-workspace read/write/patch, fixed Node test command, failure feedback, human diff accept/rollback, persistent tasks and confirmed memory. Not an OS/network sandbox. |
+| Local provider | Off-by-default loopback OpenAI-compatible adapter/settings; no API key handling or remote URLs. Protocol tests use labeled fake HTTP responses. A working real model is not claimed. General project picking uses the actual native DSH directory-picker service; Windows picker GUI remains unqualified. |
+| Skills |9 integrity-pinned instruction skills registered with official `ctx.skills`; third-party licenses retained. Scripts/CLI installs/network permission are NOT granted by installing instructions. |
+| Reviewed updates | Tested signature/hash/compatibility/license-checked local staging and staging rollback only. No live channel, installer/restart or maintainer signing key configured. |
 
-**稟冊 is a separate Tauri personal-work-report/file-management product**, with nickname onboarding, local conversations/files and review progress. Its repository, sites and drafts remain untouched. It is not renamed into this agent or represented as integrated merely because a link exists.
+First plugin opening asks for a nickname; without a consented real phone suffix the default is simply 用戶, never invented digits. User model setup remains explicit. Payment is owner-managed and outside this work.
 
-- [稟冊 / Loop website](https://ya-mic.github.io/ymzz-loop/) · [稟冊 onboarding](https://bingce.yanmingx0215.filegear-sg.me/#onboarding)
-- [稟冊 source and draft releases](https://github.com/Ya-MiC/ymzz-loop/releases) — draft visibility requires the appropriate GitHub account.
-- [Previous integration repository](https://github.com/Ya-MiC/ymzz-zhanzhen) stays intact; its old PR/builds are historical, not this fork's release.
-- [Verified legacy status and limitations](ymzz/docs/LEGACY-PRODUCTS.md) · [All retained resource links](ymzz/docs/RESOURCES.md)
+## Separate products stay separate
 
-## Maintainer / development
+**Loop is a completed, independent project-management product.** Its website is a visual reference only; no Loop runtime, Tauri app, data, installer or migration is imported into this Agent. Existing 稟冊 and other prior software/sites/downloads remain in their own repositories, unchanged.
 
-Only `master` is our mainline; all 34 inherited workflows are disabled manually without deleting their files ([actual M1 checks](ymzz/docs/evidence/m1-remote.json)). Preserve upstream files/packages and names (`@deepseek-ai/*`); additions live in `ymzz/` and `packages/ymzz/`. The original root README is retained [byte-for-byte](ymzz/docs/upstream/README.md).
+[Loop](https://ya-mic.github.io/ymzz-loop/) · [Independent evaluation site](https://bingce.yanmingx0215.filegear-sg.me/#onboarding) · [Preserved previous repository](https://github.com/Ya-MiC/ymzz-zhanzhen) · [Historical read-only asset verification](ymzz/docs/LEGACY-PRODUCTS.md)
 
-[Upstream sync](ymzz/docs/UPSTREAM-SYNC.md) · [Branding points](ymzz/docs/BRANDING-POINTS.md) · [Network inventory](ymzz/docs/NETWORK.md) · [Skills](ymzz/docs/SKILLS.md) · [Release gates](ymzz/docs/RELEASING.md)
+## Development / provenance
 
-No telemetry is added. Maintainer-reviewed updates and an Agent official site are planned; neither is claimed live. Payment configuration remains owner-managed. Dependencies and native payloads retain their actual licenses; the upstream MIT license is not a claim that every third-party binary is MIT.
+Only `master`. All34 inherited workflows stay disabled; only narrowly scoped ymzz workflows are enabled. No upstream file is deleted, no `@deepseek-ai/*` package is renamed, and no custom agent core replaces DSH. Added code is under `ymzz/` and `packages/ymzz/`; upstream changes are documented branding and necessary package registrations.
 
-Based on DeepSeek Harness (MIT). **Not an official DeepSeek product.** See [LICENSE](LICENSE), [NOTICE.md](NOTICE.md) and unchanged [upstream third-party notices](THIRD_PARTY_NOTICES.md).
+```sh
+node --test packages/ymzz/product/tests/*.test.mjs
+node ymzz/scripts/check-site.mjs
+node ymzz/scripts/audit-production.mjs --enforce
+```
+
+The last command currently **fails closed for distribution policy**; LGPL/MPL native dependencies are not falsely relabeled MIT or confused with GPL/AGPL. [Exact blockers and proposed approval scope](ymzz/docs/WINDOWS-BLOCKERS.md).
+
+[Branding points](ymzz/docs/BRANDING-POINTS.md) · [Network/disable controls](ymzz/docs/NETWORK.md) · [Skills/provenance](ymzz/docs/SKILLS.md) · [Upstream sync](ymzz/docs/UPSTREAM-SYNC.md) · [Original README](ymzz/docs/upstream/README.md) · [All source links](ymzz/docs/RESOURCES.md)
+
+Based on DeepSeek Harness (MIT). **Not an official DeepSeek product.** Added code is MIT; actual third-party licenses remain applicable. [LICENSE](LICENSE) · [NOTICE](NOTICE.md) · [Upstream notices](THIRD_PARTY_NOTICES.md).

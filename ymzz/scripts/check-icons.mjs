@@ -2,6 +2,7 @@
 // MIT. Focused checks for the 湛箴_ymzz icon source, archives, generated
 // outputs, documented resource copies, and apply-branding dry-run/idempotence.
 import assert from 'node:assert/strict'
+import { applyApplicationBranding } from '../branding/application-branding.mjs'
 import { createHash } from 'node:crypto'
 import fs from 'node:fs'
 import path from 'node:path'
@@ -51,7 +52,8 @@ assert.equal(brand.icon.source, 'icon.svg')
 assert.equal(brand.icon.sha256, SOURCE_SHA256)
 assert.equal(brand.icon.appliedToDocumentedResources, true)
 assert.equal(brand.icon.packagedWindowsVerified, false)
-assert.equal(brand.applicationBrandingApplied, false)
+assert.equal(brand.applicationBrandingApplied, true)
+assert.ok(applyApplicationBranding({ dryRun: true }).changes.every(change => !change.changed), 'text branding must be applied and idempotent')
 
 const sourcePath = path.join(branding, brand.icon.source)
 const source = fs.readFileSync(sourcePath)
