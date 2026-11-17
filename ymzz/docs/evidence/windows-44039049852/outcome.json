@@ -1,0 +1,17 @@
+{
+  "schema": 1,
+  "run": "https://github.com/Ya-MiC/ymzz/actions/runs/44039049852",
+  "sourceCommit": "c4b7668d51f2817a3c74f7e706c322c3f8789808",
+  "measuredPackagingFailureKST": "2026-11-17T16:38:42+09:00",
+  "sourceVerification": "passed: real PowerShell AST parse, 60 product tests, 26 packaging/license tests, 25 signed/unsigned policy tests",
+  "buildArtifacts": "passed: 8 full official DSH artifact gates",
+  "packagingBuildGates": "passed: 10",
+  "actualFullDSHSourceTaskFlow": "passed; deterministic fake transport, real approvals/tools, failure-repair-accept/memory/rollback; not installed GUI evidence",
+  "packageResult": "failed",
+  "actualError": "TypeError: fetch failed",
+  "failedStage": "prepare:runtime",
+  "innerDownloadFailureCause": "Not exposed by top-level console. Prior workflow did not retain redacted phase journal; no guessed URL/TLS diagnosis.",
+  "installedGuiResult": "SKIPPED because this attempt did not build an installer",
+  "themeQualified": false,
+  "releaseCleared": false
+}

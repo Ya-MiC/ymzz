@@ -98,6 +98,7 @@ jobs:
         shell: pwsh
         run: corepack pnpm run package:desktop:win:x64:unsigned
       - name: Install actual product and exercise native GUI in Chinese-space paths
+        id: gui
         if: ${{ !cancelled() && steps.package.conclusion == 'success' }}
         shell: pwsh
         run: ./ymzz/scripts/windows-gui-smoke.ps1 -BuildRoot apps/desktop/.desktop-build/targets/win-x64/unsigned-artifacts
@@ -105,6 +106,13 @@ jobs:
         if: ${{ !cancelled() && steps.package.conclusion == 'success' }}
         shell: pwsh
         run: python ymzz/scripts/audit-native-python.py --root apps/desktop/.desktop-build/targets/win-x64/runtime/primary-runtime --output ymzz/docs/evidence/windows-native-python-license.json --enforce
+      - name: Preserve redacted phase causes and exact current GUI outcome, not private logs
+        if: always()
+        shell: pwsh
+        env:
+          YMZZ_PACKAGE_CONCLUSION: ${{ steps.package.conclusion }}
+          YMZZ_GUI_CONCLUSION: ${{ steps.gui.conclusion }}
+        run: node ymzz/scripts/collect-packaging-diagnostics.mjs
       - name: Preserve qualification evidence only, NEVER a failed/unqualified executable
         if: always()
         uses: actions/upload-artifact@v4
