@@ -48,3 +48,7 @@ pnpm exec node ymzz/scripts/dev.mjs --no-open --port 3081
 [基線證據](ymzz/docs/evidence/m2-baseline.json) · [真實 DSH 任務證據](ymzz/docs/evidence/full-dsh-product-web.json) · [網路與關閉控制](ymzz/docs/NETWORK.md) · [來源索引](ymzz/docs/RESOURCES.md)
 
 基於 DeepSeek Harness（MIT），**非 DeepSeek 官方產品**。新增程式為 MIT，保留原作者與第三方實際授權聲明。
+
+## 最新 Windows 安裝後 GUI 任務證據
+
+[實際測量與雜湊](ymzz/docs/evidence/windows-44035093932/README.md)：正式 Electron/NSIS 安裝至中文空格路徑，7個真實 PE 圖標 frame、隨包 Node、暱稱／About、**12次 GUI 工具核准、兩次真實失敗→修復→通過、人工驗收、1筆明確記憶與還原均通過**。模型是明確假 transport，不是 live 推論。主題 UIA 選項未提交、原生設定後段未執行，授權與對應來源仍阻擋發佈；不宣稱整體通過，不提供未驗收 EXE。

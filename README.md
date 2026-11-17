@@ -12,7 +12,7 @@
 
 | Platform | Availability |
 |---|---|
-| Windows x64 | **Not released.** Actual official installer built/installed in Chinese-space CI path; native GUI follow-up and complete licensing gates remain. |
+| Windows x64 | **Not released.** Real installer, Chinese-space installation and actual GUI task acceptance/memory/rollback passed; theme/settings GUI follow-up and licensing holds remain. |
 | macOS / Linux desktop | Planned; not guaranteed in v0.1. |
 | From source | Full DSH eight-gate artifact build and authenticated HTTP200 passed on Linux; actual native-agent tool/task tests passed. |
 
@@ -38,7 +38,7 @@ One private workspace package, [`@ymzz/dsh-product`](packages/ymzz/product), is 
 
 | Extension | What actually exists |
 |---|---|
-| Brand / Wenrun | Original user SVG and generated icons; exact product title/EXE resource branding; native sidebar brand/footer slots and four registered themes: 雲箋淺、雲箋暗、陶土淺、陶土暗. Native PE ProductName/installation passed; exact ICO resource + complete GUI follow-up is being qualified. |
+| Brand / Wenrun | Original user SVG and generated icons; exact product title/EXE resource branding; native sidebar brand/footer slots and four registered themes: 雲箋淺、雲箋暗、陶土淺、陶土暗. Native PE ProductName/installation and all7 exact owner ICO resources passed; complete theme/settings GUI follow-up remains. |
 | Bounded task / gates | Official `ctx.agents`, `ctx.tools`, `ctx.approval`; explicit proposals, selected-workspace read/write/patch, fixed Node test command, failure feedback, human diff accept/rollback, persistent tasks and confirmed memory. Not an OS/network sandbox. |
 | Local provider | Off-by-default loopback OpenAI-compatible adapter/settings; no API key handling or remote URLs. Protocol tests use labeled fake HTTP responses. A working real model is not claimed. General project picking uses the actual native DSH directory-picker service; Windows picker GUI remains unqualified. |
 | Skills |9 integrity-pinned instruction skills registered with official `ctx.skills`; third-party licenses retained. Scripts/CLI installs/network permission are NOT granted by installing instructions. |
@@ -76,4 +76,10 @@ pnpm run package:desktop:win:x64:unsigned --check
 pnpm run package:desktop:win:x64:unsigned
 ```
 
-Use a Windows x64 build host and documented public `.env.windows` product settings. No mandatory-update endpoint is required for unsigned builds; signed HTTPS validation remains. Normal upstream NSIS install/uninstall/protocol registrations are not called “registry free”. [Latest measured Windows attempt](https://github.com/Ya-MiC/ymzz/actions/runs/44032750165) built the real installer; the final native GUI/compliance gates are not yet green, so there is deliberately no executable download.
+Use a Windows x64 build host and documented public `.env.windows` product settings. No mandatory-update endpoint is required for unsigned builds; signed HTTPS validation remains. Normal upstream NSIS install/uninstall/protocol registrations are not called “registry free”. [Latest measured Windows attempt](https://github.com/Ya-MiC/ymzz/actions/runs/44035093932) built the real installer; the final native GUI/compliance gates are not yet green, so there is deliberately no executable download.
+
+### Latest actual installed GUI task evidence
+
+[Exact-code Windows proof](ymzz/docs/evidence/windows-44035093932/README.md): **12 real GUI tool approvals, two actual failing→repair→passing Node test sequences, human acceptance,1 explicit memory and rollback passed** in the official NSIS-installed full DSH, with Chinese-space paths, real bundled Node and all7 actual PE owner-icon resources verified. Model transport is explicitly fake, not live inference. Native theme-selection/settings GUI and license/source qualification remain incomplete; overall CI is not green and there is no installer download or Release.
+
+![Actual installed full DSH human diff review, not full release qualification](ymzz/docs/evidence/windows-44035093932/full-dsh-review.png)
