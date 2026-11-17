@@ -55,4 +55,6 @@ pnpm exec node ymzz/scripts/dev.mjs --no-open --port 3081
 
 ## 後續資格驗證狀態
 
-[已完成的44039049852](ymzz/docs/evidence/windows-44039049852/README.md) 再次通過完整來源／任務／artifacts 測試，但官方打包於 `prepare:runtime` 發生 `TypeError: fetch failed`；該次安裝 GUI／主題檢查是**跳過，不是通過**。[單一後續44041213296](https://github.com/Ya-MiC/ymzz/actions/runs/44041213296) 的確切驗證來源為 `3d42c319cf23e57061146174f638807c444cd46b`，使用實際可見選項滑鼠點擊、原色票畫素斷言與遮蔽機密的打包階段／原因診斷；尚不宣稱通過，不啟用下載。[新增來源／授權調查](ymzz/docs/LICENSE-FOLLOWUP.md) 說明 GCC runtime 例外、Office 偏好修改來源、iconv 對應來源／重連結仍待解決；已核實的 MIT XSL 替代檔只是候選，未冒充已置換實際隨包檔案。
+[實際安裝44098435114](ymzz/docs/evidence/windows-44098435114/README.md) 已正式建置／安裝新 Agent 的 NSIS 包、再次通過真實 GUI 任務，且**實際隨包 MIT XSL 雜湊及原生 RNG/XSD Schematron 擷取／斷言均通過**。整體 GUI 仍未通過：測試對已收合選單多呼叫 Collapse，在鍵盤選主題前便中止；沒有宣稱主題／設定通過。
+
+[單一後續44101906821](https://github.com/Ya-MiC/ymzz/actions/runs/44101906821)，確切候選 `ff465dd39987ecf14e97e374bf531d622d45b889`，已移除該無效操作，保留真實鍵盤焦點與原色票畫素檢查。另有獨立的 LGPL 來源重建／重連結檢查，不替代 Agent 建置。已準備**沒有安裝包的私人 draft Release**；GUI 與來源／政策閘尚未清除，所以公開安裝包仍不可下載，不冒充交付完成。[精確來源／授權狀態](ymzz/docs/LICENSE-FOLLOWUP.md)。Loop 是另一個獨立產品，未修改。

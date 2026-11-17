@@ -76,7 +76,7 @@ pnpm run package:desktop:win:x64:unsigned --check
 pnpm run package:desktop:win:x64:unsigned
 ```
 
-Use a Windows x64 build host and documented public `.env.windows` product settings. No mandatory-update endpoint is required for unsigned builds; signed HTTPS validation remains. Normal upstream NSIS install/uninstall/protocol registrations are not called “registry free”. [Latest installer-producing Windows attempt](https://github.com/Ya-MiC/ymzz/actions/runs/44035093932) built the real installer; the final native GUI/compliance gates are not yet green, so there is deliberately no executable download.
+Use a Windows x64 build host and documented public `.env.windows` product settings. No mandatory-update endpoint is required for unsigned builds; signed HTTPS validation remains. Normal upstream NSIS install/uninstall/protocol registrations are not called “registry free”. [Measured installer-producing Windows attempt](https://github.com/Ya-MiC/ymzz/actions/runs/44035093932) built the real installer; the final native GUI/compliance gates are not yet green, so there is deliberately no executable download.
 
 ### Latest actual installed GUI task evidence
 
@@ -86,4 +86,6 @@ Use a Windows x64 build host and documented public `.env.windows` product settin
 
 ### Current follow-up qualification
 
-[Completed follow-up44039049852](ymzz/docs/evidence/windows-44039049852/README.md) again passed full source/task/artifact tests but official packaging stopped at `TypeError: fetch failed`; its installed GUI/theme checks were **skipped**, not passed. [One new qualification run44041213296](https://github.com/Ya-MiC/ymzz/actions/runs/44041213296), exact test source `3d42c319cf23e57061146174f638807c444cd46b`, uses physical visible UIA option clicks with authority-token pixel assertions plus redacted packaging phase/cause diagnostics. It is an attempt, not a claimed pass. No release/download is enabled. [Exact new licensing/provenance findings](ymzz/docs/LICENSE-FOLLOWUP.md) preserve the separate GCC-runtime-exception, Office preferred-source and iconv source/relinking holds; verified MIT XSL alternatives are still candidates, not relabeled shipped files.
+[Actual installed run44098435114](ymzz/docs/evidence/windows-44098435114/README.md) built/installed the official branded NSIS app in a Chinese-space path, passed real GUI tasks again, and **qualified the actual production MIT XSL resource hashes plus native RNG/XSD Schematron extraction/assertions**. Full GUI still failed before theme keyboard input because the test redundantly called Collapse on an already collapsed native select; no theme/settings pass is claimed.
+
+[One follow-up44101906821](https://github.com/Ya-MiC/ymzz/actions/runs/44101906821), exact candidate `ff465dd39987ecf14e97e374bf531d622d45b889`, removes that invalid operation while retaining actual keyboard-focus and rendered authority-color checks. A separate source-only LGPL relink check does not replace the Agent build. A private draft release is prepared **without an installer**; public installer downloads remain unavailable until qualification and remaining source/policy holds clear. [Precise source/compliance findings](ymzz/docs/LICENSE-FOLLOWUP.md). Loop is independent and untouched.
