@@ -33,6 +33,8 @@ if(!(Test-Path -LiteralPath $pythonExe)){throw 'Actual bundled Python missing'}
 $compiled=& $pythonExe -I -c "import json;from lxml import etree;print(json.dumps({'lxml':etree.LXML_VERSION,'iconvCompiled':etree.ICONV_COMPILED_VERSION,'libxmlCompiled':etree.LIBXML_COMPILED_VERSION,'libxsltCompiled':etree.LIBXSLT_COMPILED_VERSION}))"
 if($LASTEXITCODE -ne 0){throw 'Actual bundled lxml cannot report its compiled dependency versions'}
 $compiled|Set-Content -Encoding utf8 (Join-Path $proof 'python-compiled-libraries.json')
+& $pythonExe -I -B (Join-Path $PSScriptRoot 'verify-installed-xsl.py') --output (Join-Path $proof 'installed-mit-xsl.json')
+if($LASTEXITCODE -ne 0){throw 'Actual installed MIT XSL resource/extraction qualification failed'}
 $nodeVersion=& $nodeExe --version
 if($LASTEXITCODE -ne 0 -or $nodeVersion -notmatch '^v24\.'){throw 'Actual packaged primary Node cannot execute'}
 node ymzz/scripts/check-pe-icon.mjs --exe $exe --ico ymzz/branding/generated/icon.ico --output (Join-Path $proof 'pe-icon.json')
@@ -66,13 +68,18 @@ try{
  $approvals=0;$script:themeProof=@()
  # Actual UIA option selection, not unverified foreground SendKeys (which left light selected).
  function Select-Theme([string]$label){
-  $theme=Find-Control '湛箴四套溫潤主題';try{$theme.GetCurrentPattern([System.Windows.Automation.ScrollItemPattern]::Pattern).ScrollIntoView()}catch{};$expand=$theme.GetCurrentPattern([System.Windows.Automation.ExpandCollapsePattern]::Pattern);$expand.Expand()
-  $option=Find-Control $label ([System.Windows.Automation.SelectionItemPattern]::Pattern);$point=$option.GetClickablePoint();$window=$Element.Current.BoundingRectangle
-  if($option.Current.IsOffscreen -or $point.X -lt $window.Left -or $point.X -gt $window.Right -or $point.Y -lt $window.Top -or $point.Y -gt $window.Bottom){throw 'Visible native theme option escaped actual product window'}
-  if(![YmzzTestMouse]::SetCursorPos([int]$point.X,[int]$point.Y)){throw 'Native theme mouse positioning failed'}
-  [YmzzTestMouse]::mouse_event(2,0,0,0,[UIntPtr]::Zero);[YmzzTestMouse]::mouse_event(4,0,0,0,[UIntPtr]::Zero)
-  # UIA SelectionItem.Select did not commit Chromium's HTML popup in the measured run.
-  # Test a real native click and the actual rendered immutable-authority color instead.
+  $theme=Find-Control '湛箴四套溫潤主題';try{$theme.GetCurrentPattern([System.Windows.Automation.ScrollItemPattern]::Pattern).ScrollIntoView()}catch{}
+  # Chromium exposes popup options without clickable points. Focus the REAL select, verify
+  # UIA keyboard focus, then use native keyboard navigation/Enter; never set a DOM value.
+  $theme.GetCurrentPattern([System.Windows.Automation.ExpandCollapsePattern]::Pattern).Collapse()
+  $theme.SetFocus();Start-Sleep -Milliseconds 200
+  $focused=[System.Windows.Automation.AutomationElement]::FocusedElement
+  if(![System.Windows.Automation.Automation]::Compare($theme,$focused)){throw 'Actual native theme select did not receive keyboard focus'}
+  $labels=@('雲箋 · 淺','雲箋 · 暗（暮靄）','陶土 · 淺','陶土 · 暗（暮林）');$index=[array]::IndexOf($labels,$label)
+  if($index -lt 0){throw 'Unknown pinned native theme option'}
+  [System.Windows.Forms.SendKeys]::SendWait('{HOME}')
+  for($i=0;$i -lt $index;$i++){[System.Windows.Forms.SendKeys]::SendWait('{DOWN}')}
+  [System.Windows.Forms.SendKeys]::SendWait('{ENTER}')
   $tokens=Get-Content -LiteralPath (Join-Path $PSScriptRoot '../../packages/ymzz/product/wenrun-tokens.css') -Raw
   $expression=if($label -like '*暗*'){'\[data-theme="dark"\]\s*\{\s*--bg-0:\s*(#[0-9A-Fa-f]{6})'}else{'--c-cloud-paper:\s*(#[0-9A-Fa-f]{6})'}
   $match=[regex]::Match($tokens,$expression);if(!$match.Success){throw 'Immutable authority background token missing'};$expected=$match.Groups[1].Value.ToUpperInvariant();$end=(Get-Date).AddSeconds(10)
@@ -83,7 +90,7 @@ try{
    if($actual -ne $expected){Start-Sleep -Milliseconds 200}
   }until($actual -eq $expected -or (Get-Date) -gt $end)
   if($actual -ne $expected){throw "Actual native-clicked theme differs from authority token: $label expected $expected got $actual"}
-  $script:themeProof+=@{label=$label;actualColor=$actual;authorityColor=$expected;interaction='visible UIA GetClickablePoint + actual native mouse click'}
+  $script:themeProof+=@{label=$label;actualColor=$actual;authorityColor=$expected;interaction='UIA verified actual select keyboard focus + native Home/Down/Enter; rendered authority color asserted'}
  }
  function Complete-Demo([bool]$accept){
   $before=@((State).tasks.psobject.Properties.Name);Click '用完整 DSH Agent Loop 執行離線修復示例';$end=(Get-Date).AddSeconds(25)

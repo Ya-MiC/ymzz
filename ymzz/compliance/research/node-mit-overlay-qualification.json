@@ -1,0 +1,24 @@
+{
+  "schema": 1,
+  "scope": "Actual Node afterPack helper exercised against exact old Windows-wheel bytes on Linux; installed Windows qualification still pending",
+  "immutableWheelSHA256": "3e9a00d1c2c30936f7add097c41afc5da6556c580909104aafd382cac92a855c",
+  "files": [
+    {
+      "path": "lxml/isoschematron/resources/xsl/RNG2Schtrn.xsl",
+      "beforeSHA256": "832f84eb1476a77e522bdc1715386b68f24423d35da084cd1dde319aacbba316",
+      "afterSHA256": "e219462b395e0b87c8e0e969343fbc3fcac7195d0e0587dd2c7d6db7dca0ea2a",
+      "license": "MIT",
+      "source": "https://github.com/Schematron/schematron/blob/ecb9f3e19c52e2bf7d2111bdbacdf08e5c7e6dee/trunk/converters/code/ExtractSchFromRNG.xsl",
+      "alreadyApplied": false
+    },
+    {
+      "path": "lxml/isoschematron/resources/xsl/XSD2Schtrn.xsl",
+      "beforeSHA256": "430791ac820cfb315c820f7c19703609a59f21b8151345ca11e6127efbfaec0d",
+      "afterSHA256": "2ba1909929c4bbbca5febd68627f2640ee1afe1b86923e7a15464770141e6d65",
+      "license": "MIT",
+      "source": "https://github.com/Schematron/schematron/blob/ecb9f3e19c52e2bf7d2111bdbacdf08e5c7e6dee/trunk/converters/code/ExtractSchFromXSD.xsl",
+      "alreadyApplied": false
+    }
+  ],
+  "releaseCleared": false
+}

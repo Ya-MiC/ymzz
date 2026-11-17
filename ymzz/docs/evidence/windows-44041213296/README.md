@@ -1,0 +1,5 @@
+# Actual run44041213296 — installer/task passed, theme test failed
+
+Exact source3d42c319cf23e57061146174f638807c444cd46b. Official NSIS installed into Chinese-space path; exact branded PE/icon and bundled Node were measured;12 real GUI approvals, two actual failure→repair→pass sequences, human acceptance, memory and rollback passed with explicitly fake model transport. Original measured JSONs are preserved here. Overall GUI did NOT pass: Chromium option GetClickablePoint threw although the native popup was visible. Settings/Models/plugin inventory therefore were not reached. Follow-up uses UIA-confirmed focus on the actual select plus normal native keyboard Home/Down/Enter, retaining the real authority-color assertion. No injected DOM or fake success.
+
+Actual bundled versions: lxml6.1.3, libiconv1.17, libxml2.11.9, libxslt1.1.45. This is actual installed proof, not inferred from a current latest release. Binary publication remains held for scoped policy/source obligations. Loop is an independent product, untouched.

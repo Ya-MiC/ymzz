@@ -1,0 +1,6 @@
+{
+  "binaryDistributed": false,
+  "fullUpstreamApp": true,
+  "error": "Exception calling \"GetClickablePoint\" with \"0\" argument(s): \"The AutomationElement has no clickable point.\"",
+  "liveInference": false
+}

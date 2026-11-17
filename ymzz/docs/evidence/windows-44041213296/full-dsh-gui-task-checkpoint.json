@@ -1,0 +1,37 @@
+{
+  "rollback": {
+    "state": "rolled-back",
+    "actualFileMatches": true,
+    "id": "eba7f295-f6dd-485b-89bc-d13412f94414",
+    "gates": [
+      {
+        "passed": false,
+        "exitCode": 1
+      },
+      {
+        "passed": true,
+        "exitCode": 0
+      }
+    ]
+  },
+  "approvals": 12,
+  "memoryConfirmed": 1,
+  "deterministicFakeTransport": true,
+  "liveInference": false,
+  "accepted": {
+    "state": "accepted",
+    "actualFileMatches": true,
+    "id": "916c34d7-d35a-4c9e-8e12-49e7d35489ee",
+    "gates": [
+      {
+        "passed": false,
+        "exitCode": 1
+      },
+      {
+        "passed": true,
+        "exitCode": 0
+      }
+    ]
+  },
+  "engine": "FULL official DeepSeek Harness"
+}

@@ -12,6 +12,8 @@ export function applyApplicationBranding({dryRun=false}={}){
    if(!text.includes("DSH_CLIENT_TITLE: '湛箴_ymzz',\n    ...inherited"))text=text.replace('  return {\n    ...inherited,',"  return {\n    DSH_CLIENT_TITLE: '湛箴_ymzz',\n    ...inherited,");
    if(!text.includes("DSH_CLIENT_BUILD_PROFILE: 'local',\n        DSH_CLIENT_TITLE: '湛箴_ymzz'"))text=text.replace("DSH_CLIENT_BUILD_PROFILE: 'local',","DSH_CLIENT_BUILD_PROFILE: 'local',\n        DSH_CLIENT_TITLE: '湛箴_ymzz',");
   }else if(file.endsWith('electron-builder-config.mjs')){
+   text=text.replace("import { readFileSync } from 'node:fs'", "import { readFileSync } from 'node:fs'\nimport { applyPackagedMitTransforms } from '../../../ymzz/packaging/lxml-overlay.mjs'");
+   text=text.replace('const resourcesDir = context.packager.getResourcesDir(context.appOutDir)', "const resourcesDir = context.packager.getResourcesDir(context.appOutDir)\n      if (resolvedPlatform === 'win32' && resolvedArch === 'x64') await applyPackagedMitTransforms(resourcesDir)");
    text=text.replace('const policy = packagesMacOS && unsigned ? undefined : resolveDesktopPolicyEnvironment(env)','const policy = unsigned ? undefined : resolveDesktopPolicyEnvironment(env)');
    text=text.replace("icon: fileURLToPath(new URL('../resources/icon-windows.png', import.meta.url))", "icon: fileURLToPath(new URL('../../../ymzz/branding/generated/icon.ico', import.meta.url))");
    text=text.replace('extraResources: [\n', "extraResources: [\n      { from: fileURLToPath(new URL('../../../ymzz/.build/licenses', import.meta.url)), to: 'licenses/ymzz' },\n");
