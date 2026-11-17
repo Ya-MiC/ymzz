@@ -52,3 +52,7 @@ pnpm exec node ymzz/scripts/dev.mjs --no-open --port 3081
 ## 最新 Windows 安裝後 GUI 任務證據
 
 [實際測量與雜湊](ymzz/docs/evidence/windows-44035093932/README.md)：正式 Electron/NSIS 安裝至中文空格路徑，7個真實 PE 圖標 frame、隨包 Node、暱稱／About、**12次 GUI 工具核准、兩次真實失敗→修復→通過、人工驗收、1筆明確記憶與還原均通過**。模型是明確假 transport，不是 live 推論。主題 UIA 選項未提交、原生設定後段未執行，授權與對應來源仍阻擋發佈；不宣稱整體通過，不提供未驗收 EXE。
+
+## 後續資格驗證狀態
+
+[已完成的44039049852](ymzz/docs/evidence/windows-44039049852/README.md) 再次通過完整來源／任務／artifacts 測試，但官方打包於 `prepare:runtime` 發生 `TypeError: fetch failed`；該次安裝 GUI／主題檢查是**跳過，不是通過**。[單一後續44041213296](https://github.com/Ya-MiC/ymzz/actions/runs/44041213296) 的確切驗證來源為 `3d42c319cf23e57061146174f638807c444cd46b`，使用實際可見選項滑鼠點擊、原色票畫素斷言與遮蔽機密的打包階段／原因診斷；尚不宣稱通過，不啟用下載。[新增來源／授權調查](ymzz/docs/LICENSE-FOLLOWUP.md) 說明 GCC runtime 例外、Office 偏好修改來源、iconv 對應來源／重連結仍待解決；已核實的 MIT XSL 替代檔只是候選，未冒充已置換實際隨包檔案。

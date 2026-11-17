@@ -76,10 +76,14 @@ pnpm run package:desktop:win:x64:unsigned --check
 pnpm run package:desktop:win:x64:unsigned
 ```
 
-Use a Windows x64 build host and documented public `.env.windows` product settings. No mandatory-update endpoint is required for unsigned builds; signed HTTPS validation remains. Normal upstream NSIS install/uninstall/protocol registrations are not called “registry free”. [Latest measured Windows attempt](https://github.com/Ya-MiC/ymzz/actions/runs/44035093932) built the real installer; the final native GUI/compliance gates are not yet green, so there is deliberately no executable download.
+Use a Windows x64 build host and documented public `.env.windows` product settings. No mandatory-update endpoint is required for unsigned builds; signed HTTPS validation remains. Normal upstream NSIS install/uninstall/protocol registrations are not called “registry free”. [Latest installer-producing Windows attempt](https://github.com/Ya-MiC/ymzz/actions/runs/44035093932) built the real installer; the final native GUI/compliance gates are not yet green, so there is deliberately no executable download.
 
 ### Latest actual installed GUI task evidence
 
 [Exact-code Windows proof](ymzz/docs/evidence/windows-44035093932/README.md): **12 real GUI tool approvals, two actual failing→repair→passing Node test sequences, human acceptance,1 explicit memory and rollback passed** in the official NSIS-installed full DSH, with Chinese-space paths, real bundled Node and all7 actual PE owner-icon resources verified. Model transport is explicitly fake, not live inference. Native theme-selection/settings GUI and license/source qualification remain incomplete; overall CI is not green and there is no installer download or Release.
 
 ![Actual installed full DSH human diff review, not full release qualification](ymzz/docs/evidence/windows-44035093932/full-dsh-review.png)
+
+### Current follow-up qualification
+
+[Completed follow-up44039049852](ymzz/docs/evidence/windows-44039049852/README.md) again passed full source/task/artifact tests but official packaging stopped at `TypeError: fetch failed`; its installed GUI/theme checks were **skipped**, not passed. [One new qualification run44041213296](https://github.com/Ya-MiC/ymzz/actions/runs/44041213296), exact test source `3d42c319cf23e57061146174f638807c444cd46b`, uses physical visible UIA option clicks with authority-token pixel assertions plus redacted packaging phase/cause diagnostics. It is an attempt, not a claimed pass. No release/download is enabled. [Exact new licensing/provenance findings](ymzz/docs/LICENSE-FOLLOWUP.md) preserve the separate GCC-runtime-exception, Office preferred-source and iconv source/relinking holds; verified MIT XSL alternatives are still candidates, not relabeled shipped files.
