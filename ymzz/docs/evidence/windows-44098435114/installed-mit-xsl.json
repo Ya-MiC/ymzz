@@ -1,0 +1,52 @@
+{
+  "schema": 1,
+  "scope": "Actual installed bundled Python/lxml production resource hashes and native extraction/validation",
+  "lxml": [
+    6,
+    1,
+    3,
+    0
+  ],
+  "iconvCompiled": [
+    1,
+    17
+  ],
+  "libxmlCompiled": [
+    2,
+    11,
+    9
+  ],
+  "libxsltCompiled": [
+    1,
+    1,
+    45
+  ],
+  "files": [
+    {
+      "file": "lxml/isoschematron/resources/xsl/RNG2Schtrn.xsl",
+      "actualSHA256": "e219462b395e0b87c8e0e969343fbc3fcac7195d0e0587dd2c7d6db7dca0ea2a",
+      "expectedSHA256": "e219462b395e0b87c8e0e969343fbc3fcac7195d0e0587dd2c7d6db7dca0ea2a",
+      "MITGrantAndOriginalCredits": true
+    },
+    {
+      "file": "lxml/isoschematron/resources/xsl/XSD2Schtrn.xsl",
+      "actualSHA256": "2ba1909929c4bbbca5febd68627f2640ee1afe1b86923e7a15464770141e6d65",
+      "expectedSHA256": "2ba1909929c4bbbca5febd68627f2640ee1afe1b86923e7a15464770141e6d65",
+      "MITGrantAndOriginalCredits": true
+    }
+  ],
+  "checks": [
+    {
+      "kind": "RNG",
+      "actualInstalledSchematronExtractAndValidate": true,
+      "validAndInvalidAssertionsPassed": true
+    },
+    {
+      "kind": "XSD",
+      "actualInstalledSchematronExtractAndValidate": true,
+      "validAndInvalidAssertionsPassed": true
+    }
+  ],
+  "actualInstalledMITOverlayQualified": true,
+  "releaseCleared": false
+}

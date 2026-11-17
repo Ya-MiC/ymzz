@@ -1,0 +1,5 @@
+# Actual d79a9de6 / run44098435114 result
+
+Official full DSH Electron NSIS built and installed in Chinese-space path. Actual production MIT XSL replacement PASSED: both real installed file SHA256/grants matched, and actual bundled lxml performed RNG/XSD Schematron extraction and accepted/rejected assertion samples correctly. Native versions remain iconv1.17/libxml2.11.9/libxslt1.1.45. This closes the previous unlicensed-XSL payload issue for this candidate without feature removal or relabeling original files. Original wheel/archive stays immutable.
+
+12 real GUI approvals, failure→repair→passing Node tests, human acceptance, explicit memory and rollback again passed (model explicitly fake). Overall GUI failed BEFORE theme interaction at Collapse() because the select was ALREADY collapsed. No theme/settings success claimed. Follow-up removes that invalid operation, retaining verified real keyboard focus and unchanged visible authority-color assertion. No DOM injection. Source/owner-policy holds still block release. Exact measured installer/EXE hashes are in installed-prechecks.json.

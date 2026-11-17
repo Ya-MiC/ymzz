@@ -71,7 +71,7 @@ try{
   $theme=Find-Control '湛箴四套溫潤主題';try{$theme.GetCurrentPattern([System.Windows.Automation.ScrollItemPattern]::Pattern).ScrollIntoView()}catch{}
   # Chromium exposes popup options without clickable points. Focus the REAL select, verify
   # UIA keyboard focus, then use native keyboard navigation/Enter; never set a DOM value.
-  $theme.GetCurrentPattern([System.Windows.Automation.ExpandCollapsePattern]::Pattern).Collapse()
+  # Start/return with the normal collapsed select; Collapse() on that state is invalid in Chromium.
   $theme.SetFocus();Start-Sleep -Milliseconds 200
   $focused=[System.Windows.Automation.AutomationElement]::FocusedElement
   if(![System.Windows.Automation.Automation]::Compare($theme,$focused)){throw 'Actual native theme select did not receive keyboard focus'}

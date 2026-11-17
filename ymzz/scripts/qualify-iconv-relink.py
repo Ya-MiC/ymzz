@@ -45,6 +45,8 @@ relink('0x0111')
 modifiedHeader=originalHeader.replace(b'#define _LIBICONV_VERSION 0x0111',b'#define _LIBICONV_VERSION 0x0112');header.write_bytes(modifiedHeader)
 run(['msbuild',project,'/t:Rebuild','/p:Configuration=Release','/p:Platform=x64','/p:WindowsTargetPlatformVersion=10.0','/verbosity:minimal'])
 relink('0x0112')
+partial={'schema':1,'scope':'Actual native original/modified iconv static-library source rebuild and C relink passed; lxml extension rebuild still pending','buildPython':sys.version,'originalIconvGitlink':'880a1fa8b5581e37e136a7b051947d3ea39097b6','originalHeaderSHA256':hashlib.sha256(originalHeader).hexdigest(),'modifiedTestHeaderSHA256':hashlib.sha256(modifiedHeader).hexdigest(),'testOnlyMetadataModificationIsNotGNUIconv18':True,'originalAndModifiedStaticRelinkUTF8ConversionPassed':True,'actualModifiedLxmlRebuild':False,'inputs':list(inputs),'productionRuntimeChanged':False,'releaseCleared':False}
+a.output.parent.mkdir(parents=True,exist_ok=True);a.output.write_text(json.dumps(partial,indent=2)+'\n')
 # Rebuild the actual lxml extension against that modified library using supported --static paths.
 base='https://github.com/lxml/libxml2-win-binaries/releases/download/2026.05.17/'
 libs=[('libxml2-2.11.9.win64.zip','ff23c75d4b3991042f9bbe7fd38ccc50616349a3c1b583c328d996be22e52b64'),('libxslt-1.1.45.win64.zip','e6fcfa1cf6719630e83c39a5448687db65084b0a375af366c9a857b62c3e4bf7'),('zlib-1.3.2.win64.zip','e1c1bcaa1dea202057f96614565c5773ee9c9be7033b470f2b746ab8a9070f01')]

@@ -10,6 +10,8 @@ jobs:
   source-relink:
     runs-on: windows-2022
     timeout-minutes: 35
+    env:
+      PYTHONUTF8: "1"
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5

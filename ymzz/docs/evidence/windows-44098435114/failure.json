@@ -1,0 +1,6 @@
+{
+  "liveInference": false,
+  "binaryDistributed": false,
+  "fullUpstreamApp": true,
+  "error": "Exception calling \"Collapse\" with \"0\" argument(s): \"Operation is not valid due to the current state of the object.\""
+}
