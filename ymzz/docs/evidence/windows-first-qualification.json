@@ -1,0 +1,25 @@
+{
+  "run": "https://github.com/Ya-MiC/ymzz/actions/runs/44024932861",
+  "commit": "66b43aea532f29e7402572b94995e185ecb3573d",
+  "nativeWindowsHost": true,
+  "frozenInstallPassed": true,
+  "sourcePreservationPassed": true,
+  "sourceWorkflowPassed": false,
+  "firstFailure": "Icon apply idempotence unnecessarily invoked missing Python/Pillow; fixed with all11 committed render hashes verified before reuse, explicit regeneration retained",
+  "windowsFullArtifactBuildPassed": false,
+  "windowsTaskPipelineExecuted": false,
+  "packagedGUIVerified": false,
+  "licenseAudit": {
+    "packages": 666,
+    "unresolved": 0,
+    "strictPermissiveGatePassed": false,
+    "actualBlocks": [
+      "@img/sharp-win32-x64 Apache-2.0 AND LGPL-3.0-or-later",
+      "@deepseek-ai/libreoffice-kit MPL-2.0",
+      "@deepseek-ai/libreoffice-kit-wasm MPL-2.0",
+      "@deepseek-ai/libreoffice-kit-win32-x64 MPL-2.0"
+    ]
+  },
+  "officialWindowsPackagingPreflightError": "DSH_DESKTOP_MANDATORY_UPDATE_PROD_ORIGIN requires an HTTPS origin",
+  "binaryReleased": false
+}

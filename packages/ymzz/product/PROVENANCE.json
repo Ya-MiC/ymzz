@@ -6,5 +6,13 @@
     "repository": "https://github.com/Ya-MiC/ymzz-wenrun-design-skill",
     "commit": "d33fb4bae0af86d30891c273103a9659552a926a",
     "tokensSHA256": "217ca41de8a15fc612b17ec33b428470ffa155bedb8ddec73a47dba67aa85ad4"
+  },
+  "nativeBrandMark": {
+    "source": "ymzz/branding/generated/icon-1536.png",
+    "sourceSHA256": "084f27b549422d8d0faa9ed61512e20dc0730a7ead1ef3da49afa81c5722a4fb",
+    "transform": "Pillow RGBA LANCZOS resize to128x128",
+    "file": "icon-128.png",
+    "sha256": "c923f7756fba86427d1f311ea2e63d50536c15d6b6b3f63a546264ea52d9d8ac",
+    "ownerSVG_SHA256": "c3acc8a88148cadc3648f1a3b5c14b78d2bdf19c3d985ae7e6eeb0fbf14b0872"
   }
 }

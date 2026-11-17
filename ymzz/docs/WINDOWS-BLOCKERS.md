@@ -4,7 +4,7 @@ The full DSH application and native product plugin build and run locally. This d
 
 ## 1. Official unsigned Windows policy requirement
 
-The real command `pnpm run package:desktop:win:x64:unsigned --check` on this Linux box rejects with `win-x64 requires a Windows x64 build host`. A Windows CI preflight is provided separately; do not call the Linux run a Windows build.
+The real command `pnpm run package:desktop:win:x64:unsigned --check` on this Linux box rejects with `win-x64 requires a Windows x64 build host`. Actual Windows run44024932861 independently reproduced the same required-policy error on native Windows x64; see evidence/windows-first-qualification.json. Do not call the Linux run a Windows build.
 
 The official `validateDesktopPackageEnvironment` API, invoked with the actual Windows target and the public product ID, also requires `DSH_DESKTOP_MANDATORY_UPDATE_PROD_ORIGIN`. The packager does NOT apply its no-policy unsigned-macOS behavior to unsigned Windows. The source has no supported Windows offline/manual-only switch:
 - `apps/desktop/scripts/desktop-package-environment.mjs:124` unconditionally resolves policy for Windows.
@@ -19,7 +19,7 @@ This would extend the existing unsigned-macOS policy to unsigned Windows, not di
 
 ## 2. Actual native dependencies versus strict permissive-only policy
 
-The actual installed production graph is audited, rather than the MIT wrapper alone. On Linux the666-package graph contains LGPL-3.0-or-later libvips and MPL-2.0 LibreOffice API/WASM; no unresolved dependencies. Exact Windows public metadata is `@img/sharp-win32-x64@0.35.5: Apache-2.0 AND LGPL-3.0-or-later`; LibreOffice0.2.3 is MPL-2.0. Prior exact upstream-version Windows payload research also found Electron FFmpeg LGPL-2.1+; the new Windows payload has not been built/audited yet.
+The actual installed production graph is audited, rather than the MIT wrapper alone. Actual native Windows run44024932861 audited666 production packages with no unresolved dependencies: Sharp is Apache-2.0 AND LGPL-3.0-or-later, and LibreOffice API/WASM/Windows engine are MPL-2.0. The unchanged strict gate failed closed. On Linux the666-package graph contains LGPL-3.0-or-later libvips and MPL-2.0 LibreOffice API/WASM; no unresolved dependencies. Exact Windows public metadata is `@img/sharp-win32-x64@0.35.5: Apache-2.0 AND LGPL-3.0-or-later`; LibreOffice0.2.3 is MPL-2.0. Prior exact upstream-version Windows payload research also found Electron FFmpeg LGPL-2.1+; the new Windows payload has not been built/audited yet.
 
 LGPL and MPL are NOT automatically GPL/AGPL, and these findings do not mean the MIT application must be relicensed GPL. They nevertheless do not pass the previously required permissive-only gate. Actual redistribution obligations/notices/corresponding source need review; no policy exception is silently assumed.
 

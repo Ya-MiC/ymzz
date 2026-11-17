@@ -195,28 +195,40 @@ function archiveUpstreamIcons(dryRun) {
   return actions
 }
 
-function rasterize(sourcePath, dryRun) {
-  if (dryRun && fs.existsSync(path.join(generatedDir, 'manifest.json'))) {
-    return { action: 'reuse-existing-generated', manifest: JSON.parse(fs.readFileSync(path.join(generatedDir, 'manifest.json'), 'utf8')) }
+export const GENERATED_ICON_FILES = ['icon-1536.png','preview-512.png','icon-1024.png','icon-1104.png','icon-192.png','icon-180.png','icon-maskable-512.png','tray-windows.ico','icon.ico','favicon-256.png','favicon.svg']
+
+export function verifyGeneratedIcons(manifest, directory = generatedDir) {
+  if (manifest?.sourceSha256 !== SOURCE_SHA256) throw new Error('GENERATED_ICON_SOURCE_MISMATCH')
+  const outputs = manifest.outputs
+  if (!outputs || JSON.stringify(Object.keys(outputs).sort()) !== JSON.stringify([...GENERATED_ICON_FILES].sort())) {
+    throw new Error('GENERATED_ICON_SET_MISMATCH')
   }
-  const result = spawnSync('python3', [rasterizeScript, '--source', sourcePath, '--output-dir', generatedDir], {
-    encoding: 'utf8',
-    maxBuffer: 16 * 1024 * 1024,
-  })
-  if (result.status !== 0) {
-    throw new Error(`rasterize-icon.py failed: ${result.stderr || result.stdout || result.status}`)
+  for (const [file, record] of Object.entries(outputs)) {
+    if (!/^[a-z0-9.-]+\.(png|ico|svg)$/.test(file) || record.file !== file) throw new Error('GENERATED_ICON_PATH_INVALID')
+    const bytes = fs.readFileSync(path.join(directory, file))
+    if (bytes.length !== record.bytes || sha256(bytes) !== record.sha256) throw new Error('GENERATED_ICON_HASH_MISMATCH: '+file)
   }
-  return { action: 'generated', manifest: JSON.parse(result.stdout) }
+  return manifest
 }
 
-export function applyBranding({ dryRun = false } = {}) {
+function rasterize(sourcePath, {dryRun,regenerate}) {
+  const manifestPath=path.join(generatedDir,'manifest.json')
+  if (!regenerate && fs.existsSync(manifestPath)) {
+    return { action:'reuse-verified-generated',manifest:verifyGeneratedIcons(JSON.parse(fs.readFileSync(manifestPath,'utf8'))) }
+  }
+  if (!regenerate) throw new Error('GENERATED_ICONS_MISSING_RUN_EXPLICIT_REGENERATE')
+  if (dryRun) throw new Error('ICON_REGENERATION_REQUIRES_EXPLICIT_NON_DRY_RUN')
+  const python=process.env.PYTHON || (process.platform==='win32'?'python':'python3')
+  const result=spawnSync(python,[rasterizeScript,'--source',sourcePath,'--output-dir',generatedDir],{encoding:'utf8',maxBuffer:16*1024*1024})
+  if(result.status!==0)throw new Error(`rasterize-icon.py failed: ${result.stderr || result.stdout || result.status}`)
+  return {action:'generated',manifest:verifyGeneratedIcons(JSON.parse(result.stdout))}
+}
+
+export function applyBranding({ dryRun = false, regenerate = false } = {}) {
   const source = sourceBytes()
   const previous = archivePreviousBranding(dryRun)
   const upstream = archiveUpstreamIcons(dryRun)
-  const raster = dryRun && !fs.existsSync(path.join(generatedDir, 'manifest.json'))
-    ? rasterize(source.source, false) && rasterize(source.source, true)
-    : rasterize(source.source, dryRun)
-  // If dry-run needed generation first, ignore that write for the report? Generation under ymzz/branding is additive and required to compute diffs.
+  const raster = rasterize(source.source, {dryRun,regenerate})
   const targets = ICON_TARGETS.map((target) => {
     const data = generatedBytes(target.generated, source)
     const to = path.join(repoRoot, target.path)
@@ -239,7 +251,7 @@ export function applyBranding({ dryRun = false } = {}) {
 
 function main() {
   const dryRun = process.argv.includes('--dry-run')
-  const report = applyBranding({ dryRun })
+  const report = applyBranding({ dryRun,regenerate:process.argv.includes('--regenerate') })
   if (process.argv.includes('--application')) report.application = applyApplicationBranding({ dryRun })
   console.log(JSON.stringify(report, null, 2))
 }
