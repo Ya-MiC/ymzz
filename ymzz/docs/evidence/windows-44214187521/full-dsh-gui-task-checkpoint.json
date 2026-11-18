@@ -1,0 +1,37 @@
+{
+  "memoryConfirmed": 1,
+  "rollback": {
+    "id": "df5f5a6f-75d7-4ba4-a5b3-fe8b30ddc996",
+    "actualFileMatches": true,
+    "state": "rolled-back",
+    "gates": [
+      {
+        "passed": false,
+        "exitCode": 1
+      },
+      {
+        "passed": true,
+        "exitCode": 0
+      }
+    ]
+  },
+  "engine": "FULL official DeepSeek Harness",
+  "liveInference": false,
+  "accepted": {
+    "id": "6355e99e-d7a4-4c65-ad6b-bf5181e65286",
+    "actualFileMatches": true,
+    "state": "accepted",
+    "gates": [
+      {
+        "passed": false,
+        "exitCode": 1
+      },
+      {
+        "passed": true,
+        "exitCode": 0
+      }
+    ]
+  },
+  "deterministicFakeTransport": true,
+  "approvals": 12
+}

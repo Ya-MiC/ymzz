@@ -109,6 +109,14 @@ jobs:
           $installed = Join-Path $env:RUNNER_TEMP '湛箴_ymzz 安裝 中文 空格'
           node ymzz/scripts/qualify-office.mjs --installed $installed --output ymzz/docs/evidence/windows/office-actual.json
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - name: Actual installed DSH provider against source-built MPL Office candidate (not production substitution)
+        if: ${{ !cancelled() && steps.package.conclusion == 'success' }}
+        shell: pwsh
+        run: |
+          $installed = Join-Path $env:RUNNER_TEMP '湛箴_ymzz 安裝 中文 空格'
+          $node = Join-Path $installed 'resources/runtime/primary-runtime/dependencies/node/bin/node.exe'
+          node ymzz/scripts/prepare-office-source-candidate.mjs --work "$env:RUNNER_TEMP/ymzz-office-source-candidate" --installed-provider $installed --node $node --output ymzz/docs/evidence/windows/office-source013-native-candidate.json
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
       - name: Audit actual prepared scientific native runtime (not package-level BSD labels)
         if: ${{ !cancelled() && steps.package.conclusion == 'success' }}
         shell: pwsh

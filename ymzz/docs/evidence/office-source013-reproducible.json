@@ -1,0 +1,62 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "candidate": {
+    "version": "0.1.3",
+    "sourceModification": {
+      "upstreamSource": "b19bb73c74ed893b8a5d1716d32df32a113ed31b",
+      "sourceArchiveSHA256": "33839347e44b8df44c59115b566e9664e7db04a612a8f37ee2b220d7e501c036",
+      "modified": "MPL-2.0 native manifest-resolver backport; NOT an official0.1.3 binary",
+      "productionRuntimeChanged": false
+    },
+    "entrySHA256": "f099830b05ff00285417357aa550961dc4a3a1fb6341b04ec209378f0a2d8994",
+    "productionRuntimeChanged": false
+  },
+  "moduleOrigin": "source-identified0.1.3 alternate dependency through unchanged real DSH provider, outside production",
+  "mockedEngine": false,
+  "liveInference": false,
+  "nodeVersion": "v24.22.1",
+  "runtime": {
+    "version": "0.1.3",
+    "backend": "wasm"
+  },
+  "checks": [
+    {
+      "operation": "actual DSH officeKit.convert DOCX → PDF",
+      "bytes": 11236,
+      "sha256": "cd4c9216eefba22b159f29092acffa4b7d9bc27cd67bb2f7df2ec92ea6412294",
+      "passed": true
+    },
+    {
+      "operation": "actual DSH officeKit.renderImages DOCX → PNG",
+      "imageCount": 1,
+      "width": 596,
+      "height": 842,
+      "passed": true
+    },
+    {
+      "operation": "actual DSH officeKit.convertTo DOCX → ODT, document text verified",
+      "bytes": 8681,
+      "passed": true
+    },
+    {
+      "operation": "actual DSH officeKit.recalculate XLSX cached 0 → actual formula result 5",
+      "bytes": 5208,
+      "passed": true
+    }
+  ],
+  "scope": "DOCX PDF/PNG/ODT and XLSX formula recalculation through real upstream DSH provider; not every input format",
+  "licensingCleared": false,
+  "sourceBuild": {
+    "schema": 1,
+    "productionRuntimeChanged": false,
+    "releaseCleared": false,
+    "sourceRevision": "b19bb73c74ed893b8a5d1716d32df32a113ed31b",
+    "sourceArchiveSHA256": "33839347e44b8df44c59115b566e9664e7db04a612a8f37ee2b220d7e501c036",
+    "adapterEntrySHA256": "f099830b05ff00285417357aa550961dc4a3a1fb6341b04ec209378f0a2d8994",
+    "patchSHA256": "54900701e3c9ce42b3c720345dfd7bd4937ec93dd940f3fd3a13e66117defa98",
+    "platform": "wasm",
+    "preferredNativeSourceChecks": []
+  },
+  "nativePreferredSourcesAllMatched": false
+}

@@ -8,6 +8,10 @@ assert sys.platform=='win32' and sys.version_info[:2]==(3,12),'Actual Windows CP
 work=a.work.resolve();work.mkdir(parents=True,exist_ok=True);a.output.parent.mkdir(parents=True,exist_ok=True)
 report={'schema':1,'status':'pending','sourceVersion':'2.3.5','productionRuntimeChanged':False,'releaseCleared':False,'scope':'Exact upstream NumPy supported internal C BLAS/LAPACK candidate, not an approved product replacement','tradeoff':'Upstream warns some linear algebra may be up to100x slower; no silent performance equivalence claim','checks':[]}
 def save():a.output.write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+def candidate_probe_environment(install):
+ # Upstream test_sdot_bug_8577 starts a fresh sys.executable without -I.
+ # --target is not site-packages: propagate only this exact candidate location.
+ return {**os.environ, 'PYTHONPATH': str(install)}
 def run(args,**kwargs):
  print('RUN',' '.join(str(x) for x in args),flush=True)
  return subprocess.run([str(x) for x in args],check=True,timeout=1200,**kwargs)
@@ -79,7 +83,7 @@ print(json.dumps({'actualVersion':np.__version__,'backendConfig':config,'solveCh
 import pytest
 raise SystemExit(pytest.main(['--pyargs','numpy.linalg.tests','numpy.fft.tests','numpy.random.tests','-q','--tb=short','--maxfail=3']))
 '''
- run([sys.executable,'-I','-c',probe,install],cwd=work)
+ run([sys.executable,'-I','-c',probe,install],cwd=work,env=candidate_probe_environment(install))
  report['checks'].append({'operation':'actual upstream linalg/fft/random suites plus explicit solve/cholesky/SVD/QR/eigen/lstsq/FFT/random acceptance','passed':True})
  report['status']='passed';save()
 except BaseException as error:

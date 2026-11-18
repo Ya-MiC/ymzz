@@ -18,6 +18,7 @@ $proof=Join-Path (Split-Path $PSScriptRoot -Parent) 'docs/evidence/windows';New-
 $installer=Get-ChildItem -LiteralPath $BuildRoot -File -Filter '湛箴_ymzz-*-win-x64-unsigned.exe' | Select-Object -First 1
 if(!$installer){throw 'Official upstream unsigned Windows NSIS installer missing'}
 $portable=Join-Path $env:RUNNER_TEMP '湛箴_ymzz 安裝 中文 空格'
+ $env:YMZZ_THEME_DIAGNOSTICS='1'
 $setup=Start-Process -FilePath $installer.FullName -ArgumentList "/S /D=$portable" -PassThru
 if(!$setup.WaitForExit(180000)){Stop-Process -Id $setup.Id -Force;throw 'Actual product installer exceeded180second limit'}
 if($setup.ExitCode -ne 0){throw "Actual product installer returned $($setup.ExitCode)"}
@@ -125,6 +126,7 @@ try{
   # Check PAINTED readable prose too: the previous real screenshot had dark ink
   # on a correct dark surface. A background/accent-only pass is insufficient.
   $prose=Find-Control '深淵的清澈的水，纂刻于竹篾上的痕，珍重微小，有所依據，立傳傳世'
+  $theme.GetCurrentPropertyValue([System.Windows.Automation.AutomationElement]::HelpTextProperty)|Set-Content -Encoding utf8 (Join-Path $proof 'theme-computed-color-helptext.json')
   $proseRect=$prose.Current.BoundingRectangle
   if($prose.Current.IsOffscreen -or $proseRect.Width -le 0 -or $proseRect.Height -le 0){throw 'Actual theme proof prose is not visible'}
   $inkToken=if($label -like '*暗*'){'c-dusk-paper'}else{'ink-1'};$inkMatch=[regex]::Match($tokens,('--'+$inkToken+':\s*(#[0-9A-Fa-f]{6})'));if(!$inkMatch.Success){throw 'Immutable authority text token missing'};$expectedInk=$inkMatch.Groups[1].Value.ToUpperInvariant()

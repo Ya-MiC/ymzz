@@ -4,7 +4,7 @@ import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import assert from 'node:assert/strict';
-import {createRequire} from 'node:module';
+import {createRequire,registerHooks} from 'node:module';
 import {fileURLToPath,pathToFileURL} from 'node:url';
 import {spawnSync} from 'node:child_process';
 import {createHash} from 'node:crypto';
@@ -12,7 +12,19 @@ const here=fileURLToPath(import.meta.url),repo=path.resolve(path.dirname(here),'
 const args=process.argv.slice(2),argument=name=>{const i=args.indexOf(name);return i<0?undefined:args[i+1]};
 const output=path.resolve(argument('--output')||path.join(repo,'ymzz/docs/evidence/office-actual.json'));
 function save(value){fs.mkdirSync(path.dirname(output),{recursive:true});fs.writeFileSync(output,JSON.stringify(value,null,2)+'\n')}
-const installed=argument('--installed');
+const installed=argument('--installed')||argument('--candidate-provider-installed');
+const candidate=argument('--candidate-entry');
+assert(!argument('--candidate-provider-installed')||candidate,'Candidate installed-provider mode requires explicit candidate entry');
+let expectedRuntime='0.2.3',candidateProof;
+if(candidate){
+ // Research-only real dependency substitution, never an installed-product proof.
+ assert(!argument('--installed'),'Candidate overrides are forbidden for installed-product qualification');
+ const entry=fs.realpathSync(candidate),manifest=JSON.parse(fs.readFileSync(path.resolve(path.dirname(entry),'../package.json'),'utf8'));
+ assert.equal(manifest.name,'@deepseek-ai/libreoffice-kit');assert.equal(manifest.version,'0.1.3');
+ expectedRuntime=manifest.version;
+ candidateProof={version:manifest.version,sourceModification:manifest.ymzzCandidate||null,entrySHA256:createHash('sha256').update(fs.readFileSync(entry)).digest('hex'),productionRuntimeChanged:false};
+ registerHooks({resolve(specifier,context,next){return specifier==='@deepseek-ai/libreoffice-kit'?{url:pathToFileURL(entry).href,shortCircuit:true}:next(specifier,context)}});
+}
 if(installed){
  // Use the official existing ASAR tool on an owned temporary COPY. Never modify the
  // installed app or original resources. Child operations use the ACTUAL bundled Node.
@@ -22,10 +34,19 @@ if(installed){
  const copy=fs.mkdtempSync(path.join(os.tmpdir(),'湛箴 Office 真實產物 空格 '));
  try{
   extractAll(path.join(installed,'resources/app.asar'),copy);
+  const fromInstalled=createRequire(path.join(copy,'dsh/package.json'));
+  const productDirectory=path.dirname(fromInstalled.resolve('@ymzz/dsh-product/package.json'));
+  const productAssetHashes=['ui.js','wenrun.css','wenrun-consumption.mjs'].map(name=>{
+    const actual=createHash('sha256').update(fs.readFileSync(path.join(productDirectory,name))).digest('hex');
+    const expected=createHash('sha256').update(fs.readFileSync(path.join(repo,'packages/ymzz/product',name))).digest('hex');
+    return {name,actual,expected,matched:actual===expected};
+  });
+  fs.mkdirSync(path.dirname(output),{recursive:true});fs.writeFileSync(output+'.product-assets.json',JSON.stringify(productAssetHashes,null,2)+'\n');
+  assert(productAssetHashes.every(row=>row.matched),'Actual packaged plugin assets differ from exact qualification source');
   const node=path.join(installed,'resources/runtime/primary-runtime/dependencies/node/bin/node.exe');
-  const child=spawnSync(node,[here,'--module-root',path.join(copy,'dsh'),'--output',output],{stdio:'inherit',timeout:360000,env:{...process.env,ELECTRON_RUN_AS_NODE:'',NODE_OPTIONS:''}});
+  const child=spawnSync(node,[here,'--module-root',path.join(copy,'dsh'),'--output',output,...(argument('--candidate-provider-installed')?['--candidate-entry',candidate]:[])],{stdio:'inherit',timeout:360000,env:{...process.env,ELECTRON_RUN_AS_NODE:'',NODE_OPTIONS:''}});
   if(child.error)throw child.error;if(child.status!==0)throw new Error('Actual installed Office provider qualification failed: '+child.status);
-  const proof=JSON.parse(fs.readFileSync(output,'utf8'));proof.installedArchiveSHA256=createHash('sha256').update(fs.readFileSync(path.join(installed,'resources/app.asar'))).digest('hex');proof.bundledNodeSHA256=createHash('sha256').update(fs.readFileSync(node)).digest('hex');save(proof);
+  const proof=JSON.parse(fs.readFileSync(output,'utf8'));proof.productAssetHashes=productAssetHashes;proof.candidateAgainstInstalledProvider=Boolean(argument('--candidate-provider-installed'));proof.productionRuntimeChanged=false;proof.installedArchiveSHA256=createHash('sha256').update(fs.readFileSync(path.join(installed,'resources/app.asar'))).digest('hex');proof.bundledNodeSHA256=createHash('sha256').update(fs.readFileSync(node)).digest('hex');save(proof);
  }finally{fs.rmSync(copy,{recursive:true,force:true})}
 }else{
  const work=fs.mkdtempSync(path.join(os.tmpdir(),'湛箴 Office 中文 空格 ')),checks=[];
@@ -63,8 +84,8 @@ if(installed){
   checks.push({operation:'actual DSH officeKit.recalculate XLSX cached 0 → actual formula result 5',bytes:recalculated.bytes,passed:true});
   const foundRuntime=await kit.discoverRuntime();
   const runtime={version:foundRuntime.version,backend:foundRuntime.backend,nativePreview:foundRuntime.nativePreview};
-  assert.equal(runtime.version,'0.2.3');assert.equal(runtime.backend,process.platform==='linux'?'wasm':'native');
-  save({schema:1,status:'passed',moduleOrigin:argument('--module-root')?'actual installed app.asar extracted without mutation':'actual current workspace built provider',mockedEngine:false,liveInference:false,nodeVersion:process.version,runtime,checks,scope:'DOCX PDF/PNG/ODT and XLSX formula recalculation through real upstream DSH provider; not every input format',licensingCleared:false});
+  assert.equal(runtime.version,expectedRuntime);assert.equal(runtime.backend,process.platform==='linux'?'wasm':'native');
+  save({schema:1,status:'passed',candidate:candidateProof,moduleOrigin:candidate?'source-identified0.1.3 alternate dependency through unchanged real DSH provider, outside production':argument('--module-root')?'actual installed app.asar extracted without mutation':'actual current workspace built provider',mockedEngine:false,liveInference:false,nodeVersion:process.version,runtime,checks,scope:'DOCX PDF/PNG/ODT and XLSX formula recalculation through real upstream DSH provider; not every input format',licensingCleared:false});
   console.log('Actual DSH Office provider: all four operations passed; licensing remains a separate HOLD.');
  }catch(error){save({schema:1,status:'failed',mockedEngine:false,liveInference:false,checks,error:{name:error.name,message:error.message,cause:error.cause?.message},licensingCleared:false});throw error}
  finally{if(ctx)await ctx.fiber.dispose();fs.rmSync(work,{recursive:true,force:true})}
