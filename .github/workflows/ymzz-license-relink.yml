@@ -1,6 +1,12 @@
-name: ymzz native LGPL source relink qualification (no binary publication)
+name: ymzz native source license qualification (no binary publication)
 on:
   workflow_dispatch:
+    inputs:
+      component:
+        description: Independent source probe; never rebuild the other already measured component
+        type: choice
+        options: [iconv, numpy-fallback]
+        default: iconv
 permissions:
   contents: read
 concurrency:
@@ -18,8 +24,10 @@ jobs:
         with:
           python-version: "3.12.10"
       - name: Install explicitly pinned build-only tooling, not product dependencies
+        if: inputs.component != 'numpy-fallback'
         run: python -m pip install setuptools==84.2.1
       - name: Native source rebuild, modified library relink and real lxml validation
+        if: inputs.component != 'numpy-fallback'
         shell: pwsh
         run: |
           $vswhere="${env:ProgramFiles(x86)}/Microsoft Visual Studio/Installer/vswhere.exe"
@@ -29,10 +37,23 @@ jobs:
           foreach($line in $vars){if($line -match '^([^=]+)=(.*)$'){[Environment]::SetEnvironmentVariable($matches[1],$matches[2],'Process')}}
           python ymzz/scripts/qualify-iconv-relink.py --work "$env:RUNNER_TEMP/ymzz LGPL source 中文 space" --output ymzz/docs/evidence/iconv-native-relink.json
           if($LASTEXITCODE -ne 0){exit $LASTEXITCODE}
+      - name: Candidate exact NumPy supported internal C BLAS and LAPACK, no GNU runtime
+        if: inputs.component == 'numpy-fallback'
+        shell: pwsh
+        run: |
+          $vswhere="${env:ProgramFiles(x86)}/Microsoft Visual Studio/Installer/vswhere.exe"
+          $vs=& $vswhere -latest -version '[17.0,18.0)' -products '*' -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 -property installationPath
+          if(!$vs){throw 'Supported preinstalled Visual Studio2022 x64 toolchain missing'}
+          $vars=cmd /c "call `"$vs/VC/Auxiliary/Build/vcvars64.bat`" >nul && set"
+          foreach($line in $vars){if($line -match '^([^=]+)=(.*)$'){[Environment]::SetEnvironmentVariable($matches[1],$matches[2],'Process')}}
+          python ymzz/scripts/qualify-numpy-fallback.py --work "$env:RUNNER_TEMP/ymzz-numpy-source-candidate" --output ymzz/docs/evidence/numpy-native-fallback.json
+          if($LASTEXITCODE -ne 0){exit $LASTEXITCODE}
       - name: Preserve measured JSON ONLY, never test EXE/DLL or an unqualified installer
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: ymzz-native-source-relink-${{ github.sha }}
-          path: ymzz/docs/evidence/iconv-native-relink.json
+          path: |
+            ymzz/docs/evidence/iconv-native-relink.json
+            ymzz/docs/evidence/numpy-native-fallback.json
           if-no-files-found: warn
