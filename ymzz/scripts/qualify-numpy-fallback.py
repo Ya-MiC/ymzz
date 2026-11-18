@@ -28,9 +28,13 @@ try:
  # allow-noblas=true retains NumPy's own C BLAS + LAPACK-lite implementations.
  build=[sys.executable,'-m','pip','wheel',source,'--no-deps','--wheel-dir',wheelhouse,'-Csetup-args=-Dblas=none','-Csetup-args=-Dlapack=none','-Csetup-args=-Dallow-noblas=true']
  env=os.environ.copy();env['CC']='cl';env['CXX']='cl';env['PYTHONUTF8']='1';env['CMAKE_BUILD_PARALLEL_LEVEL']='2'
- run(build,env=env)
- wheels=list(wheelhouse.glob('numpy-2.3.5-cp312-cp312-win_amd64.whl'));assert len(wheels)==1,wheels
- wheel=wheels[0];report.update(wheelSHA256=hashlib.sha256(wheel.read_bytes()).hexdigest(),wheelBytes=wheel.stat().st_size,buildArguments=build[7:]);save()
+ wheels=list(wheelhouse.glob('numpy-2.3.5-cp312-cp312-win_amd64.whl'))
+ if not wheels:
+  run(build,env=env)
+  wheels=list(wheelhouse.glob('numpy-2.3.5-cp312-cp312-win_amd64.whl'))
+ else:print('Reusing existing successful source-build cache; every license/import/numerical gate still runs',flush=True)
+ assert len(wheels)==1,wheels
+ wheel=wheels[0];report.update(wheelSHA256=hashlib.sha256(wheel.read_bytes()).hexdigest(),wheelBytes=wheel.stat().st_size,buildArguments=[str(x) for x in build[7:]]);save()
  with zipfile.ZipFile(wheel) as z:
   names=z.namelist();assert not any('openblas' in n.lower() or re.search(r'lib(gcc|gfortran|quadmath)',n,re.I) for n in names)
   licenses=[n for n in names if 'license' in n.lower() or 'copying' in n.lower()]

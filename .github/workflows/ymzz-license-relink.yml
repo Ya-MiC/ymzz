@@ -37,6 +37,14 @@ jobs:
           foreach($line in $vars){if($line -match '^([^=]+)=(.*)$'){[Environment]::SetEnvironmentVariable($matches[1],$matches[2],'Process')}}
           python ymzz/scripts/qualify-iconv-relink.py --work "$env:RUNNER_TEMP/ymzz LGPL source 中文 space" --output ymzz/docs/evidence/iconv-native-relink.json
           if($LASTEXITCODE -ne 0){exit $LASTEXITCODE}
+      - name: Reuse successful internal source-build cache, never a downloadable installer artifact
+        if: inputs.component == 'numpy-fallback'
+        uses: actions/cache@v4
+        with:
+          path: |
+            ${{ runner.temp }}/ymzz-numpy-source-candidate/numpy-2.3.5.tar.gz
+            ${{ runner.temp }}/ymzz-numpy-source-candidate/wheelhouse
+          key: ymzz-numpy-235-cp312-vs17-source784db1dc-internal-c-blas-lapack-v1
       - name: Candidate exact NumPy supported internal C BLAS and LAPACK, no GNU runtime
         if: inputs.component == 'numpy-fallback'
         shell: pwsh
