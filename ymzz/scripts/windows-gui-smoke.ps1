@@ -8,6 +8,7 @@ Add-Type @'
 using System;
 using System.Runtime.InteropServices;
 public static class YmzzTestMouse {
+ [DllImport("user32.dll")] public static extern bool SetForegroundWindow(IntPtr window);
  [DllImport("user32.dll")] public static extern bool SetCursorPos(int x,int y);
  [DllImport("user32.dll")] public static extern void mouse_event(uint flags,uint dx,uint dy,uint data,UIntPtr extra);
 }
@@ -66,31 +67,51 @@ try{
  $nativeDocument=Find-Control '湛箴_ymzz';if($Element.Current.Name -ne '湛箴_ymzz'){throw "Actual native window title differs from requested product name: $($Element.Current.Name)"}
  Screenshot 'full-dsh-onboarding'
  $approvals=0;$script:themeProof=@()
- # Actual UIA option selection, not unverified foreground SendKeys (which left light selected).
+ # Physical input to the real accessible combo, followed by native keyboard selection.
  function Select-Theme([string]$label){
-  $theme=Find-Control '湛箴四套溫潤主題';try{$theme.GetCurrentPattern([System.Windows.Automation.ScrollItemPattern]::Pattern).ScrollIntoView()}catch{}
-  # Chromium exposes popup options without clickable points. Focus the REAL select, verify
-  # UIA keyboard focus, then use native keyboard navigation/Enter; never set a DOM value.
-  # Start/return with the normal collapsed select; Collapse() on that state is invalid in Chromium.
-  $theme.SetFocus();Start-Sleep -Milliseconds 200
-  $focused=[System.Windows.Automation.AutomationElement]::FocusedElement
-  if(![System.Windows.Automation.Automation]::Compare($theme,$focused)){throw 'Actual native theme select did not receive keyboard focus'}
   $labels=@('雲箋 · 淺','雲箋 · 暗（暮靄）','陶土 · 淺','陶土 · 暗（暮林）');$index=[array]::IndexOf($labels,$label)
   if($index -lt 0){throw 'Unknown pinned native theme option'}
+  $theme=Find-Control '湛箴四套溫潤主題';try{$theme.GetCurrentPattern([System.Windows.Automation.ScrollItemPattern]::Pattern).ScrollIntoView()}catch{}
+  $p.Refresh();if(![YmzzTestMouse]::SetForegroundWindow($p.MainWindowHandle)){throw 'Cannot foreground actual installed Electron window for physical theme input'}
+  Start-Sleep -Milliseconds 200
+  $bounds=$theme.Current.BoundingRectangle
+  if($theme.Current.IsOffscreen -or $bounds.Width -le 0 -or $bounds.Height -le 0){throw 'Actual native theme combo is not visibly clickable'}
+  $point=[System.Windows.Point]::new($bounds.Left+$bounds.Width/2,$bounds.Top+$bounds.Height/2)
+  $hit=[System.Windows.Automation.AutomationElement]::FromPoint($point)
+  if($hit.Current.ProcessId -ne $theme.Current.ProcessId -or ($hit.Current.Name -ne $theme.Current.Name -and $hit.Current.Name -notin $labels)){throw 'Actual theme combo center is covered by another control'}
+  if(![YmzzTestMouse]::SetCursorPos([int]$point.X,[int]$point.Y)){throw 'Cannot position real test cursor over native theme select'}
+  [YmzzTestMouse]::mouse_event(2,0,0,0,[UIntPtr]::Zero);[YmzzTestMouse]::mouse_event(4,0,0,0,[UIntPtr]::Zero)
+  Start-Sleep -Milliseconds 250
+  # A native HTML select transfers focus to its popup OPTION. Requiring identity with
+  # the COMBO rejects that correct focus. Validate actual process + known select/option
+  # identity instead, after physically opening the popup; Enter now COMMITS/closes it.
+  $focused=[System.Windows.Automation.AutomationElement]::FocusedElement
+  $focus=@{name=$focused.Current.Name;type=$focused.Current.ControlType.ProgrammaticName;processId=$focused.Current.ProcessId;comboProcessId=$theme.Current.ProcessId;clickX=[int]$point.X;clickY=[int]$point.Y}
+  $focus|ConvertTo-Json|Set-Content -Encoding utf8 (Join-Path $proof 'theme-input-focus.json')
+  if($focused.Current.ProcessId -ne $theme.Current.ProcessId -or ($focused.Current.Name -ne $theme.Current.Name -and $focused.Current.Name -notin $labels)){throw 'Actual native theme select/popup option did not receive physical-input keyboard focus'}
   [System.Windows.Forms.SendKeys]::SendWait('{HOME}')
   for($i=0;$i -lt $index;$i++){[System.Windows.Forms.SendKeys]::SendWait('{DOWN}')}
   [System.Windows.Forms.SendKeys]::SendWait('{ENTER}')
   $tokens=Get-Content -LiteralPath (Join-Path $PSScriptRoot '../../packages/ymzz/product/wenrun-tokens.css') -Raw
-  $expression=if($label -like '*暗*'){'\[data-theme="dark"\]\s*\{\s*--bg-0:\s*(#[0-9A-Fa-f]{6})'}else{'--c-cloud-paper:\s*(#[0-9A-Fa-f]{6})'}
-  $match=[regex]::Match($tokens,$expression);if(!$match.Success){throw 'Immutable authority background token missing'};$expected=$match.Groups[1].Value.ToUpperInvariant();$end=(Get-Date).AddSeconds(10)
+  $expression=if($label -like '*暗*'){'\[data-theme="dark"\]\s*\{\s*--bg-0:\s*(#[0-9A-Fa-f]{6})'}elseif($label -like '陶土*'){'--c-earth-oat:\s*(#[0-9A-Fa-f]{6})'}else{'--c-cloud-paper:\s*(#[0-9A-Fa-f]{6})'}
+  $match=[regex]::Match($tokens,$expression);if(!$match.Success){throw 'Immutable authority background token missing'};$expected=$match.Groups[1].Value.ToUpperInvariant()
+  $accentToken=if($index -eq 0){'c-cloud-sky'}elseif($index -eq 1){'c-dusk-blue'}elseif($index -eq 2){'c-earth-sage'}else{'c-wood-sage'}
+  $accentMatch=[regex]::Match($tokens,('--'+$accentToken+':\s*(#[0-9A-Fa-f]{6})'));if(!$accentMatch.Success){throw 'Immutable authority accent token missing'};$expectedAccent=$accentMatch.Groups[1].Value.ToUpperInvariant()
+  $reportButton=Find-Control '匯出本插件的本機任務證據' ([System.Windows.Automation.InvokePattern]::Pattern)
+  if($reportButton.Current.IsOffscreen){$reportButton.GetCurrentPattern([System.Windows.Automation.ScrollItemPattern]::Pattern).ScrollIntoView()}
+  $buttonRect=$reportButton.Current.BoundingRectangle;$end=(Get-Date).AddSeconds(10)
   do{
    $dialog=Find-Control '湛箴 DSH 任務與驗證閘';$rect=$dialog.Current.BoundingRectangle
    $pixel=[System.Drawing.Bitmap]::new(1,1);$graphics=[System.Drawing.Graphics]::FromImage($pixel)
    try{$graphics.CopyFromScreen(([int]$rect.Left+18),([int]$rect.Top+18),0,0,[System.Drawing.Size]::new(1,1));$color=$pixel.GetPixel(0,0);$actual='#{0:X2}{1:X2}{2:X2}' -f $color.R,$color.G,$color.B}finally{$graphics.Dispose();$pixel.Dispose()}
-   if($actual -ne $expected){Start-Sleep -Milliseconds 200}
-  }until($actual -eq $expected -or (Get-Date) -gt $end)
+   $pixel=[System.Drawing.Bitmap]::new(1,1);$graphics=[System.Drawing.Graphics]::FromImage($pixel)
+   try{$graphics.CopyFromScreen(([int]$buttonRect.Left+6),([int]($buttonRect.Top+$buttonRect.Height/2)),0,0,[System.Drawing.Size]::new(1,1));$color=$pixel.GetPixel(0,0);$actualAccent='#{0:X2}{1:X2}{2:X2}' -f $color.R,$color.G,$color.B}finally{$graphics.Dispose();$pixel.Dispose()}
+   if($actual -ne $expected -or $actualAccent -ne $expectedAccent){Start-Sleep -Milliseconds 200}
+  }until(($actual -eq $expected -and $actualAccent -eq $expectedAccent) -or (Get-Date) -gt $end)
   if($actual -ne $expected){throw "Actual native-clicked theme differs from authority token: $label expected $expected got $actual"}
-  $script:themeProof+=@{label=$label;actualColor=$actual;authorityColor=$expected;interaction='UIA verified actual select keyboard focus + native Home/Down/Enter; rendered authority color asserted'}
+  if($actualAccent -ne $expectedAccent){throw "Actual native theme accent differs from authority token: $label expected $expectedAccent got $actualAccent"}
+  $script:themeProof+=@{label=$label;actualColor=$actual;authorityColor=$expected;actualAccent=$actualAccent;authorityAccent=$expectedAccent;focus=$focus;interaction='UIA hit-tested physical combo click + verified native combo/option keyboard focus + Home/Down/Enter; rendered authority color asserted'}
+  $script:themeProof|ConvertTo-Json -Depth 8|Set-Content -Encoding utf8 (Join-Path $proof 'theme-checkpoint.json')
  }
  function Complete-Demo([bool]$accept){
   $before=@((State).tasks.psobject.Properties.Name);Click '用完整 DSH Agent Loop 執行離線修復示例';$end=(Get-Date).AddSeconds(25)
@@ -114,7 +135,10 @@ try{
  if(@((State).memory).Count -ne 1){throw 'Explicit DSH plugin memory confirmation was not persisted'}
  Screenshot 'full-dsh-task-board'
  @{accepted=$accepted;rollback=$rollback;approvals=$approvals;memoryConfirmed=@((State).memory).Count;engine='FULL official DeepSeek Harness';deterministicFakeTransport=$true;liveInference=$false}|ConvertTo-Json -Depth 30|Set-Content -Encoding utf8 (Join-Path $proof 'full-dsh-gui-task-checkpoint.json')
- Select-Theme '雲箋 · 暗（暮靄）';Screenshot 'full-dsh-wenrun-dark';Select-Theme '雲箋 · 淺'
+ Select-Theme '雲箋 · 暗（暮靄）';Screenshot 'full-dsh-wenrun-dark'
+ Select-Theme '陶土 · 暗（暮林）';Screenshot 'full-dsh-wenrun-wood'
+ Select-Theme '陶土 · 淺';Screenshot 'full-dsh-wenrun-earth'
+ Select-Theme '雲箋 · 淺';Screenshot 'full-dsh-wenrun-light'
  Click '回到完整 DSH 工作區';Find-Control '湛箴_ymzz 插件與驗證閘' ([System.Windows.Automation.InvokePattern]::Pattern)|Out-Null;Screenshot 'full-dsh-native-workspace'
  # Native upstream settings are retained. Configuration only: never enter credentials or make inference.
  # The top-level Chromium UIA pane is not focusable. Use the REAL accessible native menu instead.

@@ -1,0 +1,40 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "moduleOrigin": "actual current workspace built provider",
+  "mockedEngine": false,
+  "liveInference": false,
+  "nodeVersion": "v24.22.1",
+  "runtime": {
+    "version": "0.2.3",
+    "backend": "wasm",
+    "nativePreview": false
+  },
+  "checks": [
+    {
+      "operation": "actual DSH officeKit.convert DOCX → PDF",
+      "bytes": 11236,
+      "sha256": "02f489f8c558f6eab3a2d4ed2e62282414fc6cb270fe30bcabff7934c2301c9e",
+      "passed": true
+    },
+    {
+      "operation": "actual DSH officeKit.renderImages DOCX → PNG",
+      "imageCount": 1,
+      "width": 596,
+      "height": 842,
+      "passed": true
+    },
+    {
+      "operation": "actual DSH officeKit.convertTo DOCX → ODT, document text verified",
+      "bytes": 8680,
+      "passed": true
+    },
+    {
+      "operation": "actual DSH officeKit.recalculate XLSX cached 0 → actual formula result 5",
+      "bytes": 5208,
+      "passed": true
+    }
+  ],
+  "scope": "DOCX PDF/PNG/ODT and XLSX formula recalculation through real upstream DSH provider; not every input format",
+  "licensingCleared": false
+}

@@ -7,3 +7,22 @@ body[data-ymzz-wenrun] :where(button,select,input:not([type=checkbox]),[role=but
 #ymzz-dsh-panel nav a{display:inline-flex;align-items:center;min-height:44px;min-width:44px;padding:8px;color:var(--ink-1)}
 
 #ymzz-dsh-toggle[hidden]{display:none!important}
+
+/* Owned semantic consumption only: original palette/token file remains immutable.
+   Do not inherit an upstream/UA text color into plugin prose or put pale dark-mode
+   text on pastel filled buttons. Native panel placement and dimensions are unchanged. */
+:root body[data-ymzz-wenrun] {
+  --ymzz-readable-ink: var(--ink-1);
+  --ymzz-on-accent: var(--ink-1);
+  --dsw-alias-label-primary: var(--ymzz-readable-ink);
+  --dsw-alias-label-primary-foreground: var(--ymzz-on-accent);
+  --dsw-alias-bg-overlay: var(--bg-2);
+}
+:root[data-theme="dark"] body[data-ymzz-wenrun] {
+  --ymzz-readable-ink: var(--c-dusk-paper);
+  --ymzz-on-accent: var(--bg-0);
+}
+#ymzz-dsh-panel { color: var(--ymzz-readable-ink); font-family: var(--dsw-font-family); }
+#ymzz-dsh-panel :where(h2,h3,h4,p,label,summary,pre,article) { color: inherit; }
+#ymzz-dsh-panel :where(input,select,textarea,a) { color: var(--ymzz-readable-ink); }
+#ymzz-dsh-panel button { color: var(--ymzz-on-accent); }

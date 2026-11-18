@@ -71,3 +71,12 @@ No draft/Release or executable uploaded. Previously assembled21-archive correspo
 ## Source qualification follow-up, not new installed success
 
 Run [44039049852](evidence/windows-44039049852/README.md), source `c4b7668d51f2817a3c74f7e706c322c3f8789808`, passed source/PowerShell syntax/product/policy tests, full DSH artifact gates and actual Windows source task approvals/repair/accept/memory/rollback. Official installer packaging stopped at `TypeError: fetch failed` during `prepare:runtime` at16:38 KST, before a new installer existed. Theme/native-settings GUI checks were skipped, NOT passed. Redacted phase/cause collection now allows supported diagnosis on the follow-up; no unverified binary upload or release. [New exact-source licensing evidence and lawful XSL candidates](LICENSE-FOLLOWUP.md) clarify remaining holds without silently waiving policy.
+
+
+## 2026-11-18 KST: real native focus/contrast follow-up; actual Office operations
+
+44101906821 failed because UIA focus was not identical to the combo after a popup had opened; dark/failure identical PNGs are not independent success proof. The bounded input fix physically clicks the real hit-tested combo, checks actual focused combo/known popup option and process, and uses Home/Down/Enter on the opened list. No DOM assignment or success injection. All four themes require immutable authority background AND accent pixels and preserve per-theme partial JSON checkpoints. Settings/Models/native plugin inventory are still required, not marked passed in advance.
+
+The original palette file remains unchanged; owned consumption fixes prose/filled-button contrast without moving DSH panels. Six new palette/input regression tests pass, including normal-text AA for four original palettes. Full product tests66, packaging32 and signed/unsigned policy25 pass locally; this does not replace installed Windows proof.
+
+The real DSH Office provider/actual WASM0.2.3 passed all four new unmocked conversion/render/recalculation probes. A separate installed native step is now in the same Windows workflow, using actual app.asar bytes and bundled Node. [Actual evidence and precise commercial/source boundary](OFFICE-COMMERCIAL.md). Licensing is NOT cleared and the draft remains asset-free; approved LGPL/MPL use does not waive missing preferred source or silently approve GCC exceptions.

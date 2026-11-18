@@ -102,6 +102,13 @@ jobs:
         if: ${{ !cancelled() && steps.package.conclusion == 'success' }}
         shell: pwsh
         run: ./ymzz/scripts/windows-gui-smoke.ps1 -BuildRoot apps/desktop/.desktop-build/targets/win-x64/unsigned-artifacts
+      - name: Verify actual installed DSH Office provider and native engine, not mocked converter tests
+        if: ${{ !cancelled() && steps.package.conclusion == 'success' }}
+        shell: pwsh
+        run: |
+          $installed = Join-Path $env:RUNNER_TEMP '湛箴_ymzz 安裝 中文 空格'
+          node ymzz/scripts/qualify-office.mjs --installed $installed --output ymzz/docs/evidence/windows/office-actual.json
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
       - name: Audit actual prepared scientific native runtime (not package-level BSD labels)
         if: ${{ !cancelled() && steps.package.conclusion == 'success' }}
         shell: pwsh
