@@ -60,7 +60,12 @@ try:
 sys.path.insert(0,sys.argv[1])
 import numpy as np
 assert np.__version__=='2.3.5'
-config=np.show_config(mode='dicts');assert not config['Build Dependencies']['blas']['found'] and not config['Build Dependencies']['lapack']['found'],config
+config=np.show_config(mode='dicts')
+# Exact NumPy2.3.5 __config__.py.in _cleanup removes false/empty values.
+# Require the explicitly selected 'none' backend, not an unknown missing schema.
+for name in ('blas','lapack'):
+ dependency=config['Build Dependencies'][name]
+ assert dependency.get('name')=='none' and dependency.get('found',False) is False,config
 from numpy.testing import assert_allclose
 A=np.array([[4.,1.],[1.,3.]]);b=np.array([1.,2.]);assert_allclose(A@np.linalg.solve(A,b),b)
 assert_allclose(np.linalg.cholesky(A)@np.linalg.cholesky(A).T,A)
