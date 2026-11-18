@@ -12,7 +12,7 @@
 
 | Platform | Availability |
 |---|---|
-| Windows x64 | **Not released.** Real installer, Chinese-space installation and actual GUI task acceptance/memory/rollback passed; theme/settings GUI follow-up and licensing holds remain. |
+| Windows x64 | **Not released.** Real installed tasks, all four painted Wenrun themes, native Settings/Models and registered plugins passed; final selected production-source/native/material qualification remains. |
 | macOS / Linux desktop | Planned; not guaranteed in v0.1. |
 | From source | Full DSH eight-gate artifact build and authenticated HTTP200 passed on Linux; actual native-agent tool/task tests passed. |
 
@@ -62,7 +62,7 @@ node ymzz/scripts/check-site.mjs
 node ymzz/scripts/audit-production.mjs --enforce
 ```
 
-The last command **fails closed until actual native payload/source compliance clears**, even when the exact owner-approved LGPL/MPL graph passes. A deeper native NumPy audit found a separate GCC-runtime exception requiring a decision; it is not confused with plain GPL and is not silently approved. [Approved scope and remaining compliance qualification](ymzz/docs/WINDOWS-BLOCKERS.md).
+The last command **fails closed until actual native payload/source compliance clears**, even when the exact owner-approved LGPL/MPL graph passes. The exact source-built NumPy replacement now passes in the actual installed CPython/pandas runtime without GNU runtime or a category waiver. Original upstream inputs remain preserved, not silently relicensed. [Approved scope and remaining compliance qualification](ymzz/docs/WINDOWS-BLOCKERS.md).
 
 [Actual source/compliance materials](ymzz/compliance/REBUILD.md) · [Branding points](ymzz/docs/BRANDING-POINTS.md) · [Network/disable controls](ymzz/docs/NETWORK.md) · [Skills/provenance](ymzz/docs/SKILLS.md) · [Upstream sync](ymzz/docs/UPSTREAM-SYNC.md) · [Original README](ymzz/docs/upstream/README.md) · [All source links](ymzz/docs/RESOURCES.md)
 
@@ -77,6 +77,15 @@ pnpm run package:desktop:win:x64:unsigned
 ```
 
 Use a Windows x64 build host and documented public `.env.windows` product settings. No mandatory-update endpoint is required for unsigned builds; signed HTTPS validation remains. Normal upstream NSIS install/uninstall/protocol registrations are not called “registry free”. [Measured installer-producing Windows attempt](https://github.com/Ya-MiC/ymzz/actions/runs/44035093932) built the real installer; the final native GUI/compliance gates are not yet green, so there is deliberately no executable download.
+
+### Current measured result / 目前實測
+
+[Exact installed run44221774966](https://github.com/Ya-MiC/ymzz/actions/runs/44221774966) passed genuine Chinese-space installation/tasks, all four painted body inks/backgrounds/accents, native Settings/Models and Enabled/Running product registration. Real native Office operations and embedded CPython/NumPy/pandas numerical/CSV acceptance passed; no live inference or configured provider is claimed. Overall release remains held by final source/native/material closure.
+
+The already-native-qualified, preferred-source-built MPL Office0.1.3 variant is now explicitly selected for the next **actual production** package, with originals preserved and ordinary descriptor/ASAR checks retained. Actual full Core/adapter/30dependency sources and353exact patched-lock Rust crate sources have been collected and hash-verified, not merely linked. This still needs exact new installed-production and comprehensive native/material checks. [Precise commercial/source obligations and assembled-material hashes](ymzz/docs/CORRESPONDING-SOURCE.md). MPL/LGPL allow commercial use with their conditions; third parties are not relabeled MIT. There is no public installer yet.
+
+<details>
+<summary>Historical qualification records — superseded status text retained as evidence</summary>
 
 ### Latest actual installed GUI task evidence
 
@@ -99,3 +108,5 @@ Use a Windows x64 build host and documented public `.env.windows` product settin
 
 
 **Source alternatives, not a finished Release:** the preferred-source-built MPL Office0.1.3 + documented native-resolver backport passed real unchanged DSH provider operations twice on WASM; independent build entry bytes match. Native/full compatibility and source coverage remain separate pending checks. [NumPy source candidate44218703576](ymzz/docs/evidence/numpy-source-44218703576-passed.json) now passed explicit numerical acceptance and all selected upstream linalg/fft/random suites:1968 passed,15 skipped,2 expected failures. Original wheel notices and every PE imported-DLL audit pass without GNU runtime. This is not production integration, a complete application license clearance or a performance-equivalence claim; no production graph was substituted. [Current blocker/proof detail](ymzz/docs/WINDOWS-BLOCKERS.md).
+
+</details>

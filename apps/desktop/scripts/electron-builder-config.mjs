@@ -2,7 +2,7 @@ import { readInstallerLocales, renderInstallerStrings } from './installer-locale
 import { officePackageDirectories } from '../../../scripts/libreoffice-packages.mjs'
 import { X509Certificate } from 'node:crypto'
 import { readFileSync } from 'node:fs'
-import { applyPackagedMitTransforms } from '../../../ymzz/packaging/lxml-overlay.mjs'
+import { applyPackagedMitTransforms, selectPreparedOfficeSource } from '../../../ymzz/packaging/lxml-overlay.mjs'
 import { readFile, writeFile } from 'node:fs/promises'
 import { join, relative, sep } from 'node:path'
 import { fileURLToPath } from 'node:url'
@@ -190,6 +190,7 @@ export function createElectronBuilderConfig(
       writeUpdateInfo: false,
     },
     beforePack: async context => {
+      if (resolvedPlatform === 'win32' && resolvedArch === 'x64') await selectPreparedOfficeSource(buildPaths.dsh)
       const office = await officePackageDirectories(buildPaths.dsh, { platform: resolvedPlatform, arch: resolvedArch })
       const patterns = office.map(directory => `**/${relative(buildPaths.dsh, directory).split(sep).join('/')}/**/*`)
       const existing = context.packager.config.asarUnpack ?? []

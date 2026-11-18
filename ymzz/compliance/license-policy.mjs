@@ -5,7 +5,10 @@ export const permissive=new Set(['MIT','ISC','Apache-2.0','BSD-2-Clause','BSD-3-
 export const approved=Object.freeze([
  {name:'@img/sharp-libvips-linux-x64',version:'1.3.4',license:'LGPL-3.0-or-later',sources:'linux-libvips-8.18.7-not-desktop-qualified'},
  {name:'@img/sharp-win32-x64',version:'0.35.5',license:'Apache-2.0 AND LGPL-3.0-or-later',sources:'windows-libvips-8.18.7'},
- ...['@deepseek-ai/libreoffice-kit','@deepseek-ai/libreoffice-kit-wasm','@deepseek-ai/libreoffice-kit-win32-x64'].map(name=>({name,version:'0.2.3',license:'MPL-2.0',sources:'libreoffice-kit-0.2.3'}))
+ ...['@deepseek-ai/libreoffice-kit','@deepseek-ai/libreoffice-kit-wasm','@deepseek-ai/libreoffice-kit-win32-x64'].map(name=>({name,version:'0.2.3',license:'MPL-2.0',sources:'libreoffice-kit-0.2.3'})),
+ // Exact source-built Windows replacement under the same approved MPL category.
+ // No other version/backend or missing corresponding materials are waived.
+ ...['@deepseek-ai/libreoffice-kit','@deepseek-ai/libreoffice-kit-win32-x64'].map(name=>({name,version:'0.1.3',license:'MPL-2.0',sources:'source-built-office013-native-b19bb73c-MPL-resolver'}))
 ]);
 function permits(n){if(n.conjunction==='or')return permits(n.left)||permits(n.right);if(n.conjunction==='and')return permits(n.left)&&permits(n.right);return !n.exception&&permissive.has(n.license)}
 export function classifyLicense({name,version,license}){

@@ -15,7 +15,7 @@ function save(value){fs.mkdirSync(path.dirname(output),{recursive:true});fs.writ
 const installed=argument('--installed')||argument('--candidate-provider-installed');
 const candidate=argument('--candidate-entry');
 assert(!argument('--candidate-provider-installed')||candidate,'Candidate installed-provider mode requires explicit candidate entry');
-let expectedRuntime='0.2.3',candidateProof;
+let expectedRuntime=argument('--expected-runtime')||'0.2.3',candidateProof;assert(['0.2.3','0.1.3'].includes(expectedRuntime));
 if(candidate){
  // Research-only real dependency substitution, never an installed-product proof.
  assert(!argument('--installed'),'Candidate overrides are forbidden for installed-product qualification');
@@ -44,9 +44,9 @@ if(installed){
   fs.mkdirSync(path.dirname(output),{recursive:true});fs.writeFileSync(output+'.product-assets.json',JSON.stringify(productAssetHashes,null,2)+'\n');
   assert(productAssetHashes.every(row=>row.matched),'Actual packaged plugin assets differ from exact qualification source');
   const node=path.join(installed,'resources/runtime/primary-runtime/dependencies/node/bin/node.exe');
-  const child=spawnSync(node,[here,'--module-root',path.join(copy,'dsh'),'--output',output,...(argument('--candidate-provider-installed')?['--candidate-entry',candidate]:[])],{stdio:'inherit',timeout:360000,env:{...process.env,ELECTRON_RUN_AS_NODE:'',NODE_OPTIONS:''}});
+  const child=spawnSync(node,[here,'--module-root',path.join(copy,'dsh'),'--output',output,'--expected-runtime',expectedRuntime,...(argument('--candidate-provider-installed')?['--candidate-entry',candidate]:[])],{stdio:'inherit',timeout:360000,env:{...process.env,ELECTRON_RUN_AS_NODE:'',NODE_OPTIONS:''}});
   if(child.error)throw child.error;if(child.status!==0)throw new Error('Actual installed Office provider qualification failed: '+child.status);
-  const proof=JSON.parse(fs.readFileSync(output,'utf8'));proof.productAssetHashes=productAssetHashes;proof.candidateAgainstInstalledProvider=Boolean(argument('--candidate-provider-installed'));proof.productionRuntimeChanged=false;proof.installedArchiveSHA256=createHash('sha256').update(fs.readFileSync(path.join(installed,'resources/app.asar'))).digest('hex');proof.bundledNodeSHA256=createHash('sha256').update(fs.readFileSync(node)).digest('hex');save(proof);
+  const proof=JSON.parse(fs.readFileSync(output,'utf8'));proof.productAssetHashes=productAssetHashes;proof.candidateAgainstInstalledProvider=Boolean(argument('--candidate-provider-installed'));proof.productionRuntimeChanged=expectedRuntime==='0.1.3'&&!candidate;proof.installedArchiveSHA256=createHash('sha256').update(fs.readFileSync(path.join(installed,'resources/app.asar'))).digest('hex');proof.bundledNodeSHA256=createHash('sha256').update(fs.readFileSync(node)).digest('hex');save(proof);
  }finally{fs.rmSync(copy,{recursive:true,force:true})}
 }else{
  const work=fs.mkdtempSync(path.join(os.tmpdir(),'湛箴 Office 中文 空格 ')),checks=[];
@@ -60,6 +60,9 @@ if(installed){
   const {Context}=await import(pathToFileURL(fromOffice.resolve('@deepseek-ai/cordis')));
   const {default:OfficeKit}=await import(pathToFileURL(officeEntry));
   const kit=await import(pathToFileURL(kitEntry));
+  const kitManifest=JSON.parse(fs.readFileSync(createRequire(kitEntry).resolve('@deepseek-ai/libreoffice-kit/package.json')));
+  assert.equal(kitManifest.version,expectedRuntime);
+  if(expectedRuntime==='0.1.3'&&!candidate){const pinned=JSON.parse(fs.readFileSync(path.join(repo,'ymzz/docs/evidence/office-source013-native-qualified.json'))).sourceBuild;assert(kitManifest.ymzzSourceBuild,'SOURCE_VARIANT_PROVENANCE_MISSING');assert.equal(kitManifest.ymzzSourceBuild.adapterEntrySHA256,pinned.adapterEntrySHA256);assert.equal(kitManifest.ymzzSourceBuild.sourceArchiveSHA256,pinned.sourceArchiveSHA256);assert.equal(createHash('sha256').update(fs.readFileSync(kitEntry)).digest('hex'),pinned.adapterEntrySHA256,'ACTUAL_INSTALLED_SOURCE_VARIANT_HASH');}
   const {zipSync,unzipSync,strToU8}=createRequire(kitEntry)('fflate');
   const zip=files=>Buffer.from(zipSync(Object.fromEntries(Object.entries(files).map(([k,v])=>[k,strToU8(v)]))));
   const types=body=>'<?xml version="1.0" encoding="UTF-8"?><Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/>'+body+'</Types>';

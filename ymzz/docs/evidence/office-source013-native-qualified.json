@@ -1,0 +1,951 @@
+{
+  "schema": 1,
+  "run": "https://github.com/Ya-MiC/ymzz/actions/runs/44221774966",
+  "applicationCommit": "c556d1bf2474c61f2c08546da0c5e1184d87d46a",
+  "status": "passed",
+  "runtime": {
+    "version": "0.1.3",
+    "backend": "native"
+  },
+  "checks": [
+    {
+      "operation": "actual DSH officeKit.convert DOCX \u2192 PDF",
+      "bytes": 17581,
+      "sha256": "f0e201346cd71b8251c846981c1bde46f7409b268b671a9930b42360194a2e3f",
+      "passed": true
+    },
+    {
+      "operation": "actual DSH officeKit.renderImages DOCX \u2192 PNG",
+      "imageCount": 1,
+      "width": 596,
+      "height": 842,
+      "passed": true
+    },
+    {
+      "operation": "actual DSH officeKit.convertTo DOCX \u2192 ODT, document text verified",
+      "bytes": 9910,
+      "passed": true
+    },
+    {
+      "operation": "actual DSH officeKit.recalculate XLSX cached 0 \u2192 actual formula result 5",
+      "bytes": 5169,
+      "passed": true
+    }
+  ],
+  "sourceBuild": {
+    "schema": 1,
+    "productionRuntimeChanged": false,
+    "releaseCleared": false,
+    "sourceRevision": "b19bb73c74ed893b8a5d1716d32df32a113ed31b",
+    "sourceArchiveSHA256": "33839347e44b8df44c59115b566e9664e7db04a612a8f37ee2b220d7e501c036",
+    "adapterEntrySHA256": "f099830b05ff00285417357aa550961dc4a3a1fb6341b04ec209378f0a2d8994",
+    "patchSHA256": "b60c9c72b618ab001ff08dc916064f63eb736d572fee322bc92ee6f3de643b13",
+    "platform": "win32-x64",
+    "preferredNativeSourceChecks": [
+      {
+        "path": "engine/build-identity.mjs",
+        "matched": true,
+        "sha256": "d8e3032f1a589b0877a3822fe9e4a4363427352e0a024a6824791887cf8644cc"
+      },
+      {
+        "path": "engine/core-source.mjs",
+        "matched": true,
+        "sha256": "7978aec9b96adb6c98d1804fbccdfdffac16a6387d781e4b5950998b47726bd0"
+      },
+      {
+        "path": "engine/document-operations.hxx",
+        "matched": true,
+        "sha256": "d1762ee80b195f984e9c57372090d14c33d98698dd23fcbf2e94210ac65e7b8b"
+      },
+      {
+        "path": "engine/ui-resource-policy.mjs",
+        "matched": true,
+        "sha256": "5e6aa316bc63e94ae11394ebdb59a2f82120d15e60d36c4ab7c38880a8140967"
+      },
+      {
+        "path": "engine/native/worker.cxx",
+        "matched": true,
+        "sha256": "31a29b04eb2ffdabe126ee69c89e7cf5efafe62354f0897cce3adb328eb001fb"
+      },
+      {
+        "path": "engine/native/configure.mjs",
+        "matched": true,
+        "sha256": "8fe85d65ec91f0aed9b0bf9de493ced373572b4a671a2376c2aeeee386da883c"
+      },
+      {
+        "path": "engine/native/core-patches.mjs",
+        "matched": true,
+        "sha256": "6407fbdb537502f65a7c8f35546efd7033e2b809d032bca3694cbce2486240af"
+      },
+      {
+        "path": "engine/native/bootstrap-windows.ps1",
+        "matched": true,
+        "sha256": "4ae30d9d68714ad0c7e33b43595d72c2198032d682436487bf8d26931394be67"
+      },
+      {
+        "path": "engine/native/build-helper.mjs",
+        "matched": true,
+        "sha256": "81431b3ae7cd6fdb3c23d61312e6483236654f091efb131cdcbcaf2c22067687"
+      },
+      {
+        "path": "engine/native/build-platform.mjs",
+        "matched": true,
+        "sha256": "11d16be0801330c5e899b92115c8612a9020ccd32dd45deaf64656dc22da9659"
+      },
+      {
+        "path": "engine/native/core-environment.mjs",
+        "matched": true,
+        "sha256": "e9e26b3fbfdfb8ae0c35eee2957a0c075e5b3d531633c2ee6c8b093ac7f13128"
+      },
+      {
+        "path": "engine/native/glibc-minimum.mjs",
+        "matched": true,
+        "sha256": "212d7d0bb4e482c34901a0642c721f24623b9b1bfb855ea4de483db3429d714a"
+      },
+      {
+        "path": "scripts/checkout-core.mjs",
+        "matched": true,
+        "sha256": "65ec690f24a22e6afd20af78125cb2bb0929e5e5bf0f3c7d8add4eb1509d6d7f"
+      },
+      {
+        "path": "scripts/core-checkout.mjs",
+        "matched": true,
+        "sha256": "45c87140618e24747b625d0db0bdc37bbb43e79c0ca4c4334f3c9168c5b17e7d"
+      },
+      {
+        "path": "scripts/build-native.mjs",
+        "matched": true,
+        "sha256": "e9064373b7abbd0fd5558192acc52d60cd06a2a0e6153a679da04a9134e28e31"
+      },
+      {
+        "path": "scripts/rebuild-native-helper.mjs",
+        "matched": true,
+        "sha256": "10e1984f9ac581ad337963961dd6ea996d301ffca13be1d761fd3f84963809c1"
+      },
+      {
+        "path": "scripts/stage-native.mjs",
+        "matched": true,
+        "sha256": "f007bc6366ee54247acc8bccfae4a02eb6a0680934ca27c2c36495a69274854d"
+      },
+      {
+        "path": "scripts/slim-native.mjs",
+        "matched": true,
+        "sha256": "a2736246fb00d2ee24e2835c34243671cb25fbe5ff8661fe826629528b0a3374"
+      },
+      {
+        "path": "scripts/stage-linux-runtime.mjs",
+        "matched": true,
+        "sha256": "8141f2f19cd98e30a8e34187af36922cae5018f4690ca6a2f1b4044e33835a24"
+      },
+      {
+        "path": "scripts/pack-utils.mjs",
+        "matched": true,
+        "sha256": "aa5368e0dd38d90459f0ef14e1d4b27740aef2f4e46617aca6d6fafed0577a44"
+      },
+      {
+        "path": "scripts/platform-matrix.mjs",
+        "matched": true,
+        "sha256": "2491f2edf601a67be308d2641f049c323e66e1a1d352baa20e6801eec931f3c6"
+      },
+      {
+        "path": "scripts/verify-artifacts.mjs",
+        "matched": true,
+        "sha256": "c3d58bda9410d92032dcd38100c270d0d010d4a99ee9c9d91b5559350080cdd4"
+      },
+      {
+        "path": "engine/native/patches/0001-disable-external-updates.patch",
+        "matched": true,
+        "sha256": "cf91a360d4b8ec068a5ab928d823b2adf24ec23e63e68f5ce6a9f5957d49fba9"
+      },
+      {
+        "path": "engine/native/patches/0002-macos-main-thread-init.patch",
+        "matched": true,
+        "sha256": "a841e486f0aeecb72f6635a2355dc57934454f27a606709c949422e75f91b6d4"
+      },
+      {
+        "path": "engine/native/patches/0003-link-shared-dbtools.patch",
+        "matched": true,
+        "sha256": "2d8aef608d09f46ec3a8f68cfe4ff57b5a46768b5a2278af8d2a98a94f75509b"
+      },
+      {
+        "path": "engine/native/patches/0004-disable-database-dialogs.patch",
+        "matched": true,
+        "sha256": "ce1ebf777371d3187c0fc4c61297861969174eacc37eb737e3666ba614dfad16"
+      },
+      {
+        "path": "engine/native/patches/0005-disable-optional-curl.patch",
+        "matched": true,
+        "sha256": "3f69f41557cc997ac8a98fad528e05c81163358879f4e01ea5ccdab6660dcc17"
+      },
+      {
+        "path": "engine/native/patches/0006-refresh-component-registry.patch",
+        "matched": true,
+        "sha256": "c3eeb466deca20c85f60ee9985532e53340e6fea1cc72a26c21de0def0279804"
+      },
+      {
+        "path": "engine/native/patches/0007-guard-crypto-timestamp-curl.patch",
+        "matched": true,
+        "sha256": "edd6617232d03e1b22488db9f3d02594ad39d7416809ec6e55778d28dafbd0de"
+      },
+      {
+        "path": "engine/native/patches/0008-preserve-optimization-with-prefix-maps.patch",
+        "matched": true,
+        "sha256": "6649d571003b237488692724b147dbc97087c5514c0964847755c492349fc2db"
+      },
+      {
+        "path": "engine/native/patches/0008-windows-harfbuzz-environment.patch",
+        "matched": true,
+        "sha256": "36b1053fc094af4fdbc80465d49c99d7cc8838d2538c4b98cb4d3275d8f73cc3"
+      },
+      {
+        "path": "engine/native/patches/0009-anonymize-explicit-source-paths.patch",
+        "matched": true,
+        "sha256": "2cefd27573199e8387f97272239819d6a845607b55b7159e2793d03075cab2a0"
+      },
+      {
+        "path": "engine/native/patches/0009-windows-xmlsec-utf8.patch",
+        "matched": true,
+        "sha256": "c0d55fd6e8e341c21371b3d1629fa5ee2b46e4116c7e69e96456f6c9ba3d5f7a"
+      },
+      {
+        "path": "engine/native/patches/0010-windows-libgpg-error-utf8.patch",
+        "matched": true,
+        "sha256": "e86091361b4f2fdb1a0a1993254329790ce03fc8eda3537ddc5809c286b474d6"
+      },
+      {
+        "path": "engine/native/patches/0011-windows-fillbitmaplink-complete-type.patch",
+        "matched": true,
+        "sha256": "9e60189764369359badd361960e707d49fd60e4ff5d11bcce41d299343986696"
+      },
+      {
+        "path": "engine/native/patches/0012-windows-clang-path-mapping.patch",
+        "matched": true,
+        "sha256": "d734fdda47cf7b270a390b6d3dfc0059ef7be3c289300b3ad49b990c95b946a5"
+      },
+      {
+        "path": "engine/native/patches/0013-public-log-and-pdb-paths.patch",
+        "matched": true,
+        "sha256": "f9b18915583afb91c9c44df3744606509bfebcdb3811229c1b4e6ce90745bb2d"
+      },
+      {
+        "path": "engine/native/patches/0014-windows-link-response-lines.patch",
+        "matched": true,
+        "sha256": "92e747d9ff6abd08f81607bb013b747b06116d8f230970b1a9e2b1361e64d7de"
+      },
+      {
+        "path": "engine/native/patches/0015-openssl-public-build-info.patch",
+        "matched": true,
+        "sha256": "3d77adbdeffe82a28b61f297c41737f06f7b906c44d4dc988dbd3c84328e0038"
+      },
+      {
+        "path": "engine/native/patches/0016-windows-cmake-embedded-debug-info.patch",
+        "matched": true,
+        "sha256": "77376b91f3d9a0a1b24ca68f95c9d59c44436485086032df007937ea1384293e"
+      },
+      {
+        "path": "engine/native/patches/0018-windows-nss-path-mapping.patch",
+        "matched": true,
+        "sha256": "178bef9da64f86380729a73da8403af103a360d6da8478245af3681c8c96043b"
+      },
+      {
+        "path": "engine/native/patches/0019-windows-gcc-wrapper-pdb-paths.patch",
+        "matched": true,
+        "sha256": "4f9728433be71a6f0606597c0fa4c08a040369042b1a44a114438648d02d7565"
+      },
+      {
+        "path": "engine/native/patches/0020-windows-oauth-requires-curl.patch",
+        "matched": true,
+        "sha256": "cde807fa327b5b6a75893faf46582d0ee5655b295e451dc5df55f9d0f2f689c3"
+      },
+      {
+        "path": "engine/native/patches/0021-windows-disabled-basic-exports.patch",
+        "matched": true,
+        "sha256": "cf689e6eb20b18da7c165c28f1668d7c8819a7adf819435e189fa28ec4990d6c"
+      },
+      {
+        "path": "engine/native/patches/0022-disable-basic-manager-listener.patch",
+        "matched": true,
+        "sha256": "0559a32915652d600a97d417c416ad76573a2910f9593fb7541fdecf73fea4ec"
+      },
+      {
+        "path": "engine/native/patches/0023-pdfium-for-embedded-graphics.patch",
+        "matched": true,
+        "sha256": "edc871a761e64b3e68afd6ee30dcc5cad0953e5278ade72da24ef7d21e9b98f8"
+      },
+      {
+        "path": "engine/native/patches/0028-synchronous-workbook-calculation.patch",
+        "matched": true,
+        "sha256": "811a5d68a31f5ae451b0753953bac24d5831efbf1f106d8832d4854be32ebc72"
+      },
+      {
+        "path": "engine/native/patches/0029-unloaded-external-blip.patch",
+        "matched": true,
+        "sha256": "fe1f0f46cafefef9688dfa086cb3aab89b5deff5d0a0876c2329aad90189ef2e"
+      },
+      {
+        "path": "engine/native/patches/0030-direct-pdfium-raster.patch",
+        "matched": true,
+        "sha256": "03cab75d3c6f9f9323c3788bc6dcc6da15b85647434c281cb19bd5f4c089bdc0"
+      },
+      {
+        "path": "engine/native/patches/0031-deterministic-font-matching.patch",
+        "matched": true,
+        "sha256": "96db59f0d738eafc143a5cb0a36aa5fad9f4d2623b83fe38d1bf9fcaddd8997a"
+      },
+      {
+        "path": "engine/native/patches/0032-macos-static-linkage.patch",
+        "matched": true,
+        "sha256": "afbe643173f5ba3bba678c8fd5ae5f37146c4b95517178b45f4422c56dac0f17"
+      },
+      {
+        "path": "engine/native/patches/0033-lok-optional-security-initialization.patch",
+        "matched": true,
+        "sha256": "8e5406d8dfa3f8208e5517e8e0300088bc832f30bcb3ff7e0fd0b06ccb784a2a"
+      },
+      {
+        "path": "engine/native/patches/0034-macos-static-no-password-strength-ui.patch",
+        "matched": true,
+        "sha256": "41ef274bf30ba69fa77df364c30171cd593d958a54f5e394edcfc65ec9cb1fe7"
+      },
+      {
+        "path": "engine/native/patches/0035-windows-clang-thinlto.patch",
+        "matched": true,
+        "sha256": "1b6df158da11f54b42398de5cb86c610eaffdda1ac6a8f3df7e039510214dc96"
+      },
+      {
+        "path": "engine/native/patches/0036-windows-clang-webp-msvc.patch",
+        "matched": true,
+        "sha256": "02ebf463f003c63843f79441b48f82fe7abe9009b0124e04c044ae692ace732a"
+      },
+      {
+        "path": "engine/native/patches/0037-windows-clang-x86-tools.patch",
+        "matched": true,
+        "sha256": "0992c0972f5216c68f94d614e261e23eeb460fc4d597c1f74397e3272cc96104"
+      },
+      {
+        "path": "engine/native/patches/0040-windows-assuan-process-header.patch",
+        "matched": true,
+        "sha256": "50b88ff67f7b69180d4d42e6985dcb8b9e9bd21d1dec88f7584fed4d424435ad"
+      },
+      {
+        "path": "engine/native/patches/0041-windows-gpgme-assuan-hook-types.patch",
+        "matched": true,
+        "sha256": "79e41a2c9d3857273c358844f7fd38fe8bc43b287e6251916c3a30e4ba1dd7cb"
+      },
+      {
+        "path": "engine/native/patches/0042-windows-zlib-native-archive.patch",
+        "matched": true,
+        "sha256": "a4915801d9c1269675d09b6c85e12679e2d38b7246d1cd4addbd028774b08648"
+      },
+      {
+        "path": "engine/native/patches/0043-windows-nss-msvc-flags.patch",
+        "matched": true,
+        "sha256": "798b528519ca997f8dce2e5985c201720f305bae1cfe22094ec4417bcaed7435"
+      },
+      {
+        "path": "engine/native/patches/0044-windows-export-document-event-holder.patch",
+        "matched": true,
+        "sha256": "c9dbb34726f61c935caa16f61b1e355a1ec53aa1dd46926bc42e8a2a69632d96"
+      },
+      {
+        "path": "engine/native/patches/0045-native-static-windows-and-linux.patch",
+        "matched": true,
+        "sha256": "3ff5cebf2c5a8543b276f91d70ce89cde8fc71e0c537a1870d84ec7c5ff9f678"
+      },
+      {
+        "path": "engine/native/patches/0046-windows-static-dependencies.patch",
+        "matched": true,
+        "sha256": "8a558e19e6b5ff3a55c659c99a0e0a8f7cab45afbe27e25014c7435e79c16e3b"
+      },
+      {
+        "path": "engine/native/patches/0047-windows-export-subtotal-group.patch",
+        "matched": true,
+        "sha256": "008d49d191026b68d4ddb2663478fc6b829b23c8b20c761be0d11128042abed5"
+      },
+      {
+        "path": "engine/native/patches/0048-static-third-party-exports.patch",
+        "matched": true,
+        "sha256": "b2814e6bda743b3c3e4b3f8a6f246b10fede8f73546a8f263ca35edd7ee5e0fe"
+      },
+      {
+        "path": "engine/native/patches/0049-windows-static-vcl-plugin.patch",
+        "matched": true,
+        "sha256": "13286c271ad225eb1865cc83dc8537cb5eae53dd10127d40d3b6f741b13a713c"
+      },
+      {
+        "path": "engine/native/patches/0050-static-msvc-basic-template.patch",
+        "matched": true,
+        "sha256": "9528f072a76d407e00020e4b1eb4174593adee216052cf6b209d958cc9fd1294"
+      },
+      {
+        "path": "engine/native/patches/0051-windows-static-initialization.patch",
+        "matched": true,
+        "sha256": "6b3ab8cf65e5db26f51594f239283c710d4152e8aceeef87bc2bfe1a05faea1b"
+      },
+      {
+        "path": "engine/native/patches/0052-windows-static-orcus.patch",
+        "matched": true,
+        "sha256": "6e08652124f4af7f2cc8c360a2d0ee4861411d26cb1b1f7327379f73a8ef04a1"
+      },
+      {
+        "path": "engine/native/patches/0053-static-libxml-and-langtag-configure.patch",
+        "matched": true,
+        "sha256": "d5b63cdc06792acc1501c470acb317205af6c3752fd44cddbc5a7d1931483ed3"
+      },
+      {
+        "path": "engine/native/patches/0054-windows-libxml-system-link-flags.patch",
+        "matched": true,
+        "sha256": "a0cd727bb184a1fe4d198c400d2d8be86853897eb0f950dc923d76eea1887e16"
+      },
+      {
+        "path": "engine/native/patches/0055-static-native-ui-widget-lookup.patch",
+        "matched": true,
+        "sha256": "842340f8a921bd54f0191b6ffd694f97443464b8ef92f3ce425a1dd973477484"
+      },
+      {
+        "path": "engine/native/patches/0056-windows-com-wait-inline.patch",
+        "matched": true,
+        "sha256": "6176e6ab0c58ee7385bcdc5dc0e495df7776b64df1bd7b023fb4dbddb09cf87c"
+      },
+      {
+        "path": "engine/native/patches/0057-windows-static-stl-and-desktop-services.patch",
+        "matched": true,
+        "sha256": "74ac8308347c031a69a1218a392247e351ad9c0741f4d3a47577107234cd0331"
+      },
+      {
+        "path": "engine/native/patches/0058-static-epoxy-and-openjpeg.patch",
+        "matched": true,
+        "sha256": "0a335d3358f7a201b5548c2d457a3209b56a235a28b3987eea4d169ace94d4ba"
+      },
+      {
+        "path": "engine/native/patches/0059-static-redland.patch",
+        "matched": true,
+        "sha256": "bf1e4a1f9982a5f199c33c98be4a161703fdf7a19d3fc9b2b14b1e1649ad221b"
+      },
+      {
+        "path": "engine/native/patches/0060-windows-static-native-resources.patch",
+        "matched": true,
+        "sha256": "eba86d4067f787fa82e19535a39cd8d1a0b7439bda19739f52dc5a0ec9eda4b8"
+      },
+      {
+        "path": "engine/native/patches/0061-windows-static-color-solver-and-argon2.patch",
+        "matched": true,
+        "sha256": "40f795297fbc7796c3281288f488093ae715c35a8a19ba76590d7389d54bb88f"
+      },
+      {
+        "path": "engine/native/patches/0062-icu-static-data-without-exports.patch",
+        "matched": true,
+        "sha256": "2a9ece07adabbd3d11b810b052531c44d27a19bb2472bf9057045f9351912e54"
+      },
+      {
+        "path": "engine/native/patches/0063-windows-static-string-allocator-initialization.patch",
+        "matched": true,
+        "sha256": "ff8d3dd79971b1cce88ac998ceaa202bab808cbce1ba0bd89e8d975d9a842d81"
+      },
+      {
+        "path": "engine/native/patches/0064-windows-antivirus-build-check.patch",
+        "matched": true,
+        "sha256": "38154f570234f74c6aa549772af2347f6495d2e8c0482d0d71dc406a85e650f9"
+      },
+      {
+        "path": "engine/native/patches/0065-windows-static-lcms-external-linkage.patch",
+        "matched": true,
+        "sha256": "f8ef0aaa4b3de220f64c8c1183f03899f9005885a87638a1197a21b24577fb56"
+      },
+      {
+        "path": "engine/native/patches/0066-windows-normalize-extended-paths.patch",
+        "matched": true,
+        "sha256": "8c512269bcaa7cdb23ef3d252f24811d6774c20610f8d95f6a5db17521f797a5"
+      },
+      {
+        "path": "engine/native/patches/0067-native-tile-readback.patch",
+        "matched": true,
+        "sha256": "1183d4176d64c54c5ffcb2368986597796b61425aa1c83da6fe7f69fcdd45911"
+      },
+      {
+        "path": "engine/native/patches/0068-windows-icu-cxx-flags.patch",
+        "matched": true,
+        "sha256": "6e4153ea8d690ff7ae7423330e4dbf740a1247165d073c6bcbaf4f3861c08add"
+      }
+    ],
+    "nativePrebuildsSHA256": "578a3b54cbfb4b383188ac42e9377e0561e22ce87aaef4cbe53d73128db3de35",
+    "nativeCore": {
+      "repository": "https://github.com/LibreOffice/core.git",
+      "revision": "bce0998afefdbc355585ca324285661a2170ba77"
+    },
+    "nativeBaseSourceClosure": "Pinned full LibreOffice base archive already retained separately; full static third-party source/notice closure still requires review",
+    "nativeSourceMaterialInventory": [
+      {
+        "path": "sources/engine/build-identity.mjs",
+        "sha256": "d8e3032f1a589b0877a3822fe9e4a4363427352e0a024a6824791887cf8644cc",
+        "bytes": 2749
+      },
+      {
+        "path": "sources/engine/core-source.mjs",
+        "sha256": "7978aec9b96adb6c98d1804fbccdfdffac16a6387d781e4b5950998b47726bd0",
+        "bytes": 1599
+      },
+      {
+        "path": "sources/engine/document-operations.hxx",
+        "sha256": "d1762ee80b195f984e9c57372090d14c33d98698dd23fcbf2e94210ac65e7b8b",
+        "bytes": 2250
+      },
+      {
+        "path": "sources/engine/ui-resource-policy.mjs",
+        "sha256": "5e6aa316bc63e94ae11394ebdb59a2f82120d15e60d36c4ab7c38880a8140967",
+        "bytes": 1241
+      },
+      {
+        "path": "sources/engine/native/worker.cxx",
+        "sha256": "31a29b04eb2ffdabe126ee69c89e7cf5efafe62354f0897cce3adb328eb001fb",
+        "bytes": 23191
+      },
+      {
+        "path": "sources/engine/native/configure.mjs",
+        "sha256": "8fe85d65ec91f0aed9b0bf9de493ced373572b4a671a2376c2aeeee386da883c",
+        "bytes": 5656
+      },
+      {
+        "path": "sources/engine/native/core-patches.mjs",
+        "sha256": "6407fbdb537502f65a7c8f35546efd7033e2b809d032bca3694cbce2486240af",
+        "bytes": 486
+      },
+      {
+        "path": "sources/engine/native/bootstrap-windows.ps1",
+        "sha256": "4ae30d9d68714ad0c7e33b43595d72c2198032d682436487bf8d26931394be67",
+        "bytes": 3307
+      },
+      {
+        "path": "sources/engine/native/build-helper.mjs",
+        "sha256": "81431b3ae7cd6fdb3c23d61312e6483236654f091efb131cdcbcaf2c22067687",
+        "bytes": 1799
+      },
+      {
+        "path": "sources/engine/native/build-platform.mjs",
+        "sha256": "11d16be0801330c5e899b92115c8612a9020ccd32dd45deaf64656dc22da9659",
+        "bytes": 1011
+      },
+      {
+        "path": "sources/engine/native/core-environment.mjs",
+        "sha256": "e9e26b3fbfdfb8ae0c35eee2957a0c075e5b3d531633c2ee6c8b093ac7f13128",
+        "bytes": 984
+      },
+      {
+        "path": "sources/engine/native/glibc-minimum.mjs",
+        "sha256": "212d7d0bb4e482c34901a0642c721f24623b9b1bfb855ea4de483db3429d714a",
+        "bytes": 2223
+      },
+      {
+        "path": "sources/scripts/checkout-core.mjs",
+        "sha256": "65ec690f24a22e6afd20af78125cb2bb0929e5e5bf0f3c7d8add4eb1509d6d7f",
+        "bytes": 247
+      },
+      {
+        "path": "sources/scripts/core-checkout.mjs",
+        "sha256": "45c87140618e24747b625d0db0bdc37bbb43e79c0ca4c4334f3c9168c5b17e7d",
+        "bytes": 1918
+      },
+      {
+        "path": "sources/scripts/build-native.mjs",
+        "sha256": "e9064373b7abbd0fd5558192acc52d60cd06a2a0e6153a679da04a9134e28e31",
+        "bytes": 9538
+      },
+      {
+        "path": "sources/scripts/rebuild-native-helper.mjs",
+        "sha256": "10e1984f9ac581ad337963961dd6ea996d301ffca13be1d761fd3f84963809c1",
+        "bytes": 6132
+      },
+      {
+        "path": "sources/scripts/stage-native.mjs",
+        "sha256": "f007bc6366ee54247acc8bccfae4a02eb6a0680934ca27c2c36495a69274854d",
+        "bytes": 9162
+      },
+      {
+        "path": "sources/scripts/slim-native.mjs",
+        "sha256": "a2736246fb00d2ee24e2835c34243671cb25fbe5ff8661fe826629528b0a3374",
+        "bytes": 9865
+      },
+      {
+        "path": "sources/scripts/stage-linux-runtime.mjs",
+        "sha256": "8141f2f19cd98e30a8e34187af36922cae5018f4690ca6a2f1b4044e33835a24",
+        "bytes": 14134
+      },
+      {
+        "path": "sources/scripts/pack-utils.mjs",
+        "sha256": "aa5368e0dd38d90459f0ef14e1d4b27740aef2f4e46617aca6d6fafed0577a44",
+        "bytes": 3327
+      },
+      {
+        "path": "sources/scripts/platform-matrix.mjs",
+        "sha256": "2491f2edf601a67be308d2641f049c323e66e1a1d352baa20e6801eec931f3c6",
+        "bytes": 5117
+      },
+      {
+        "path": "sources/scripts/verify-artifacts.mjs",
+        "sha256": "c3d58bda9410d92032dcd38100c270d0d010d4a99ee9c9d91b5559350080cdd4",
+        "bytes": 16003
+      },
+      {
+        "path": "sources/engine/native/patches/0001-disable-external-updates.patch",
+        "sha256": "cf91a360d4b8ec068a5ab928d823b2adf24ec23e63e68f5ce6a9f5957d49fba9",
+        "bytes": 1524
+      },
+      {
+        "path": "sources/engine/native/patches/0002-macos-main-thread-init.patch",
+        "sha256": "a841e486f0aeecb72f6635a2355dc57934454f27a606709c949422e75f91b6d4",
+        "bytes": 738
+      },
+      {
+        "path": "sources/engine/native/patches/0003-link-shared-dbtools.patch",
+        "sha256": "2d8aef608d09f46ec3a8f68cfe4ff57b5a46768b5a2278af8d2a98a94f75509b",
+        "bytes": 2211
+      },
+      {
+        "path": "sources/engine/native/patches/0004-disable-database-dialogs.patch",
+        "sha256": "ce1ebf777371d3187c0fc4c61297861969174eacc37eb737e3666ba614dfad16",
+        "bytes": 957
+      },
+      {
+        "path": "sources/engine/native/patches/0005-disable-optional-curl.patch",
+        "sha256": "3f69f41557cc997ac8a98fad528e05c81163358879f4e01ea5ccdab6660dcc17",
+        "bytes": 401
+      },
+      {
+        "path": "sources/engine/native/patches/0006-refresh-component-registry.patch",
+        "sha256": "c3eeb466deca20c85f60ee9985532e53340e6fea1cc72a26c21de0def0279804",
+        "bytes": 622
+      },
+      {
+        "path": "sources/engine/native/patches/0007-guard-crypto-timestamp-curl.patch",
+        "sha256": "edd6617232d03e1b22488db9f3d02594ad39d7416809ec6e55778d28dafbd0de",
+        "bytes": 1421
+      },
+      {
+        "path": "sources/engine/native/patches/0008-preserve-optimization-with-prefix-maps.patch",
+        "sha256": "6649d571003b237488692724b147dbc97087c5514c0964847755c492349fc2db",
+        "bytes": 1614
+      },
+      {
+        "path": "sources/engine/native/patches/0008-windows-harfbuzz-environment.patch",
+        "sha256": "36b1053fc094af4fdbc80465d49c99d7cc8838d2538c4b98cb4d3275d8f73cc3",
+        "bytes": 656
+      },
+      {
+        "path": "sources/engine/native/patches/0009-anonymize-explicit-source-paths.patch",
+        "sha256": "2cefd27573199e8387f97272239819d6a845607b55b7159e2793d03075cab2a0",
+        "bytes": 1698
+      },
+      {
+        "path": "sources/engine/native/patches/0009-windows-xmlsec-utf8.patch",
+        "sha256": "c0d55fd6e8e341c21371b3d1629fa5ee2b46e4116c7e69e96456f6c9ba3d5f7a",
+        "bytes": 910
+      },
+      {
+        "path": "sources/engine/native/patches/0010-windows-libgpg-error-utf8.patch",
+        "sha256": "e86091361b4f2fdb1a0a1993254329790ce03fc8eda3537ddc5809c286b474d6",
+        "bytes": 508
+      },
+      {
+        "path": "sources/engine/native/patches/0011-windows-fillbitmaplink-complete-type.patch",
+        "sha256": "9e60189764369359badd361960e707d49fd60e4ff5d11bcce41d299343986696",
+        "bytes": 534
+      },
+      {
+        "path": "sources/engine/native/patches/0012-windows-clang-path-mapping.patch",
+        "sha256": "d734fdda47cf7b270a390b6d3dfc0059ef7be3c289300b3ad49b990c95b946a5",
+        "bytes": 2328
+      },
+      {
+        "path": "sources/engine/native/patches/0013-public-log-and-pdb-paths.patch",
+        "sha256": "f9b18915583afb91c9c44df3744606509bfebcdb3811229c1b4e6ce90745bb2d",
+        "bytes": 4001
+      },
+      {
+        "path": "sources/engine/native/patches/0014-windows-link-response-lines.patch",
+        "sha256": "92e747d9ff6abd08f81607bb013b747b06116d8f230970b1a9e2b1361e64d7de",
+        "bytes": 1124
+      },
+      {
+        "path": "sources/engine/native/patches/0015-openssl-public-build-info.patch",
+        "sha256": "3d77adbdeffe82a28b61f297c41737f06f7b906c44d4dc988dbd3c84328e0038",
+        "bytes": 1176
+      },
+      {
+        "path": "sources/engine/native/patches/0016-windows-cmake-embedded-debug-info.patch",
+        "sha256": "77376b91f3d9a0a1b24ca68f95c9d59c44436485086032df007937ea1384293e",
+        "bytes": 567
+      },
+      {
+        "path": "sources/engine/native/patches/0018-windows-nss-path-mapping.patch",
+        "sha256": "178bef9da64f86380729a73da8403af103a360d6da8478245af3681c8c96043b",
+        "bytes": 559
+      },
+      {
+        "path": "sources/engine/native/patches/0019-windows-gcc-wrapper-pdb-paths.patch",
+        "sha256": "4f9728433be71a6f0606597c0fa4c08a040369042b1a44a114438648d02d7565",
+        "bytes": 586
+      },
+      {
+        "path": "sources/engine/native/patches/0020-windows-oauth-requires-curl.patch",
+        "sha256": "cde807fa327b5b6a75893faf46582d0ee5655b295e451dc5df55f9d0f2f689c3",
+        "bytes": 963
+      },
+      {
+        "path": "sources/engine/native/patches/0021-windows-disabled-basic-exports.patch",
+        "sha256": "cf689e6eb20b18da7c165c28f1668d7c8819a7adf819435e189fa28ec4990d6c",
+        "bytes": 2709
+      },
+      {
+        "path": "sources/engine/native/patches/0022-disable-basic-manager-listener.patch",
+        "sha256": "0559a32915652d600a97d417c416ad76573a2910f9593fb7541fdecf73fea4ec",
+        "bytes": 2970
+      },
+      {
+        "path": "sources/engine/native/patches/0023-pdfium-for-embedded-graphics.patch",
+        "sha256": "edc871a761e64b3e68afd6ee30dcc5cad0953e5278ade72da24ef7d21e9b98f8",
+        "bytes": 758
+      },
+      {
+        "path": "sources/engine/native/patches/0028-synchronous-workbook-calculation.patch",
+        "sha256": "811a5d68a31f5ae451b0753953bac24d5831efbf1f106d8832d4854be32ebc72",
+        "bytes": 2650
+      },
+      {
+        "path": "sources/engine/native/patches/0029-unloaded-external-blip.patch",
+        "sha256": "fe1f0f46cafefef9688dfa086cb3aab89b5deff5d0a0876c2329aad90189ef2e",
+        "bytes": 757
+      },
+      {
+        "path": "sources/engine/native/patches/0030-direct-pdfium-raster.patch",
+        "sha256": "03cab75d3c6f9f9323c3788bc6dcc6da15b85647434c281cb19bd5f4c089bdc0",
+        "bytes": 6619
+      },
+      {
+        "path": "sources/engine/native/patches/0031-deterministic-font-matching.patch",
+        "sha256": "96db59f0d738eafc143a5cb0a36aa5fad9f4d2623b83fe38d1bf9fcaddd8997a",
+        "bytes": 5960
+      },
+      {
+        "path": "sources/engine/native/patches/0032-macos-static-linkage.patch",
+        "sha256": "afbe643173f5ba3bba678c8fd5ae5f37146c4b95517178b45f4422c56dac0f17",
+        "bytes": 26460
+      },
+      {
+        "path": "sources/engine/native/patches/0033-lok-optional-security-initialization.patch",
+        "sha256": "8e5406d8dfa3f8208e5517e8e0300088bc832f30bcb3ff7e0fd0b06ccb784a2a",
+        "bytes": 645
+      },
+      {
+        "path": "sources/engine/native/patches/0034-macos-static-no-password-strength-ui.patch",
+        "sha256": "41ef274bf30ba69fa77df364c30171cd593d958a54f5e394edcfc65ec9cb1fe7",
+        "bytes": 3850
+      },
+      {
+        "path": "sources/engine/native/patches/0035-windows-clang-thinlto.patch",
+        "sha256": "1b6df158da11f54b42398de5cb86c610eaffdda1ac6a8f3df7e039510214dc96",
+        "bytes": 1206
+      },
+      {
+        "path": "sources/engine/native/patches/0036-windows-clang-webp-msvc.patch",
+        "sha256": "02ebf463f003c63843f79441b48f82fe7abe9009b0124e04c044ae692ace732a",
+        "bytes": 993
+      },
+      {
+        "path": "sources/engine/native/patches/0037-windows-clang-x86-tools.patch",
+        "sha256": "0992c0972f5216c68f94d614e261e23eeb460fc4d597c1f74397e3272cc96104",
+        "bytes": 497
+      },
+      {
+        "path": "sources/engine/native/patches/0040-windows-assuan-process-header.patch",
+        "sha256": "50b88ff67f7b69180d4d42e6985dcb8b9e9bd21d1dec88f7584fed4d424435ad",
+        "bytes": 419
+      },
+      {
+        "path": "sources/engine/native/patches/0041-windows-gpgme-assuan-hook-types.patch",
+        "sha256": "79e41a2c9d3857273c358844f7fd38fe8bc43b287e6251916c3a30e4ba1dd7cb",
+        "bytes": 2289
+      },
+      {
+        "path": "sources/engine/native/patches/0042-windows-zlib-native-archive.patch",
+        "sha256": "a4915801d9c1269675d09b6c85e12679e2d38b7246d1cd4addbd028774b08648",
+        "bytes": 597
+      },
+      {
+        "path": "sources/engine/native/patches/0043-windows-nss-msvc-flags.patch",
+        "sha256": "798b528519ca997f8dce2e5985c201720f305bae1cfe22094ec4417bcaed7435",
+        "bytes": 658
+      },
+      {
+        "path": "sources/engine/native/patches/0044-windows-export-document-event-holder.patch",
+        "sha256": "c9dbb34726f61c935caa16f61b1e355a1ec53aa1dd46926bc42e8a2a69632d96",
+        "bytes": 973
+      },
+      {
+        "path": "sources/engine/native/patches/0045-native-static-windows-and-linux.patch",
+        "sha256": "3ff5cebf2c5a8543b276f91d70ce89cde8fc71e0c537a1870d84ec7c5ff9f678",
+        "bytes": 8026
+      },
+      {
+        "path": "sources/engine/native/patches/0046-windows-static-dependencies.patch",
+        "sha256": "8a558e19e6b5ff3a55c659c99a0e0a8f7cab45afbe27e25014c7435e79c16e3b",
+        "bytes": 4272
+      },
+      {
+        "path": "sources/engine/native/patches/0047-windows-export-subtotal-group.patch",
+        "sha256": "008d49d191026b68d4ddb2663478fc6b829b23c8b20c761be0d11128042abed5",
+        "bytes": 406
+      },
+      {
+        "path": "sources/engine/native/patches/0048-static-third-party-exports.patch",
+        "sha256": "b2814e6bda743b3c3e4b3f8a6f246b10fede8f73546a8f263ca35edd7ee5e0fe",
+        "bytes": 5385
+      },
+      {
+        "path": "sources/engine/native/patches/0049-windows-static-vcl-plugin.patch",
+        "sha256": "13286c271ad225eb1865cc83dc8537cb5eae53dd10127d40d3b6f741b13a713c",
+        "bytes": 378
+      },
+      {
+        "path": "sources/engine/native/patches/0050-static-msvc-basic-template.patch",
+        "sha256": "9528f072a76d407e00020e4b1eb4174593adee216052cf6b209d958cc9fd1294",
+        "bytes": 561
+      },
+      {
+        "path": "sources/engine/native/patches/0051-windows-static-initialization.patch",
+        "sha256": "6b3ab8cf65e5db26f51594f239283c710d4152e8aceeef87bc2bfe1a05faea1b",
+        "bytes": 1333
+      },
+      {
+        "path": "sources/engine/native/patches/0052-windows-static-orcus.patch",
+        "sha256": "6e08652124f4af7f2cc8c360a2d0ee4861411d26cb1b1f7327379f73a8ef04a1",
+        "bytes": 1754
+      },
+      {
+        "path": "sources/engine/native/patches/0053-static-libxml-and-langtag-configure.patch",
+        "sha256": "d5b63cdc06792acc1501c470acb317205af6c3752fd44cddbc5a7d1931483ed3",
+        "bytes": 2643
+      },
+      {
+        "path": "sources/engine/native/patches/0054-windows-libxml-system-link-flags.patch",
+        "sha256": "a0cd727bb184a1fe4d198c400d2d8be86853897eb0f950dc923d76eea1887e16",
+        "bytes": 247
+      },
+      {
+        "path": "sources/engine/native/patches/0055-static-native-ui-widget-lookup.patch",
+        "sha256": "842340f8a921bd54f0191b6ffd694f97443464b8ef92f3ce425a1dd973477484",
+        "bytes": 1128
+      },
+      {
+        "path": "sources/engine/native/patches/0056-windows-com-wait-inline.patch",
+        "sha256": "6176e6ab0c58ee7385bcdc5dc0e495df7776b64df1bd7b023fb4dbddb09cf87c",
+        "bytes": 616
+      },
+      {
+        "path": "sources/engine/native/patches/0057-windows-static-stl-and-desktop-services.patch",
+        "sha256": "74ac8308347c031a69a1218a392247e351ad9c0741f4d3a47577107234cd0331",
+        "bytes": 1227
+      },
+      {
+        "path": "sources/engine/native/patches/0058-static-epoxy-and-openjpeg.patch",
+        "sha256": "0a335d3358f7a201b5548c2d457a3209b56a235a28b3987eea4d169ace94d4ba",
+        "bytes": 704
+      },
+      {
+        "path": "sources/engine/native/patches/0059-static-redland.patch",
+        "sha256": "bf1e4a1f9982a5f199c33c98be4a161703fdf7a19d3fc9b2b14b1e1649ad221b",
+        "bytes": 1695
+      },
+      {
+        "path": "sources/engine/native/patches/0060-windows-static-native-resources.patch",
+        "sha256": "eba86d4067f787fa82e19535a39cd8d1a0b7439bda19739f52dc5a0ec9eda4b8",
+        "bytes": 455
+      },
+      {
+        "path": "sources/engine/native/patches/0061-windows-static-color-solver-and-argon2.patch",
+        "sha256": "40f795297fbc7796c3281288f488093ae715c35a8a19ba76590d7389d54bb88f",
+        "bytes": 4960
+      },
+      {
+        "path": "sources/engine/native/patches/0062-icu-static-data-without-exports.patch",
+        "sha256": "2a9ece07adabbd3d11b810b052531c44d27a19bb2472bf9057045f9351912e54",
+        "bytes": 1028
+      },
+      {
+        "path": "sources/engine/native/patches/0063-windows-static-string-allocator-initialization.patch",
+        "sha256": "ff8d3dd79971b1cce88ac998ceaa202bab808cbce1ba0bd89e8d975d9a842d81",
+        "bytes": 942
+      },
+      {
+        "path": "sources/engine/native/patches/0064-windows-antivirus-build-check.patch",
+        "sha256": "38154f570234f74c6aa549772af2347f6495d2e8c0482d0d71dc406a85e650f9",
+        "bytes": 1585
+      },
+      {
+        "path": "sources/engine/native/patches/0065-windows-static-lcms-external-linkage.patch",
+        "sha256": "f8ef0aaa4b3de220f64c8c1183f03899f9005885a87638a1197a21b24577fb56",
+        "bytes": 458
+      },
+      {
+        "path": "sources/engine/native/patches/0066-windows-normalize-extended-paths.patch",
+        "sha256": "8c512269bcaa7cdb23ef3d252f24811d6774c20610f8d95f6a5db17521f797a5",
+        "bytes": 3400
+      },
+      {
+        "path": "sources/engine/native/patches/0067-native-tile-readback.patch",
+        "sha256": "1183d4176d64c54c5ffcb2368986597796b61425aa1c83da6fe7f69fcdd45911",
+        "bytes": 1375
+      },
+      {
+        "path": "sources/engine/native/patches/0068-windows-icu-cxx-flags.patch",
+        "sha256": "6e4153ea8d690ff7ae7423330e4dbf740a1247165d073c6bcbaf4f3861c08add",
+        "bytes": 772
+      },
+      {
+        "path": "sources/core-source.json",
+        "sha256": "39340edab26fd8f702380a0b9fedcfcc6a181793b46dd6d7dee01fa80a2458f0",
+        "bytes": 120
+      },
+      {
+        "path": "sources/payload-shaping.json",
+        "sha256": "4b2147b61c2283144593084a658e08c4bab5334c9d7d6c01714fea8215478d10",
+        "bytes": 124083
+      },
+      {
+        "path": "sources/core-changes.patch",
+        "sha256": "0d3a81482804e0cda02c6aec42b248d9e5112a2f45fb3d83ef046b4677975a4b",
+        "bytes": 170417
+      },
+      {
+        "path": "sources/core.json",
+        "sha256": "d20009de4dfd7f9f99c8118354f0b76c9693c7283c56584bb9f8cfb2977e2102",
+        "bytes": 6747
+      }
+    ],
+    "nativeOriginalNotices": [
+      {
+        "component": "LibreOffice",
+        "spdx": "MPL-2.0",
+        "path": "licenses/LibreOffice-MPL-2.0.txt",
+        "sha256": "1f256ecad192880510e84ad60474eab7589218784b9a50bc7ceee34c2b91f1d5",
+        "bytes": 16725
+      },
+      {
+        "component": "DeepSeek Harness",
+        "spdx": "MIT",
+        "path": "licenses/DeepSeek-Harness-MIT.txt",
+        "sha256": "69393380a3ec85c465dd4b22497a5de04c3408435126d8f50930d46de3886034",
+        "bytes": 1797
+      },
+      {
+        "component": "LibreOffice bundled dependencies",
+        "spdx": "LicenseRef-LibreOffice-Third-Party",
+        "path": "licenses/LibreOffice-third-party.html",
+        "sha256": "6ef5eb44a3b8127960c27cb9c038fe89c221e139431ef33057c70811d91026ea",
+        "bytes": 351625
+      }
+    ]
+  },
+  "nativePreferredSourcesAllMatched": true,
+  "scope": "Native source-built adapter/engine compatibility proof, not production or full license clearance",
+  "releaseCleared": false
+}

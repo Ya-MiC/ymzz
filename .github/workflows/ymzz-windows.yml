@@ -46,6 +46,8 @@ jobs:
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           corepack pnpm exec vitest run apps/desktop/tests/desktop-policy-environment.spec.ts
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          python ymzz/packaging/tests/test_native_inventory.py
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           python ymzz/packaging/tests/test_numpy_overlay.py
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           node --test packages/ymzz/product/tests/*.test.mjs
@@ -104,11 +106,19 @@ jobs:
             ${{ runner.temp }}/ymzz-numpy-source-candidate/wheelhouse
           key: ymzz-numpy-235-cp312-vs17-source784db1dc-internal-c-blas-lapack-v1
           fail-on-cache-miss: true
-      - name: Build actual official unsigned Windows Electron installer for local qualification
-        id: package
+      - name: Prepare exact previously native-qualified MPL Office preferred-source production variant
+        id: office-source
         if: ${{ !cancelled() && steps.artifacts.conclusion == 'success' && steps.preflight.conclusion == 'success' }}
         shell: pwsh
+        run: |
+          node ymzz/scripts/prepare-office-source-candidate.mjs --work "$env:RUNNER_TEMP/ymzz-office-source-candidate" --prepare-only
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - name: Build actual official unsigned Windows Electron installer for local qualification
+        id: package
+        if: ${{ !cancelled() && steps.artifacts.conclusion == 'success' && steps.preflight.conclusion == 'success' && steps.office-source.conclusion == 'success' && steps.numpy-cache.conclusion == 'success' }}
+        shell: pwsh
         env:
+          YMZZ_QUALIFIED_OFFICE_SOURCE: ${{ runner.temp }}/ymzz-office-source-candidate/derived-runtime/libreoffice-kit
           YMZZ_QUALIFIED_NUMPY_WHEEL: ${{ runner.temp }}/ymzz-numpy-source-candidate/wheelhouse/numpy-2.3.5-cp312-cp312-win_amd64.whl
         run: corepack pnpm run package:desktop:win:x64:unsigned
       - name: Install actual product and exercise native GUI in Chinese-space paths
@@ -121,15 +131,14 @@ jobs:
         shell: pwsh
         run: |
           $installed = Join-Path $env:RUNNER_TEMP '湛箴_ymzz 安裝 中文 空格'
-          node ymzz/scripts/qualify-office.mjs --installed $installed --output ymzz/docs/evidence/windows/office-actual.json
+          node ymzz/scripts/qualify-office.mjs --installed $installed --expected-runtime 0.1.3 --output ymzz/docs/evidence/windows/office-actual.json
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-      - name: Actual installed DSH provider against source-built MPL Office candidate (not production substitution)
+      - name: Inspect complete actual installed native payload, not the repository graph or a candidate
         if: ${{ !cancelled() && steps.package.conclusion == 'success' }}
         shell: pwsh
         run: |
           $installed = Join-Path $env:RUNNER_TEMP '湛箴_ymzz 安裝 中文 空格'
-          $node = Join-Path $installed 'resources/runtime/primary-runtime/dependencies/node/bin/node.exe'
-          node ymzz/scripts/prepare-office-source-candidate.mjs --work "$env:RUNNER_TEMP/ymzz-office-source-candidate" --installed-provider $installed --node $node --output ymzz/docs/evidence/windows/office-source013-native-candidate.json
+          node ymzz/scripts/inspect-installed-payload.mjs --installed $installed --output ymzz/docs/evidence/windows/native-payload-inventory.json
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
       - name: Audit actual installed source-qualified scientific namespace and embedded Python numerics/pandas
         if: ${{ !cancelled() && steps.package.conclusion == 'success' }}

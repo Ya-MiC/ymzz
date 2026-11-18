@@ -1,9 +1,11 @@
 // MIT. Actual installed production graph audit. LGPL/MPL are not called GPL/AGPL.
 import fs from 'node:fs';import path from 'node:path';import {createHash} from 'node:crypto';
 const root=path.resolve(import.meta.dirname,'../..');
+const option=n=>process.argv.find(v=>v.startsWith(n+'='))?.slice(n.length+1),packaged=option('--packaged-root'),desktop=option('--packaged-desktop-root');
+const boundary=packaged?fs.realpathSync(desktop||packaged):null;
 import {classifyLicense} from '../compliance/license-policy.mjs';
 const sha=b=>createHash('sha256').update(b).digest('hex'),seen=new Set(),packages=[],unresolved=[];
-function resolve(dir,name){for(let p=dir;;p=path.dirname(p)){const f=path.join(p,'node_modules',name,'package.json');if(fs.existsSync(f))return fs.realpathSync(path.dirname(f));if(path.dirname(p)===p)return null}}
+function resolve(dir,name){for(let p=dir;;p=path.dirname(p)){const f=path.join(p,'node_modules',name,'package.json');if(fs.existsSync(f))return fs.realpathSync(path.dirname(f));if(p===boundary||path.dirname(p)===p)return null}}
 function walk(dir,via){dir=fs.realpathSync(dir);if(seen.has(dir))return;seen.add(dir);const m=JSON.parse(fs.readFileSync(path.join(dir,'package.json'),'utf8'));const notices=fs.readdirSync(dir).filter(f=>/^(licen[sc]e|copying|notice)(\.|$)/i.test(f)&&fs.statSync(path.join(dir,f)).isFile()).map(file=>({file,sha256:sha(fs.readFileSync(path.join(dir,file)))}));let license=typeof m.license==='string'?m.license:null;
  if(!license&&notices.some(n=>{const s=fs.readFileSync(path.join(dir,n.file),'utf8');return s.includes('Permission is hereby granted, free of charge')&&s.includes('THE SOFTWARE IS PROVIDED "AS IS"')}))license='MIT';
  const decision=classifyLicense({name:m.name,version:m.version,license}),passed=decision.strictPermissivePassed;
@@ -11,6 +13,13 @@ function walk(dir,via){dir=fs.realpathSync(dir);if(seen.has(dir))return;seen.add
  packages.push({name:m.name,version:m.version,license,classification,...decision,via,notices});
  for(const name of Object.keys({...m.dependencies,...m.optionalDependencies,...m.peerDependencies})){const child=resolve(dir,name);if(child)walk(child,m.name);else if(!m.optionalDependencies?.[name]&&!m.peerDependenciesMeta?.[name]?.optional)unresolved.push({from:m.name,name})}
 }
-for(const p of ['apps/cli','apps/desktop-host','apps/desktop'])walk(path.join(root,p),'full-DSH-production-root');
-const blocked=packages.filter(p=>!p.strictPermissivePassed),report={schema:2,platform:process.platform,scope:'Actual installed FULL DSH CLI/Desktop Host production dependencies, including Desktop shell and resolved peers. Not a packaged Electron/native-payload audit.',newExternalDependenciesAdded:0,packages:packages.sort((a,b)=>a.name.localeCompare(b.name)),blocked,ownerPolicyBlocked:packages.filter(p=>!p.licensePolicyPassed),ownerApprovedNodeGraphPassed:packages.every(p=>p.licensePolicyPassed)&&!unresolved.length,correspondingSourceMaterialsVerified:false,unresolved,packagedNativePayloadInspected:false,strictPermissiveNodeGraphPassed:!blocked.length&&!unresolved.length,releaseCleared:false};
+if(packaged){
+ const installed=fs.realpathSync(packaged),index=JSON.parse(fs.readFileSync(path.join(installed,'package.json')));
+ if(index.name!=='@deepseek-ai/dsh-desktop-runtime')throw new Error('UNKNOWN_PACKAGED_RUNTIME_INDEX');
+ // The generated JSON-only index is a container, not a third-party executable
+ // relicensed MIT. Enumerate and audit EVERY actual dependency separately.
+ for(const name of Object.keys(index.dependencies||{})){const child=resolve(installed,name);if(child)walk(child,'actual-packaged-runtime-index');else unresolved.push({from:index.name,name})}
+ if(desktop)walk(fs.realpathSync(desktop),'actual-packaged-Electron-shell');
+}else for(const p of ['apps/cli','apps/desktop-host','apps/desktop'])walk(path.join(root,p),'full-DSH-production-root');
+const blocked=packages.filter(p=>!p.strictPermissivePassed),report={schema:2,platform:process.platform,scope:packaged?'Actual exact app.asar runtime and shell Node dependency graph, resolution bounded inside extracted actual product. Generated JSON-only index is enumerated, not treated as executable relicensing. Native payload/material audit remains separate.':'Actual installed FULL DSH CLI/Desktop Host production dependencies, including Desktop shell and resolved peers. Not a packaged Electron/native-payload audit.',newExternalDependenciesAdded:0,packages:packages.sort((a,b)=>a.name.localeCompare(b.name)),blocked,ownerPolicyBlocked:packages.filter(p=>!p.licensePolicyPassed),ownerApprovedNodeGraphPassed:packages.every(p=>p.licensePolicyPassed)&&!unresolved.length,correspondingSourceMaterialsVerified:false,unresolved,packagedNativePayloadInspected:false,strictPermissiveNodeGraphPassed:!blocked.length&&!unresolved.length,releaseCleared:false};
 const output=process.argv.find(v=>v.startsWith('--output='))?.slice(9)||path.join(root,'ymzz/docs/evidence/production-license-'+process.platform+'.json');fs.mkdirSync(path.dirname(output),{recursive:true});fs.writeFileSync(output,JSON.stringify(report,null,2)+'\n');console.log(JSON.stringify({platform:process.platform,count:packages.length,nonPermissive:blocked.map(({name,license,classification,ownerApprovedWeakCopyleft})=>({name,license,classification,ownerApprovedWeakCopyleft})),ownerPolicyBlocked:report.ownerPolicyBlocked.map(({name,license})=>({name,license})),correspondingSourceMaterialsVerified:false,unresolved,releaseCleared:false},null,2));if(process.argv.includes('--enforce')&&(!report.ownerApprovedNodeGraphPassed||!report.packagedNativePayloadInspected||!report.correspondingSourceMaterialsVerified))process.exitCode=1;

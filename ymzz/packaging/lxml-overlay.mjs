@@ -1,5 +1,6 @@
 /** MIT. Approved feature-preserving MIT XSL replacements in derived Windows payload only. */
 import fs from 'node:fs';
+export {selectPreparedOfficeSource} from './office-source-selection.mjs';
 import {applyPackagedNumpySource} from './numpy-overlay.mjs';
 import path from 'node:path';
 import {createHash,randomUUID} from 'node:crypto';

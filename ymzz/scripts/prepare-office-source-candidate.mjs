@@ -62,6 +62,7 @@ if(process.platform==='win32'){
  assert(evidence.preferredNativeSourceChecks.length>0,'Native preferred source inventory missing');
 }
 fs.writeFileSync(path.join(work,'source-build.json'),JSON.stringify(evidence,null,2)+'\n');
+if(args.includes('--prepare-only')){console.log('Preferred-source variant prepared only; no qualification or distribution clearance asserted.');process.exit(0)}
 // The JSON records mismatches instead of pretending a native-source boundary is cleared.
 const output=path.resolve(arg('--output')||path.join(work,'office-actual-candidate.json'));
 const probe=[path.join(repo,'ymzz/scripts/qualify-office.mjs'),'--candidate-entry',path.join(target,'lib/index.js'),'--output',output];
