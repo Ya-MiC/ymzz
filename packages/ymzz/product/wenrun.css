@@ -34,3 +34,7 @@ body[data-ymzz-wenrun][data-ymzz-scheme="dark"] {
 #ymzz-dsh-panel[data-ymzz-scheme="dark"] :where(h2,h3,h4,p,label,summary,pre,article,input,select,textarea,a) {
   color: var(--c-dusk-paper);
 }
+
+/* Keep owned theme ink immediate; upstream transitions must not leave light ink
+   stale while a newly selected dark surface already paints. Layout is unchanged. */
+#ymzz-dsh-panel, #ymzz-dsh-panel :where(h2,h3,h4,p,label,summary,pre,article,a) { transition-property: none; }

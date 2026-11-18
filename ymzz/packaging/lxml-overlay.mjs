@@ -1,5 +1,6 @@
 /** MIT. Approved feature-preserving MIT XSL replacements in derived Windows payload only. */
 import fs from 'node:fs';
+import {applyPackagedNumpySource} from './numpy-overlay.mjs';
 import path from 'node:path';
 import {createHash,randomUUID} from 'node:crypto';
 const candidates=path.resolve(import.meta.dirname,'../compliance/candidates/schematron');
@@ -29,6 +30,7 @@ export function applyMitTransforms(sitePackages){
  return {schema:1,scope:'Actual derived packaged runtime XSL overlay; not complete distribution clearance',immutableWheelSHA256:provenance.originalWheelSHA256,files:plans.map(({entry,original})=>({path:entry.originalWheelPath,beforeSHA256:original,afterSHA256:entry.candidateSHA256,license:'MIT',source:entry.source,alreadyApplied:original===entry.candidateSHA256})),releaseCleared:false};
 }
 export async function applyPackagedMitTransforms(resourcesDir){
+ applyPackagedNumpySource(resourcesDir);
  const sitePackages=path.join(resourcesDir,'runtime/primary-runtime/dependencies/python/Lib/site-packages');
  const report=applyMitTransforms(sitePackages);
  const output=path.join(resourcesDir,'licenses/ymzz/lxml-mit-overlay.json');fs.mkdirSync(path.dirname(output),{recursive:true});fs.writeFileSync(output,JSON.stringify(report,null,2)+'\n');

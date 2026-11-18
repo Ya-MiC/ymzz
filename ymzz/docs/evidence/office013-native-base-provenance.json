@@ -1,0 +1,44 @@
+{
+  "schema": 1,
+  "scope": "Exact official0.1.3 native base/provenance verification only; not full native source/third-party closure or production selection",
+  "nativePackage": "@deepseek-ai/libreoffice-kit-win32-x64@0.1.3",
+  "adapterPreferredSourceRevision": "b19bb73c74ed893b8a5d1716d32df32a113ed31b",
+  "core": {
+    "repository": "https://github.com/LibreOffice/core.git",
+    "revision": "bce0998afefdbc355585ca324285661a2170ba77"
+  },
+  "coreArchive": {
+    "file": "libreoffice-core-bce0998afefdbc355585ca324285661a2170ba77.tar.gz",
+    "bytes": 353665929,
+    "sha256": "c046d25748ff3cd0c31e226f45ba47eb328aeba3f8d4d844b9d9db78cf1f85eb"
+  },
+  "nativePublicSourceReceipts": [
+    {
+      "path": "prebuilds.json",
+      "bytes": 98173,
+      "sha256": "578a3b54cbfb4b383188ac42e9377e0561e22ce87aaef4cbe53d73128db3de35"
+    },
+    {
+      "path": "sources/core-source.json",
+      "bytes": 120,
+      "sha256": "39340edab26fd8f702380a0b9fedcfcc6a181793b46dd6d7dee01fa80a2458f0"
+    },
+    {
+      "path": "sources/core.json",
+      "bytes": 6747,
+      "sha256": "d20009de4dfd7f9f99c8118354f0b76c9693c7283c56584bb9f8cfb2977e2102"
+    },
+    {
+      "path": "sources/payload-shaping.json",
+      "bytes": 124083,
+      "sha256": "4b2147b61c2283144593084a658e08c4bab5334c9d7d6c01714fea8215478d10"
+    }
+  ],
+  "commercialUse": "MPL-2.0 permits commercial use; modified covered files including resolver backport remain MPL with matching preferred-source obligations. This is not permission to relabel native third-party dependencies MIT.",
+  "releaseCleared": false,
+  "remaining": [
+    "Actual Windows source-built candidate native provider qualification",
+    "Full static third-party source/notice material closure for selected native engine",
+    "Actual source-built candidate production integration and whole-app requalification"
+  ]
+}

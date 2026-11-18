@@ -46,6 +46,8 @@ jobs:
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           corepack pnpm exec vitest run apps/desktop/tests/desktop-policy-environment.spec.ts
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          python ymzz/packaging/tests/test_numpy_overlay.py
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           node --test packages/ymzz/product/tests/*.test.mjs
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
       - name: Build complete official DSH artifacts, including native ymzz client plugin
@@ -92,10 +94,22 @@ jobs:
         if: ${{ !cancelled() && steps.artifacts.conclusion == 'success' }}
         shell: pwsh
         run: node ymzz/scripts/stage-notices.mjs
+      - name: Restore exact already-qualified GNU-free NumPy wheel (never rebuild or download arbitrary code)
+        id: numpy-cache
+        if: ${{ !cancelled() && steps.artifacts.conclusion == 'success' && steps.preflight.conclusion == 'success' }}
+        uses: actions/cache/restore@v4
+        with:
+          path: |
+            ${{ runner.temp }}/ymzz-numpy-source-candidate/numpy-2.3.5.tar.gz
+            ${{ runner.temp }}/ymzz-numpy-source-candidate/wheelhouse
+          key: ymzz-numpy-235-cp312-vs17-source784db1dc-internal-c-blas-lapack-v1
+          fail-on-cache-miss: true
       - name: Build actual official unsigned Windows Electron installer for local qualification
         id: package
         if: ${{ !cancelled() && steps.artifacts.conclusion == 'success' && steps.preflight.conclusion == 'success' }}
         shell: pwsh
+        env:
+          YMZZ_QUALIFIED_NUMPY_WHEEL: ${{ runner.temp }}/ymzz-numpy-source-candidate/wheelhouse/numpy-2.3.5-cp312-cp312-win_amd64.whl
         run: corepack pnpm run package:desktop:win:x64:unsigned
       - name: Install actual product and exercise native GUI in Chinese-space paths
         id: gui
@@ -117,10 +131,15 @@ jobs:
           $node = Join-Path $installed 'resources/runtime/primary-runtime/dependencies/node/bin/node.exe'
           node ymzz/scripts/prepare-office-source-candidate.mjs --work "$env:RUNNER_TEMP/ymzz-office-source-candidate" --installed-provider $installed --node $node --output ymzz/docs/evidence/windows/office-source013-native-candidate.json
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-      - name: Audit actual prepared scientific native runtime (not package-level BSD labels)
+      - name: Audit actual installed source-qualified scientific namespace and embedded Python numerics/pandas
         if: ${{ !cancelled() && steps.package.conclusion == 'success' }}
         shell: pwsh
-        run: python ymzz/scripts/audit-native-python.py --root apps/desktop/.desktop-build/targets/win-x64/runtime/primary-runtime --output ymzz/docs/evidence/windows-native-python-license.json --enforce
+        run: |
+          $installed = Join-Path $env:RUNNER_TEMP '湛箴_ymzz 安裝 中文 空格'
+          $root = Join-Path $installed 'resources/runtime/primary-runtime'
+          $wheel = Join-Path $env:RUNNER_TEMP 'ymzz-numpy-source-candidate/wheelhouse/numpy-2.3.5-cp312-cp312-win_amd64.whl'
+          python ymzz/scripts/qualify-installed-numpy.py --root $root --qualified-wheel $wheel --output ymzz/docs/evidence/windows-native-python-license.json
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
       - name: Preserve redacted phase causes and exact current GUI outcome, not private logs
         if: always()
         shell: pwsh
