@@ -80,3 +80,10 @@ Run [44039049852](evidence/windows-44039049852/README.md), source `c4b7668d51f28
 The original palette file remains unchanged; owned consumption fixes prose/filled-button contrast without moving DSH panels. Six new palette/input regression tests pass, including normal-text AA for four original palettes. Full product tests66, packaging32 and signed/unsigned policy25 pass locally; this does not replace installed Windows proof.
 
 The real DSH Office provider/actual WASM0.2.3 passed all four new unmocked conversion/render/recalculation probes. A separate installed native step is now in the same Windows workflow, using actual app.asar bytes and bundled Node. [Actual evidence and precise commercial/source boundary](OFFICE-COMMERCIAL.md). Licensing is NOT cleared and the draft remains asset-free; approved LGPL/MPL use does not waive missing preferred source or silently approve GCC exceptions.
+
+
+##44210430029 terminal result: four palette interactions + actual installed Office pass, real prose defect remains
+
+[Measured evidence](evidence/windows-44210430029/README.md): all four physical combo selections genuinely changed background AND accent to authority values. Actual native Office0.2.3 with bundled Node24.21.0 independently passed all four real operations. GUI tasks/acceptance/memory/rollback and actual MIT XSL resources pass again. Overall CI remains failed.
+
+Visual inspection correctly caught that dark prose STILL painted low contrast: therefore this is not called complete theme qualification despite successful selection. Owned body/dialog scheme markers are now explicitly synchronized and direct dark prose consumes original dusk-paper; the next test MUST find20 actual authority-ink pixels in the real visible paragraph, not just a dark background. Native settings stopped at `Account menu` because the test assumed InvokePattern although the real enabled control exists; use genuine visible hit-tested physical menu/disclosure clicks instead. Native Models/plugin inventory remain unqualified until the follow-up succeeds. Licensing gates remain unchanged and block publication.

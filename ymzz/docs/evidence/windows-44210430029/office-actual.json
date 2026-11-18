@@ -1,0 +1,42 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "moduleOrigin": "actual installed app.asar extracted without mutation",
+  "mockedEngine": false,
+  "liveInference": false,
+  "nodeVersion": "v24.21.0",
+  "runtime": {
+    "version": "0.2.3",
+    "backend": "native",
+    "nativePreview": true
+  },
+  "checks": [
+    {
+      "operation": "actual DSH officeKit.convert DOCX → PDF",
+      "bytes": 17581,
+      "sha256": "c87d65eea09ae4081dae9bba2e90ce22982706b7eda6d5261153299e308fc4a0",
+      "passed": true
+    },
+    {
+      "operation": "actual DSH officeKit.renderImages DOCX → PNG",
+      "imageCount": 1,
+      "width": 596,
+      "height": 842,
+      "passed": true
+    },
+    {
+      "operation": "actual DSH officeKit.convertTo DOCX → ODT, document text verified",
+      "bytes": 9126,
+      "passed": true
+    },
+    {
+      "operation": "actual DSH officeKit.recalculate XLSX cached 0 → actual formula result 5",
+      "bytes": 5169,
+      "passed": true
+    }
+  ],
+  "scope": "DOCX PDF/PNG/ODT and XLSX formula recalculation through real upstream DSH provider; not every input format",
+  "licensingCleared": false,
+  "installedArchiveSHA256": "b1f99d761f3599d0acd21ddc47640264ae823a1846470d2282537937fbdaabde",
+  "bundledNodeSHA256": "ba4e6d110e8c1592a1ecd390f6b05f3da124b13871a5be62b341a07a853c6c32"
+}

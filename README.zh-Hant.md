@@ -58,3 +58,12 @@ pnpm exec node ymzz/scripts/dev.mjs --no-open --port 3081
 [實際安裝44098435114](ymzz/docs/evidence/windows-44098435114/README.md) 已正式建置／安裝新 Agent 的 NSIS 包、再次通過真實 GUI 任務，且**實際隨包 MIT XSL 雜湊及原生 RNG/XSD Schematron 擷取／斷言均通過**。整體 GUI 仍未通過：測試對已收合選單多呼叫 Collapse，在鍵盤選主題前便中止；沒有宣稱主題／設定通過。
 
 [單一後續44101906821](https://github.com/Ya-MiC/ymzz/actions/runs/44101906821)，確切候選 `ff465dd39987ecf14e97e374bf531d622d45b889`，已移除該無效操作，保留真實鍵盤焦點與原色票畫素檢查。另有獨立的 LGPL 來源重建／重連結檢查，不替代 Agent 建置。已準備**沒有安裝包的私人 draft Release**；GUI 與來源／政策閘尚未清除，所以公開安裝包仍不可下載，不冒充交付完成。[精確來源／授權狀態](ymzz/docs/LICENSE-FOLLOWUP.md)。Loop 是另一個獨立產品，未修改。
+
+
+##2026-11-18 KST 最新實測，不冒充交付完成
+
+[安裝後44210430029證據](ymzz/docs/evidence/windows-44210430029/README.md)：四套主題的真實滑鼠／鍵盤操作，以及原色票背景、強調色畫素均已通過；實際完整 DSH GUI 任務、驗收／記憶／還原再次通過。**Office 原生0.2.3亦用實際 app.asar 與隨包 Node24.21.0 通過 PDF、PNG、ODT 文字與 Excel 公式0→5四項真實測試**，不是 mocked converter。
+
+仍未宣稱完整 GUI／Release 通過：暗色正文的實際截圖仍低對比，已追加同步的 body/dialog 主題標記與「真正繪出原色票文字畫素」斷言；設定入口的實際 Account menu 按鈕存在，但不提供測試假定的 InvokePattern，改以真實可見且命中檢查的原生滑鼠點擊。後續原生模型／插件清單仍待這次資格驗證。
+
+MPL 本身可商用、可收費，亦可組合不同授權；目前阻擋的是**這個確切0.2.3對應 preferred source 尚未驗證完整**，不是 Office 一概不能商用。原 NumPy DLL 的 GCC 例外範圍也未獲另行批准；另有不改正式包、保留 linalg 的 NumPy 官方內建 C fallback 候選測試，但部分線性代數可能慢至100倍，未偷偷替換。詳見 [Office 功能／商用邊界](ymzz/docs/OFFICE-COMMERCIAL.md)；公開安裝包仍不能下載，私人 draft 無附件。Loop 獨立且未修改。

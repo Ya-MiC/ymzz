@@ -53,6 +53,18 @@ function Find-Control([string]$name,$pattern=$null){
  if(!$found){throw "Missing genuine FULL DSH GUI control: $name"};return $found
 }
 function Click([string]$name){$c=Find-Control $name ([System.Windows.Automation.InvokePattern]::Pattern);$c.GetCurrentPattern([System.Windows.Automation.InvokePattern]::Pattern).Invoke();Start-Sleep -Milliseconds 250}
+# Menu/disclosure buttons can expose ExpandCollapse rather than Invoke in Chromium UIA.
+# Click their REAL visible hit-tested control, not an assumed accessibility pattern.
+function Physical-Click($control){
+ if($control.Current.IsOffscreen){$control.GetCurrentPattern([System.Windows.Automation.ScrollItemPattern]::Pattern).ScrollIntoView()}
+ $p.Refresh();if(![YmzzTestMouse]::SetForegroundWindow($p.MainWindowHandle)){throw 'Cannot foreground real installed app for native button input'}
+ $r=$control.Current.BoundingRectangle;if($r.Width -le 0 -or $r.Height -le 0){throw 'Actual native button has no visible rectangle'}
+ $point=[System.Windows.Point]::new($r.Left+$r.Width/2,$r.Top+$r.Height/2);$hit=[System.Windows.Automation.AutomationElement]::FromPoint($point);$inside=$false
+ for($n=0;$hit -and $n -lt 16;$n++){if([System.Windows.Automation.Automation]::Compare($control,$hit)){$inside=$true;break};$hit=[System.Windows.Automation.TreeWalker]::RawViewWalker.GetParent($hit)}
+ if(!$inside){throw 'Native button center is covered by a different control'}
+ if(![YmzzTestMouse]::SetCursorPos([int]$point.X,[int]$point.Y)){throw 'Cannot position physical cursor over native button'}
+ [YmzzTestMouse]::mouse_event(2,0,0,0,[UIntPtr]::Zero);[YmzzTestMouse]::mouse_event(4,0,0,0,[UIntPtr]::Zero);Start-Sleep -Milliseconds 300
+}
 function Screenshot([string]$name){$b=[System.Windows.Forms.Screen]::PrimaryScreen.Bounds;$i=[System.Drawing.Bitmap]::new($b.Width,$b.Height);$g=[System.Drawing.Graphics]::FromImage($i);$g.CopyFromScreen($b.Location,[System.Drawing.Point]::Empty,$b.Size);$i.Save((Join-Path $proof "$name.png"));$g.Dispose();$i.Dispose()}
 try{
  $end=(Get-Date).AddSeconds(90);do{$p.Refresh();if($p.HasExited){throw 'FULL DSH EXE exited during GUI startup'};if($p.MainWindowHandle -eq [IntPtr]::Zero){Start-Sleep -Milliseconds 300}}until($p.MainWindowHandle -ne [IntPtr]::Zero -or (Get-Date) -gt $end)
@@ -110,7 +122,16 @@ try{
   }until(($actual -eq $expected -and $actualAccent -eq $expectedAccent) -or (Get-Date) -gt $end)
   if($actual -ne $expected){throw "Actual native-clicked theme differs from authority token: $label expected $expected got $actual"}
   if($actualAccent -ne $expectedAccent){throw "Actual native theme accent differs from authority token: $label expected $expectedAccent got $actualAccent"}
-  $script:themeProof+=@{label=$label;actualColor=$actual;authorityColor=$expected;actualAccent=$actualAccent;authorityAccent=$expectedAccent;focus=$focus;interaction='UIA hit-tested physical combo click + verified native combo/option keyboard focus + Home/Down/Enter; rendered authority color asserted'}
+  # Check PAINTED readable prose too: the previous real screenshot had dark ink
+  # on a correct dark surface. A background/accent-only pass is insufficient.
+  $prose=Find-Control '深淵的清澈的水，纂刻于竹篾上的痕，珍重微小，有所依據，立傳傳世'
+  $proseRect=$prose.Current.BoundingRectangle
+  if($prose.Current.IsOffscreen -or $proseRect.Width -le 0 -or $proseRect.Height -le 0){throw 'Actual theme proof prose is not visible'}
+  $inkToken=if($label -like '*暗*'){'c-dusk-paper'}else{'ink-1'};$inkMatch=[regex]::Match($tokens,('--'+$inkToken+':\s*(#[0-9A-Fa-f]{6})'));if(!$inkMatch.Success){throw 'Immutable authority text token missing'};$expectedInk=$inkMatch.Groups[1].Value.ToUpperInvariant()
+  $w=[int][Math]::Ceiling($proseRect.Width);$h=[int][Math]::Ceiling($proseRect.Height);$inkPixels=0;$image=[System.Drawing.Bitmap]::new($w,$h);$graphics=[System.Drawing.Graphics]::FromImage($image)
+  try{$graphics.CopyFromScreen([int]$proseRect.Left,[int]$proseRect.Top,0,0,[System.Drawing.Size]::new($w,$h));for($y=0;$y -lt $h;$y++){for($x=0;$x -lt $w;$x++){$c=$image.GetPixel($x,$y);$rgb='#{0:X2}{1:X2}{2:X2}' -f $c.R,$c.G,$c.B;if($rgb -eq $expectedInk){$inkPixels++}}}}finally{$graphics.Dispose();$image.Dispose()}
+  if($inkPixels -lt 20){throw "Actual painted prose does not contain readable authority ink: $label expected $expectedInk matched $inkPixels pixels"}
+  $script:themeProof+=@{label=$label;actualColor=$actual;authorityColor=$expected;actualAccent=$actualAccent;authorityAccent=$expectedAccent;authorityInk=$expectedInk;paintedAuthorityInkPixels=$inkPixels;focus=$focus;interaction='UIA hit-tested physical combo click + verified native combo/option keyboard focus + Home/Down/Enter; rendered authority color asserted'}
   $script:themeProof|ConvertTo-Json -Depth 8|Set-Content -Encoding utf8 (Join-Path $proof 'theme-checkpoint.json')
  }
  function Complete-Demo([bool]$accept){
@@ -142,7 +163,7 @@ try{
  Click '回到完整 DSH 工作區';Find-Control '湛箴_ymzz 插件與驗證閘' ([System.Windows.Automation.InvokePattern]::Pattern)|Out-Null;Screenshot 'full-dsh-native-workspace'
  # Native upstream settings are retained. Configuration only: never enter credentials or make inference.
  # The top-level Chromium UIA pane is not focusable. Use the REAL accessible native menu instead.
- Click 'Account menu';Click 'Settings';Start-Sleep -Seconds 2
+ Physical-Click (Find-Control 'Account menu');Click 'Settings';Start-Sleep -Seconds 2
  $models=$null;foreach($label in @('Models','模型')){try{$models=Find-Control $label ([System.Windows.Automation.InvokePattern]::Pattern);break}catch{}}
  if(!$models){throw 'Original full DSH Models settings navigation missing'};$models.GetCurrentPattern([System.Windows.Automation.InvokePattern]::Pattern).Invoke();Start-Sleep -Seconds 1
  Screenshot 'full-dsh-native-model-settings'
@@ -152,14 +173,14 @@ try{
  $search=$null;foreach($label in @('Search plugins','搜索插件')){try{$search=Find-Control $label ([System.Windows.Automation.ValuePattern]::Pattern);break}catch{}}
  if(!$search){throw 'Native built-in plugin inventory filter missing'};$search.GetCurrentPattern([System.Windows.Automation.ValuePattern]::Pattern).SetValue('@ymzz/dsh-product')
  $end=(Get-Date).AddSeconds(30);$pluginRow=$null
- do{foreach($candidate in $Element.FindAll([System.Windows.Automation.TreeScope]::Descendants,[System.Windows.Automation.Condition]::TrueCondition)){if($candidate.Current.Name -match '@ymzz/dsh-product|ymzz-product' -and $candidate.Current.ControlType -eq [System.Windows.Automation.ControlType]::Button){try{$null=$candidate.GetCurrentPattern([System.Windows.Automation.InvokePattern]::Pattern);$pluginRow=$candidate;break}catch{}}};if(!$pluginRow){Start-Sleep -Milliseconds 200}}until($pluginRow -or (Get-Date) -gt $end)
+ do{foreach($candidate in $Element.FindAll([System.Windows.Automation.TreeScope]::Descendants,[System.Windows.Automation.Condition]::TrueCondition)){if($candidate.Current.Name -match '@ymzz/dsh-product|ymzz-product' -and $candidate.Current.ControlType -eq [System.Windows.Automation.ControlType]::Button){if(!$candidate.Current.IsOffscreen){$pluginRow=$candidate;break}}};if(!$pluginRow){Start-Sleep -Milliseconds 200}}until($pluginRow -or (Get-Date) -gt $end)
  if(!$pluginRow -or $pluginRow.Current.Name -match 'Failed|Disabled|失败|禁用'){throw 'Native inventory did not show the actual enabled ymzz plugin'}
- $nativePluginRow=$pluginRow.Current.Name;$pluginRow.GetCurrentPattern([System.Windows.Automation.InvokePattern]::Pattern).Invoke();Screenshot 'full-dsh-native-plugin-inventory'
+ $nativePluginRow=$pluginRow.Current.Name;Physical-Click $pluginRow;Screenshot 'full-dsh-native-plugin-inventory'
  @{fullUpstreamApp=$true;engine='FULL official DeepSeek Harness Electron';upstream='39163dd30f703a79079e2d2446545cff3c453738';nativeGUI=$true;productDisplayName='湛箴_ymzz';nativeSidebarSlotPluginVerified=$true;originalDSHLayoutPreserved=$true;pluginLoadedViaProductionAssembly=$true;nicknameViaGUI=$true;approvals=$approvals;accepted=$accepted;rollback=$rollback;actualNodeTests=$true;deterministicFakeTransport=$true;liveInference=$false;nativeModelSettingsOpened=$true;nativeDarkThemeSelectionVerified=$true;nativeThemeProof=$script:themeProof;nativePluginInventoryRow=$nativePluginRow;providerConfigured=$false;modelWorking=$false;unicodeSpaceInstalledPath=$true;actualNSISInstalled=$true;nodeVersion=$nodeVersion;primaryNodeSHA256=(Get-FileHash $nodeExe -Algorithm SHA256).Hash;installerSHA256=(Get-FileHash $installer.FullName -Algorithm SHA256).Hash;exeSHA256=(Get-FileHash $exe -Algorithm SHA256).Hash;exeBytes=(Get-Item $exe).Length;actualUserIcon='Latest owner SVG-derived ICO, checked separately against PE resources';inheritedDSHProtocolRegistration=$true;customRegistryScript=$false;binaryDistribution='Not cleared until actual payload and corresponding-source compliance gates pass'}|ConvertTo-Json -Depth 30|Set-Content -Encoding utf8 (Join-Path $proof 'full-dsh-gui.json')
  "YMZZ_INSTALLED_PRODUCT=$portable"|Out-File -Append -Encoding utf8 $env:GITHUB_ENV
 }catch{
  Screenshot 'full-dsh-failure'
  @{error=$_.Exception.Message;fullUpstreamApp=$true;liveInference=$false;binaryDistributed=$false}|ConvertTo-Json|Set-Content -Encoding utf8 (Join-Path $proof 'failure.json')
- if($Element){@($Element.FindAll([System.Windows.Automation.TreeScope]::Descendants,[System.Windows.Automation.Condition]::TrueCondition)|ForEach-Object {@{name=$_.Current.Name;type=$_.Current.ControlType.ProgrammaticName;enabled=$_.Current.IsEnabled;automationId=$_.Current.AutomationId}})|ConvertTo-Json -Depth 4|Set-Content -Encoding utf8 (Join-Path $proof 'accessibility-diagnostic.json')}
+ if($Element){@($Element.FindAll([System.Windows.Automation.TreeScope]::Descendants,[System.Windows.Automation.Condition]::TrueCondition)|ForEach-Object {@{name=$_.Current.Name;type=$_.Current.ControlType.ProgrammaticName;patterns=@($_.GetSupportedPatterns()|ForEach-Object {$_.ProgrammaticName});enabled=$_.Current.IsEnabled;automationId=$_.Current.AutomationId}})|ConvertTo-Json -Depth 4|Set-Content -Encoding utf8 (Join-Path $proof 'accessibility-diagnostic.json')}
  throw
 }finally{if($p -and !$p.HasExited){taskkill /PID $p.Id /T /F 2>$null|Out-Null}}

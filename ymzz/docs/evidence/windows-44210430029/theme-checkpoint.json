@@ -1,0 +1,66 @@
+[
+  {
+    "actualColor": "#1F1B16",
+    "label": "雲箋 · 暗（暮靄）",
+    "authorityAccent": "#7C9DB5",
+    "actualAccent": "#7C9DB5",
+    "authorityColor": "#1F1B16",
+    "interaction": "UIA hit-tested physical combo click + verified native combo/option keyboard focus + Home/Down/Enter; rendered authority color asserted",
+    "focus": {
+      "comboProcessId": 2592,
+      "clickX": 122,
+      "type": "ControlType.ListItem",
+      "clickY": 234,
+      "processId": 2592,
+      "name": "雲箋 · 淺"
+    }
+  },
+  {
+    "actualColor": "#1F1B16",
+    "label": "陶土 · 暗（暮林）",
+    "authorityAccent": "#7E8E6F",
+    "actualAccent": "#7E8E6F",
+    "authorityColor": "#1F1B16",
+    "interaction": "UIA hit-tested physical combo click + verified native combo/option keyboard focus + Home/Down/Enter; rendered authority color asserted",
+    "focus": {
+      "comboProcessId": 2592,
+      "clickX": 122,
+      "type": "ControlType.ComboBox",
+      "clickY": 234,
+      "processId": 2592,
+      "name": "湛箴四套溫潤主題"
+    }
+  },
+  {
+    "actualColor": "#E8E3CC",
+    "label": "陶土 · 淺",
+    "authorityAccent": "#B7C8A8",
+    "actualAccent": "#B7C8A8",
+    "authorityColor": "#E8E3CC",
+    "interaction": "UIA hit-tested physical combo click + verified native combo/option keyboard focus + Home/Down/Enter; rendered authority color asserted",
+    "focus": {
+      "comboProcessId": 2592,
+      "clickX": 122,
+      "type": "ControlType.ListItem",
+      "clickY": 234,
+      "processId": 2592,
+      "name": "陶土 · 暗（暮林）"
+    }
+  },
+  {
+    "actualColor": "#F8F6EF",
+    "label": "雲箋 · 淺",
+    "authorityAccent": "#B9DDF1",
+    "actualAccent": "#B9DDF1",
+    "authorityColor": "#F8F6EF",
+    "interaction": "UIA hit-tested physical combo click + verified native combo/option keyboard focus + Home/Down/Enter; rendered authority color asserted",
+    "focus": {
+      "comboProcessId": 2592,
+      "clickX": 122,
+      "type": "ControlType.ListItem",
+      "clickY": 234,
+      "processId": 2592,
+      "name": "陶土 · 淺"
+    }
+  }
+]

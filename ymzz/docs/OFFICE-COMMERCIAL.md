@@ -28,3 +28,8 @@ Fresh full DSH import-graph inspection confirms its Office wrapper imports the r
 **Necessary material:** verifiable matching preferred Source Code Form/build inputs for the shipped0.2.3 MPL adapter, or a separately proven feature-equivalent supported source-complete implementation. A policy waiver cannot manufacture third-party source rights. No maintainer has been contacted; generated JS is not relabeled preferred TS. See [exact prior boundary evidence](../compliance/research/office-matching-source-bounded-check.json).
 
 Separately, the NumPy/OpenBLAS DLL is actually `GPL-3.0-or-later WITH GCC-exception-3.1`, not bare GPL and not MIT. Eligible non-GPL/proprietary combinations can be permitted by that exception; the owner's exact category decision remains unapproved. This is separate from MPL commercial permission and the approved LGPL/MPL exceptions. No binary is uploaded or published while either hold remains.
+
+
+## Actual installed Windows result now measured
+
+[44210430029](evidence/windows-44210430029/office-actual.json) passed all four real provider operations using **actual installed app.asar**, its physical extracted resources and actual bundled **Node24.21.0/native Office0.2.3**. ASAR SHA256 `b1f99d761f3599d0acd21ddc47640264ae823a1846470d2282537937fbdaabde`; Node SHA256 `ba4e6d110e8c1592a1ecd390f6b05f3da124b13871a5be62b341a07a853c6c32`. This upgrades the functionality evidence from Linux-only to actual Windows native, but does NOT supply missing third-party preferred source or clear distribution.

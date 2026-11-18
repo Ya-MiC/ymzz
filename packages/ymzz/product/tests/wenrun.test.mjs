@@ -17,7 +17,7 @@ for(const [id,bg,fg,accent,onAccent] of [
  assert.ok(contrast(fg,bg)>=4.5,'normal prose AA');assert.ok(contrast(onAccent,accent)>=4.5,'normal button label AA');
 });
 test('owned consumption uses readable dark prose and warm-dark ink on pastel buttons without changing layout',()=>{
- assert.match(css,/:root\[data-theme="dark"\] body\[data-ymzz-wenrun\]\s*\{\s*--ymzz-readable-ink: var\(--c-dusk-paper\);\s*--ymzz-on-accent: var\(--bg-0\)/);
+ assert.match(css,/body\[data-ymzz-wenrun\]\[data-ymzz-scheme="dark"\]\s*\{\s*--ink-1: var\(--c-dusk-paper\);\s*--ymzz-readable-ink: var\(--c-dusk-paper\);\s*--ymzz-on-accent: var\(--bg-0\)/);
  assert.match(css,/#ymzz-dsh-panel button\s*\{ color: var\(--ymzz-on-accent\)/);
  assert.match(css,/--dsw-alias-label-primary-foreground: var\(--ymzz-on-accent\)/);
  assert.match(css,/#ymzz-dsh-panel :where\(h2,h3,h4,p,label,summary,pre,article\)\s*\{ color: inherit/);
@@ -27,7 +27,7 @@ test('Windows input regression checks real select or its focused popup option an
  const ps=fs.readFileSync(new URL('../../../ymzz/scripts/windows-gui-smoke.ps1',root),'utf8');
  assert.match(ps,/AutomationElement\]::FromPoint/);assert.match(ps,/\[YmzzTestMouse\]::mouse_event\(2/);
  assert.match(ps,/focused.Current.ProcessId -ne \$theme.Current.ProcessId/);
- assert.match(ps,/actualAccent -ne \$expectedAccent/);assert.match(ps,/theme-checkpoint.json/);
+ assert.match(ps,/actualAccent -ne \$expectedAccent/);assert.match(ps,/inkPixels -lt 20/);assert.match(ps,/Physical-Click \(Find-Control 'Account menu'\)/);assert.match(ps,/theme-checkpoint.json/);
  assert.doesNotMatch(ps,/Automation\]::Compare\(\$theme,\$focused\)/);
  for(const name of ['雲箋 · 淺','雲箋 · 暗（暮靄）','陶土 · 淺','陶土 · 暗（暮林）'])assert.ok(ps.includes("Select-Theme '"+name+"'"));
 });

@@ -18,7 +18,8 @@ body[data-ymzz-wenrun] :where(button,select,input:not([type=checkbox]),[role=but
   --dsw-alias-label-primary-foreground: var(--ymzz-on-accent);
   --dsw-alias-bg-overlay: var(--bg-2);
 }
-:root[data-theme="dark"] body[data-ymzz-wenrun] {
+body[data-ymzz-wenrun][data-ymzz-scheme="dark"] {
+  --ink-1: var(--c-dusk-paper);
   --ymzz-readable-ink: var(--c-dusk-paper);
   --ymzz-on-accent: var(--bg-0);
 }
@@ -26,3 +27,10 @@ body[data-ymzz-wenrun] :where(button,select,input:not([type=checkbox]),[role=but
 #ymzz-dsh-panel :where(h2,h3,h4,p,label,summary,pre,article) { color: inherit; }
 #ymzz-dsh-panel :where(input,select,textarea,a) { color: var(--ymzz-readable-ink); }
 #ymzz-dsh-panel button { color: var(--ymzz-on-accent); }
+
+/* Bind actual plugin prose to its own synchronized scheme marker as well as the
+   native theme service. A correct dark surface alone must never mask light-mode ink. */
+#ymzz-dsh-panel[data-ymzz-scheme="dark"],
+#ymzz-dsh-panel[data-ymzz-scheme="dark"] :where(h2,h3,h4,p,label,summary,pre,article,input,select,textarea,a) {
+  color: var(--c-dusk-paper);
+}
