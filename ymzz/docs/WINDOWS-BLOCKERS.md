@@ -103,3 +103,12 @@ The sole in-flight full product run is [44214187521](https://github.com/Ya-MiC/y
 - [Office alternative source/function findings](OFFICE-COMMERCIAL.md): actual public preferred TS source, a minimal MPL resolver backport, official build recipe and four genuine operations now pass twice, with identical adapter entry bytes. This is a candidate, not a production downgrade/feature deletion or relabeling0.2.3. New Windows candidate step is explicitly separated from actual installed0.2.3 qualification.
 
 Original product graph, GCC-exception owner hold and0.2.3 matching-source hold remain until a truly qualified replacement/material route is selected. No installer artifact is uploaded. Loop untouched.
+
+
+## Measured NumPy source candidate PASS —2026-11-18 10:54 KST
+
+[44218703576](https://github.com/Ya-MiC/ymzz/actions/runs/44218703576), exact code `88ee2bf2998ee3ca3881441c1fc44f152bd2c790`: **PASS**. Actual explicit solve/Cholesky/SVD/QR/eigen/lstsq/FFT/random acceptance AND the complete selected upstream linalg/fft/random suites: **1968 passed,15 skipped,2 expected failures**,23.69seconds. No tests removed/skipped by the repair; optional/upstream-marked cases remain accurately reported. This does not claim every NumPy namespace or a packaged-runtime test passed.
+
+[Original measured JSON](evidence/numpy-source-44218703576-passed.json): original wheel notices and every actual PE imported-DLL scan pass without OpenBLAS/GNU runtime; wheel6915551bytes, SHA256 `962ff3436a6daf4b22e70f2c201745d9bded6f25a9a382fec12a3a6793b8518d`. Successful internal cache is now saved as `ymzz-numpy-235-cp312-vs17-source784db1dc-internal-c-blas-lapack-v1`; reuse it rather than rebuilding. No downloadable wheel or installer was published.
+
+**Candidate only:** actual product still contains the original NumPy/OpenBLAS DLL. Production selection must replace the whole matching NumPy wheel namespace/metadata, preserve the immutable upstream runtime archive, audit actual prepared dependencies, exercise actual packaged Python/pandas/Office tasks and retain the disclosed potential100x linalg slowdown. Do not just delete/rename a DLL or clear the original GCC-exception gate. The full GUI/native Office candidate run remains44218711664 at application88ee2bf2998ee3ca3881441c1fc44f152bd2c790; no duplicate was dispatched.

@@ -1,0 +1,283 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "sourceVersion": "2.3.5",
+  "productionRuntimeChanged": false,
+  "releaseCleared": false,
+  "scope": "Exact upstream NumPy supported internal C BLAS/LAPACK candidate, not an approved product replacement",
+  "tradeoff": "Upstream warns some linear algebra may be up to100x slower; no silent performance equivalence claim",
+  "checks": [
+    {
+      "operation": "actual built wheel inventory and original notice scan",
+      "passed": true
+    },
+    {
+      "operation": "actual PE imported-DLL graph has no OpenBLAS/GNU runtime",
+      "passed": true
+    },
+    {
+      "operation": "actual upstream linalg/fft/random suites plus explicit solve/cholesky/SVD/QR/eigen/lstsq/FFT/random acceptance",
+      "passed": true
+    }
+  ],
+  "sourceURL": "https://files.pythonhosted.org/packages/76/65/21b3bc86aac7b8f2862db1e808f1ea22b028e30a225a34a5ede9bf8678f2/numpy-2.3.5.tar.gz",
+  "sourceSHA256": "784db1dcdab56bf0517743e746dfb0f885fc68d948aba86eeec2cba234bdf1c0",
+  "python": "3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)]",
+  "wheelSHA256": "962ff3436a6daf4b22e70f2c201745d9bded6f25a9a382fec12a3a6793b8518d",
+  "wheelBytes": 6915551,
+  "buildArguments": [
+    "D:\\a\\_temp\\ymzz-numpy-source-candidate\\wheelhouse",
+    "-Csetup-args=-Dblas=none",
+    "-Csetup-args=-Dlapack=none",
+    "-Csetup-args=-Dallow-noblas=true"
+  ],
+  "wheelLicenseFiles": [
+    {
+      "path": "numpy-2.3.5.dist-info/LICENSE.txt",
+      "sha256": "1be1df33863f97a7bc1c4d67980bd6c69c9a6fef0a5ee76e6ad6cb91e56e8491"
+    },
+    {
+      "path": "numpy/_core/include/numpy/random/LICENSE.txt",
+      "sha256": "fbc539f47d0cf83bc61378080fb873d5c14630126cacbfe754035c3926daa5ec"
+    },
+    {
+      "path": "numpy/random/LICENSE.md",
+      "sha256": "103166b62b80443afb9eb3488e052ea06be0cff566b908f199e561fde49af19f"
+    },
+    {
+      "path": "numpy/ma/LICENSE",
+      "sha256": "05f3b88351988ecfad10abe92c0c50e5875c6452d5009a0084cc291551ffcca6"
+    }
+  ],
+  "nativeImports": [
+    {
+      "file": "numpy\\fft\\_pocketfft_umath.cp312-win_amd64.pyd",
+      "dependencies": [
+        "KERNEL32.dll",
+        "MSVCP140.dll",
+        "VCRUNTIME140.dll",
+        "VCRUNTIME140_1.dll",
+        "api-ms-win-crt-heap-l1-1-0.dll",
+        "api-ms-win-crt-math-l1-1-0.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "python312.dll"
+      ],
+      "sha256": "95957f066a6d64087f4fb9e6dd6ab114360eee0bcbbc5851100c3b50874ec48e"
+    },
+    {
+      "file": "numpy\\linalg\\lapack_lite.cp312-win_amd64.pyd",
+      "dependencies": [
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "api-ms-win-crt-math-l1-1-0.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "python312.dll"
+      ],
+      "sha256": "b06014acf7db3125c5872577bf1489b8b3fbeeedcc1e459f85fb82765cfa0cfc"
+    },
+    {
+      "file": "numpy\\linalg\\_umath_linalg.cp312-win_amd64.pyd",
+      "dependencies": [
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "api-ms-win-crt-heap-l1-1-0.dll",
+        "api-ms-win-crt-math-l1-1-0.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-stdio-l1-1-0.dll",
+        "python312.dll"
+      ],
+      "sha256": "709f03466a9a70522c75bf2928b82403b4bef238f81a411280592985956394d6"
+    },
+    {
+      "file": "numpy\\random\\bit_generator.cp312-win_amd64.pyd",
+      "dependencies": [
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "python312.dll"
+      ],
+      "sha256": "bbd58222e118ca8d0e03731c04abcaff19479d6d621b6e2f1f4d75259e72a20e"
+    },
+    {
+      "file": "numpy\\random\\mtrand.cp312-win_amd64.pyd",
+      "dependencies": [
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "api-ms-win-crt-math-l1-1-0.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "python312.dll"
+      ],
+      "sha256": "1d2151cc7071dcc9b4521c66d8bbd7e82d59308101ba4763108493c6de600c23"
+    },
+    {
+      "file": "numpy\\random\\_bounded_integers.cp312-win_amd64.pyd",
+      "dependencies": [
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "api-ms-win-crt-math-l1-1-0.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "python312.dll"
+      ],
+      "sha256": "e57a9d0178980176a503f9b636feb60c6066b315097c63d711d76b7ff481e100"
+    },
+    {
+      "file": "numpy\\random\\_common.cp312-win_amd64.pyd",
+      "dependencies": [
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "api-ms-win-crt-math-l1-1-0.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "python312.dll"
+      ],
+      "sha256": "3bdd0812269e11d081b14eea0992d5e6596822970b7f2cb5e6247d32a8824360"
+    },
+    {
+      "file": "numpy\\random\\_generator.cp312-win_amd64.pyd",
+      "dependencies": [
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "api-ms-win-crt-heap-l1-1-0.dll",
+        "api-ms-win-crt-math-l1-1-0.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-stdio-l1-1-0.dll",
+        "api-ms-win-crt-string-l1-1-0.dll",
+        "python312.dll"
+      ],
+      "sha256": "3ab6525c01dfed490c7cdd1aa5a106bcd2cd3993fd42a0259ba4ff8e8c06302c"
+    },
+    {
+      "file": "numpy\\random\\_mt19937.cp312-win_amd64.pyd",
+      "dependencies": [
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "api-ms-win-crt-heap-l1-1-0.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "python312.dll"
+      ],
+      "sha256": "032175cb68f329a39b5a8f99008405b771be230d88fb43229dd8566787980d43"
+    },
+    {
+      "file": "numpy\\random\\_pcg64.cp312-win_amd64.pyd",
+      "dependencies": [
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "python312.dll"
+      ],
+      "sha256": "4006d5c1cb4f1e7a5e2e39eb9440ce62134980da5ee794428c5aeb1745207a1b"
+    },
+    {
+      "file": "numpy\\random\\_philox.cp312-win_amd64.pyd",
+      "dependencies": [
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "python312.dll"
+      ],
+      "sha256": "60bec2cf42ef17c6ef21636a05bb1a14e97be751b280b333d3c4511d357fb294"
+    },
+    {
+      "file": "numpy\\random\\_sfc64.cp312-win_amd64.pyd",
+      "dependencies": [
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "python312.dll"
+      ],
+      "sha256": "41d2abbb8f4e5d6a59ca8decb11c6a516ef95f8f3a96e24d487fc2805feb5e3a"
+    },
+    {
+      "file": "numpy\\_core\\_multiarray_tests.cp312-win_amd64.pyd",
+      "dependencies": [
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "api-ms-win-crt-heap-l1-1-0.dll",
+        "api-ms-win-crt-math-l1-1-0.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-string-l1-1-0.dll",
+        "api-ms-win-crt-utility-l1-1-0.dll",
+        "python312.dll"
+      ],
+      "sha256": "56a126caaea5be3a19d19bfb892c13559b0715e31eb502cb81f209f5c9775694"
+    },
+    {
+      "file": "numpy\\_core\\_multiarray_umath.cp312-win_amd64.pyd",
+      "dependencies": [
+        "KERNEL32.dll",
+        "MSVCP140.dll",
+        "VCRUNTIME140.dll",
+        "VCRUNTIME140_1.dll",
+        "api-ms-win-crt-convert-l1-1-0.dll",
+        "api-ms-win-crt-environment-l1-1-0.dll",
+        "api-ms-win-crt-heap-l1-1-0.dll",
+        "api-ms-win-crt-locale-l1-1-0.dll",
+        "api-ms-win-crt-math-l1-1-0.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-stdio-l1-1-0.dll",
+        "api-ms-win-crt-string-l1-1-0.dll",
+        "api-ms-win-crt-time-l1-1-0.dll",
+        "api-ms-win-crt-utility-l1-1-0.dll",
+        "python312.dll"
+      ],
+      "sha256": "f5ca46ca3f7536a5f5732c167e7e90067341e497c87ebc3f4669e8c78b015a51"
+    },
+    {
+      "file": "numpy\\_core\\_operand_flag_tests.cp312-win_amd64.pyd",
+      "dependencies": [
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "python312.dll"
+      ],
+      "sha256": "657d446dcba7f51d280f23a1e0108ad9b325a3d45a7e55ed9654fda6bc932bb6"
+    },
+    {
+      "file": "numpy\\_core\\_rational_tests.cp312-win_amd64.pyd",
+      "dependencies": [
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-stdio-l1-1-0.dll",
+        "api-ms-win-crt-string-l1-1-0.dll",
+        "python312.dll"
+      ],
+      "sha256": "8e7c464c92d2e65ecbc7cf491b1ef699cb818924fc58c280497b16a1ea344efd"
+    },
+    {
+      "file": "numpy\\_core\\_simd.cp312-win_amd64.pyd",
+      "dependencies": [
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "api-ms-win-crt-environment-l1-1-0.dll",
+        "api-ms-win-crt-heap-l1-1-0.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-string-l1-1-0.dll",
+        "python312.dll"
+      ],
+      "sha256": "68a269b6335eabf074ac57698a7256853b9403f0ddba162a3f168cdea7291b8d"
+    },
+    {
+      "file": "numpy\\_core\\_struct_ufunc_tests.cp312-win_amd64.pyd",
+      "dependencies": [
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "python312.dll"
+      ],
+      "sha256": "c6f71fea859aab76ff034e651656f0cf85a95b04c5c1d8ce39627fda2a9f93ac"
+    },
+    {
+      "file": "numpy\\_core\\_umath_tests.cp312-win_amd64.pyd",
+      "dependencies": [
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "api-ms-win-crt-environment-l1-1-0.dll",
+        "api-ms-win-crt-math-l1-1-0.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-string-l1-1-0.dll",
+        "python312.dll"
+      ],
+      "sha256": "4a5b11abe41cf5a0199702500f52eb99cf8376a754a80f0dbc7f4a35a14aa25e"
+    }
+  ]
+}
