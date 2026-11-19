@@ -129,5 +129,6 @@
   "release.consent": "Allow this manual request to the public GitHub releases API (turn off any time)",
   "release.check": "Check public releases manually",
   "release.none": "No public stable product installer; unreleased status retained.",
-  "release.error": "GitHub lookup failed or was disabled; unreleased status retained."
+  "release.error": "GitHub lookup failed or was disabled; unreleased status retained.",
+  "nav.account": "Sign in"
 }

@@ -129,5 +129,6 @@
   "release.consent": "允許本次手動連線 GitHub 公開發佈 API（可隨時關閉）",
   "release.check": "手動檢查公開發佈",
   "release.none": "尚無公開正式產品安裝包；保留未發佈狀態。",
-  "release.error": "GitHub 查詢失敗或已停用；保留未發佈狀態。"
+  "release.error": "GitHub 查詢失敗或已停用；保留未發佈狀態。",
+  "nav.account": "帳戶登入"
 }

@@ -2,6 +2,19 @@
 (function () {
   "use strict";
   const cfg = window.YMZZ_SITE || {};
+  // Navigation only: no cross-origin API calls or tokens on GitHub Pages.
+  if (cfg.accountUrl) {
+    try {
+      const account = new URL(cfg.accountUrl);
+      if (account.protocol === "https:" && !account.username && !account.password &&
+          account.pathname === "/account" && !account.search && !account.hash) {
+        document.querySelectorAll("[data-account-link]").forEach((link) => {
+          link.href = account.href;
+          link.hidden = false;
+        });
+      }
+    } catch { /* Invalid or missing configuration stays hidden. */ }
+  }
   const THEMES = {
     "cloud-light": { theme: "light", palette: "cloud" },
     "cloud-dark": { theme: "dark", palette: "cloud" },

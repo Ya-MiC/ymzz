@@ -61,3 +61,7 @@ The script checks in-repo HTML/CSS/JS only (IDs, `/ymzz/` prefix rules, no track
 
 - Visual / layout grammar: the public Loop site https://ya-mic.github.io/ymzz-loop/ and its `site/` source
 - Color, motion, hit targets, four palettes: https://github.com/Ya-MiC/ymzz-wenrun-design-skill (`assets/tokens/tokens.css`)
+
+## Website accounts
+
+The separately hosted [account service](../auth/README.md) owns Google sign-in, email OTP and authenticator 2FA. GitHub Pages never handles credentials or authentication cookies; its account navigation remains disabled until the actual backend origin and production flows pass acceptance.
