@@ -23,7 +23,7 @@ export function createAuth(config, database, sendOTP) {
       },
     } } : {},
     account: { accountLinking: { enabled: true, disableImplicitLinking: true, allowDifferentEmails: false }, encryptOAuthTokens: true, storeStateStrategy: 'database' },
-    session: { expiresIn: 43200, updateAge: 1800, freshAge: 300, cookieCache: { enabled: false } },
+    session: { expiresIn: 43200, disableSessionRefresh: true, freshAge: 300, cookieCache: { enabled: false } },
     advanced: { useSecureCookies: !config.development, cookiePrefix: 'ymzz',
       defaultCookieAttributes: { httpOnly: true, sameSite: 'lax', secure: !config.development },
       ipAddress: { ipAddressHeaders: ['x-ymzz-client-ip'] } },

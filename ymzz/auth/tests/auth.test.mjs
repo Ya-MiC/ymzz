@@ -254,3 +254,14 @@ test('script-free forms cannot leak email or codes through native GET submission
   const invalidType = await b.request('/api/auth/sign-out', {}, { headers: { 'content-type': 'application/jsonp' } });
   assert.equal(invalidType.status, 415);
 });
+
+test('active requests cannot extend a session beyond the absolute twelve-hour lifetime', async t => {
+  t.mock.timers.enable({ apis: ['Date'], now: Date.now() });
+  const f = await fixture(t); const owner = f.browser(); await f.login(owner);
+  for (let hour = 1; hour < 12; hour++) {
+    t.mock.timers.tick(3600000);
+    assert.equal((await owner.request('/api/account')).status, 200);
+  }
+  t.mock.timers.tick(3600001);
+  assert.equal((await owner.request('/api/account')).status, 401);
+});
