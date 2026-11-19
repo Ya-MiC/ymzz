@@ -40,7 +40,7 @@ export function createApp(config, database, sendOTP) {
     if (request.method !== 'GET' && (origin !== config.origin || request.headers.get('sec-fetch-site') === 'cross-site')) return json({ error: 'INVALID_ORIGIN' }, 403);
     let body;
     if (request.method === 'POST') {
-      if (!(request.headers.get('content-type') || '').startsWith('application/json')) return json({ error: 'JSON_REQUIRED' }, 415);
+      if ((request.headers.get('content-type') || '').split(';')[0].trim().toLowerCase() !== 'application/json') return json({ error: 'JSON_REQUIRED' }, 415);
       // The HTTP adapter bounds the stream too; direct fetch callers are bounded here.
       const text = await request.text();
       if (Buffer.byteLength(text) > 16384) return json({ error: 'BODY_TOO_LARGE' }, 413);
@@ -129,7 +129,7 @@ export function createApp(config, database, sendOTP) {
     response.headers.set('Referrer-Policy', 'no-referrer');
     response.headers.set('X-Content-Type-Options', 'nosniff');
     response.headers.set('X-Frame-Options', 'DENY');
-    response.headers.set('Content-Security-Policy', "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self'; form-action 'self'; frame-ancestors 'none'; base-uri 'none'");
+    response.headers.set('Content-Security-Policy', "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self'; form-action 'none'; frame-ancestors 'none'; base-uri 'none'");
     if (!config.development) response.headers.set('Strict-Transport-Security', 'max-age=31536000');
     return response;
   } };

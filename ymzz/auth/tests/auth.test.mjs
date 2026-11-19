@@ -245,3 +245,12 @@ test('expired provider sessions invalidate account access despite earlier factor
   f.db.prepare('UPDATE session SET expiresAt=?').run(Date.now() - 1000);
   assert.equal((await owner.request('/api/account')).status, 401);
 });
+
+test('script-free forms cannot leak email or codes through native GET submission', async t => {
+  const f = await fixture(t); const b = f.browser(); const page = await b.request('/account');
+  assert.match(page.headers.get('content-security-policy'), /form-action 'none'/);
+  const html = await page.text();
+  assert.doesNotMatch(html, /<form(?![^>]*method="post")/);
+  const invalidType = await b.request('/api/auth/sign-out', {}, { headers: { 'content-type': 'application/jsonp' } });
+  assert.equal(invalidType.status, 415);
+});
