@@ -121,6 +121,10 @@ jobs:
           YMZZ_QUALIFIED_OFFICE_SOURCE: ${{ runner.temp }}/ymzz-office-source-candidate/derived-runtime/libreoffice-kit
           YMZZ_QUALIFIED_NUMPY_WHEEL: ${{ runner.temp }}/ymzz-numpy-source-candidate/wheelhouse/numpy-2.3.5-cp312-cp312-win_amd64.whl
         run: corepack pnpm run package:desktop:win:x64:unsigned
+      - name: Preserve exact metadata-only ASAR differences if packaging failed (not an integrity waiver)
+        if: ${{ !cancelled() && steps.package.conclusion == 'failure' }}
+        shell: pwsh
+        run: node ymzz/scripts/diagnose-asar-integrity.mjs
       - name: Install actual product and exercise native GUI in Chinese-space paths
         id: gui
         if: ${{ !cancelled() && steps.package.conclusion == 'success' }}

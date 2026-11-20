@@ -27,6 +27,22 @@ export async function replacePreservingOriginals(rows,backupParent,reseal){
   throw error;
  }
 }
+// Reuse the exact installed electron-builder transformer, as upstream preparation
+// does, BEFORE sealing. The newly selected native package still has prepack
+// scripts; builder would otherwise rewrite package.json after its hash was sealed.
+export async function prepareSelectedOfficeManifests(root){
+ const desktopRequire=createRequire(new URL('../../apps/desktop/package.json',import.meta.url));
+ const builderRequire=createRequire(desktopRequire.resolve('electron-builder'));
+ const {createTransformer}=builderRequire('app-builder-lib/out/fileTransformer.js');
+ const transform=createTransformer(root,{},undefined),changes=[];
+ for(const name of ['libreoffice-kit','libreoffice-kit-win32-x64']){
+  const file=path.join(root,'node_modules/@deepseek-ai',name,'package.json');
+  const before=fs.readFileSync(file),after=await transform(file);
+  if(after!=null){fs.writeFileSync(file,after);changes.push({path:path.relative(root,file).split(path.sep).join('/'),beforeSHA256:sha(before),afterSHA256:sha(Buffer.from(after))})}
+  assert.equal(await transform(file),null,'OFFICE_MANIFEST_TRANSFORM_NOT_IDEMPOTENT');
+ }
+ return changes;
+}
 export async function selectPreparedOfficeSource(staging){
  const selected=process.env.YMZZ_QUALIFIED_OFFICE_SOURCE;if(!selected)return {selected:false,releaseCleared:false};
  assert(path.isAbsolute(selected),'OFFICE_SOURCE_ABSOLUTE_PATH_REQUIRED');
@@ -49,7 +65,22 @@ export async function selectPreparedOfficeSource(staging){
  const runtimeApi=await import('../../apps/desktop/lib/types/runtime-tree.js');
  const descriptor=runtimeApi.readDesktopRuntime(root);await runtimeApi.verifyDesktopRuntime(root,descriptor.release.version,{platform:'win32',arch:'x64'});
  if(fs.existsSync(marker)){
-  const current=JSON.parse(fs.readFileSync(marker));assert.equal(current.adapterEntrySHA256,proof.sourceBuild.adapterEntrySHA256);assert.equal(sha(fs.readFileSync(path.join(root,'node_modules/@deepseek-ai/libreoffice-kit/lib/index.js'))),current.adapterEntrySHA256);return current;
+  const markerBefore=fs.readFileSync(marker),descriptorBefore=fs.readFileSync(path.join(root,'desktop-runtime.json'));
+  const current=JSON.parse(markerBefore);assert.equal(current.adapterEntrySHA256,proof.sourceBuild.adapterEntrySHA256);assert.equal(sha(fs.readFileSync(path.join(root,'node_modules/@deepseek-ai/libreoffice-kit/lib/index.js'))),current.adapterEntrySHA256);
+  // A retry may reuse a valid tree selected by the older selector. Repair its
+  // manifests before resealing rather than returning that known-broken cache.
+  const originals=['libreoffice-kit','libreoffice-kit-win32-x64'].map(name=>{const file=path.join(root,'node_modules/@deepseek-ai',name,'package.json');return{file,bytes:fs.readFileSync(file)}});
+  try{
+   const changes=await prepareSelectedOfficeManifests(root);
+   if(changes.length){
+    current.manifestPreparation={method:'Exact installed electron-builder createTransformer; repaired previously selected tree before descriptor sealing',changes};
+    fs.writeFileSync(marker,JSON.stringify(current,null,2)+'\n');
+    await runtimeApi.writeDesktopRuntimeAsync(root,descriptor.release,descriptor.sharedPackages.map(row=>row.name),{platform:'win32',arch:'x64'});
+    await runtimeApi.verifyDesktopRuntime(root,descriptor.release.version,{platform:'win32',arch:'x64'});
+   }
+   return current;
+  }catch(error){for(const row of originals)fs.writeFileSync(row.file,row.bytes);fs.writeFileSync(marker,markerBefore);fs.writeFileSync(path.join(root,'desktop-runtime.json'),descriptorBefore);throw error}
+
  }
  const names=['libreoffice-kit','libreoffice-kit-win32-x64'];
  assert(!fs.existsSync(path.join(root,'node_modules/@deepseek-ai/libreoffice-kit-wasm')),'UNEXPECTED_SHIPPED_WASM_REQUIRES_MATCHING_SOURCE_SELECTION');
@@ -72,6 +103,7 @@ export async function selectPreparedOfficeSource(staging){
    await replacePreservingOriginals([{source:adapter,target:targets[0]},{source:engine,target:targets[1]}],backupParent,async()=>{
     for(const {file,bytes}of originalDeclarations){const value=JSON.parse(bytes);for(const field of ['dependencies','optionalDependencies'])if(value[field]?.['@deepseek-ai/libreoffice-kit']){assert.equal(value[field]['@deepseek-ai/libreoffice-kit'],'0.2.3');value[field]['@deepseek-ai/libreoffice-kit']='0.1.3'}fs.writeFileSync(file,JSON.stringify(value,null,2)+'\n')}
     fs.writeFileSync(path.join(backupParent,'original-consumer-declarations.json'),JSON.stringify(originalDeclarations.map(row=>({path:path.relative(root,row.file),base64:row.bytes.toString('base64')})),null,2)+'\n');
+    result.manifestPreparation={method:'Exact installed electron-builder createTransformer, same policy as upstream prepareRuntimeManifests; before descriptor sealing',changes:await prepareSelectedOfficeManifests(root)};
     fs.writeFileSync(marker,JSON.stringify(result,null,2)+'\n');
     await runtimeApi.writeDesktopRuntimeAsync(root,descriptor.release,descriptor.sharedPackages.map(row=>row.name),{platform:'win32',arch:'x64'});
     await runtimeApi.verifyDesktopRuntime(root,descriptor.release.version,{platform:'win32',arch:'x64'});

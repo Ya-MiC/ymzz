@@ -3,8 +3,11 @@ import fs from 'node:fs';import path from 'node:path';import assert from 'node:a
 import {ICON_TARGETS,UPSTREAM_ICON_ARCHIVE} from '../branding/apply-branding.mjs';import {TEXT_BRAND_TARGETS,applyApplicationBranding} from '../branding/application-branding.mjs';
 const root=path.resolve(import.meta.dirname,'../..'),pin='39163dd30f703a79079e2d2446545cff3c453738',git=(...a)=>execFileSync('git',a,{cwd:root,maxBuffer:16*1024*1024}),sha=b=>createHash('sha256').update(b).digest('hex');
 const allowed=new Set(['.gitattributes','README.md',...ICON_TARGETS.map(t=>t.path),...TEXT_BRAND_TARGETS,'packages/bundle/web-app/package.json','packages/bundle/web-app/cordis.patch.yml','apps/desktop/scripts/pack-local-packages.ts','pnpm-lock.yaml','tsconfig.client.json','apps/desktop/scripts/desktop-package-environment.mjs','apps/desktop/tests/desktop-policy-environment.spec.ts']);
-const additions=new Set(['README.zh-Hant.md','NOTICE.md','ROADMAP.md','.github/workflows/ymzz-pages.yml','.github/workflows/ymzz-windows.yml','.github/workflows/ymzz-license-relink.yml']);
+const additions=new Set(['README.zh-Hant.md','NOTICE.md','ROADMAP.md','.github/workflows/ymzz-pages.yml','.github/workflows/ymzz-windows.yml','.github/workflows/ymzz-license-relink.yml','.github/workflows/ymzz-auth.yml']);
 const names=git('diff','--name-status',pin).toString().trim().split('\n').filter(Boolean);for(const row of names){const [status,file]=row.split('\t');assert.ok(!status.startsWith('D'),'UPSTREAM_FILE_DELETED: '+file);if(status==='A')assert.ok(additions.has(file)||file.startsWith('ymzz/')||file.startsWith('packages/ymzz/'),'UNEXPECTED_NEW_ROOT: '+file);else assert.ok(allowed.has(file),'UNAPPROVED_UPSTREAM_EDIT: '+file)}
+// Existing separately owner-approved auth workflow is preserved byte-for-byte;
+// registering its exact path is not permission to modify that unrelated scope.
+assert.equal(sha(fs.readFileSync(path.join(root,'.github/workflows/ymzz-auth.yml'))),'55964a0c94b36f8c083f47a69ac7b70610107a0ee4ad4d096b34edb0e22c8d6b','OWNER_AUTH_WORKFLOW_CHANGED');
 for(const {path:file,sha256}of UPSTREAM_ICON_ARCHIVE.files){assert.equal(sha(fs.readFileSync(path.join(root,'ymzz/branding/archive/upstream-dsh-icons',file))),sha256);assert.equal(sha(git('show',pin+':'+file)),sha256)}
 assert.ok(applyApplicationBranding({dryRun:true}).changes.every(c=>!c.changed),'Branding not applied/idempotent');
 for(const file of TEXT_BRAND_TARGETS)assert.deepEqual(fs.readFileSync(path.join(root,'ymzz/branding/archive/upstream-text-branding',file+'.source')),git('show',pin+':'+file));
