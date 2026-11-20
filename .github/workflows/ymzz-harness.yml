@@ -1,0 +1,41 @@
+name: ymzz local acceptance harness
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  acceptance:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24.22.1
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - name: Exact upstream package manager and frozen dependencies
+        run: |
+          corepack enable
+          corepack pnpm --version
+          corepack pnpm install --frozen-lockfile
+      - name: Product security and unchanged packaging guards
+        run: |
+          node --test packages/ymzz/product/tests/*.test.mjs
+          corepack pnpm exec tsx --test ymzz/packaging/tests/*.test.mjs
+          node ymzz/scripts/check-product-source.mjs
+          node ymzz/scripts/check-site.mjs
+      - name: Complete official eight-gate artifact build
+        run: corepack pnpm run build:artifacts
+      - name: Real DSH approvals, tests, acceptance, fresh memory and offline capsule
+        run: python ymzz/scripts/test-harness-local.py --port 3092 --output ymzz/.build/harness-evidence/actual-http.json
+      - name: Public synthetic test evidence only (no profile, launch token or raw logs)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ymzz-harness-evidence-${{ github.sha }}
+          path: ymzz/.build/harness-evidence/*.json
+          if-no-files-found: warn

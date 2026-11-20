@@ -8,6 +8,10 @@
 
 [Official website](https://ya-mic.github.io/ymzz/) · [繁體中文](README.zh-Hant.md) · [Releases](https://github.com/Ya-MiC/ymzz/releases) · [Separate completed Loop product](https://ya-mic.github.io/ymzz-loop/)
 
+## Content-bound acceptance harness
+
+A focused plugin increment inspired by public harness evidence patterns: protected real test → human acceptance receipt → recheck content before explicit memory → metadata-only offline-verifiable capsule. Native DSH layout/approvals remain; no AGH runtime, paid model or automatic execution is added. [Implemented flow, security limits and reproducible tests](ymzz/docs/HARNESS.md). Windows installer release remains independently held by source/material closure.
+
 ## Download / current status
 
 | Platform | Availability |

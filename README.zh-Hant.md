@@ -6,6 +6,10 @@
 
 [官網](https://ya-mic.github.io/ymzz/) · [English / 完整插件表](README.md) · [Releases](https://github.com/Ya-MiC/ymzz/releases)
 
+## 內容綁定的驗收 Harness
+
+真正測試 → 人工驗收收據 → 記憶前檢查內容未變 → 可離線檢查的 metadata 膠囊。增量在既有 DSH 插件內，保留原生版面／逐次授權與四 Wenrun 主題；不另造 AGH runtime、不加付費模型或自動執行。[已實作流程、安全界限與重現測試](ymzz/docs/HARNESS.zh-Hant.md)。Windows Release 的對應源碼材料門禁仍獨立保留。
+
 ## 下載與真實狀態
 
 - Windows x64：**尚未發佈**。官方 Electron/NSIS 安裝包已實際建置並裝入中文空格路徑，隨包 Node 已執行；完整安裝後 GUI／任務的後續資格驗證仍在進行，授權發佈閘尚未清除。不提供舊 Tauri 安裝包冒充。
