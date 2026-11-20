@@ -5,7 +5,7 @@ const{readAsar}=builderRequire('app-builder-lib/out/asar/asar.js'),sha=b=>create
 const target=path.join(repo,'apps/desktop/.desktop-build/targets/win-x64'),archivePath=path.join(target,'unsigned-artifacts/win-unpacked/resources/app.asar'),prepared=path.join(target,'dsh/desktop-runtime.json');
 const output=path.join(repo,'ymzz/docs/evidence/windows/asar-integrity-details.json'),report={diagnosticOnly:true,releaseCleared:false,archiveExists:fs.existsSync(archivePath),preparedDescriptorExists:fs.existsSync(prepared)};
 if(report.archiveExists&&report.preparedDescriptorExists){
- const expectedBytes=fs.readFileSync(prepared),expected=JSON.parse(expectedBytes),archive=await readAsar(archivePath),archivedDescriptor=await archive.readFile('dsh/desktop-runtime.json');
+ const expectedBytes=fs.readFileSync(prepared),expected=JSON.parse(expectedBytes),archive=await readAsar(archivePath),archivedDescriptor=await archive.readFile(path.join('dsh','desktop-runtime.json'));
  report.preparedDescriptorSHA256=sha(expectedBytes);report.archivedDescriptorSHA256=sha(archivedDescriptor);report.descriptorBytesMatch=expectedBytes.equals(archivedDescriptor);
  const actual=new Map(),wanted=new Map(expected.files.map(row=>[row.path,row]));
  async function visit(node,name){
