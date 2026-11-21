@@ -25,6 +25,8 @@ class NativeRights(unittest.TestCase):
   i,m=self.fixture();i['nativeFiles'][0]['sha256']='d'*64;self.assertFalse(evaluate(i,m,{},True)['nativeCoverageComplete'])
  def test_known_native_hash_at_unreviewed_path_blocks(self):
   i,m=self.fixture();i['nativeFiles'][0]['path']='renamed.dll';self.assertFalse(evaluate(i,m,{},True)['nativeGatePassed'])
+ def test_removing_known_native_cannot_green_source_gate(self):
+  i,m=self.fixture();m['nativeFiles'][0]['locations'].append({'root':'actual-installed','path':'required.dll'});r=evaluate(i,m,{},True);self.assertFalse(r['nativeCoverageComplete']);self.assertTrue(any(h['kind']=='expected-native-missing'for h in r['holds']))
  def test_new_native_not_hidden_by_known_package(self):
   i,m=self.fixture();i['nativeFiles'].append({'root':'actual-installed','path':'new.dll','sha256':'d'*64,'bytes':20,'npmPackage':'MIT-label'})
   self.assertFalse(evaluate(i,m,{},True)['nativeGatePassed'])

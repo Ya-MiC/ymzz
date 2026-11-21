@@ -38,6 +38,7 @@ def evaluate(inventory,matrix,sources,actual_roots_verified=False):
    holds.append({'kind':'unknown-or-changed-native','root':r['root'],'path':r['path'],'sha256':r['sha256']});continue
   used.add(pin['component']);matched+=1
  if not seen:holds.append({'kind':'empty-native-payload'})
+ for root,relative in sorted(set(expected)-seen):holds.append({'kind':'expected-native-missing','root':root,'path':relative,'detail':'A payload deletion requires explicit reviewed feature-preserving matrix revision; it cannot green the source/license gate.'})
  outcomes=[];required=set()
  for name in sorted(used):
   c=components[name];issues=[];group=c.get('sourceGroup')
@@ -56,7 +57,7 @@ def evaluate(inventory,matrix,sources,actual_roots_verified=False):
   outcomes.append({'component':name,'licenseBasis':c['licenseBasis'],'obligation':c['obligation'],'originalNoticePinsVerified':len(pins)-sum(i['kind']=='original-notice-not-shipped-or-changed'for i in issues),'passed':not issues,'issues':issues})
   holds.extend({'component':name,**i}for i in issues)
  source_pass=bool(used)and all(components[name].get('sourceObligationsReviewed')is True for name in used)and all(source_verified(g,sources,inventory)for g in required)
- coverage=bool(seen)and matched==len(seen)
+ coverage=bool(seen)and matched==len(seen)and set(expected)==seen
  rights=bool(used)and coverage and not any(i['kind']!='matching-covered-source-materials-missing'for i in holds)
  inspected=actual_roots_verified and bool(seen)
  return {'schema':1,'scope':'All current native hash/path identities, original grant notices, and selective corresponding-source obligations. No source duty is inferred from a permissive DLL.','nativeRepresentations':len(seen),'nativeRepresentationsMatched':matched,'nativeCoverageComplete':coverage,'packagedNativePayloadInspected':inspected,'nativeRightsVerified':rights,'requiredSourceGroups':sorted(required),'correspondingSourceMaterialsVerified':source_pass,'components':outcomes,'sourceResults':sources,'holds':holds,'nativeGatePassed':inspected and rights and source_pass,'releaseCleared':False}

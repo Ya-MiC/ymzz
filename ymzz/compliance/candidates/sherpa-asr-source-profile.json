@@ -69,5 +69,17 @@
     }
   ],
   "modelAssetsFile": "packages/experimental/speech-to-text-sensevoice/runtime/assets.json",
-  "modelAssetsSHA256": "d46d8e9dd0493725535997100bd2c1389fd3d0ddc5d2e2aefa5495a996d3f5d5"
+  "modelAssetsSHA256": "d46d8e9dd0493725535997100bd2c1389fd3d0ddc5d2e2aefa5495a996d3f5d5",
+  "excludedUnbuiltExampleLinks": [
+    {
+      "path": "scripts/go/_internal/vad-spoken-language-identification/main.go",
+      "targetSHA256": "a940ca1b230379b7b14e1221f686d1a6aaa2271e0a2517b68318e26c43c38a80",
+      "reason": "Unbuilt Go demo link, never a C/C++/DSH input. Original source archive retained unchanged."
+    },
+    {
+      "path": "scripts/go/_internal/vad-spoken-language-identification/run.sh",
+      "targetSHA256": "94dd43f06b3fc194630b4e2859252cced06efe8a3ecdfd67233f1d6e61b3d4fc",
+      "reason": "Unbuilt Go demo link, never a C/C++/DSH input. Original source archive retained unchanged."
+    }
+  ]
 }

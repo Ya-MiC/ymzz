@@ -25,9 +25,24 @@ def fetch(row,dest):
   if len(data)!=row['bytes']or hashlib.sha256(data).hexdigest()!=row['sha256']:raise ValueError('SOURCE_OR_MODEL_PIN_MISMATCH '+dest.name)
   dest.write_bytes(data)
  return dest
-def extract(archive,dest):
+def extract(archive,dest,excluded_links=()):
  dest.mkdir(parents=True,exist_ok=True)
- with tarfile.open(archive)as t:t.extractall(dest,filter='data')
+ # Keep the strict data filter. Only two hash-pinned, unbuilt Go demo links
+ # in the immutable source tar may be OMITTED, never resolved or trusted.
+ allowed={'scripts/go/_internal/vad-spoken-language-identification/main.go','scripts/go/_internal/vad-spoken-language-identification/run.sh'}
+ exclusions={r['path']:r['targetSHA256']for r in excluded_links}
+ if not set(exclusions)<=allowed:raise ValueError('CANNOT_OMIT_CXX_OR_UNKNOWN_SOURCE_INPUT')
+ seen=set()
+ with tarfile.open(archive)as t:
+  members=[]
+  for member in t.getmembers():
+   rel=member.name.partition('/')[2]
+   if rel in exclusions:
+    if not member.issym()or hashlib.sha256(member.linkname.encode()).hexdigest()!=exclusions[rel]:raise ValueError('REVIEWED_DEMO_LINK_CHANGED')
+    seen.add(rel);continue
+   members.append(member)
+  if seen!=set(exclusions):raise ValueError('REVIEWED_DEMO_LINK_MISSING')
+  t.extractall(dest,members=members,filter='data')
  return next(p for p in dest.iterdir()if p.is_dir())
 def run(cmd,cwd=None):subprocess.run([str(x)for x in cmd],cwd=cwd,check=True,timeout=1800)
 def main():
@@ -37,7 +52,7 @@ def main():
  work=a.work.resolve();work.mkdir(parents=True,exist_ok=True)
  if(work/'source').exists():raise ValueError('USE_NEW_CANDIDATE_WORKDIR_PRESERVE_PREVIOUS')
  a.output.parent.mkdir(parents=True,exist_ok=True);a.output.write_text(json.dumps({'schema':1,'status':'in-progress','phase':'source-build','productionSelected':False,'releaseCleared':False})+'\n')
- inputs=work/'inputs';source=profile['source'];archive=fetch(source,inputs/('sherpa-onnx-'+source['commit']+'.tar.gz'));src=extract(archive,work/'source');build=work/'build';install=build/'install'
+ inputs=work/'inputs';source=profile['source'];archive=fetch(source,inputs/('sherpa-onnx-'+source['commit']+'.tar.gz'));src=extract(archive,work/'source',profile.get('excludedUnbuiltExampleLinks',[]));build=work/'build';install=build/'install'
  run(['cmake','-S',src,'-B',build,'-A','x64','-DCMAKE_INSTALL_PREFIX='+str(install),*profile['cmakeFlags']])
  cache=(build/'CMakeCache.txt').read_text()
  if 'SHERPA_ONNX_ENABLE_TTS:BOOL=OFF'not in cache:raise ValueError('TTS_PROFILE_NOT_ACTUAL')
@@ -79,7 +94,7 @@ def main():
    native=[{'file':p.name,'sha256':sha(p),'bytes':p.stat().st_size}for p in sorted(platform.iterdir())if p.suffix.lower()in('.dll','.node')]
  atext=[r['text']for r in results['original']['transcripts']];btext=[r['text']for r in results['source-candidate']['transcripts']]
  if atext!=btext or any(len(t.strip())<2 for t in btext):raise ValueError('ACTUAL_DSH_OFFLINE_TRANSCRIBER_RESULT_MISMATCH')
- report={'schema':1,'status':'passed','sourceCommit':source['commit'],'sourceArchiveSHA256':source['sha256'],'cmakeFlags':profile['cmakeFlags'],'espeakAndPiperBuildDependencies':forbidden,'originalVsCandidateDSHTranscriptEquality':True,'actualTranscriber':results,'nativeFiles':native,'productionSelected':False,'releaseCleared':False,'limits':'Independent source candidate/native DSH STT proof only. Not full Sherpa TTS parity, model accuracy/performance parity, final installed product/GUI, ORT constituent source closure or a distribution approval.'};a.output.parent.mkdir(parents=True,exist_ok=True);a.output.write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n',encoding='utf-8');print(json.dumps({k:v for k,v in report.items()if k not in('actualTranscriber','nativeFiles')},indent=2))
+ report={'schema':1,'status':'passed','sourceCommit':source['commit'],'sourceArchiveSHA256':source['sha256'],'cmakeFlags':profile['cmakeFlags'],'omittedUnbuiltGoDemoLinks':profile.get('excludedUnbuiltExampleLinks',[]),'espeakAndPiperBuildDependencies':forbidden,'originalVsCandidateDSHTranscriptEquality':True,'actualTranscriber':results,'nativeFiles':native,'productionSelected':False,'releaseCleared':False,'limits':'Independent source candidate/native DSH STT proof only. Not full Sherpa TTS parity, model accuracy/performance parity, final installed product/GUI, ORT constituent source closure or a distribution approval.'};a.output.parent.mkdir(parents=True,exist_ok=True);a.output.write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n',encoding='utf-8');print(json.dumps({k:v for k,v in report.items()if k not in('actualTranscriber','nativeFiles')},indent=2))
 if __name__=='__main__':
  try:main()
  except Exception as error:
