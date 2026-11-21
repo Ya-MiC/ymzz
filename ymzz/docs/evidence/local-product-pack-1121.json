@@ -1,0 +1,63 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "scope": "Exact private product asset membership, hashes and actual isolated HTTP serving; NOT Windows GUI/formula/live model or global release clearance",
+  "univer": {
+    "version": "1.5.2",
+    "repository": "https://github.com/dream-num/univer",
+    "packageLockSHA256": "b53b5719e83d083402eec18154319b607d84cf345d1c73d2115128c4a643fd1f",
+    "files": {
+      "provenance.json": {
+        "bytes": 21295,
+        "sha256": "69fa740aaff7ab91cd230319252a5e8ab1ac5cc79269d754845b67944d6686f0"
+      },
+      "index.html": {
+        "bytes": 12143159,
+        "sha256": "b894233c55d9a3685ef75e04c0b7d4291f4a9cdd24edc256c8977109f79c0790"
+      },
+      "THIRD_PARTY_NOTICES.txt": {
+        "bytes": 325448,
+        "sha256": "42e73f555c6a58087b6c6559d46b684f8b2b1d7ccd7c8dd4be062b8713caeaff"
+      }
+    },
+    "licenseQualifications": [
+      {
+        "name": "@univerjs/protocol",
+        "version": "1.5.2",
+        "license": "Apache-2.0",
+        "licenseNote": "Supplemental upstream license text, not a source/binary reproduction attestation."
+      },
+      {
+        "name": "ot-text-unicode",
+        "version": "4.0.0",
+        "license": "ISC",
+        "licenseNote": "Published package metadata declares ISC but its bundled README contains an MIT-labelled grant. Preserve that original section verbatim and flag the discrepancy; this is not a release-license clearance."
+      },
+      {
+        "name": "franc-min",
+        "version": "6.2.0",
+        "license": "MIT",
+        "licenseNote": "Supplemental upstream license text, not a source/binary reproduction attestation."
+      },
+      {
+        "name": "react-remove-scroll-bar",
+        "version": "2.3.8",
+        "license": "MIT",
+        "licenseNote": "Published 2.3.8 declares MIT but its gitHead is unavailable and no 2.3.8 tag was returned; supplemental copyright/license text from pinned upstream default branch, not proof of source equivalence."
+      }
+    ],
+    "releaseCleared": false
+  },
+  "httpRoutes": 3,
+  "arbitraryAssetDenied": true,
+  "releaseCleared": false,
+  "tarballSHA256": "2028773759b28aa94fe6b7915e8c9704fdc95d4e3ddf5f5b8ea9d4cbdfe3597b",
+  "requiredMembers": [
+    "package.json",
+    "univer-assets.mjs",
+    "lib/univer/index.html",
+    "lib/univer/THIRD_PARTY_NOTICES.txt",
+    "lib/univer/provenance.json"
+  ],
+  "qualificationEnvironment": "Linux actual pnpm private product tarball and HTTP serving, not Windows GUI"
+}

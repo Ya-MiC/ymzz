@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "sourceConstituentsVerified": 28,
+  "originalRecipePinsVerified": 28,
+  "patchedRustCratesVerified": 353,
+  "sourceArchiveSHA256": "c3d3d1b3e0442dabe746cf71be0de2cf1be217abc996e9b620f1cda837848636",
+  "rustArchiveSHA256": "bfb67db97ebefdd3f2f1e05274451001ecfe966694c89f6a50e6ebb0abbd5f33",
+  "installedInventoryMatch": {
+    "inventorySHA256": "938ff69e091cc30c6f7ad300d9c6f63a3d96c878ecc3a56429806fdc3aebbad3",
+    "appAsarSHA256": "b636be54b3e753578913e396225c724895c2a6f270e9b87300e61f2b5d7e8689",
+    "scope": "Only the supplied installed inventory; not a new Windows qualification"
+  },
+  "scope": "Rehashed original sources, recipes, patches, Rust closure and native version/notice identity. No source compilation, modified DLL test, Office/global material clearance or new GUI result.",
+  "releaseCleared": false
+}

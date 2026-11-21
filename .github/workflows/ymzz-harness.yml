@@ -26,10 +26,16 @@ jobs:
         run: |
           node --test packages/ymzz/product/tests/*.test.mjs
           corepack pnpm exec tsx --test ymzz/packaging/tests/*.test.mjs
+          python ymzz/packaging/tests/test_source_materials.py
           node ymzz/scripts/check-product-source.mjs
           node ymzz/scripts/check-site.mjs
       - name: Complete official eight-gate artifact build
         run: corepack pnpm run build:artifacts
+      - name: Actual private product tarball assets and isolated HTTP serving
+        run: |
+          mkdir -p ymzz/.build/private-product-pack
+          corepack pnpm --dir packages/ymzz/product pack --pack-destination ../../../ymzz/.build/private-product-pack
+          node ymzz/scripts/qualify-product-assets.mjs --tarball ymzz/.build/private-product-pack/ymzz-dsh-product-0.1.0.tgz --output ymzz/.build/harness-evidence/product-assets.json
       - name: Native task context integration against built workspace packages
         run: node --test packages/ymzz/product/tests/integration/*.test.mjs
       - name: Real DSH approvals, tests, acceptance, fresh memory and offline capsule

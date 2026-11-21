@@ -46,6 +46,8 @@ jobs:
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           corepack pnpm exec vitest run apps/desktop/tests/desktop-policy-environment.spec.ts
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          python ymzz/packaging/tests/test_source_materials.py
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           python ymzz/packaging/tests/test_native_inventory.py
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           python ymzz/packaging/tests/test_numpy_overlay.py
@@ -78,10 +80,10 @@ jobs:
             taskkill /PID $server.Id /T /F 2>$null
             Remove-Item $log,$errlog -ErrorAction SilentlyContinue
           }
-      - name: Audit actual Windows production dependencies (strict release gate)
+      - name: Repository dependency preflight ONLY (not the selected installed release graph)
         if: always()
         shell: pwsh
-        run: node ymzz/scripts/audit-production.mjs --enforce
+        run: node ymzz/scripts/audit-production.mjs
       - name: Official unsigned Windows packaging preflight (no invented policy service)
         id: preflight
         if: always()
@@ -137,12 +139,12 @@ jobs:
           $installed = Join-Path $env:RUNNER_TEMP '湛箴_ymzz 安裝 中文 空格'
           node ymzz/scripts/qualify-office.mjs --installed $installed --expected-runtime 0.1.3 --output ymzz/docs/evidence/windows/office-actual.json
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-      - name: Inspect complete actual installed native payload, not the repository graph or a candidate
+      - name: Inspect actual installed payload and enforce its post-selector release gate
         if: ${{ !cancelled() && steps.package.conclusion == 'success' }}
         shell: pwsh
         run: |
           $installed = Join-Path $env:RUNNER_TEMP '湛箴_ymzz 安裝 中文 空格'
-          node ymzz/scripts/inspect-installed-payload.mjs --installed $installed --output ymzz/docs/evidence/windows/native-payload-inventory.json
+          node ymzz/scripts/inspect-installed-payload.mjs --installed $installed --output ymzz/docs/evidence/windows/native-payload-inventory.json --enforce
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
       - name: Audit actual installed source-qualified scientific namespace and embedded Python numerics/pandas
         if: ${{ !cancelled() && steps.package.conclusion == 'success' }}

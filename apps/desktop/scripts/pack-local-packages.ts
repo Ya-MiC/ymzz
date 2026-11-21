@@ -1,6 +1,6 @@
 /** Stage local-branded DSH packages for unsigned Desktop builds without a publication record. */
 
-import { resolve } from 'node:path'
+import { join, resolve } from 'node:path'
 import { parseArgs } from 'node:util'
 import { execa } from 'execa'
 import { pnpmInvocation } from '../../../scripts/pnpm-invocation.ts'
@@ -27,7 +27,12 @@ async function main(): Promise<void> {
   // Private ymzz package is intentionally NOT an upstream release-family/npm publication member.
   const ymzz = pnpmInvocation(['--dir', 'packages/ymzz/product', 'pack', '--pack-destination', destination])
   await execa(ymzz.command, ymzz.args, { cwd: root, stdio: 'inherit' })
-  console.log('ymzz desktop local pack: 1 additional private product plugin tarball')
+  await execa(process.execPath, [
+    join(root, 'ymzz/scripts/qualify-product-assets.mjs'),
+    '--tarball', join(destination, 'ymzz-dsh-product-0.1.0.tgz'),
+    '--output', join(destination, 'ymzz-product-assets.json'),
+  ], { cwd: root, stdio: 'inherit' })
+  console.log('ymzz desktop local pack: 1 additional private product plugin tarball; local Sheets assets verified')
   console.log(`desktop local pack: ${String(packed.length)} tarball(s) in ${destination}`)
 }
 

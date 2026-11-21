@@ -1,0 +1,17 @@
+{
+  "schema": 1,
+  "core": "bce0998afefdbc355585ca324285661a2170ba77",
+  "preferredNativeSourceFilesVerified": 85,
+  "exactExternalArchivesVerified": 98,
+  "disabledExternalEntriesAccounted": 51,
+  "baseArchiveSHA256": "8060ac4243b995d41bcd8f26c334d812fa138dbfac70dbf8bd5a8f75e1558dcf",
+  "externalArchiveSHA256": "00011bf0f5ca880ff5aa54d17785ad3bc3921d857ad3690ad643dcc943ed3715",
+  "installedInventoryMatch": {
+    "nativeRepresentationsMatched": 2,
+    "inventorySHA256": "938ff69e091cc30c6f7ad300d9c6f63a3d96c878ecc3a56429806fdc3aebbad3",
+    "appAsarSHA256": "b636be54b3e753578913e396225c724895c2a6f270e9b87300e61f2b5d7e8689",
+    "scope": "Supplied baseline inventory only; not a new exact-head Windows execution"
+  },
+  "scope": "All source bytes and native build/configuration identities rechecked; conservative source superset. Original patches/notices retained. Does NOT assert all optional components ship, a modified native rebuild, complete product commercial clearance or new Windows GUI.",
+  "releaseCleared": false
+}

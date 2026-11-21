@@ -10,20 +10,26 @@
 
 真正測試 → 人工驗收收據 → 記憶前檢查內容未變 → 可離線檢查的 metadata 膠囊。增量在既有 DSH 插件內，保留原生版面／逐次授權與四 Wenrun 主題；不另造 AGH runtime、不加付費模型或自動執行。[已實作流程、安全界限與重現測試](ymzz/docs/HARNESS.zh-Hant.md)。Windows Release 的對應源碼材料門禁仍獨立保留。
 
-## 下載與真實狀態
+## 普通用戶：安裝與首次使用
 
-- Windows x64：**尚未發佈**。官方 Electron/NSIS 安裝包已實際建置並裝入中文空格路徑，隨包 Node 已執行；完整安裝後 GUI／任務的後續資格驗證仍在進行，授權發佈閘尚未清除。不提供舊 Tauri 安裝包冒充。
+**目前沒有公開、已合格的 Agent 安裝包可下載。** [Releases](https://github.com/Ya-MiC/ymzz/releases) 裡的私人 draft 不是下載入口；GitHub「Source code (zip)」也不是安裝程式。正常交付應是 Windows x64 NSIS `.exe`、SHA256 與匹配的第三方聲明／源碼材料，**不是叫普通用戶先裝 Git、Node、pnpm**。不要把獨立 Loop／稟冊的安裝包拿來安裝本 Agent。
+
+待真正發佈合格安裝包後：安裝並開啟「湛箴_ymzz」→ 沒有 provider 可先依原生畫面選 **Add API Key → Set up later** → 設暱稱、選工作區 → 要執行真人模型任務時，再於原生 Settings/Models 明確配置 provider。跳過設定不會自動產生可用模型；Google 指南與本機 Sheets 是離線功能，不取代既有 Office 轉換。
+
+### 現在的資格狀態
+
+- Windows x64：**尚未發佈**。官方 Electron/NSIS 安裝包已實際建置並裝入中文空格路徑，隨包 Node 已執行；舊基線44709191875的實際 GUI／四主題／設定／插件、正式選入的來源版 Office／Sharp／NumPy 已通過，但整輪 source/material 閘失敗；它不能驗收新增 Sheets／harness，最新版本仍需獨立 Windows 與完整材料資格。不提供舊 Tauri 安裝包冒充。
 - macOS / Linux 桌面版：計劃中，不在 v0.1 保證範圍。
 - 已驗證：完整上游8個 artifacts 建置閘、受驗證 HTTP200、真正 DSH Agent Loop 的工具逐次核准／真實測試失敗→修復→通過／差異驗收、還原、確認記憶。模型 transport 明確是假模型，未做 live／付費／NIM 推論。
 
-## 三步從原始碼執行
+## 僅開發者：從原始碼執行
 
-需要 Node≥24.9、Git≥2.26、Corepack pnpm11.28.5：
+建議 Node **24.22.1**（上游最低24.9）、Git≥2.26、Corepack pnpm11.28.5。這是開發者 source run，**不是普通用戶安裝包**：
 
 ```sh
-pnpm install
-pnpm run build:artifacts
-pnpm exec node ymzz/scripts/dev.mjs --no-open --port 3081
+corepack pnpm install --frozen-lockfile
+corepack pnpm run build:artifacts
+corepack pnpm exec node ymzz/scripts/dev.mjs --no-open --port 3081
 ```
 
 開啟本機輸出的私人啟動連結；不要公開 token。資料預設放 `~/.ymzz`，可用 `YMZZ_HOME` 指定。原生 `pnpm dsh web` 仍保留其原有 `DSH_HOME` 行為。
@@ -48,10 +54,9 @@ pnpm exec node ymzz/scripts/dev.mjs --no-open --port 3081
 
 [完整證據](ymzz/docs/WINDOWS-BLOCKERS.md)：作者於 **2026-11-17 15:04 KST** 明確批准兩處 unsigned 打包判斷，以及實際 LGPL/MPL 元件合規分發；signed 版本仍嚴格要求有效 HTTPS 政策服務，沒有偽造端點。已準備實際來源／原始授權材料，第三方沒有改標 MIT。
 
-目前仍有兩項**新的精確問題**，不是重複原先 LGPL 異議：
+目前不再把舊 NumPy GCC runtime 或 Office0.2.3 API 當作正在發行的版本：實包已採來源建置、無 GNU runtime 的 NumPy，與來源建置0.1.3＋明示 MPL resolver patch 的 Office；不代表官方未改動0.1.3，也不是把0.1.3冒充0.2.3來源。
 
-1. 隨包 NumPy 2.3.5 Windows 的 OpenBLAS DLL 含靜態 GCC runtime，原始聲明為 **GPL-3.0-or-later WITH GCC-exception-3.1**。這個例外不等於普通 GPL，也不把產品改成 GPL；但仍超出已批准的 LGPL/MPL 範圍，沒有偷偷放行。原始聲明、確切 wheel／DLL 雜湊與實際包檢查皆已加入。
-2. LibreOffice API 0.2.3 的 npm 包只有編譯後 JS／宣告、缺少 TypeScript 實作；可取得的公開 preferred-source 版本仍為 0.1.3，不能拿舊版冒充匹配來源。0.2.3 native engine 已附修改過的 C++ 原始碼，不能誤稱全部缺失；API 對應來源完整性仍未確認。
+本輪真正補齊並 rehash：libvips28個實際 constituent、原始 recipe 與353個 Rust crate；Core下載清單98個 external 原始碼 archive，另51個由原生 configure 明確停用的 fonts／Java／Python／lxml 項逐一核對；85個 native preferred source 比對原 manifest。來源材料實體已保留，並接入可選的 installed/source 驗證；**這不是全局商用許可蓋章、新版 Windows GUI 成功或已能公開下載**。正式閘已改查 post-selector 真實安裝依賴圖，完整 native／材料條件不放寬。[重現方法／實際 hash 與界限](ymzz/compliance/REBUILD.md)。
 
 發佈閘維持 fail-closed；未公開未驗收 EXE，也未發 Release。標準安裝與上游 protocol handler 會產生正常 OS／使用者登錄項，不宣稱完全不寫登錄檔；沒有自訂 registry 修改腳本。
 
@@ -59,7 +64,10 @@ pnpm exec node ymzz/scripts/dev.mjs --no-open --port 3081
 
 基於 DeepSeek Harness（MIT），**非 DeepSeek 官方產品**。新增程式為 MIT，保留原作者與第三方實際授權聲明。
 
-## 最新 Windows 安裝後 GUI 任務證據
+<details>
+<summary>歷史資格紀錄（已被上方最新狀態取代，保留作證據）</summary>
+
+## 歷史 Windows 安裝後 GUI 任務證據
 
 [實際測量與雜湊](ymzz/docs/evidence/windows-44035093932/README.md)：正式 Electron/NSIS 安裝至中文空格路徑，7個真實 PE 圖標 frame、隨包 Node、暱稱／About、**12次 GUI 工具核准、兩次真實失敗→修復→通過、人工驗收、1筆明確記憶與還原均通過**。模型是明確假 transport，不是 live 推論。主題 UIA 選項未提交、原生設定後段未執行，授權與對應來源仍阻擋發佈；不宣稱整體通過，不提供未驗收 EXE。
 
@@ -77,3 +85,5 @@ pnpm exec node ymzz/scripts/dev.mjs --no-open --port 3081
 仍未宣稱完整 GUI／Release 通過：暗色正文的實際截圖仍低對比，已追加同步的 body/dialog 主題標記與「真正繪出原色票文字畫素」斷言；設定入口的實際 Account menu 按鈕存在，但不提供測試假定的 InvokePattern，改以真實可見且命中檢查的原生滑鼠點擊。後續原生模型／插件清單仍待這次資格驗證。
 
 MPL 本身可商用、可收費，亦可組合不同授權；目前阻擋的是**這個確切0.2.3對應 preferred source 尚未驗證完整**，不是 Office 一概不能商用。原 NumPy DLL 的 GCC 例外範圍也未獲另行批准；另有不改正式包、保留 linalg 的 NumPy 官方內建 C fallback 候選測試，但部分線性代數可能慢至100倍，未偷偷替換。詳見 [Office 功能／商用邊界](ymzz/docs/OFFICE-COMMERCIAL.md)；公開安裝包仍不能下載，私人 draft 無附件。Loop 獨立且未修改。
+
+</details>

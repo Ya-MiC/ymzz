@@ -1,0 +1,16 @@
+# Exact Windows Sharp/libvips source inventory and replacement
+
+This is **source-only pending material**, not a Windows installer or a global license clearance. Original source archives retain their copyrights/license texts. It adds all **28 actual `versions.json` constituents**, including permissive static constituents, to addendum05's exact MXE recipes/patches and all353 checksum-pinned crates of the patched librsvg Cargo.lock. Source files do not imply every optional feature in their repositories is compiled.
+
+## Verify bytes before use
+
+`verify_sharp_sources.py --constituents <06.zip> --rust <05.zip> --inventory <actual-native-payload-inventory.json> --output <report.json>` rehashes every archive/member, checks original recipe VERSION/CHECKSUM overrides, native version/notice identity, and all patched-lock crates. It neither trusts a `passed` boolean nor turns on the global gate. An old supplied inventory proves only that old installed payload, never a new application head.
+
+## Rebuild/relink route
+
+1. Preserve the two full preferred recipe archives in05 (`vips-mxe-v8.18.7`, `mxe-llvm-mingw-20260924`), original patches, and all28 original source archives in06. Extract only into a new work directory; inspect upstream README/container/build recipes. The actual payload is the **web** variant, mozjpeg, zlib-ng and proxy-libintl, **not all/HEVC**. Those optional builds have different license graphs and are not qualified here.
+2. Populate the MXE source download cache with the hash-matched archives using the filenames computed by the original recipes. In particular the mozjpeg full-revision source archive in06 has the original recipe SHA375d1930…; its MXE version/cache name is `mozjpeg-0826579.tar.gz`. Different GitHub tarball URL forms produce different archive bytes: do not substitute a hash mismatch. Preserve and apply all original MXE/vips patches, including the librsvg patch that changes Cargo.lock.
+3. Use the original documented llvm-mingw/container build with its pinned recipes. Supply the353 crate archives from05 to Cargo's registry cache or a correctly checksum-generated local vendor directory; retain the exact patched lock. No modified native rebuild or offline Cargo vendor run is claimed by these archive checks. Compiler/container prerequisite downloads and the native build itself remain explicit developer operations, not application startup actions.
+4. For an ABI-compatible rebuilt8.18.7, stop the app and back up its unpacked `dsh/node_modules/@img/sharp-win32-x64/lib/libvips-42.dll` and `libvips-cpp-8.18.7.dll`. Replace the shared libraries; use matching headers/import libraries and rebuild Sharp0.35.5 if changing ABI. Regenerate inventories/integrity by the normal packaging process, never disable integrity. Run actual installed SVG/resize/encode/fresh-process tests afterwards.
+
+Prior run44709191875 physically replaced a COPY with the **original** DLL and successfully reloaded it. This establishes a shared-library replacement mechanism, not execution of a newly compiled modified DLL. ymzz does not prohibit modification or reverse engineering to debug library changes, nor impose maintainer signatures against an unsigned user's own replacement. LGPL/MPL obligations and full product qualification remain independently enforced.

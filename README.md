@@ -12,11 +12,19 @@
 
 A focused plugin increment inspired by public harness evidence patterns: protected real test → human acceptance receipt → recheck content before explicit memory → metadata-only offline-verifiable capsule. Native DSH layout/approvals remain; no AGH runtime, paid model or automatic execution is added. [Implemented flow, security limits and reproducible tests](ymzz/docs/HARNESS.md). Windows installer release remains independently held by source/material closure.
 
-## Download / current status
+## Install / first use — ordinary users
+
+**There is currently no public Agent installer to download.** The [Releases page](https://github.com/Ya-MiC/ymzz/releases) has no published qualified Windows package; an asset-free draft is not a download. GitHub **Source code (zip)** and the commands below are developer paths, not a normal installation. Do not use a Loop/稟冊 installer for this Agent.
+
+The ordinary-user delivery is a verified Windows x64 NSIS `.exe`, SHA256 checksums and matching third-party notices/source materials. It is **not available yet**; this README does not require ordinary users to install Git/Node/pnpm instead.
+
+Once a qualified installer is actually released: install and open **湛箴_ymzz**, use native **Add API Key → Set up later** if no provider is configured, choose a nickname and a workspace, then configure a provider explicitly in native Settings/Models before expecting real model inference. Skipping setup does not create a working model; local Sheets/Google guidance are offline features, not a substitute for Office's conversion tools.
+
+### Current qualification status
 
 | Platform | Availability |
 |---|---|
-| Windows x64 | **Not released.** Real installed tasks, all four painted Wenrun themes, native Settings/Models and registered plugins passed; final selected production-source/native/material qualification remains. |
+| Windows x64 | **Not released.** Baseline44709191875 installed tasks, all four painted themes, native Settings/Models, selected source-built Office, Sharp and embedded NumPy passed. That older build does not qualify the latest Sheets/harness changes; full final material/native gates remain. |
 | macOS / Linux desktop | Planned; not guaranteed in v0.1. |
 | From source | Full DSH eight-gate artifact build and authenticated HTTP200 passed on Linux; actual native-agent tool/task tests passed. |
 
@@ -24,14 +32,14 @@ A focused plugin increment inspired by public harness evidence patterns: protect
 
 No old Tauri/Loop installer is presented as this product. No live/paid/NIM inference has been performed. A deterministic fake model is explicitly labeled fake; its real DSH agent loop, tool approvals, file patches and failing→repair→passing Node tests are not mocks.
 
-## Three-step source setup
+## Developers only: run from source
 
-Node≥24.9, Git≥2.26 and Corepack-enabled **pnpm11.28.5**, exactly pinned upstream. From the repository root:
+Use Node **24.22.1** (upstream minimum24.9), Git≥2.26 and Corepack-enabled **pnpm11.28.5**, exactly pinned upstream. This builds a developer source run, **not an installer**. From the repository root:
 
 ```sh
-pnpm install
-pnpm run build:artifacts
-pnpm exec node ymzz/scripts/dev.mjs --no-open --port 3081
+corepack pnpm install --frozen-lockfile
+corepack pnpm run build:artifacts
+corepack pnpm exec node ymzz/scripts/dev.mjs --no-open --port 3081
 ```
 
 Open the private launch link printed locally; never publish its authentication token. The launcher runs the official DSH CLI and isolates source-run data under `~/.ymzz` (`YMZZ_HOME` overrides it); no registry edits or alternate runtime. The original `pnpm dsh web` remains available and uses upstream `DSH_HOME` behavior.
@@ -42,9 +50,10 @@ One private workspace package, [`@ymzz/dsh-product`](packages/ymzz/product), is 
 
 | Extension | What actually exists |
 |---|---|
-| Brand / Wenrun | Original user SVG and generated icons; exact product title/EXE resource branding; native sidebar brand/footer slots and four registered themes: 雲箋淺、雲箋暗、陶土淺、陶土暗. Native PE ProductName/installation and all7 exact owner ICO resources passed; complete theme/settings GUI follow-up remains. |
+| Brand / Wenrun | Original user SVG and generated icons; exact product title/EXE resource branding; native sidebar brand/footer slots and four registered themes: 雲箋淺、雲箋暗、陶土淺、陶土暗. Native PE ProductName/installation, all7 exact owner ICO resources and four-theme/settings baseline passed; new exact-build qualification is still separate. |
 | Bounded task / gates | Official `ctx.agents`, `ctx.tools`, `ctx.approval`; explicit proposals, selected-workspace read/write/patch, fixed Node test command, failure feedback, human diff accept/rollback, persistent tasks and confirmed memory. Not an OS/network sandbox. |
 | Local provider | Off-by-default loopback OpenAI-compatible adapter/settings; no API key handling or remote URLs. Protocol tests use labeled fake HTTP responses. A working real model is not claimed. General project picking uses the actual native DSH directory-picker service; Windows picker GUI remains unqualified. |
+| Local Sheets / guidance | Univer1.5.2 open-source editable Sheets/JSON and209 pinned Google web guidance documents. Actual private tarball membership, hashes and isolated HTTP serving are checked; no new Windows GUI/formula result is claimed. [Scope/licenses](ymzz/docs/GOOGLE-UNIVER.zh-Hant.md). |
 | Skills |9 integrity-pinned instruction skills registered with official `ctx.skills`; third-party licenses retained. Scripts/CLI installs/network permission are NOT granted by installing instructions. |
 | Reviewed updates | Tested signature/hash/compatibility/license-checked local staging and staging rollback only. No live channel, installer/restart or maintainer signing key configured. |
 
@@ -80,13 +89,13 @@ pnpm run package:desktop:win:x64:unsigned --check
 pnpm run package:desktop:win:x64:unsigned
 ```
 
-Use a Windows x64 build host and documented public `.env.windows` product settings. No mandatory-update endpoint is required for unsigned builds; signed HTTPS validation remains. Normal upstream NSIS install/uninstall/protocol registrations are not called “registry free”. [Measured installer-producing Windows attempt](https://github.com/Ya-MiC/ymzz/actions/runs/44035093932) built the real installer; the final native GUI/compliance gates are not yet green, so there is deliberately no executable download.
+Use a Windows x64 build host and documented public `.env.windows` product settings. No mandatory-update endpoint is required for unsigned builds; signed HTTPS validation remains. Normal upstream NSIS install/uninstall/protocol registrations are not called “registry free”. [Latest completed full Windows baseline44709191875](https://github.com/Ya-MiC/ymzz/actions/runs/44709191875) built/installed and exercised the actual selected production app, but its strict source/material gate failed. It predates current Sheets/harness changes. There is deliberately no executable download; a successful Linux source/pack check is not a new Windows qualification.
 
 ### Current measured result / 目前實測
 
-[Exact installed run44221774966](https://github.com/Ya-MiC/ymzz/actions/runs/44221774966) passed genuine Chinese-space installation/tasks, all four painted body inks/backgrounds/accents, native Settings/Models and Enabled/Running product registration. Real native Office operations and embedded CPython/NumPy/pandas numerical/CSV acceptance passed; no live inference or configured provider is claimed. Overall release remains held by final source/native/material closure.
+[Installed baseline44709191875](https://github.com/Ya-MiC/ymzz/actions/runs/44709191875), exact `d1a5da26c9c08919c5a12ea10732273ec85ea5bd`, passed Chinese-space NSIS installation, native GUI tasks/themes/settings/plugins, **selected production source-built Office0.1.3**, Sharp SVG/shared-library replacement mechanism and embedded GNU-free NumPy/pandas. Model transport was explicitly fake, provider unconfigured; the overall run **failed the source/material gate**.
 
-The already-native-qualified, preferred-source-built MPL Office0.1.3 variant is now explicitly selected for the next **actual production** package, with originals preserved and ordinary descriptor/ASAR checks retained. Actual full Core/adapter/30dependency sources and353exact patched-lock Rust crate sources have been collected and hash-verified, not merely linked. This still needs exact new installed-production and comprehensive native/material checks. [Precise commercial/source obligations and assembled-material hashes](ymzz/docs/CORRESPONDING-SOURCE.md). MPL/LGPL allow commercial use with their conditions; third parties are not relabeled MIT. There is no public installer yet.
+Current source material work physically collected and rehashed all28 actual Windows libvips constituents +353 patched-lock Rust crates and98 exact Core external source archives, with85 preferred native Office files rechecked against the original manifest. [Reproducible checks and current limitations](ymzz/compliance/REBUILD.md). These are matching-source inventory proofs bound to the older installed baseline, **not a new application GUI result or global license/release clearance**. The strict gate now runs against the actual post-selector installed graph rather than repository Office0.2.3; its native/material completeness requirements remain unchanged.
 
 <details>
 <summary>Historical qualification records — superseded status text retained as evidence</summary>
