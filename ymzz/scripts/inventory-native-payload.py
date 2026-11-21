@@ -48,6 +48,13 @@ def pe_imports(data):
    target.append(string(name))
   else:raise ValueError('NATIVE_PE_IMPORT_TABLE_UNTERMINATED')
  return {'machine':hex(machine),'format':'PE32+'if magic==0x20b else'PE32','imports':sorted(set(imports)),'delayImports':sorted(set(delay))}
+def is_notice_path(rel):
+ # A DLL under third_party/ is NOT a notice. Nor is executable Python code
+ # under packaging/licenses/. Only original legal text/document names qualify.
+ p=Path(rel);name=p.name
+ if p.suffix.lower()in EXTENSIONS|{'.py','.pyc','.js','.ts','.node','.map'}:return False
+ return bool(re.match(r'^(?:licen[sc]es?|copying|notice|copyright|authors)(?:[._-]|$)',name,re.I)or(
+  any(part.lower()in ('licenses','licences')for part in p.parts[:-1])and p.suffix.lower()in ('','.txt','.md','.rst','.html')))
 def inspect(roots):
  natives=[];notices=[];packages={};python_distributions=[]
  for label,root in roots:
@@ -56,7 +63,7 @@ def inspect(roots):
    if file.is_symlink()or getattr(file,'is_junction',lambda:False)():raise ValueError('NATIVE_PAYLOAD_LINK_REJECTED:'+str(file))
    if not file.is_file():continue
    rel=file.relative_to(root).as_posix()
-   if any(re.search(r'^(?:licen[sc]e|licenses|copying|notice|third.party)(?:[._-]|$)',part,re.I)for part in Path(rel).parts):notices.append({'root':label,'path':rel,'sha256':sha(file),'bytes':file.stat().st_size})
+   if is_notice_path(rel):notices.append({'root':label,'path':rel,'sha256':sha(file),'bytes':file.stat().st_size})
    if file.name=='METADATA'and file.parent.name.endswith('.dist-info'):
     metadata=BytesParser().parsebytes(file.read_bytes(),headersonly=True);python_distributions.append({'root':label,'path':rel,'name':metadata.get('Name'),'version':metadata.get('Version'),'licenseExpression':metadata.get('License-Expression'),'legacyLicenseField':metadata.get('License'),'metadataSHA256':sha(file)})
    with file.open('rb')as stream:magic=stream.read(8)

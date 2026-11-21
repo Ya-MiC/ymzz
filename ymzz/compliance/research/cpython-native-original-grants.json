@@ -1,0 +1,81 @@
+{
+  "schema": 1,
+  "scope": "Original grants selected from actual win-x64 PYTHON.json links plus in-core expat/zlib/mpdecimal; NOT all-platform bdb/libedit catalogs. MSVC runtime conditions remain separate.",
+  "archive": "cpython-3.12.14+20260901-x86_64-pc-windows-msvc-pgo-full.tar.zst",
+  "archiveSHA256": "b7cf8be5cd5222d1e456fbf71257efe558d84fe092757b6892c16584e5df01c2",
+  "metadataSHA256": "d5e87fbe21fa99e458942bbb5c365403f55b0a96271c222b9913f27806fcd523",
+  "files": [
+    {
+      "path": "ymzz/compliance/notices/cpython-3.12.14-Windows-LICENSE.bzip2.txt.original.txt",
+      "originalArchiveMember": "python/licenses/LICENSE.bzip2.txt",
+      "sha256": "bd5628cc76fb0ebf9c657d1dd4d1a240a1a7b216c31663e7bbf1131c0b70a910",
+      "bytes": 1780
+    },
+    {
+      "path": "ymzz/compliance/notices/cpython-3.12.14-Windows-LICENSE.cpython.txt.original.txt",
+      "originalArchiveMember": "python/licenses/LICENSE.cpython.txt",
+      "sha256": "8fe98bf9822926d854f56ffd8d97877d8b942617aa44eb7ea77fd99e22f2537e",
+      "bytes": 36935
+    },
+    {
+      "path": "ymzz/compliance/notices/cpython-3.12.14-Windows-LICENSE.expat.txt.original.txt",
+      "originalArchiveMember": "python/licenses/LICENSE.expat.txt",
+      "sha256": "8a9cfe4b5924f4b25881aa0c9f5e4561c5f31065d0c4a13cdcdbcf917edf39aa",
+      "bytes": 1165
+    },
+    {
+      "path": "ymzz/compliance/notices/cpython-3.12.14-Windows-LICENSE.libffi.txt.original.txt",
+      "originalArchiveMember": "python/licenses/LICENSE.libffi.txt",
+      "sha256": "9afb8970cd29fc1031fa647278e4bef613399e2e3468a1e3a397f4d158c6101c",
+      "bytes": 1153
+    },
+    {
+      "path": "ymzz/compliance/notices/cpython-3.12.14-Windows-LICENSE.liblzma.txt.original.txt",
+      "originalArchiveMember": "python/licenses/LICENSE.liblzma.txt",
+      "sha256": "d87d218dd908b3243ec4cbc72af400e5b7437513ea9d9229291d0812b8464fec",
+      "bytes": 673
+    },
+    {
+      "path": "ymzz/compliance/notices/cpython-3.12.14-Windows-LICENSE.libuuid.txt.original.txt",
+      "originalArchiveMember": "python/licenses/LICENSE.libuuid.txt",
+      "sha256": "cbccaa3efe07a9a602751375085be572d4410a250b996716fbe8c5255c7ec6f2",
+      "bytes": 1459
+    },
+    {
+      "path": "ymzz/compliance/notices/cpython-3.12.14-Windows-LICENSE.mpdecimal.txt.original.txt",
+      "originalArchiveMember": "python/licenses/LICENSE.mpdecimal.txt",
+      "sha256": "f094277cd46e1f6e4d87916cc4b51e22f613d45eb81f48231c3cb7caf8fc8a6a",
+      "bytes": 1308
+    },
+    {
+      "path": "ymzz/compliance/notices/cpython-3.12.14-Windows-LICENSE.openssl-3.txt.original.txt",
+      "originalArchiveMember": "python/licenses/LICENSE.openssl-3.txt",
+      "sha256": "ed72ce2b51ee58f117e5a021e2e04af158857f40269fbc03491f0b2a99dbcc96",
+      "bytes": 10352
+    },
+    {
+      "path": "ymzz/compliance/notices/cpython-3.12.14-Windows-LICENSE.sqlite.txt.original.txt",
+      "originalArchiveMember": "python/licenses/LICENSE.sqlite.txt",
+      "sha256": "d8eb9aba7ef6b5ed06cb3ec19a7242316af2e5933c638eb67fb781c13884e01d",
+      "bytes": 1504
+    },
+    {
+      "path": "ymzz/compliance/notices/cpython-3.12.14-Windows-LICENSE.tcl.txt.original.txt",
+      "originalArchiveMember": "python/licenses/LICENSE.tcl.txt",
+      "sha256": "41613eabfc08921a7da9c4bfd7f3ce5d5406f55214b253d89f392ed86eebeb8f",
+      "bytes": 2295
+    },
+    {
+      "path": "ymzz/compliance/notices/cpython-3.12.14-Windows-LICENSE.tix.txt.original.txt",
+      "originalArchiveMember": "python/licenses/LICENSE.tix.txt",
+      "sha256": "8cdff3addb9e9eb108c78e2cf5e05f26b216c098304945733bbec382b2eaef66",
+      "bytes": 2880
+    },
+    {
+      "path": "ymzz/compliance/notices/cpython-3.12.14-Windows-LICENSE.zlib.txt.original.txt",
+      "originalArchiveMember": "python/licenses/LICENSE.zlib.txt",
+      "sha256": "365e36720db366054863235aea5d6f440142ab968834bfaf81fa9d187c99b9b8",
+      "bytes": 1016
+    }
+  ]
+}

@@ -26,7 +26,7 @@ jobs:
         run: |
           node --test packages/ymzz/product/tests/*.test.mjs
           corepack pnpm exec tsx --test ymzz/packaging/tests/*.test.mjs
-          python ymzz/packaging/tests/test_source_materials.py
+          python -m unittest discover -s ymzz/packaging/tests -p 'test_*.py'
           node ymzz/scripts/check-product-source.mjs
           node ymzz/scripts/check-site.mjs
       - name: Complete official eight-gate artifact build

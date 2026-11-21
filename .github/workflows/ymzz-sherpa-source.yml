@@ -1,0 +1,39 @@
+name: ymzz Sherpa source candidate (no installer publication)
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: ymzz-sherpa-source-candidate
+  cancel-in-progress: false
+jobs:
+  native-asr-source:
+    runs-on: windows-2022
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24.21.0'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Build independent source profile and exercise unchanged DSH transcriber
+        shell: pwsh
+        run: |
+          python ymzz/scripts/qualify-sherpa-asr-source.py --work "$env:RUNNER_TEMP/ymzz sherpa 源碼 candidate" --output ymzz/docs/evidence/sherpa-asr-native-candidate.json
+      - name: Preserve exact successful candidate bytes in internal CI cache, not a download/release
+        if: success()
+        uses: actions/cache/save@v4
+        with:
+          path: ${{ runner.temp }}/ymzz sherpa 源碼 candidate/source-candidate/consumer/node_modules/sherpa-onnx-win-x64
+          key: ymzz-sherpa-asr-1138-${{ hashFiles('ymzz/compliance/candidates/sherpa-asr-source-profile.json') }}-v1
+      - name: Retain only actual qualification report, never DLL/model/installer artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ymzz-sherpa-source-evidence-${{ github.sha }}
+          path: ymzz/docs/evidence/sherpa-asr-native-candidate.json
+          if-no-files-found: warn

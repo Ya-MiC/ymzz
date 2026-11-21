@@ -1,5 +1,17 @@
 # Windows release hold — exact blockers, not a replacement runtime
 
+## Current checkpoint — 2026-11-21 KST (supersedes historical blocker summaries below)
+
+- Native source engine now covers all165 observed native hashes/191 locations, separates original-grant notices from LGPL/MPL corresponding-source obligations, and is called by the final actual installed `audit-production --enforce`. No scalar flag is changed to true as a waiver.
+- Actual local rehashing verifies Office04+07, Sharp05+06 and source-only08 (FFmpeg plus exact four lxml Windows gitlinks/build patches). These four source groups matching the historical payload are **not** global commercial or new Windows GUI clearance.
+- Twelve missing original CPython Windows linked-component grants are now staged through the existing notice copier. Microsoft CRT/SDK conditions remain separate, not attributed to Python/Node MIT/PSF.
+- A newly grounded native hold is Sherpa1.13.8: its official Windows NPM TTS-enabled recipe statically incorporates eSpeak-ng ed530aa (GPLv3). The shipped C API hash matches that archive and contains implementation markers. Do not infer native rights from the Apache wrapper, or ask again for the superseded NumPy GCC exception.
+- A separate, **not production-selected** source candidate removes that unused transitive TTS path while retaining the unchanged actual DSH SenseVoice+Silero consumer. Its manual CI builds source and compares two real offline audio transcriptions against original DLLs. No model/installer/DLL artifact is published; only actual JSON evidence. This is not all-Sherpa TTS parity.
+- Native grants/conditions still on hold: ConPTY, CPython/MSVC, Electron constituent mapping, NSIS, pnpm fastlist, reflink, Sherpa and Windows graphics. The matrix lists exact hashes and missing evidence, not blanket source demands for permissive code. No expensive full Windows installer rerun while those known holds remain.
+- No public installer or qualified ordinary-user download is available. No public Release has been created by this checkpoint.
+
+## Historical evidence (retained; see current checkpoint first)
+
 The full DSH application and native product plugin build and run locally. This does not qualify a Windows installer. No old Tauri/Loop executable is substituted, and no public installer is published.
 
 ## Owner-approved exceptions (2026-11-17 15:04 KST)

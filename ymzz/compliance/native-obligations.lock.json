@@ -1,0 +1,2379 @@
+{
+  "schema": 1,
+  "scope": "Exact observed shipped native obligation matrix, not a release approval. Every known hash/path has an explicit family. Original notices and source obligations are separate; unknown/changed native files fail closed. Generated executable hash changes require new build provenance, never a filename wildcard.",
+  "baseline": {
+    "run": "44709191875",
+    "head": "d1a5da26c9c08919c5a12ea10732273ec85ea5bd",
+    "inventorySHA256": "938ff69e091cc30c6f7ad300d9c6f63a3d96c878ecc3a56429806fdc3aebbad3"
+  },
+  "components": [
+    {
+      "id": "conpty",
+      "licenseBasis": "Microsoft Terminal/ConPTY grant needs exact native provenance and original text",
+      "obligation": "original-notices",
+      "originalNoticePins": [],
+      "sourceGroup": null,
+      "grantReviewed": false,
+      "evidence": [],
+      "reviewHold": "Exact original constituent grant/notice and producer provenance still need binding; no source obligation is invented from this missing notice review.",
+      "sourceObligationsReviewed": false
+    },
+    {
+      "id": "cpython",
+      "licenseBasis": "PSF plus bundled native constituent notices; not PSF-only",
+      "obligation": "original-notices",
+      "originalNoticePins": [
+        {
+          "sha256": "0d1e4405f6273f091732764ed89b57066be63ce64869be6c71ea337dc4f2f9b5",
+          "bytes": 2307,
+          "examplePath": "resources/runtime/primary-runtime/dependencies/python/tcl/tk8.6/license.terms"
+        },
+        {
+          "sha256": "886a0ead2d89030ee62dbff52b04e47ab91998341295bb9c56fb952b4e081c7a",
+          "bytes": 25066,
+          "examplePath": "resources/runtime/primary-runtime/dependencies/python/LICENSE.txt"
+        },
+        {
+          "sha256": "bd5628cc76fb0ebf9c657d1dd4d1a240a1a7b216c31663e7bbf1131c0b70a910",
+          "bytes": 1780,
+          "examplePath": "resources/licenses/ymzz/native-third-party/cpython-3.12.14-Windows-LICENSE.bzip2.txt.original.txt"
+        },
+        {
+          "sha256": "8fe98bf9822926d854f56ffd8d97877d8b942617aa44eb7ea77fd99e22f2537e",
+          "bytes": 36935,
+          "examplePath": "resources/licenses/ymzz/native-third-party/cpython-3.12.14-Windows-LICENSE.cpython.txt.original.txt"
+        },
+        {
+          "sha256": "8a9cfe4b5924f4b25881aa0c9f5e4561c5f31065d0c4a13cdcdbcf917edf39aa",
+          "bytes": 1165,
+          "examplePath": "resources/licenses/ymzz/native-third-party/cpython-3.12.14-Windows-LICENSE.expat.txt.original.txt"
+        },
+        {
+          "sha256": "9afb8970cd29fc1031fa647278e4bef613399e2e3468a1e3a397f4d158c6101c",
+          "bytes": 1153,
+          "examplePath": "resources/licenses/ymzz/native-third-party/cpython-3.12.14-Windows-LICENSE.libffi.txt.original.txt"
+        },
+        {
+          "sha256": "d87d218dd908b3243ec4cbc72af400e5b7437513ea9d9229291d0812b8464fec",
+          "bytes": 673,
+          "examplePath": "resources/licenses/ymzz/native-third-party/cpython-3.12.14-Windows-LICENSE.liblzma.txt.original.txt"
+        },
+        {
+          "sha256": "cbccaa3efe07a9a602751375085be572d4410a250b996716fbe8c5255c7ec6f2",
+          "bytes": 1459,
+          "examplePath": "resources/licenses/ymzz/native-third-party/cpython-3.12.14-Windows-LICENSE.libuuid.txt.original.txt"
+        },
+        {
+          "sha256": "f094277cd46e1f6e4d87916cc4b51e22f613d45eb81f48231c3cb7caf8fc8a6a",
+          "bytes": 1308,
+          "examplePath": "resources/licenses/ymzz/native-third-party/cpython-3.12.14-Windows-LICENSE.mpdecimal.txt.original.txt"
+        },
+        {
+          "sha256": "ed72ce2b51ee58f117e5a021e2e04af158857f40269fbc03491f0b2a99dbcc96",
+          "bytes": 10352,
+          "examplePath": "resources/licenses/ymzz/native-third-party/cpython-3.12.14-Windows-LICENSE.openssl-3.txt.original.txt"
+        },
+        {
+          "sha256": "d8eb9aba7ef6b5ed06cb3ec19a7242316af2e5933c638eb67fb781c13884e01d",
+          "bytes": 1504,
+          "examplePath": "resources/licenses/ymzz/native-third-party/cpython-3.12.14-Windows-LICENSE.sqlite.txt.original.txt"
+        },
+        {
+          "sha256": "41613eabfc08921a7da9c4bfd7f3ce5d5406f55214b253d89f392ed86eebeb8f",
+          "bytes": 2295,
+          "examplePath": "resources/licenses/ymzz/native-third-party/cpython-3.12.14-Windows-LICENSE.tcl.txt.original.txt"
+        },
+        {
+          "sha256": "8cdff3addb9e9eb108c78e2cf5e05f26b216c098304945733bbec382b2eaef66",
+          "bytes": 2880,
+          "examplePath": "resources/licenses/ymzz/native-third-party/cpython-3.12.14-Windows-LICENSE.tix.txt.original.txt"
+        },
+        {
+          "sha256": "365e36720db366054863235aea5d6f440142ab968834bfaf81fa9d187c99b9b8",
+          "bytes": 1016,
+          "examplePath": "resources/licenses/ymzz/native-third-party/cpython-3.12.14-Windows-LICENSE.zlib.txt.original.txt"
+        }
+      ],
+      "sourceGroup": null,
+      "grantReviewed": false,
+      "evidence": [],
+      "reviewHold": "Original Windows linked-component grants now staged, but actual Microsoft CRT redistributable grant/conditions still need separate review; do not attribute those DLLs to PSF.",
+      "sourceObligationsReviewed": true
+    },
+    {
+      "id": "electron-chromium",
+      "licenseBasis": "Electron MIT plus original Chromium constituent grants, NOT Electron MIT-only",
+      "obligation": "original-notices",
+      "originalNoticePins": [
+        {
+          "sha256": "5154e165bd6c2cc0cfbcd8916498c7abab0497923bafcd5cb07673fe8480087d",
+          "bytes": 1096,
+          "examplePath": "LICENSE.electron.txt"
+        },
+        {
+          "sha256": "e6e6b1f9cb0f32235412be113de7716333e88121f9159a0ea0ff3be652021af7",
+          "bytes": 20477229,
+          "examplePath": "LICENSES.chromium.html"
+        }
+      ],
+      "sourceGroup": null,
+      "grantReviewed": false,
+      "evidence": [],
+      "reviewHold": "Exact original constituent grant/notice and producer provenance still need binding; no source obligation is invented from this missing notice review.",
+      "sourceObligationsReviewed": false
+    },
+    {
+      "id": "electron-ffmpeg",
+      "licenseBasis": "LGPL-2.1-or-later FFmpeg Windows config (GPL/NONFREE/VERSION3 disabled)",
+      "obligation": "covered-source-and-replacement",
+      "originalNoticePins": [
+        {
+          "sha256": "e6e6b1f9cb0f32235412be113de7716333e88121f9159a0ea0ff3be652021af7",
+          "bytes": 20477229,
+          "examplePath": "LICENSES.chromium.html"
+        }
+      ],
+      "sourceGroup": "electron-ffmpeg",
+      "grantReviewed": true,
+      "evidence": [],
+      "sourceObligationsReviewed": true
+    },
+    {
+      "id": "koffi",
+      "licenseBasis": "MIT original parent-project grant",
+      "obligation": "original-notices",
+      "originalNoticePins": [
+        {
+          "sha256": "22bcbbbacd739b026a8dc484f62a31484ce4c4e31f3408b60b29b4e41d62b290",
+          "bytes": 1117,
+          "examplePath": "dsh/node_modules/koffi/LICENSE.txt"
+        },
+        {
+          "sha256": "89024017b88a9f2b763f79b941a4f2db3b4428edfcacdc0b23866b2da633ad0c",
+          "bytes": 1150,
+          "examplePath": "dsh/node_modules/koffi/vendor/node-addon-api/LICENSE.md"
+        },
+        {
+          "sha256": "a553508f516031c91f3af1148d44970cb81bbae6c4f091be6835d39cc252238c",
+          "bytes": 1064,
+          "examplePath": "dsh/node_modules/koffi/vendor/node-api-headers/LICENSE"
+        }
+      ],
+      "sourceGroup": null,
+      "grantReviewed": true,
+      "evidence": [],
+      "sourceObligationsReviewed": true
+    },
+    {
+      "id": "lxml-iconv",
+      "licenseBasis": "BSD/MIT lxml+xml/xslt with statically incorporated LGPL-2.1 iconv1.17",
+      "obligation": "covered-source-and-replacement",
+      "originalNoticePins": [
+        {
+          "sha256": "df682c668de65321677b5e4861dca4128a8bad8067f230956e9da3f985b3d398",
+          "bytes": 6348,
+          "examplePath": "resources/runtime/primary-runtime/dependencies/python/Lib/site-packages/lxml-6.1.3.dist-info/licenses/LICENSES.txt"
+        },
+        {
+          "sha256": "e7c3ce8d76331b0101cc46790ab43958ea90a364bcf962ed8763d5a818340e69",
+          "bytes": 1538,
+          "examplePath": "resources/runtime/primary-runtime/dependencies/python/Lib/site-packages/lxml-6.1.3.dist-info/licenses/LICENSE.txt"
+        }
+      ],
+      "sourceGroup": "lxml-iconv",
+      "grantReviewed": true,
+      "evidence": [],
+      "sourceObligationsReviewed": true
+    },
+    {
+      "id": "node-pty",
+      "licenseBasis": "MIT original node-pty grant; ConPTY is separate",
+      "obligation": "original-notices",
+      "originalNoticePins": [
+        {
+          "sha256": "a3d60eaf32d2fb09c9d82ef39f14bd6e2c0f3ca7de30daa827486c0d6f8b6e9f",
+          "bytes": 3326,
+          "examplePath": "dsh/node_modules/node-pty/LICENSE"
+        }
+      ],
+      "sourceGroup": null,
+      "grantReviewed": true,
+      "evidence": [],
+      "sourceObligationsReviewed": true
+    },
+    {
+      "id": "node-runtime",
+      "licenseBasis": "Node MIT with original integrated third-party grants (not MIT-only)",
+      "obligation": "original-notices",
+      "originalNoticePins": [
+        {
+          "sha256": "c2cfccb812fe482101a8f04597dfc5a9991a6b2748266c47ac91b6a5aae15383",
+          "bytes": 1141,
+          "examplePath": "dsh/node_modules/@types/node/LICENSE"
+        },
+        {
+          "sha256": "ed34dd8e3f0a78dbaf00d0444ce8e285b015b765379c2e17880455f70370f8e9",
+          "bytes": 160555,
+          "examplePath": "resources/runtime/primary-runtime/dependencies/node/LICENSE"
+        }
+      ],
+      "sourceGroup": null,
+      "grantReviewed": true,
+      "evidence": [],
+      "sourceObligationsReviewed": true
+    },
+    {
+      "id": "nsis-builder",
+      "licenseBasis": "NSIS zlib/MIT builder and original executable provenance",
+      "obligation": "original-notices",
+      "originalNoticePins": [],
+      "sourceGroup": null,
+      "grantReviewed": false,
+      "evidence": [],
+      "reviewHold": "Exact original constituent grant/notice and producer provenance still need binding; no source obligation is invented from this missing notice review.",
+      "sourceObligationsReviewed": false
+    },
+    {
+      "id": "numpy-source",
+      "licenseBasis": "BSD-3-Clause NumPy source build/internal C BLAS/LAPACK; NOT old GNU wheel",
+      "obligation": "original-notices",
+      "originalNoticePins": [
+        {
+          "sha256": "fbc539f47d0cf83bc61378080fb873d5c14630126cacbfe754035c3926daa5ec",
+          "bytes": 1018,
+          "examplePath": "resources/runtime/primary-runtime/dependencies/python/Lib/site-packages/numpy/_core/include/numpy/random/LICENSE.txt"
+        },
+        {
+          "sha256": "05f3b88351988ecfad10abe92c0c50e5875c6452d5009a0084cc291551ffcca6",
+          "bytes": 1593,
+          "examplePath": "resources/runtime/primary-runtime/dependencies/python/Lib/site-packages/numpy/ma/LICENSE"
+        },
+        {
+          "sha256": "103166b62b80443afb9eb3488e052ea06be0cff566b908f199e561fde49af19f",
+          "bytes": 3511,
+          "examplePath": "resources/runtime/primary-runtime/dependencies/python/Lib/site-packages/numpy/random/LICENSE.md"
+        },
+        {
+          "sha256": "1be1df33863f97a7bc1c4d67980bd6c69c9a6fef0a5ee76e6ad6cb91e56e8491",
+          "bytes": 1543,
+          "examplePath": "resources/runtime/primary-runtime/dependencies/python/Lib/site-packages/numpy-2.3.5.dist-info/LICENSE.txt"
+        }
+      ],
+      "sourceGroup": null,
+      "grantReviewed": true,
+      "evidence": [],
+      "sourceObligationsReviewed": true
+    },
+    {
+      "id": "office013",
+      "licenseBasis": "MPL-2.0 plus actual external LGPL/MPL/permissive constituents; source profile04+07",
+      "obligation": "covered-source-and-replacement",
+      "originalNoticePins": [
+        {
+          "sha256": "0bbe88228fd63d20ec097f64e58d5a0a465123ae139140a18d406c60b48824b5",
+          "bytes": 1582,
+          "examplePath": "resources/licenses/ymzz/packages/@deepseek-ai__libreoffice-kit-win32-x64@0.2.3/licenses/webgpu/markupsafe/LICENSE"
+        },
+        {
+          "sha256": "1f256ecad192880510e84ad60474eab7589218784b9a50bc7ceee34c2b91f1d5",
+          "bytes": 16725,
+          "examplePath": "dsh/node_modules/@deepseek-ai/libreoffice-kit/LICENSE"
+        },
+        {
+          "sha256": "31c915ae5b7eafe51f06fc2537d2e7fefdee08e40d6b0d761d03d9f0fd58d660",
+          "bytes": 300898,
+          "examplePath": "resources/licenses/ymzz/packages/@deepseek-ai__libreoffice-kit-wasm@0.2.3/licenses/LICENSE"
+        },
+        {
+          "sha256": "3b49dcee4105eb37bac10faf1be260408fe85d252b8e9df2e0979fc1e094437b",
+          "bytes": 1475,
+          "examplePath": "resources/licenses/ymzz/packages/@deepseek-ai__libreoffice-kit-win32-x64@0.2.3/licenses/webgpu/jinja2/LICENSE.rst"
+        },
+        {
+          "sha256": "8d34210ebbfaee4ba258ef7b30c3044170f356ab82c8259c81b53860bcdeef7b",
+          "bytes": 1859,
+          "examplePath": "resources/licenses/ymzz/packages/@deepseek-ai__libreoffice-kit-wasm@0.2.3/licenses/NOTICE"
+        },
+        {
+          "sha256": "9a7e34fbf3903507665e3ec7ca8b3d0c11f73bf2d5a0d754a079ab9f505bafef",
+          "bytes": 316506,
+          "examplePath": "dsh/node_modules/@deepseek-ai/libreoffice-kit-win32-x64/program/license.txt"
+        },
+        {
+          "sha256": "c79a7fea0e3cac04cd43f20e7b648e5a0ff8fa5344e644b0ee09ca1162b62747",
+          "bytes": 11361,
+          "examplePath": "resources/licenses/ymzz/packages/@deepseek-ai__libreoffice-kit-win32-x64@0.2.3/licenses/webgpu/abseil-cpp/LICENSE"
+        },
+        {
+          "sha256": "e2908f7576fb12be5bdb8480cddb0be62badb498cadb821d043aeaf01b0b0899",
+          "bytes": 1561,
+          "examplePath": "resources/licenses/ymzz/packages/@deepseek-ai__libreoffice-kit-win32-x64@0.2.3/licenses/webgpu/dawn/LICENSE"
+        },
+        {
+          "sha256": "ea43b1de38a6f90c488800d66dec1ed671e68cda530266bc96951fb5b6307613",
+          "bytes": 23503,
+          "examplePath": "resources/licenses/ymzz/packages/@deepseek-ai__libreoffice-kit-win32-x64@0.2.3/licenses/webgpu/spirv-headers/LICENSE"
+        },
+        {
+          "sha256": "eb5da42167335b1db17b35df23eb6aa1b503d2f9625d7d6cce87151892d4b55e",
+          "bytes": 2515,
+          "examplePath": "resources/licenses/ymzz/packages/@deepseek-ai__libreoffice-kit@0.2.3/NOTICE"
+        }
+      ],
+      "sourceGroup": "office013",
+      "grantReviewed": true,
+      "evidence": [],
+      "sourceObligationsReviewed": true
+    },
+    {
+      "id": "pandas",
+      "licenseBasis": "BSD-3-Clause; Microsoft runtime carveout is reviewed separately",
+      "obligation": "original-notices",
+      "originalNoticePins": [
+        {
+          "sha256": "9850f6b5bdef7346503065807b878deb8058b976c5c329f4c4d23bf4796ce9ae",
+          "bytes": 1634,
+          "examplePath": "resources/runtime/primary-runtime/dependencies/python/Lib/site-packages/pandas-3.0.1.dist-info/LICENSE"
+        }
+      ],
+      "sourceGroup": null,
+      "grantReviewed": true,
+      "evidence": [],
+      "sourceObligationsReviewed": true
+    },
+    {
+      "id": "pillow",
+      "licenseBasis": "HPND/BSD/MIT/FTL/0BSD bundled original grants; choose FTL, not GPL alternative; xz tools/build-system GPL text is not proof those tools ship",
+      "obligation": "original-notices",
+      "originalNoticePins": [
+        {
+          "sha256": "4f7866a74802c6326f81faff59a56546b6aec2b10b91973e0e9308de95e79857",
+          "bytes": 78016,
+          "examplePath": "resources/runtime/primary-runtime/dependencies/python/Lib/site-packages/pillow-12.3.0.dist-info/licenses/LICENSE"
+        }
+      ],
+      "sourceGroup": null,
+      "grantReviewed": true,
+      "evidence": [],
+      "sourceObligationsReviewed": true
+    },
+    {
+      "id": "pnpm-fastlist",
+      "licenseBasis": "MIT upstream fastlist/pnpm notices",
+      "obligation": "original-notices",
+      "originalNoticePins": [],
+      "sourceGroup": null,
+      "grantReviewed": false,
+      "evidence": [],
+      "reviewHold": "Exact original constituent grant/notice and producer provenance still need binding; no source obligation is invented from this missing notice review.",
+      "sourceObligationsReviewed": false
+    },
+    {
+      "id": "reflink",
+      "licenseBasis": "MIT original upstream grant",
+      "obligation": "original-notices",
+      "originalNoticePins": [],
+      "sourceGroup": null,
+      "grantReviewed": false,
+      "evidence": [],
+      "reviewHold": "Exact original constituent grant/notice and producer provenance still need binding; no source obligation is invented from this missing notice review.",
+      "sourceObligationsReviewed": false
+    },
+    {
+      "id": "require-builtin",
+      "licenseBasis": "MIT original archive grant",
+      "obligation": "original-notices",
+      "originalNoticePins": [
+        {
+          "sha256": "75bd0a6d6b9f9f0a6c792ca89832360b19749ebe16af0222e34387f262baa95e",
+          "bytes": 1096,
+          "examplePath": "dsh/node_modules/node-addon-require-builtin-win32-x64-msvc/LICENSE"
+        }
+      ],
+      "sourceGroup": null,
+      "grantReviewed": true,
+      "evidence": [],
+      "sourceObligationsReviewed": true
+    },
+    {
+      "id": "ripgrep",
+      "licenseBasis": "MIT/Unlicense original upstream grant",
+      "obligation": "original-notices",
+      "originalNoticePins": [
+        {
+          "sha256": "ccf06b70760761ae1437395117bcf911501e3dc85385d84c7eba20d5dfab55dd",
+          "bytes": 1113,
+          "examplePath": "dsh/node_modules/@vscode/ripgrep-win32-x64/LICENSE"
+        }
+      ],
+      "sourceGroup": null,
+      "grantReviewed": true,
+      "evidence": [],
+      "sourceObligationsReviewed": true
+    },
+    {
+      "id": "sharp-vips",
+      "licenseBasis": "Apache-2.0, LGPL-2.1-or-later/LGPL-3.0 and MPL covered constituents; source profile05+06",
+      "obligation": "covered-source-and-replacement",
+      "originalNoticePins": [
+        {
+          "sha256": "dc1f5d2d43c5531dfe0acaf4e950ea5dbe3e61e1850cf0e983bda7efc10d6693",
+          "bytes": 10464,
+          "examplePath": "dsh/node_modules/@img/sharp-win32-x64/LICENSE"
+        }
+      ],
+      "sourceGroup": "sharp-vips",
+      "grantReviewed": true,
+      "evidence": [],
+      "sourceObligationsReviewed": true
+    },
+    {
+      "id": "sherpa-onnx",
+      "licenseBasis": "Apache-2.0 wrapper is not a grant for static eSpeak-ng GPL-3.0-or-later",
+      "obligation": "unapproved-copyleft",
+      "originalNoticePins": [],
+      "sourceGroup": "sherpa-espeak-gpl",
+      "grantReviewed": false,
+      "evidence": [
+        "https://github.com/k2-fsa/sherpa-onnx/blob/v1.13.8/.github/workflows/npm-addon-win-x64.yaml",
+        "https://github.com/k2-fsa/sherpa-onnx/blob/v1.13.8/cmake/espeak-ng-for-piper.cmake",
+        "https://github.com/csukuangfj/espeak-ng/blob/ed530aa113046142eb5115cf2fc9157854d0ffe1/COPYING"
+      ],
+      "policyHold": "Native archive is byte-identical to actual shipped files. Official v1.13.8 Windows NPM recipe enables TTS and statically adds eSpeak-ng ed530aa (GPLv3); actual c-api DLL contains eSpeak implementation call strings and has no external eSpeak import. Apache npm metadata cannot clear it. Prefer source-built variant preserving all DSH SenseVoice+VAD usage; do not assume a GPL waiver.",
+      "sourceObligationsReviewed": false
+    },
+    {
+      "id": "windows-graphics",
+      "licenseBasis": "Windows SDK redistributable/DXC constituent terms, NOT npm MIT",
+      "obligation": "original-notices",
+      "originalNoticePins": [],
+      "sourceGroup": null,
+      "grantReviewed": false,
+      "evidence": [],
+      "requiredRemedy": "Retain exact applicable DXC/Windows SDK grants and satisfy object-code redistribution/end-user protective terms; permissive npm metadata or full source is not a substitute.",
+      "reviewHold": "Retain exact applicable DXC/Windows SDK grants and satisfy object-code redistribution/end-user protective terms; permissive npm metadata or full source is not a substitute.",
+      "sourceObligationsReviewed": false
+    }
+  ],
+  "nativeFiles": [
+    {
+      "sha256": "017411f3b0b5c0402cc3b2cb87c32c6fc71abd82e5b17ea6108990096c75a65d",
+      "bytes": 215040,
+      "component": "pnpm-fastlist",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "resources/runtime/primary-runtime/dependencies/pnpm/dist/vendor/fastlist-0.3.0-x86.exe"
+        }
+      ]
+    },
+    {
+      "sha256": "02d38ab4cc4ac2ed7398828990dd7a0a9f70b0b9e06ad6aabdc485181beb9b5a",
+      "bytes": 147456,
+      "component": "lxml-iconv",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "resources/runtime/primary-runtime/dependencies/python/Lib/site-packages/lxml/_elementpath.cp312-win_amd64.pyd"
+        }
+      ]
+    },
+    {
+      "sha256": "032175cb68f329a39b5a8f99008405b771be230d88fb43229dd8566787980d43",
+      "bytes": 89088,
+      "component": "numpy-source",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "resources/runtime/primary-runtime/dependencies/python/Lib/site-packages/numpy/random/_mt19937.cp312-win_amd64.pyd"
+        }
+      ]
+    },
+    {
+      "sha256": "05760ea3ff01622c1acc8c36ced41ab89a657a7e4a50ae04b390196fb5424bc1",
+      "bytes": 72192,
+      "component": "pandas",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "resources/runtime/primary-runtime/dependencies/python/Lib/site-packages/pandas/_libs/testing.cp312-win_amd64.pyd"
+        }
+      ]
+    },
+    {
+      "sha256": "06dab07cc386748513337a31672b1d5269fbc770a14ff403080575665bf0813f",
+      "bytes": 19018240,
+      "component": "sharp-vips",
+      "locations": [
+        {
+          "root": "actual-app-asar",
+          "path": "dsh/node_modules/@img/sharp-win32-x64/lib/libvips-42.dll"
+        },
+        {
+          "root": "actual-installed",
+          "path": "resources/app.asar.unpacked/dsh/node_modules/@img/sharp-win32-x64/lib/libvips-42.dll"
+        }
+      ]
+    },
+    {
+      "sha256": "14f024dd8fe2490109f812522daebf61a2f5f8cff80513813db246d6455fcf3f",
+      "bytes": 13824,
+      "component": "cpython",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "resources/runtime/primary-runtime/dependencies/python/DLLs/_uuid.pyd"
+        }
+      ]
+    },
+    {
+      "sha256": "1803ba0ffce7f3f11a3781132a1672aa85bb22a3b6787be04b97cdf9d263da94",
+      "bytes": 297984,
+      "component": "cpython",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "resources/runtime/primary-runtime/dependencies/python/DLLs/_testcapi.pyd"
+        }
+      ]
+    },
+    {
+      "sha256": "1a967738a234a3bd90e8fa8b925e20a994326e1eb8b74913026a9449a933e6db",
+      "bytes": 91648,
+      "component": "cpython",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "resources/runtime/primary-runtime/dependencies/python/python.exe"
+        }
+      ]
+    },
+    {
+      "sha256": "1c69cdfde46e4c235f8b4ff9d059d752de288a7f4a1c7f1df0927c9925984f5b",
+      "bytes": 54784,
+      "component": "cpython",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "resources/runtime/primary-runtime/dependencies/python/DLLs/_hashlib.pyd"
+        }
+      ]
+    },
+    {
+      "sha256": "1d2151cc7071dcc9b4521c66d8bbd7e82d59308101ba4763108493c6de600c23",
+      "bytes": 512512,
+      "component": "numpy-source",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "resources/runtime/primary-runtime/dependencies/python/Lib/site-packages/numpy/random/mtrand.cp312-win_amd64.pyd"
+        }
+      ]
+    },
+    {
+      "sha256": "1d65dc2f21cc81a1a54e77b8e17837d61bda8822ad714fe8beef017229b453e4",
+      "bytes": 205312,
+      "component": "pandas",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "resources/runtime/primary-runtime/dependencies/python/Lib/site-packages/pandas/_libs/internals.cp312-win_amd64.pyd"
+        }
+      ]
+    },
+    {
+      "sha256": "1f2d41c4aa5db0bc33ebf7b66d72943a817d7ce6cbe880502a9403823633093f",
+      "bytes": 49792,
+      "component": "cpython",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "resources/runtime/primary-runtime/dependencies/python/vcruntime140_1.dll"
+        }
+      ]
+    },
+    {
+      "sha256": "22605c2ed4a7672c65bfdd330c60a3719916ec811ec44c720cf1cc4349c79776",
+      "bytes": 36352,
+      "component": "cpython",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "resources/runtime/primary-runtime/dependencies/python/DLLs/_zoneinfo.pyd"
+        }
+      ]
+    },
+    {
+      "sha256": "22d415f86ce445f4beb57afbb6856b3b83f19918ad270b6ae6047168ec73956d",
+      "bytes": 25744384,
+      "component": "windows-graphics",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "dxcompiler.dll"
+        }
+      ]
+    },
+    {
+      "sha256": "25001dbd05305a0a29119ab49933622c70b4a20ea12ef1d5d20ca40181db53bf",
+      "bytes": 333312,
+      "component": "sharp-vips",
+      "locations": [
+        {
+          "root": "actual-app-asar",
+          "path": "dsh/node_modules/@img/sharp-win32-x64/lib/libvips-cpp-8.18.7.dll"
+        },
+        {
+          "root": "actual-installed",
+          "path": "resources/app.asar.unpacked/dsh/node_modules/@img/sharp-win32-x64/lib/libvips-cpp-8.18.7.dll"
+        }
+      ]
+    },
+    {
+      "sha256": "250bac9ed306211c3ecd10718d1cb61991f3060d1c476daff8b3805f4ed3613d",
+      "bytes": 38912,
+      "component": "pandas",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "resources/runtime/primary-runtime/dependencies/python/Lib/site-packages/pandas/_libs/byteswap.cp312-win_amd64.pyd"
+        }
+      ]
+    },
+    {
+      "sha256": "2b0b81a27258056bf85bb60c9d58689e68b027228db8b176c301ea0e58ac9610",
+      "bytes": 341504,
+      "component": "pandas",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "resources/runtime/primary-runtime/dependencies/python/Lib/site-packages/pandas/_libs/tslibs/timedeltas.cp312-win_amd64.pyd"
+        }
+      ]
+    },
+    {
+      "sha256": "315d6796d7794f9b3877065b033e02c8d9915f9a75933a06a33aa6a46af93cf9",
+      "bytes": 436736,
+      "component": "pandas",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "resources/runtime/primary-runtime/dependencies/python/Lib/site-packages/pandas/_libs/lib.cp312-win_amd64.pyd"
+        }
+      ]
+    },
+    {
+      "sha256": "3319b484b80bb53d1f4d0a9eb0ea60fd0f61da69db7280ca43b84215f19245ff",
+      "bytes": 110152,
+      "component": "conpty",
+      "locations": [
+        {
+          "root": "actual-app-asar",
+          "path": "dsh/node_modules/node-pty/build/Release/conpty/conpty.dll"
+        },
+        {
+          "root": "actual-app-asar",
+          "path": "dsh/node_modules/node-pty/prebuilds/win32-x64/conpty/conpty.dll"
+        },
+        {
+          "root": "actual-app-asar",
+          "path": "dsh/node_modules/node-pty/third_party/conpty/1.25.260303002/win10-x64/conpty.dll"
+        },
+        {
+          "root": "actual-installed",
+          "path": "resources/app.asar.unpacked/dsh/node_modules/node-pty/build/Release/conpty/conpty.dll"
+        },
+        {
+          "root": "actual-installed",
+          "path": "resources/app.asar.unpacked/dsh/node_modules/node-pty/prebuilds/win32-x64/conpty/conpty.dll"
+        },
+        {
+          "root": "actual-installed",
+          "path": "resources/app.asar.unpacked/dsh/node_modules/node-pty/third_party/conpty/1.25.260303002/win10-x64/conpty.dll"
+        }
+      ]
+    },
+    {
+      "sha256": "3472a0d2b8c3c6a3f80ea75deb4a8f41c159be541be7fa16337dd18c9067c0e8",
+      "bytes": 18944,
+      "component": "cpython",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "resources/runtime/primary-runtime/dependencies/python/DLLs/select.pyd"
+        }
+      ]
+    },
+    {
+      "sha256": "35910d4d00b5c00d0b08024ce65fadbef450e72fb40e37f8f98369e1eb033c56",
+      "bytes": 369664,
+      "component": "pandas",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "resources/runtime/primary-runtime/dependencies/python/Lib/site-packages/pandas/_libs/tslibs/timestamps.cp312-win_amd64.pyd"
+        }
+      ]
+    },
+    {
+      "sha256": "370ae45beb6468ac769299ec6fa7130d74f66d3bfbe5e0a082328b85bc04be69",
+      "bytes": 120320,
+      "component": "lxml-iconv",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "resources/runtime/primary-runtime/dependencies/python/Lib/site-packages/lxml/sax.cp312-win_amd64.pyd"
+        }
+      ]
+    },
+    {
+      "sha256": "370cdee825881d1f0c3e87a85df5589ee51f1a7eec3bca3c252255b6521224dc",
+      "bytes": 361472,
+      "component": "reflink",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "resources/runtime/primary-runtime/dependencies/pnpm/dist/node_modules/@reflink/reflink-win32-x64-msvc/reflink.win32-x64-msvc.node"
+        }
+      ]
+    },
+    {
+      "sha256": "3785e675420990795b60eb326209c569794598f4f47726eff7e6071a898db79d",
+      "bytes": 363387,
+      "component": "nsis-builder",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "Uninstall 湛箴_ymzz.exe"
+        }
+      ]
+    },
+    {
+      "sha256": "3797580a504f0ff84ea7aed8df7b8d61f8519408604b520c75ca79266599ef12",
+      "bytes": 59392,
+      "component": "cpython",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "resources/runtime/primary-runtime/dependencies/python/DLLs/_asyncio.pyd"
+        }
+      ]
+    },
+    {
+      "sha256": "3825e3f25e5e28c46cb86fe88b47a0f1670ad378a317ce78af09e3b3e94a8bcd",
+      "bytes": 18432,
+      "component": "cpython",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "resources/runtime/primary-runtime/dependencies/python/DLLs/_testsinglephase.pyd"
+        }
+      ]
+    },
+    {
+      "sha256": "392e9ed153524799330076240b9fff2aa95886494f9688280c217669657f7c10",
+      "bytes": 131584,
+      "component": "pandas",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "resources/runtime/primary-runtime/dependencies/python/Lib/site-packages/pandas/_libs/reshape.cp312-win_amd64.pyd"
+        }
+      ]
+    },
+    {
+      "sha256": "3972f800f69f1d3c73b58bcc70eff7a34d33abfd8d6790faef4611da0945a518",
+      "bytes": 1421312,
+      "component": "pandas",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "resources/runtime/primary-runtime/dependencies/python/Lib/site-packages/pandas/_libs/algos.cp312-win_amd64.pyd"
+        }
+      ]
+    },
+    {
+      "sha256": "3ab6525c01dfed490c7cdd1aa5a106bcd2cd3993fd42a0259ba4ff8e8c06302c",
+      "bytes": 623616,
+      "component": "numpy-source",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "resources/runtime/primary-runtime/dependencies/python/Lib/site-packages/numpy/random/_generator.cp312-win_amd64.pyd"
+        }
+      ]
+    },
+    {
+      "sha256": "3b5cc4150dc98800ee46b09034187bb2d8ba3c8ea3368d3a46e9bb42876b58db",
+      "bytes": 262144,
+      "component": "cpython",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "resources/runtime/primary-runtime/dependencies/python/Lib/venv/scripts/nt/python.exe"
+        }
+      ]
+    },
+    {
+      "sha256": "3bdd0812269e11d081b14eea0992d5e6596822970b7f2cb5e6247d32a8824360",
+      "bytes": 167936,
+      "component": "numpy-source",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "resources/runtime/primary-runtime/dependencies/python/Lib/site-packages/numpy/random/_common.cp312-win_amd64.pyd"
+        }
+      ]
+    },
+    {
+      "sha256": "400487ba175988b1adfdb0fc8093a6af06747c0e07f73ed157e82d5a7268779b",
+      "bytes": 77312,
+      "component": "pandas",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "resources/runtime/primary-runtime/dependencies/python/Lib/site-packages/pandas/_libs/tslibs/vectorized.cp312-win_amd64.pyd"
+        }
+      ]
+    },
+    {
+      "sha256": "4006d5c1cb4f1e7a5e2e39eb9440ce62134980da5ee794428c5aeb1745207a1b",
+      "bytes": 101376,
+      "component": "numpy-source",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "resources/runtime/primary-runtime/dependencies/python/Lib/site-packages/numpy/random/_pcg64.cp312-win_amd64.pyd"
+        }
+      ]
+    },
+    {
+      "sha256": "41d2abbb8f4e5d6a59ca8decb11c6a516ef95f8f3a96e24d487fc2805feb5e3a",
+      "bytes": 62976,
+      "component": "numpy-source",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "resources/runtime/primary-runtime/dependencies/python/Lib/site-packages/numpy/random/_sfc64.cp312-win_amd64.pyd"
+        }
+      ]
+    },
+    {
+      "sha256": "4234b1ed33fe8765da21637ac8892682b9c76daa9c80ae44ce3ffe936929294b",
+      "bytes": 30720,
+      "component": "pandas",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "resources/runtime/primary-runtime/dependencies/python/Lib/site-packages/pandas/_libs/pandas_parser.cp312-win_amd64.pyd"
+        }
+      ]
+    },
+    {
+      "sha256": "46561f1d4e29afed8db6b8bcde7be110d56d6598ae78cc0cf10b2db8360d9c5e",
+      "bytes": 6969856,
+      "component": "cpython",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "resources/runtime/primary-runtime/dependencies/python/python312.dll"
+        }
+      ]
+    },
+    {
+      "sha256": "46e1b2554c27bebbb7122bd29e0bb2736119e6331aafb14e8fed1691fbf2f742",
+      "bytes": 604160,
+      "component": "pandas",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "resources/runtime/primary-runtime/dependencies/python/Lib/site-packages/pandas/_libs/sparse.cp312-win_amd64.pyd"
+        }
+      ]
+    },
+    {
+      "sha256": "471630e0098c6b610bef10ff015dd95d95894048e8f3b74032ccef317da0ae05",
+      "bytes": 248320,
+      "component": "cpython",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "resources/runtime/primary-runtime/dependencies/python/DLLs/_decimal.pyd"
+        }
+      ]
+    },
+    {
+      "sha256": "485455866c0f796d57fee269ad0645fdd0f83f2080115aa8aff4fb5ca4f05bfe",
+      "bytes": 58368,
+      "component": "pandas",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "resources/runtime/primary-runtime/dependencies/python/Lib/site-packages/pandas/_libs/tslibs/ccalendar.cp312-win_amd64.pyd"
+        }
+      ]
+    },
+    {
+      "sha256": "4a5b11abe41cf5a0199702500f52eb99cf8376a754a80f0dbc7f4a35a14aa25e",
+      "bytes": 34304,
+      "component": "numpy-source",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "resources/runtime/primary-runtime/dependencies/python/Lib/site-packages/numpy/_core/_umath_tests.cp312-win_amd64.pyd"
+        }
+      ]
+    },
+    {
+      "sha256": "4e7c647350cf4cffec72191e4aa4d51bbe2bb2e8ae79fe9e1135857909067cc7",
+      "bytes": 112128,
+      "component": "cpython",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "resources/runtime/primary-runtime/dependencies/python/DLLs/_sqlite3.pyd"
+        }
+      ]
+    },
+    {
+      "sha256": "54bca4b4f597712734e3188dd9fc6d2725e4227eefb1060e698257c3f40560e6",
+      "bytes": 178568192,
+      "component": "office013",
+      "locations": [
+        {
+          "root": "actual-app-asar",
+          "path": "dsh/node_modules/@deepseek-ai/libreoffice-kit-win32-x64/bin/libreoffice-kit.exe"
+        },
+        {
+          "root": "actual-installed",
+          "path": "resources/app.asar.unpacked/dsh/node_modules/@deepseek-ai/libreoffice-kit-win32-x64/bin/libreoffice-kit.exe"
+        }
+      ]
+    },
+    {
+      "sha256": "54ec62ab209d92d2c5266725a5d18739708621847e6c000103db22091415c227",
+      "bytes": 249856,
+      "component": "cpython",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "resources/runtime/primary-runtime/dependencies/python/Lib/venv/scripts/nt/pythonw.exe"
+        }
+      ]
+    },
+    {
+      "sha256": "551d0e1fe4c227d8542314ba718d52f4379e0c7bfe729a37c59833a884e27b4d",
+      "bytes": 104960,
+      "component": "sherpa-onnx",
+      "locations": [
+        {
+          "root": "actual-app-asar",
+          "path": "dsh/node_modules/sherpa-onnx-win-x64/onnxruntime_providers_shared.dll"
+        },
+        {
+          "root": "actual-installed",
+          "path": "resources/app.asar.unpacked/dsh/node_modules/sherpa-onnx-win-x64/onnxruntime_providers_shared.dll"
+        }
+      ]
+    },
+    {
+      "sha256": "55b21889fd3d28799b834fba3d29482e7aa1b0519864b790e3914af7cdda666b",
+      "bytes": 101888,
+      "component": "cpython",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "resources/runtime/primary-runtime/dependencies/python/Lib/site-packages/pip/_vendor/distlib/w64.exe"
+        }
+      ]
+    },
+    {
+      "sha256": "56440369c73cc7378adcfff3da6338e2e7c937ed62fd60dbcb92bcda0699b8f6",
+      "bytes": 24064,
+      "component": "cpython",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "resources/runtime/primary-runtime/dependencies/python/DLLs/_multiprocessing.pyd"
+        }
+      ]
+    },
+    {
+      "sha256": "56a126caaea5be3a19d19bfb892c13559b0715e31eb502cb81f209f5c9775694",
+      "bytes": 63488,
+      "component": "numpy-source",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "resources/runtime/primary-runtime/dependencies/python/Lib/site-packages/numpy/_core/_multiarray_tests.cp312-win_amd64.pyd"
+        }
+      ]
+    },
+    {
+      "sha256": "58b562343070ef51bb3184b8388f2f487b78cb3f6427d193a81204ed3954c6d9",
+      "bytes": 35840,
+      "component": "pandas",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "resources/runtime/primary-runtime/dependencies/python/Lib/site-packages/pandas/_libs/pandas_datetime.cp312-win_amd64.pyd"
+        }
+      ]
+    },
+    {
+      "sha256": "5a4e8f115a4caada73c5f890513b058509885bbb1012f0cb7ab9b5bddedae1dd",
+      "bytes": 7987712,
+      "component": "cpython",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "resources/runtime/primary-runtime/dependencies/python/DLLs/libcrypto-3-x64.dll"
+        }
+      ]
+    },
+    {
+      "sha256": "5b982fc392ca4873adf97eb6c22df0b76402be9bae680e441ce99ea9723ff790",
+      "bytes": 1744896,
+      "component": "lxml-iconv",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "resources/runtime/primary-runtime/dependencies/python/Lib/site-packages/lxml/objectify.cp312-win_amd64.pyd"
+        }
+      ]
+    },
+    {
+      "sha256": "5fd873e09786a1eaabaa44261e9e30609d88745da040ebb702c1a5069ab345ca",
+      "bytes": 97792,
+      "component": "cpython",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "resources/runtime/primary-runtime/dependencies/python/Lib/site-packages/pip/_vendor/distlib/t32.exe"
+        }
+      ]
+    },
+    {
+      "sha256": "60bec2cf42ef17c6ef21636a05bb1a14e97be751b280b333d3c4511d357fb294",
+      "bytes": 83456,
+      "component": "numpy-source",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "resources/runtime/primary-runtime/dependencies/python/Lib/site-packages/numpy/random/_philox.cp312-win_amd64.pyd"
+        }
+      ]
+    },
+    {
+      "sha256": "61fdbdee731bc3493014b64d14f0c7a6b6950913a40fae3f561dbee9fa078658",
+      "bytes": 152576,
+      "component": "cpython",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "resources/runtime/primary-runtime/dependencies/python/DLLs/_lzma.pyd"
+        }
+      ]
+    },
+    {
+      "sha256": "657d446dcba7f51d280f23a1e0108ad9b325a3d45a7e55ed9654fda6bc932bb6",
+      "bytes": 12288,
+      "component": "numpy-source",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "resources/runtime/primary-runtime/dependencies/python/Lib/site-packages/numpy/_core/_operand_flag_tests.cp312-win_amd64.pyd"
+        }
+      ]
+    },
+    {
+      "sha256": "66a85c475a98d3a5074a09549ee99d6213fdfda98cd2cd3af8e2ea3b6bf42d36",
+      "bytes": 138240,
+      "component": "pandas",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "resources/runtime/primary-runtime/dependencies/python/Lib/site-packages/pandas/_libs/tslibs/tzconversion.cp312-win_amd64.pyd"
+        }
+      ]
+    },
+    {
+      "sha256": "6731dce52baab0b96b0eeb3c664844b5b42c2168ea8668af2430e2fbdd2dfbd8",
+      "bytes": 7893504,
+      "component": "pillow",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "resources/runtime/primary-runtime/dependencies/python/Lib/site-packages/PIL/_avif.cp312-win_amd64.pyd"
+        }
+      ]
+    },
+    {
+      "sha256": "67bb7efc1b25dfc69e0515fb938c0a8f0c8220f090eb21e9c2df64a56a681756",
+      "bytes": 27648,
+      "component": "cpython",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "resources/runtime/primary-runtime/dependencies/python/DLLs/_testmultiphase.pyd"
+        }
+      ]
+    },
+    {
+      "sha256": "68a269b6335eabf074ac57698a7256853b9403f0ddba162a3f168cdea7291b8d",
+      "bytes": 2410496,
+      "component": "numpy-source",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "resources/runtime/primary-runtime/dependencies/python/Lib/site-packages/numpy/_core/_simd.cp312-win_amd64.pyd"
+        }
+      ]
+    },
+    {
+      "sha256": "690cc1cae4a2dc8594a342b9241e691dcc89d81dad4cddcefdf285275365a2b1",
+      "bytes": 14848,
+      "component": "pillow",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "resources/runtime/primary-runtime/dependencies/python/Lib/site-packages/PIL/_imagingtk.cp312-win_amd64.pyd"
+        }
+      ]
+    },
+    {
+      "sha256": "6ad5cdc52a9baf34aeb1dd0b0044767cc3d7afc1c381da258f1d580c034314bb",
+      "bytes": 52224,
+      "component": "pandas",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "resources/runtime/primary-runtime/dependencies/python/Lib/site-packages/pandas/_libs/json.cp312-win_amd64.pyd"
+        }
+      ]
+    },
+    {
+      "sha256": "6b88f753d65c1beb29e681608b49febda726090c5a5d3aa87afa15a002678d3b",
+      "bytes": 25088,
+      "component": "cpython",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "resources/runtime/primary-runtime/dependencies/python/tcl/dde1.4/tcldde14.dll"
+        }
+      ]
+    },
+    {
+      "sha256": "6bb4d145099a62c3c4d6718a0fd7e0525d9736d7e584171506c2731fec674dc0",
+      "bytes": 210432,
+      "component": "cpython",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "resources/runtime/primary-runtime/dependencies/python/DLLs/pyexpat.pyd"
+        }
+      ]
+    },
+    {
+      "sha256": "709f03466a9a70522c75bf2928b82403b4bef238f81a411280592985956394d6",
+      "bytes": 1457664,
+      "component": "numpy-source",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "resources/runtime/primary-runtime/dependencies/python/Lib/site-packages/numpy/linalg/_umath_linalg.cp312-win_amd64.pyd"
+        }
+      ]
+    },
+    {
+      "sha256": "7243978c067fbc01e6ab3298ad42c2be43a05b14ee9a40235f8ea6adb2a24b9b",
+      "bytes": 18432,
+      "component": "cpython",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "resources/runtime/primary-runtime/dependencies/python/DLLs/winsound.pyd"
+        }
+      ]
+    },
+    {
+      "sha256": "767ce2fd761b09166c5dfcd83c4fc98777dd05f00dc2e7ffb473e4b431bc3be8",
+      "bytes": 150528,
+      "component": "pandas",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "resources/runtime/primary-runtime/dependencies/python/Lib/site-packages/pandas/_libs/tslibs/fields.cp312-win_amd64.pyd"
+        }
+      ]
+    },
+    {
+      "sha256": "77c6d37de41733df40fb36d9af47644989ac17da036515e759303969edb22c48",
+      "bytes": 2174976,
+      "component": "pillow",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "resources/runtime/primary-runtime/dependencies/python/Lib/site-packages/PIL/_imagingft.cp312-win_amd64.pyd"
+        }
+      ]
+    },
+    {
+      "sha256": "77e039c905030a641e53658a008b74e90635a5ea9b6b79eabd0f2003bdfca59a",
+      "bytes": 1509760,
+      "component": "windows-graphics",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "dxil.dll"
+        }
+      ]
+    },
+    {
+      "sha256": "7a424a26235c29e00417fe5e720cb66e107113fdc84a1d0148816ad0b4613bf2",
+      "bytes": 1607680,
+      "component": "cpython",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "resources/runtime/primary-runtime/dependencies/python/DLLs/sqlite3.dll"
+        }
+      ]
+    },
+    {
+      "sha256": "7be2125420e694be9c0c6d4318729494ab4be72acc8758a172c9c21572ced995",
+      "bytes": 751104,
+      "component": "pandas",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "resources/runtime/primary-runtime/dependencies/python/Lib/site-packages/pandas/_libs/tslibs/offsets.cp312-win_amd64.pyd"
+        }
+      ]
+    },
+    {
+      "sha256": "7e949b2749bcb20a3c8f53d8fd3b2d0466b92b74965dc75a94d3f69058ef6331",
+      "bytes": 230912,
+      "component": "lxml-iconv",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "resources/runtime/primary-runtime/dependencies/python/Lib/site-packages/lxml/html/diff.cp312-win_amd64.pyd"
+        }
+      ]
+    },
+    {
+      "sha256": "7f66f939a881baf4f46a2216496798edf4a1429878b646d12674aa62f27d8a25",
+      "bytes": 17799168,
+      "component": "sherpa-onnx",
+      "locations": [
+        {
+          "root": "actual-app-asar",
+          "path": "dsh/node_modules/sherpa-onnx-win-x64/onnxruntime.dll"
+        },
+        {
+          "root": "actual-installed",
+          "path": "resources/app.asar.unpacked/dsh/node_modules/sherpa-onnx-win-x64/onnxruntime.dll"
+        }
+      ]
+    },
+    {
+      "sha256": "7f68c840226505004215c0b82d4e502c24b5bc3f4b93c4baaaa19bd679c0def8",
+      "bytes": 1062472,
+      "component": "conpty",
+      "locations": [
+        {
+          "root": "actual-app-asar",
+          "path": "dsh/node_modules/node-pty/build/Release/conpty/OpenConsole.exe"
+        },
+        {
+          "root": "actual-app-asar",
+          "path": "dsh/node_modules/node-pty/prebuilds/win32-x64/conpty/OpenConsole.exe"
+        },
+        {
+          "root": "actual-app-asar",
+          "path": "dsh/node_modules/node-pty/third_party/conpty/1.25.260303002/win10-x64/OpenConsole.exe"
+        },
+        {
+          "root": "actual-installed",
+          "path": "resources/app.asar.unpacked/dsh/node_modules/node-pty/build/Release/conpty/OpenConsole.exe"
+        },
+        {
+          "root": "actual-installed",
+          "path": "resources/app.asar.unpacked/dsh/node_modules/node-pty/prebuilds/win32-x64/conpty/OpenConsole.exe"
+        },
+        {
+          "root": "actual-installed",
+          "path": "resources/app.asar.unpacked/dsh/node_modules/node-pty/third_party/conpty/1.25.260303002/win10-x64/OpenConsole.exe"
+        }
+      ]
+    },
+    {
+      "sha256": "7fa560be0c9b6c81db5d1b855a4a6e0f3ee5a2ea75d36eebb3ae44443b8d4866",
+      "bytes": 1110560,
+      "component": "conpty",
+      "locations": [
+        {
+          "root": "actual-app-asar",
+          "path": "dsh/node_modules/node-pty/third_party/conpty/1.25.260303002/win10-arm64/OpenConsole.exe"
+        },
+        {
+          "root": "actual-installed",
+          "path": "resources/app.asar.unpacked/dsh/node_modules/node-pty/third_party/conpty/1.25.260303002/win10-arm64/OpenConsole.exe"
+        }
+      ]
+    },
+    {
+      "sha256": "80e5d8a6fdf430c517638d47d9deccc9c9c11f0126b07292c905a430fc690c52",
+      "bytes": 1721856,
+      "component": "pandas",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "resources/runtime/primary-runtime/dependencies/python/Lib/site-packages/pandas/_libs/groupby.cp312-win_amd64.pyd"
+        }
+      ]
+    },
+    {
+      "sha256": "81f7936c6d05cadd4a185bb9a8a64abe9a72c937ad979ea5afe672de59123fcc",
+      "bytes": 182784,
+      "component": "cpython",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "resources/runtime/primary-runtime/dependencies/python/Lib/site-packages/pip/_vendor/distlib/t64-arm.exe"
+        }
+      ]
+    },
+    {
+      "sha256": "82ac45c41a008854d05f67deda298b65a7bed850d0d79a3af861ed583f6e7d62",
+      "bytes": 21504,
+      "component": "pillow",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "resources/runtime/primary-runtime/dependencies/python/Lib/site-packages/PIL/_imagingmath.cp312-win_amd64.pyd"
+        }
+      ]
+    },
+    {
+      "sha256": "845ae647d56fa1354e59cb5e5da10e6e711b0a311c5d6389f00335c5a0403e07",
+      "bytes": 246409728,
+      "component": "electron-chromium",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "湛箴_ymzz.exe"
+        }
+      ]
+    },
+    {
+      "sha256": "85d52af200d0020855e91477f6334b59e12167f051991b2a0bb35b9697c0c778",
+      "bytes": 939520,
+      "component": "electron-chromium",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "vulkan-1.dll"
+        }
+      ]
+    },
+    {
+      "sha256": "8aa5ab82bc2908e122754380b56a92fc92f88e0752f63e3db483d7c43b5cb6f5",
+      "bytes": 71680,
+      "component": "cpython",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "resources/runtime/primary-runtime/dependencies/python/DLLs/_socket.pyd"
+        }
+      ]
+    },
+    {
+      "sha256": "8dbf51d49d6e12bf71487e0dbbbb0e39af38e5206d591363bdaf94d02e862279",
+      "bytes": 15360,
+      "component": "cpython",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "resources/runtime/primary-runtime/dependencies/python/DLLs/_testconsole.pyd"
+        }
+      ]
+    },
+    {
+      "sha256": "8e7401064e85754b8cb27de94c7098b7d798a33c207cec532996036fafbcf429",
+      "bytes": 1127936,
+      "component": "cpython",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "resources/runtime/primary-runtime/dependencies/python/DLLs/unicodedata.pyd"
+        }
+      ]
+    },
+    {
+      "sha256": "8e7c464c92d2e65ecbc7cf491b1ef699cb818924fc58c280497b16a1ea344efd",
+      "bytes": 39936,
+      "component": "numpy-source",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "resources/runtime/primary-runtime/dependencies/python/Lib/site-packages/numpy/_core/_rational_tests.cp312-win_amd64.pyd"
+        }
+      ]
+    },
+    {
+      "sha256": "92ffeefcea9bc3c14e9bc3c09c57b9299d7ffbcad2e9da2ed9f9ca9d0e72255e",
+      "bytes": 22016,
+      "component": "cpython",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "resources/runtime/primary-runtime/dependencies/python/tcl/reg1.3/tclreg13.dll"
+        }
+      ]
+    },
+    {
+      "sha256": "956003b1e54a8f5bd165f071945e92b8b5b4275ca1d9ec09dbef19fa4cfdd1b7",
+      "bytes": 89088,
+      "component": "pandas",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "resources/runtime/primary-runtime/dependencies/python/Lib/site-packages/pandas/_libs/writers.cp312-win_amd64.pyd"
+        }
+      ]
+    },
+    {
+      "sha256": "95957f066a6d64087f4fb9e6dd6ab114360eee0bcbbc5851100c3b50874ec48e",
+      "bytes": 276480,
+      "component": "numpy-source",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "resources/runtime/primary-runtime/dependencies/python/Lib/site-packages/numpy/fft/_pocketfft_umath.cp312-win_amd64.pyd"
+        }
+      ]
+    },
+    {
+      "sha256": "971048779f9c8598df14641dfc03c625885c93f473a788e65ca2deb50d0b083e",
+      "bytes": 443904,
+      "component": "sharp-vips",
+      "locations": [
+        {
+          "root": "actual-app-asar",
+          "path": "dsh/node_modules/@img/sharp-win32-x64/lib/sharp-win32-x64-0.35.5.node"
+        },
+        {
+          "root": "actual-installed",
+          "path": "resources/app.asar.unpacked/dsh/node_modules/@img/sharp-win32-x64/lib/sharp-win32-x64-0.35.5.node"
+        }
+      ]
+    },
+    {
+      "sha256": "976b8f7286d229b787438945bdd33d33e8bb918d826cb7ebc1bcd451529019bb",
+      "bytes": 147456,
+      "component": "pandas",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "resources/runtime/primary-runtime/dependencies/python/Lib/site-packages/pandas/_libs/tslibs/nattype.cp312-win_amd64.pyd"
+        }
+      ]
+    },
+    {
+      "sha256": "9823cebb84f425af3ac1e7437259bc176e7ad7e25d7fa829b0e1a3e55c11be70",
+      "bytes": 416256,
+      "component": "pillow",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "resources/runtime/primary-runtime/dependencies/python/Lib/site-packages/PIL/_webp.cp312-win_amd64.pyd"
+        }
+      ]
+    },
+    {
+      "sha256": "9b1fbf0c11c520ae714af8aa9af12cfd48503eedecd7398d8992ee94d1b4dc37",
+      "bytes": 107520,
+      "component": "nsis-builder",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "resources/elevate.exe"
+        }
+      ]
+    },
+    {
+      "sha256": "9b631b8f3d78d32e93d2cf31bd4f0988823632ae856c2fb4b6ea9471b20a6f72",
+      "bytes": 44032,
+      "component": "cpython",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "resources/runtime/primary-runtime/dependencies/python/DLLs/_overlapped.pyd"
+        }
+      ]
+    },
+    {
+      "sha256": "9bf63dd0958ba740bb9622f830d7c0929da4ce278973afccbd00577936f2f978",
+      "bytes": 114688,
+      "component": "pandas",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "resources/runtime/primary-runtime/dependencies/python/Lib/site-packages/pandas/_libs/tslibs/dtypes.cp312-win_amd64.pyd"
+        }
+      ]
+    },
+    {
+      "sha256": "9f8994b0dae525935f62749023202b79e7937d010bb884cf97172148ef372712",
+      "bytes": 90112,
+      "component": "cpython",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "resources/runtime/primary-runtime/dependencies/python/pythonw.exe"
+        }
+      ]
+    },
+    {
+      "sha256": "a05f99734f7c4822fefc12b367af21fd0976ed6608752fb1e1e80b6ece7ecbbb",
+      "bytes": 4741488,
+      "component": "windows-graphics",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "d3dcompiler_47.dll"
+        }
+      ]
+    },
+    {
+      "sha256": "a30d312315beb88be49286a58866962966ff4bc7024c06b35f1c8ae732f7d991",
+      "bytes": 265728,
+      "component": "pandas",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "resources/runtime/primary-runtime/dependencies/python/Lib/site-packages/pandas/_libs/parsers.cp312-win_amd64.pyd"
+        }
+      ]
+    },
+    {
+      "sha256": "a3d0026e46a6bc0b8e00ab7ec2f407cf6b07319923cd551f47162a89e9452fba",
+      "bytes": 127488,
+      "component": "pandas",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "resources/runtime/primary-runtime/dependencies/python/Lib/site-packages/pandas/_libs/tslibs/conversion.cp312-win_amd64.pyd"
+        }
+      ]
+    },
+    {
+      "sha256": "a4c2229bdc2a2a630acdc095b4d86008e5c3e3bc7773174354f3da4f5beb9cde",
+      "bytes": 575056,
+      "component": "cpython",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "resources/runtime/primary-runtime/dependencies/python/Lib/site-packages/pandas.libs/msvcp140-a4c2229bdc2a2a630acdc095b4d86008.dll"
+        }
+      ]
+    },
+    {
+      "sha256": "a6525c740562a0f9cd4ccb53332e01a5f707ac264ad8d48fbfcf1a6c30ecddcc",
+      "bytes": 765440,
+      "component": "pandas",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "resources/runtime/primary-runtime/dependencies/python/Lib/site-packages/pandas/_libs/interval.cp312-win_amd64.pyd"
+        }
+      ]
+    },
+    {
+      "sha256": "acd47a82dc01132e3b8414f683c2e117c18aedbf650a370249fe9fdbc445cda1",
+      "bytes": 108032,
+      "component": "cpython",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "resources/runtime/primary-runtime/dependencies/python/Lib/site-packages/pip/_vendor/distlib/t64.exe"
+        }
+      ]
+    },
+    {
+      "sha256": "ade270508ed3060ac8d0f2173a0aa0f6797ff73bccadb973cbc8678f68531565",
+      "bytes": 1555456,
+      "component": "pandas",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "resources/runtime/primary-runtime/dependencies/python/Lib/site-packages/pandas/_libs/hashtable.cp312-win_amd64.pyd"
+        }
+      ]
+    },
+    {
+      "sha256": "af35f6408ecb17e265cc47cf5408e96ea751d9918a431446b1e5cd473e10c3aa",
+      "bytes": 334848,
+      "component": "pandas",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "resources/runtime/primary-runtime/dependencies/python/Lib/site-packages/pandas/_libs/window/aggregations.cp312-win_amd64.pyd"
+        }
+      ]
+    },
+    {
+      "sha256": "afd9118d677bf8c9d8bc64d522bf274162506a8c6ea2c6fd0b0f0edc416e79e4",
+      "bytes": 96256,
+      "component": "pandas",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "resources/runtime/primary-runtime/dependencies/python/Lib/site-packages/pandas/_libs/ops.cp312-win_amd64.pyd"
+        }
+      ]
+    },
+    {
+      "sha256": "b06014acf7db3125c5872577bf1489b8b3fbeeedcc1e459f85fb82765cfa0cfc",
+      "bytes": 287232,
+      "component": "numpy-source",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "resources/runtime/primary-runtime/dependencies/python/Lib/site-packages/numpy/linalg/lapack_lite.cp312-win_amd64.pyd"
+        }
+      ]
+    },
+    {
+      "sha256": "b0801cd8eeead83213c60b92cc004de6f3ac4cd4a9ac7c388c16b97c590f1e99",
+      "bytes": 4605952,
+      "component": "sherpa-onnx",
+      "locations": [
+        {
+          "root": "actual-app-asar",
+          "path": "dsh/node_modules/sherpa-onnx-win-x64/sherpa-onnx-c-api.dll"
+        },
+        {
+          "root": "actual-installed",
+          "path": "resources/app.asar.unpacked/dsh/node_modules/sherpa-onnx-win-x64/sherpa-onnx-c-api.dll"
+        }
+      ]
+    },
+    {
+      "sha256": "b10feecd41cc5099dcb2b1db26f60c219c7d0fa24956bfcbebb19af0c70d3681",
+      "bytes": 56320,
+      "component": "pandas",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "resources/runtime/primary-runtime/dependencies/python/Lib/site-packages/pandas/_libs/properties.cp312-win_amd64.pyd"
+        }
+      ]
+    },
+    {
+      "sha256": "b1d30037f5db6baaf07af3a242476126b647c337ef44f33fffca004b211ce25f",
+      "bytes": 159744,
+      "component": "pandas",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "resources/runtime/primary-runtime/dependencies/python/Lib/site-packages/pandas/_libs/tslibs/parsing.cp312-win_amd64.pyd"
+        }
+      ]
+    },
+    {
+      "sha256": "b3a9f975c51d5b9b96d290bf784e990e3f85203b063c21614457353f566266ff",
+      "bytes": 106528,
+      "component": "conpty",
+      "locations": [
+        {
+          "root": "actual-app-asar",
+          "path": "dsh/node_modules/node-pty/third_party/conpty/1.25.260303002/win10-arm64/conpty.dll"
+        },
+        {
+          "root": "actual-installed",
+          "path": "resources/app.asar.unpacked/dsh/node_modules/node-pty/third_party/conpty/1.25.260303002/win10-arm64/conpty.dll"
+        }
+      ]
+    },
+    {
+      "sha256": "b42ee5cb764ab38afb290d5aa62fa4c81ee0bdbe09b1bf06d906b02d9a56e170",
+      "bytes": 4035584,
+      "component": "lxml-iconv",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "resources/runtime/primary-runtime/dependencies/python/Lib/site-packages/lxml/etree.cp312-win_amd64.pyd"
+        }
+      ]
+    },
+    {
+      "sha256": "b4dd3789046d5e47029d5dd7274365ddd416e4f4f4376da104a31693c7a199d6",
+      "bytes": 55296,
+      "component": "cpython",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "resources/runtime/primary-runtime/dependencies/python/DLLs/_testclinic.pyd"
+        }
+      ]
+    },
+    {
+      "sha256": "b767ab02b35f5d691142b488807b405663c957e90b84377e639056b84a3288ef",
+      "bytes": 25600,
+      "component": "cpython",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "resources/runtime/primary-runtime/dependencies/python/DLLs/_wmi.pyd"
+        }
+      ]
+    },
+    {
+      "sha256": "b8523bbce8b322b4b931863c61b8107156b3f23fe1bbbfe0bc3fa318ea662fb0",
+      "bytes": 12288,
+      "component": "pillow",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "resources/runtime/primary-runtime/dependencies/python/Lib/site-packages/PIL/_imagingmorph.cp312-win_amd64.pyd"
+        }
+      ]
+    },
+    {
+      "sha256": "ba4e6d110e8c1592a1ecd390f6b05f3da124b13871a5be62b341a07a853c6c32",
+      "bytes": 93580104,
+      "component": "node-runtime",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "resources/runtime/primary-runtime/dependencies/node/bin/node.exe"
+        }
+      ]
+    },
+    {
+      "sha256": "bae29d482b6788e388aa2d59a8d73558f6d1e47b5a45e9844f2f98472a12ac46",
+      "bytes": 43520,
+      "component": "cpython",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "resources/runtime/primary-runtime/dependencies/python/DLLs/_testbuffer.pyd"
+        }
+      ]
+    },
+    {
+      "sha256": "bb48410256c0d81f1ab0493103f8d1a0daa1afaad2cba7cf23a069922fd8e6db",
+      "bytes": 121856,
+      "component": "cpython",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "resources/runtime/primary-runtime/dependencies/python/DLLs/_elementtree.pyd"
+        }
+      ]
+    },
+    {
+      "sha256": "bbd58222e118ca8d0e03731c04abcaff19479d6d621b6e2f1f4d75259e72a20e",
+      "bytes": 167936,
+      "component": "numpy-source",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "resources/runtime/primary-runtime/dependencies/python/Lib/site-packages/numpy/random/bit_generator.cp312-win_amd64.pyd"
+        }
+      ]
+    },
+    {
+      "sha256": "bee2d825d7ab8658d7d4fdb04cb9139539365ac7b831086edd403e732f610b07",
+      "bytes": 81408,
+      "component": "pandas",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "resources/runtime/primary-runtime/dependencies/python/Lib/site-packages/pandas/_libs/arrays.cp312-win_amd64.pyd"
+        }
+      ]
+    },
+    {
+      "sha256": "bfaa839451f45e519d0f29902fad27edf1f3f2619143744320a6f15a658c7bcf",
+      "bytes": 39936,
+      "component": "cpython",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "resources/runtime/primary-runtime/dependencies/python/DLLs/_testinternalcapi.pyd"
+        }
+      ]
+    },
+    {
+      "sha256": "c00bbefbb76491085bd072ca43a8bdd4a40894b3a5b8420b18eb95974cae9daa",
+      "bytes": 128000,
+      "component": "pandas",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "resources/runtime/primary-runtime/dependencies/python/Lib/site-packages/pandas/_libs/_cyutility.cp312-win_amd64.pyd"
+        }
+      ]
+    },
+    {
+      "sha256": "c55216c0ec7a8e8b3b49b8f611193e53dc1e0e35c86896187444403153a3f082",
+      "bytes": 43008,
+      "component": "pandas",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "resources/runtime/primary-runtime/dependencies/python/Lib/site-packages/pandas/_libs/tslibs/base.cp312-win_amd64.pyd"
+        }
+      ]
+    },
+    {
+      "sha256": "c6871ffbfcc17b66d2b495c9b44fed192fe83e22f7b2f94b00f207525e19559b",
+      "bytes": 164864,
+      "component": "cpython",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "resources/runtime/primary-runtime/dependencies/python/DLLs/_ssl.pyd"
+        }
+      ]
+    },
+    {
+      "sha256": "c6f71fea859aab76ff034e651656f0cf85a95b04c5c1d8ce39627fda2a9f93ac",
+      "bytes": 14336,
+      "component": "numpy-source",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "resources/runtime/primary-runtime/dependencies/python/Lib/site-packages/numpy/_core/_struct_ufunc_tests.cp312-win_amd64.pyd"
+        }
+      ]
+    },
+    {
+      "sha256": "c7909bf5bd200e9f0ca1c008c65fa59a298f955a846031735bc4f37e01ec104c",
+      "bytes": 55296,
+      "component": "cpython",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "resources/runtime/primary-runtime/dependencies/python/DLLs/_tkinter.pyd"
+        }
+      ]
+    },
+    {
+      "sha256": "c8035898ef7c6bbc0564715767176f1041b1a55990a73f710f13a7d1e05a43e2",
+      "bytes": 95232,
+      "component": "pandas",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "resources/runtime/primary-runtime/dependencies/python/Lib/site-packages/pandas/_libs/tslibs/np_datetime.cp312-win_amd64.pyd"
+        }
+      ]
+    },
+    {
+      "sha256": "c89c633ae1bf3f26a327d14ff688db66628e19c9866ab925479f27dcb60a2d6f",
+      "bytes": 272384,
+      "component": "pillow",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "resources/runtime/primary-runtime/dependencies/python/Lib/site-packages/PIL/_imagingcms.cp312-win_amd64.pyd"
+        }
+      ]
+    },
+    {
+      "sha256": "c8c519ec72bf75b2945b4fc4afa854af2fca8b970a403134f9ddda3e164d85e9",
+      "bytes": 2632704,
+      "component": "pillow",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "resources/runtime/primary-runtime/dependencies/python/Lib/site-packages/PIL/_imaging.cp312-win_amd64.pyd"
+        }
+      ]
+    },
+    {
+      "sha256": "c9f55fd8761afdd25a3da89e8edadad52584846a065082c919e3c55f04b55a5e",
+      "bytes": 67584,
+      "component": "pandas",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "resources/runtime/primary-runtime/dependencies/python/Lib/site-packages/pandas/_libs/hashing.cp312-win_amd64.pyd"
+        }
+      ]
+    },
+    {
+      "sha256": "cad613e5524c053dc0e5c497cd4bfde569c3583dc1866c9e4b041b3afccd47da",
+      "bytes": 20480,
+      "component": "cpython",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "resources/runtime/primary-runtime/dependencies/python/DLLs/_queue.pyd"
+        }
+      ]
+    },
+    {
+      "sha256": "cc99a27ecf92c748730827904a6f24e8d70844b69416c989097a67531c35ff83",
+      "bytes": 1583616,
+      "component": "cpython",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "resources/runtime/primary-runtime/dependencies/python/DLLs/libssl-3-x64.dll"
+        }
+      ]
+    },
+    {
+      "sha256": "cd2f60075064dfc2e65c88b239a970cb4bd07cb3eec7cc26fb1bf978d4356b08",
+      "bytes": 1541872,
+      "component": "cpython",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "resources/runtime/primary-runtime/dependencies/python/DLLs/tk86t.dll"
+        }
+      ]
+    },
+    {
+      "sha256": "cd42200fb3a7d5bda472d617e1e7a5515798ff0a0a827b9e3aef42acc87347ed",
+      "bytes": 56320,
+      "component": "cpython",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "resources/runtime/primary-runtime/dependencies/python/python3.dll"
+        }
+      ]
+    },
+    {
+      "sha256": "ce2f528d5d3b91d8ccc4963c7c1685537581304585c9a309dcfbdd5a1a43eaa9",
+      "bytes": 116224,
+      "component": "cpython",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "resources/runtime/primary-runtime/dependencies/python/DLLs/_ctypes.pyd"
+        }
+      ]
+    },
+    {
+      "sha256": "cf07f9f0b1c635bdc20a5c81e0808986e14eede4329d2994ccab417f59550638",
+      "bytes": 28160,
+      "component": "cpython",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "resources/runtime/primary-runtime/dependencies/python/DLLs/libffi-8.dll"
+        }
+      ]
+    },
+    {
+      "sha256": "cf29b42b98f1851c7e8507d3c9e549b0e11a32a158ebfe2b4e79a73afa3f1595",
+      "bytes": 33280,
+      "component": "cpython",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "resources/runtime/primary-runtime/dependencies/python/DLLs/_msi.pyd"
+        }
+      ]
+    },
+    {
+      "sha256": "d1a71f9ac1728082c1b276392725c3e010b98714888579b99152e401abedbf11",
+      "bytes": 271872,
+      "component": "pnpm-fastlist",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "resources/runtime/primary-runtime/dependencies/pnpm/dist/vendor/fastlist-0.3.0-x64.exe"
+        }
+      ]
+    },
+    {
+      "sha256": "d38957b4351486a16141bdd3162643b811564ba6bfa1d12f374c13b70207dc11",
+      "bytes": 3113472,
+      "component": "electron-ffmpeg",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "ffmpeg.dll"
+        }
+      ]
+    },
+    {
+      "sha256": "d46800643f90fc56b9fd67398f04a04a871521de0e825211c8382d187859d3ed",
+      "bytes": 134656,
+      "component": "node-pty",
+      "locations": [
+        {
+          "root": "actual-app-asar",
+          "path": "dsh/node_modules/node-pty/prebuilds/win32-x64/conpty_console_list.node"
+        },
+        {
+          "root": "actual-installed",
+          "path": "resources/app.asar.unpacked/dsh/node_modules/node-pty/prebuilds/win32-x64/conpty_console_list.node"
+        }
+      ]
+    },
+    {
+      "sha256": "d5b94837735c1c2876ac31ee21db2aed6dcdb8fb6908869c8ce2e03b92276ecc",
+      "bytes": 88064,
+      "component": "lxml-iconv",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "resources/runtime/primary-runtime/dependencies/python/Lib/site-packages/lxml/builder.cp312-win_amd64.pyd"
+        }
+      ]
+    },
+    {
+      "sha256": "d5e4d9a3e835fa679450145d6a7d94e36573a509317111904d9b3712c30d9066",
+      "bytes": 124544,
+      "component": "cpython",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "resources/runtime/primary-runtime/dependencies/python/vcruntime140.dll"
+        }
+      ]
+    },
+    {
+      "sha256": "dc8ef3a004a5d6d02723a81ea6114d8cd0ed81236b1b8f07853444853b110aaa",
+      "bytes": 145920,
+      "component": "pandas",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "resources/runtime/primary-runtime/dependencies/python/Lib/site-packages/pandas/_libs/window/indexers.cp312-win_amd64.pyd"
+        }
+      ]
+    },
+    {
+      "sha256": "e43567beb7f3f9b9b89c6a40e21790170cf0fc98efcad25e6b074c60b73240eb",
+      "bytes": 73216,
+      "component": "cpython",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "resources/runtime/primary-runtime/dependencies/python/DLLs/_bz2.pyd"
+        }
+      ]
+    },
+    {
+      "sha256": "e4626ef2673e7b0c693e1165c69d4eab8e43213a122f149bd93450916d1fd334",
+      "bytes": 43520,
+      "component": "pandas",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "resources/runtime/primary-runtime/dependencies/python/Lib/site-packages/pandas/_libs/ops_dispatch.cp312-win_amd64.pyd"
+        }
+      ]
+    },
+    {
+      "sha256": "e57a9d0178980176a503f9b636feb60c6066b315097c63d711d76b7ff481e100",
+      "bytes": 208896,
+      "component": "numpy-source",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "resources/runtime/primary-runtime/dependencies/python/Lib/site-packages/numpy/random/_bounded_integers.cp312-win_amd64.pyd"
+        }
+      ]
+    },
+    {
+      "sha256": "e5ffa17045fa7d66375c6e3b3397e03663c2f7e5ee9d17a169783e97123ae1b1",
+      "bytes": 138752,
+      "component": "pandas",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "resources/runtime/primary-runtime/dependencies/python/Lib/site-packages/pandas/_libs/missing.cp312-win_amd64.pyd"
+        }
+      ]
+    },
+    {
+      "sha256": "e66cfe13aafbd7d80226e3ce085de5786479de35f7d6a75eded9ecb4ebf9784b",
+      "bytes": 5520384,
+      "component": "electron-chromium",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "vk_swiftshader.dll"
+        }
+      ]
+    },
+    {
+      "sha256": "e709c46a63e4b84f3862aa0c843a804040b42ea054a398b420142f6c8e58ec77",
+      "bytes": 259584,
+      "component": "sherpa-onnx",
+      "locations": [
+        {
+          "root": "actual-app-asar",
+          "path": "dsh/node_modules/sherpa-onnx-win-x64/sherpa-onnx-cxx-api.dll"
+        },
+        {
+          "root": "actual-installed",
+          "path": "resources/app.asar.unpacked/dsh/node_modules/sherpa-onnx-win-x64/sherpa-onnx-cxx-api.dll"
+        }
+      ]
+    },
+    {
+      "sha256": "e97ae331afc8c9725469656b7438704cdeab0b70e3471a6e96d52c120f156e6d",
+      "bytes": 365056,
+      "component": "lxml-iconv",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "resources/runtime/primary-runtime/dependencies/python/Lib/site-packages/lxml/html/_difflib.cp312-win_amd64.pyd"
+        }
+      ]
+    },
+    {
+      "sha256": "e9f97ed073162f64b711c124dc6a8aa772173a2ddac68155b6059b24ea5cef8c",
+      "bytes": 89600,
+      "component": "pandas",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "resources/runtime/primary-runtime/dependencies/python/Lib/site-packages/pandas/_libs/sas.cp312-win_amd64.pyd"
+        }
+      ]
+    },
+    {
+      "sha256": "ead441d11202126827a789a7eb88e79abe8f7f374b16e7273c4244225c8d6c2b",
+      "bytes": 343552,
+      "component": "require-builtin",
+      "locations": [
+        {
+          "root": "actual-app-asar",
+          "path": "dsh/node_modules/node-addon-require-builtin-win32-x64-msvc/prebuilt/win32-x64-msvc-napi-v9.node"
+        },
+        {
+          "root": "actual-installed",
+          "path": "resources/app.asar.unpacked/dsh/node_modules/node-addon-require-builtin-win32-x64-msvc/prebuilt/win32-x64-msvc-napi-v9.node"
+        }
+      ]
+    },
+    {
+      "sha256": "eb0587c804bb76262968bf83028528da4dc2d4322f558845cce205c709e2ba20",
+      "bytes": 1042944,
+      "component": "koffi",
+      "locations": [
+        {
+          "root": "actual-app-asar",
+          "path": "dsh/node_modules/@koromix/koffi-win32-x64/win32_x64/koffi.node"
+        },
+        {
+          "root": "actual-installed",
+          "path": "resources/app.asar.unpacked/dsh/node_modules/@koromix/koffi-win32-x64/win32_x64/koffi.node"
+        }
+      ]
+    },
+    {
+      "sha256": "eb5bcb191c7f2096b6967b01a8eebe70ddd61d9290b9a50413276c043612d45a",
+      "bytes": 13312,
+      "component": "cpython",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "resources/runtime/primary-runtime/dependencies/python/DLLs/_testimportmultiple.pyd"
+        }
+      ]
+    },
+    {
+      "sha256": "ec2fd8545c30e051ee3fa17d26127f7e615919814879c7f746cf4c80845226e0",
+      "bytes": 291328,
+      "component": "node-pty",
+      "locations": [
+        {
+          "root": "actual-app-asar",
+          "path": "dsh/node_modules/node-pty/prebuilds/win32-x64/conpty.node"
+        },
+        {
+          "root": "actual-installed",
+          "path": "resources/app.asar.unpacked/dsh/node_modules/node-pty/prebuilds/win32-x64/conpty.node"
+        }
+      ]
+    },
+    {
+      "sha256": "ec6563968247a8adcc2f93e47ca0ccaa82a556374528dd962997b261c1a27027",
+      "bytes": 755200,
+      "component": "pandas",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "resources/runtime/primary-runtime/dependencies/python/Lib/site-packages/pandas/_libs/join.cp312-win_amd64.pyd"
+        }
+      ]
+    },
+    {
+      "sha256": "f27b3724964ff524e837374847d2856f7d10a884516fc34200d0a2332a739789",
+      "bytes": 91648,
+      "component": "cpython",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "resources/runtime/primary-runtime/dependencies/python/Lib/site-packages/pip/_vendor/distlib/w32.exe"
+        }
+      ]
+    },
+    {
+      "sha256": "f3e0243e9c3a3ded88ef15ada2567761e15d1328e450ac87143c843a8fe352e9",
+      "bytes": 96768,
+      "component": "pandas",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "resources/runtime/primary-runtime/dependencies/python/Lib/site-packages/pandas/_libs/tslibs/timezones.cp312-win_amd64.pyd"
+        }
+      ]
+    },
+    {
+      "sha256": "f3f650a920d4639c2a7a7c937be4740f0081a6fd7e9b8a4e0d37459afce8c4e3",
+      "bytes": 370688,
+      "component": "cpython",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "resources/runtime/primary-runtime/dependencies/python/tcl/tix8.4.3/tix84.dll"
+        }
+      ]
+    },
+    {
+      "sha256": "f559c57f3c6c8334280dcd227e54ceb5311321a090680aafa7f9d690d5603496",
+      "bytes": 25088,
+      "component": "cpython",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "resources/runtime/primary-runtime/dependencies/python/DLLs/_ctypes_test.pyd"
+        }
+      ]
+    },
+    {
+      "sha256": "f5ca46ca3f7536a5f5732c167e7e90067341e497c87ebc3f4669e8c78b015a51",
+      "bytes": 4500480,
+      "component": "numpy-source",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "resources/runtime/primary-runtime/dependencies/python/Lib/site-packages/numpy/_core/_multiarray_umath.cp312-win_amd64.pyd"
+        }
+      ]
+    },
+    {
+      "sha256": "f5fd562bdc4bea167eee8ac981c6acd88c05cc8d2792b67d8951566818e293ca",
+      "bytes": 681984,
+      "component": "sherpa-onnx",
+      "locations": [
+        {
+          "root": "actual-app-asar",
+          "path": "dsh/node_modules/sherpa-onnx-win-x64/sherpa-onnx.node"
+        },
+        {
+          "root": "actual-installed",
+          "path": "resources/app.asar.unpacked/dsh/node_modules/sherpa-onnx-win-x64/sherpa-onnx.node"
+        }
+      ]
+    },
+    {
+      "sha256": "f6704d3a1022f69ad6b7e604a927d00ce2f9dae515bfad5a7df9a2e3e4bd2448",
+      "bytes": 168448,
+      "component": "cpython",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "resources/runtime/primary-runtime/dependencies/python/Lib/site-packages/pip/_vendor/distlib/w64-arm.exe"
+        }
+      ]
+    },
+    {
+      "sha256": "f73a3879048ceafe9fb56ca9b14ce26fe0cf40e802a82410762300f01f04e3ec",
+      "bytes": 521728,
+      "component": "pandas",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "resources/runtime/primary-runtime/dependencies/python/Lib/site-packages/pandas/_libs/index.cp312-win_amd64.pyd"
+        }
+      ]
+    },
+    {
+      "sha256": "f7477cbff8e86313de7e6bdbbe891c75fefcea5013ececca2d48daead5044f38",
+      "bytes": 160256,
+      "component": "pandas",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "resources/runtime/primary-runtime/dependencies/python/Lib/site-packages/pandas/_libs/tslibs/strptime.cp312-win_amd64.pyd"
+        }
+      ]
+    },
+    {
+      "sha256": "f9dde63498b3193f098355dbec97af99dc4f6b8fa0df5ed04114a03012c042cb",
+      "bytes": 5429760,
+      "component": "ripgrep",
+      "locations": [
+        {
+          "root": "actual-app-asar",
+          "path": "dsh/node_modules/@vscode/ripgrep-win32-x64/bin/rg.exe"
+        },
+        {
+          "root": "actual-installed",
+          "path": "resources/app.asar.unpacked/dsh/node_modules/@vscode/ripgrep-win32-x64/bin/rg.exe"
+        }
+      ]
+    },
+    {
+      "sha256": "fbecb0d7a570573048a14463183388fb0292d7687b9d4785f0a83701bd846eac",
+      "bytes": 47104,
+      "component": "pandas",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "resources/runtime/primary-runtime/dependencies/python/Lib/site-packages/pandas/_libs/indexing.cp312-win_amd64.pyd"
+        }
+      ]
+    },
+    {
+      "sha256": "fbfd065f861ec0a90dd513bc209c56bbc23c54d2839964a0ec2df95848af7860",
+      "bytes": 1866480,
+      "component": "cpython",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "resources/runtime/primary-runtime/dependencies/python/DLLs/tcl86t.dll"
+        }
+      ]
+    },
+    {
+      "sha256": "fdbec7ba5d5b490db117bfbb3127eb0c35d016f8b74577a631ab884a2176c3c5",
+      "bytes": 272896,
+      "component": "pandas",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "resources/runtime/primary-runtime/dependencies/python/Lib/site-packages/pandas/_libs/tslibs/period.cp312-win_amd64.pyd"
+        }
+      ]
+    },
+    {
+      "sha256": "fffaeadc382c5a297265367513ccee15da60a6b06c08f0914bea87ebb25c5aa2",
+      "bytes": 107520,
+      "component": "pandas",
+      "locations": [
+        {
+          "root": "actual-installed",
+          "path": "resources/runtime/primary-runtime/dependencies/python/Lib/site-packages/pandas/_libs/tslib.cp312-win_amd64.pyd"
+        }
+      ]
+    }
+  ]
+}

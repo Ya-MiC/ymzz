@@ -1,0 +1,6 @@
+import test from 'node:test';import assert from 'node:assert/strict';
+import {deriveReleaseDecision} from '../../compliance/native-release-policy.mjs';
+const proof=()=>({packagedNativePayloadInspected:true,actualRootsVerified:true,correspondingSourceMaterialsVerified:true,nativeRightsVerified:true,nativeCoverageComplete:true,nativeGatePassed:true,holds:[]});
+test('final gate derives success only from all fresh native/source/rights and Node facts',()=>{assert.equal(deriveReleaseDecision(true,proof()).releaseCleared,true);assert.equal(deriveReleaseDecision(false,proof()).releaseCleared,false);assert.equal(deriveReleaseDecision(true,null).releaseCleared,false)});
+for(const field of ['packagedNativePayloadInspected','actualRootsVerified','correspondingSourceMaterialsVerified','nativeRightsVerified','nativeCoverageComplete','nativeGatePassed'])test(`no scalar success overrides missing ${field}`,()=>{const p=proof();p[field]=false;p.releaseCleared=true;assert.equal(deriveReleaseDecision(true,p).releaseCleared,false)});
+test('a retained concrete native hold blocks even when other scalar facts are true',()=>{const p=proof();p.holds=[{kind:'native-license-policy-hold'}];assert.equal(deriveReleaseDecision(true,p).releaseCleared,false)});

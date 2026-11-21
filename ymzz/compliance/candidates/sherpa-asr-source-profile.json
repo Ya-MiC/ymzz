@@ -1,0 +1,73 @@
+{
+  "schema": 1,
+  "status": "source-candidate-not-selected-for-production",
+  "scope": "Only remove unused transitive native TTS implementation; preserve every DSH Sherpa consumer (SenseVoice OfflineRecognizer+Silero Vad). This is NOT full Sherpa TTS parity or release clearance.",
+  "source": {
+    "commit": "11afbd009a7f8c08f4bcf2fc1b265d0df4670fbf",
+    "url": "https://codeload.github.com/k2-fsa/sherpa-onnx/tar.gz/11afbd009a7f8c08f4bcf2fc1b265d0df4670fbf",
+    "sha256": "0a8db6c55dd318f4a688faba85f7760b99a6c92e8ef8864479d418531bee1ac2",
+    "bytes": 11645413
+  },
+  "packages": [
+    {
+      "name": "sherpa-onnx-node",
+      "version": "1.13.8",
+      "url": "https://registry.npmjs.org/sherpa-onnx-node/-/sherpa-onnx-node-1.13.8.tgz",
+      "file": "sherpa-onnx-node-1.13.8.tgz",
+      "sha256": "db2a7b8b18d950b6e9ca5c1c919afec33fd3dd2bfef1aade0bea5a9fe7a1f0f1",
+      "bytes": 11954
+    },
+    {
+      "name": "sherpa-onnx-win-x64",
+      "version": "1.13.8",
+      "url": "https://registry.npmjs.org/sherpa-onnx-win-x64/-/sherpa-onnx-win-x64-1.13.8.tgz",
+      "file": "sherpa-onnx-win-x64-1.13.8.tgz",
+      "sha256": "fe522f02a5c113c2567a43982107ef41ae517f9a431931e90731e7e4d4341073",
+      "bytes": 8894875
+    }
+  ],
+  "consumers": [
+    {
+      "path": "packages/experimental/speech-to-text-sensevoice/src/inference.ts",
+      "sha256": "6cc857b7c3f11c46659d37940a0d5be4627321d836970235377d2589aedd36d1",
+      "requiredAPI": [
+        "OfflineRecognizer",
+        "Vad"
+      ]
+    }
+  ],
+  "cmakeFlags": [
+    "-DBUILD_SHARED_LIBS=ON",
+    "-DSHERPA_ONNX_ENABLE_TTS=OFF",
+    "-DSHERPA_ONNX_ENABLE_WEBSOCKET=OFF",
+    "-DSHERPA_ONNX_ENABLE_PORTAUDIO=OFF",
+    "-DSHERPA_ONNX_ENABLE_BINARY=OFF",
+    "-DSHERPA_ONNX_BUILD_C_API_EXAMPLES=OFF",
+    "-DSHERPA_ONNX_USE_STATIC_CRT=ON",
+    "-DCMAKE_CXX_FLAGS=/DEIGEN_MPL2_ONLY",
+    "-DCMAKE_POLICY_VERSION_MINIMUM=3.5"
+  ],
+  "originalUnapprovedDependency": {
+    "name": "eSpeak-ng",
+    "commit": "ed530aa113046142eb5115cf2fc9157854d0ffe1",
+    "license": "GPL-3.0-or-later",
+    "evidence": "https://github.com/k2-fsa/sherpa-onnx/blob/v1.13.8/cmake/espeak-ng-for-piper.cmake"
+  },
+  "noOwnerWaiverAssumed": true,
+  "testFixtures": [
+    {
+      "file": "zh.wav",
+      "url": "https://huggingface.co/csukuangfj/sherpa-onnx-sense-voice-zh-en-ja-ko-yue-2024-07-17/resolve/2365baeacb507f821a0c8120fcee3d484dba7a07/test_wavs/zh.wav",
+      "bytes": 178988,
+      "sha256": "b77f1794fe374a0ba1ee1dc458bfaf9349496cbbfc32780c50ba3c5a7ad8e373"
+    },
+    {
+      "file": "en.wav",
+      "url": "https://huggingface.co/csukuangfj/sherpa-onnx-sense-voice-zh-en-ja-ko-yue-2024-07-17/resolve/2365baeacb507f821a0c8120fcee3d484dba7a07/test_wavs/en.wav",
+      "bytes": 228908,
+      "sha256": "eb1eb008904465b74c304aad8342e8c7d3c6e61ffe9f66adcaca9cf0f76a93f4"
+    }
+  ],
+  "modelAssetsFile": "packages/experimental/speech-to-text-sensevoice/runtime/assets.json",
+  "modelAssetsSHA256": "d46d8e9dd0493725535997100bd2c1389fd3d0ddc5d2e2aefa5495a996d3f5d5"
+}

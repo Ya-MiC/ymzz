@@ -1,0 +1,596 @@
+{
+  "schema": 1,
+  "scope": "All current native hash/path identities, original grant notices, and selective corresponding-source obligations. No source duty is inferred from a permissive DLL.",
+  "nativeRepresentations": 191,
+  "nativeRepresentationsMatched": 191,
+  "nativeCoverageComplete": true,
+  "packagedNativePayloadInspected": false,
+  "nativeRightsVerified": false,
+  "requiredSourceGroups": [
+    "electron-ffmpeg",
+    "lxml-iconv",
+    "office013",
+    "sharp-vips",
+    "sherpa-espeak-gpl"
+  ],
+  "correspondingSourceMaterialsVerified": false,
+  "components": [
+    {
+      "component": "conpty",
+      "licenseBasis": "Microsoft Terminal/ConPTY grant needs exact native provenance and original text",
+      "obligation": "original-notices",
+      "originalNoticePinsVerified": 0,
+      "passed": false,
+      "issues": [
+        {
+          "kind": "native-obligation-review-required",
+          "detail": "Actual constituent source obligations not fully classified; no blanket permissive npm inheritance"
+        },
+        {
+          "kind": "grant-review-required",
+          "detail": "Exact original constituent grant/notice and producer provenance still need binding; no source obligation is invented from this missing notice review."
+        },
+        {
+          "kind": "original-grant-notice-missing"
+        }
+      ]
+    },
+    {
+      "component": "cpython",
+      "licenseBasis": "PSF plus bundled native constituent notices; not PSF-only",
+      "obligation": "original-notices",
+      "originalNoticePinsVerified": 2,
+      "passed": false,
+      "issues": [
+        {
+          "kind": "grant-review-required",
+          "detail": "Original Windows linked-component grants now staged, but actual Microsoft CRT redistributable grant/conditions still need separate review; do not attribute those DLLs to PSF."
+        },
+        {
+          "kind": "original-notice-not-shipped-or-changed",
+          "sha256": "bd5628cc76fb0ebf9c657d1dd4d1a240a1a7b216c31663e7bbf1131c0b70a910",
+          "path": "resources/licenses/ymzz/native-third-party/cpython-3.12.14-Windows-LICENSE.bzip2.txt.original.txt"
+        },
+        {
+          "kind": "original-notice-not-shipped-or-changed",
+          "sha256": "8fe98bf9822926d854f56ffd8d97877d8b942617aa44eb7ea77fd99e22f2537e",
+          "path": "resources/licenses/ymzz/native-third-party/cpython-3.12.14-Windows-LICENSE.cpython.txt.original.txt"
+        },
+        {
+          "kind": "original-notice-not-shipped-or-changed",
+          "sha256": "8a9cfe4b5924f4b25881aa0c9f5e4561c5f31065d0c4a13cdcdbcf917edf39aa",
+          "path": "resources/licenses/ymzz/native-third-party/cpython-3.12.14-Windows-LICENSE.expat.txt.original.txt"
+        },
+        {
+          "kind": "original-notice-not-shipped-or-changed",
+          "sha256": "9afb8970cd29fc1031fa647278e4bef613399e2e3468a1e3a397f4d158c6101c",
+          "path": "resources/licenses/ymzz/native-third-party/cpython-3.12.14-Windows-LICENSE.libffi.txt.original.txt"
+        },
+        {
+          "kind": "original-notice-not-shipped-or-changed",
+          "sha256": "d87d218dd908b3243ec4cbc72af400e5b7437513ea9d9229291d0812b8464fec",
+          "path": "resources/licenses/ymzz/native-third-party/cpython-3.12.14-Windows-LICENSE.liblzma.txt.original.txt"
+        },
+        {
+          "kind": "original-notice-not-shipped-or-changed",
+          "sha256": "cbccaa3efe07a9a602751375085be572d4410a250b996716fbe8c5255c7ec6f2",
+          "path": "resources/licenses/ymzz/native-third-party/cpython-3.12.14-Windows-LICENSE.libuuid.txt.original.txt"
+        },
+        {
+          "kind": "original-notice-not-shipped-or-changed",
+          "sha256": "f094277cd46e1f6e4d87916cc4b51e22f613d45eb81f48231c3cb7caf8fc8a6a",
+          "path": "resources/licenses/ymzz/native-third-party/cpython-3.12.14-Windows-LICENSE.mpdecimal.txt.original.txt"
+        },
+        {
+          "kind": "original-notice-not-shipped-or-changed",
+          "sha256": "ed72ce2b51ee58f117e5a021e2e04af158857f40269fbc03491f0b2a99dbcc96",
+          "path": "resources/licenses/ymzz/native-third-party/cpython-3.12.14-Windows-LICENSE.openssl-3.txt.original.txt"
+        },
+        {
+          "kind": "original-notice-not-shipped-or-changed",
+          "sha256": "d8eb9aba7ef6b5ed06cb3ec19a7242316af2e5933c638eb67fb781c13884e01d",
+          "path": "resources/licenses/ymzz/native-third-party/cpython-3.12.14-Windows-LICENSE.sqlite.txt.original.txt"
+        },
+        {
+          "kind": "original-notice-not-shipped-or-changed",
+          "sha256": "41613eabfc08921a7da9c4bfd7f3ce5d5406f55214b253d89f392ed86eebeb8f",
+          "path": "resources/licenses/ymzz/native-third-party/cpython-3.12.14-Windows-LICENSE.tcl.txt.original.txt"
+        },
+        {
+          "kind": "original-notice-not-shipped-or-changed",
+          "sha256": "8cdff3addb9e9eb108c78e2cf5e05f26b216c098304945733bbec382b2eaef66",
+          "path": "resources/licenses/ymzz/native-third-party/cpython-3.12.14-Windows-LICENSE.tix.txt.original.txt"
+        },
+        {
+          "kind": "original-notice-not-shipped-or-changed",
+          "sha256": "365e36720db366054863235aea5d6f440142ab968834bfaf81fa9d187c99b9b8",
+          "path": "resources/licenses/ymzz/native-third-party/cpython-3.12.14-Windows-LICENSE.zlib.txt.original.txt"
+        }
+      ]
+    },
+    {
+      "component": "electron-chromium",
+      "licenseBasis": "Electron MIT plus original Chromium constituent grants, NOT Electron MIT-only",
+      "obligation": "original-notices",
+      "originalNoticePinsVerified": 2,
+      "passed": false,
+      "issues": [
+        {
+          "kind": "native-obligation-review-required",
+          "detail": "Actual constituent source obligations not fully classified; no blanket permissive npm inheritance"
+        },
+        {
+          "kind": "grant-review-required",
+          "detail": "Exact original constituent grant/notice and producer provenance still need binding; no source obligation is invented from this missing notice review."
+        }
+      ]
+    },
+    {
+      "component": "electron-ffmpeg",
+      "licenseBasis": "LGPL-2.1-or-later FFmpeg Windows config (GPL/NONFREE/VERSION3 disabled)",
+      "obligation": "covered-source-and-replacement",
+      "originalNoticePinsVerified": 1,
+      "passed": true,
+      "issues": []
+    },
+    {
+      "component": "koffi",
+      "licenseBasis": "MIT original parent-project grant",
+      "obligation": "original-notices",
+      "originalNoticePinsVerified": 3,
+      "passed": true,
+      "issues": []
+    },
+    {
+      "component": "lxml-iconv",
+      "licenseBasis": "BSD/MIT lxml+xml/xslt with statically incorporated LGPL-2.1 iconv1.17",
+      "obligation": "covered-source-and-replacement",
+      "originalNoticePinsVerified": 2,
+      "passed": true,
+      "issues": []
+    },
+    {
+      "component": "node-pty",
+      "licenseBasis": "MIT original node-pty grant; ConPTY is separate",
+      "obligation": "original-notices",
+      "originalNoticePinsVerified": 1,
+      "passed": true,
+      "issues": []
+    },
+    {
+      "component": "node-runtime",
+      "licenseBasis": "Node MIT with original integrated third-party grants (not MIT-only)",
+      "obligation": "original-notices",
+      "originalNoticePinsVerified": 2,
+      "passed": true,
+      "issues": []
+    },
+    {
+      "component": "nsis-builder",
+      "licenseBasis": "NSIS zlib/MIT builder and original executable provenance",
+      "obligation": "original-notices",
+      "originalNoticePinsVerified": 0,
+      "passed": false,
+      "issues": [
+        {
+          "kind": "native-obligation-review-required",
+          "detail": "Actual constituent source obligations not fully classified; no blanket permissive npm inheritance"
+        },
+        {
+          "kind": "grant-review-required",
+          "detail": "Exact original constituent grant/notice and producer provenance still need binding; no source obligation is invented from this missing notice review."
+        },
+        {
+          "kind": "original-grant-notice-missing"
+        }
+      ]
+    },
+    {
+      "component": "numpy-source",
+      "licenseBasis": "BSD-3-Clause NumPy source build/internal C BLAS/LAPACK; NOT old GNU wheel",
+      "obligation": "original-notices",
+      "originalNoticePinsVerified": 4,
+      "passed": true,
+      "issues": []
+    },
+    {
+      "component": "office013",
+      "licenseBasis": "MPL-2.0 plus actual external LGPL/MPL/permissive constituents; source profile04+07",
+      "obligation": "covered-source-and-replacement",
+      "originalNoticePinsVerified": 10,
+      "passed": true,
+      "issues": []
+    },
+    {
+      "component": "pandas",
+      "licenseBasis": "BSD-3-Clause; Microsoft runtime carveout is reviewed separately",
+      "obligation": "original-notices",
+      "originalNoticePinsVerified": 1,
+      "passed": true,
+      "issues": []
+    },
+    {
+      "component": "pillow",
+      "licenseBasis": "HPND/BSD/MIT/FTL/0BSD bundled original grants; choose FTL, not GPL alternative; xz tools/build-system GPL text is not proof those tools ship",
+      "obligation": "original-notices",
+      "originalNoticePinsVerified": 1,
+      "passed": true,
+      "issues": []
+    },
+    {
+      "component": "pnpm-fastlist",
+      "licenseBasis": "MIT upstream fastlist/pnpm notices",
+      "obligation": "original-notices",
+      "originalNoticePinsVerified": 0,
+      "passed": false,
+      "issues": [
+        {
+          "kind": "native-obligation-review-required",
+          "detail": "Actual constituent source obligations not fully classified; no blanket permissive npm inheritance"
+        },
+        {
+          "kind": "grant-review-required",
+          "detail": "Exact original constituent grant/notice and producer provenance still need binding; no source obligation is invented from this missing notice review."
+        },
+        {
+          "kind": "original-grant-notice-missing"
+        }
+      ]
+    },
+    {
+      "component": "reflink",
+      "licenseBasis": "MIT original upstream grant",
+      "obligation": "original-notices",
+      "originalNoticePinsVerified": 0,
+      "passed": false,
+      "issues": [
+        {
+          "kind": "native-obligation-review-required",
+          "detail": "Actual constituent source obligations not fully classified; no blanket permissive npm inheritance"
+        },
+        {
+          "kind": "grant-review-required",
+          "detail": "Exact original constituent grant/notice and producer provenance still need binding; no source obligation is invented from this missing notice review."
+        },
+        {
+          "kind": "original-grant-notice-missing"
+        }
+      ]
+    },
+    {
+      "component": "require-builtin",
+      "licenseBasis": "MIT original archive grant",
+      "obligation": "original-notices",
+      "originalNoticePinsVerified": 1,
+      "passed": true,
+      "issues": []
+    },
+    {
+      "component": "ripgrep",
+      "licenseBasis": "MIT/Unlicense original upstream grant",
+      "obligation": "original-notices",
+      "originalNoticePinsVerified": 1,
+      "passed": true,
+      "issues": []
+    },
+    {
+      "component": "sharp-vips",
+      "licenseBasis": "Apache-2.0, LGPL-2.1-or-later/LGPL-3.0 and MPL covered constituents; source profile05+06",
+      "obligation": "covered-source-and-replacement",
+      "originalNoticePinsVerified": 1,
+      "passed": true,
+      "issues": []
+    },
+    {
+      "component": "sherpa-onnx",
+      "licenseBasis": "Apache-2.0 wrapper is not a grant for static eSpeak-ng GPL-3.0-or-later",
+      "obligation": "unapproved-copyleft",
+      "originalNoticePinsVerified": 0,
+      "passed": false,
+      "issues": [
+        {
+          "kind": "native-obligation-review-required",
+          "detail": "Actual constituent source obligations not fully classified; no blanket permissive npm inheritance"
+        },
+        {
+          "kind": "grant-review-required",
+          "detail": "Original constituent grant remains unverified"
+        },
+        {
+          "kind": "native-license-policy-hold",
+          "detail": "Native archive is byte-identical to actual shipped files. Official v1.13.8 Windows NPM recipe enables TTS and statically adds eSpeak-ng ed530aa (GPLv3); actual c-api DLL contains eSpeak implementation call strings and has no external eSpeak import. Apache npm metadata cannot clear it. Prefer source-built variant preserving all DSH SenseVoice+VAD usage; do not assume a GPL waiver."
+        },
+        {
+          "kind": "original-grant-notice-missing"
+        },
+        {
+          "kind": "matching-covered-source-materials-missing",
+          "group": "sherpa-espeak-gpl",
+          "detail": null
+        }
+      ]
+    },
+    {
+      "component": "windows-graphics",
+      "licenseBasis": "Windows SDK redistributable/DXC constituent terms, NOT npm MIT",
+      "obligation": "original-notices",
+      "originalNoticePinsVerified": 0,
+      "passed": false,
+      "issues": [
+        {
+          "kind": "native-obligation-review-required",
+          "detail": "Actual constituent source obligations not fully classified; no blanket permissive npm inheritance"
+        },
+        {
+          "kind": "grant-review-required",
+          "detail": "Retain exact applicable DXC/Windows SDK grants and satisfy object-code redistribution/end-user protective terms; permissive npm metadata or full source is not a substitute."
+        },
+        {
+          "kind": "original-grant-notice-missing"
+        }
+      ]
+    }
+  ],
+  "sourceResults": {
+    "electron-ffmpeg": {
+      "verified": true,
+      "proof": {
+        "group": "electron-ffmpeg",
+        "sourceArchivesVerified": 1,
+        "allSourceOnlyArchivesInspected": 7,
+        "archiveSHA256": "bc32e14fc9492e9f9b7f4cbbd981dac83bff8d4fece521f059ee0ce2acd6a309",
+        "installedInventoryMatch": {
+          "inventorySHA256": "938ff69e091cc30c6f7ad300d9c6f63a3d96c878ecc3a56429806fdc3aebbad3",
+          "appAsarSHA256": "b636be54b3e753578913e396225c724895c2a6f270e9b87300e61f2b5d7e8689",
+          "nativeRepresentationsMatched": 1
+        },
+        "scope": "Exact full source, original Windows build recipe/patches and replacement/relink instructions. Source inventory only; no new native compilation or global release approval.",
+        "releaseCleared": false
+      }
+    },
+    "lxml-iconv": {
+      "verified": true,
+      "proof": {
+        "group": "lxml-iconv",
+        "sourceArchivesVerified": 6,
+        "allSourceOnlyArchivesInspected": 7,
+        "archiveSHA256": "bc32e14fc9492e9f9b7f4cbbd981dac83bff8d4fece521f059ee0ce2acd6a309",
+        "installedInventoryMatch": {
+          "inventorySHA256": "938ff69e091cc30c6f7ad300d9c6f63a3d96c878ecc3a56429806fdc3aebbad3",
+          "appAsarSHA256": "b636be54b3e753578913e396225c724895c2a6f270e9b87300e61f2b5d7e8689",
+          "nativeRepresentationsMatched": 7
+        },
+        "scope": "Exact full source, original Windows build recipe/patches and replacement/relink instructions. Source inventory only; no new native compilation or global release approval.",
+        "releaseCleared": false
+      }
+    },
+    "office013": {
+      "verified": true,
+      "proof": {
+        "schema": 1,
+        "core": "bce0998afefdbc355585ca324285661a2170ba77",
+        "preferredNativeSourceFilesVerified": 85,
+        "exactExternalArchivesVerified": 98,
+        "disabledExternalEntriesAccounted": 51,
+        "baseArchiveSHA256": "8060ac4243b995d41bcd8f26c334d812fa138dbfac70dbf8bd5a8f75e1558dcf",
+        "externalArchiveSHA256": "00011bf0f5ca880ff5aa54d17785ad3bc3921d857ad3690ad643dcc943ed3715",
+        "installedInventoryMatch": {
+          "nativeRepresentationsMatched": 2,
+          "inventorySHA256": "938ff69e091cc30c6f7ad300d9c6f63a3d96c878ecc3a56429806fdc3aebbad3",
+          "appAsarSHA256": "b636be54b3e753578913e396225c724895c2a6f270e9b87300e61f2b5d7e8689",
+          "scope": "Supplied baseline inventory only; not a new exact-head Windows execution"
+        },
+        "scope": "All source bytes and native build/configuration identities rechecked; conservative source superset. Original patches/notices retained. Does NOT assert all optional components ship, a modified native rebuild, complete product commercial clearance or new Windows GUI.",
+        "releaseCleared": false
+      }
+    },
+    "sharp-vips": {
+      "verified": true,
+      "proof": {
+        "schema": 1,
+        "sourceConstituentsVerified": 28,
+        "originalRecipePinsVerified": 28,
+        "patchedRustCratesVerified": 353,
+        "sourceArchiveSHA256": "c3d3d1b3e0442dabe746cf71be0de2cf1be217abc996e9b620f1cda837848636",
+        "rustArchiveSHA256": "bfb67db97ebefdd3f2f1e05274451001ecfe966694c89f6a50e6ebb0abbd5f33",
+        "installedInventoryMatch": {
+          "inventorySHA256": "938ff69e091cc30c6f7ad300d9c6f63a3d96c878ecc3a56429806fdc3aebbad3",
+          "appAsarSHA256": "b636be54b3e753578913e396225c724895c2a6f270e9b87300e61f2b5d7e8689",
+          "scope": "Only the supplied installed inventory; not a new Windows qualification"
+        },
+        "scope": "Rehashed original sources, recipes, patches, Rust closure and native version/notice identity. No source compilation, modified DLL test, Office/global material clearance or new GUI result.",
+        "releaseCleared": false
+      }
+    }
+  },
+  "holds": [
+    {
+      "component": "conpty",
+      "kind": "native-obligation-review-required",
+      "detail": "Actual constituent source obligations not fully classified; no blanket permissive npm inheritance"
+    },
+    {
+      "component": "conpty",
+      "kind": "grant-review-required",
+      "detail": "Exact original constituent grant/notice and producer provenance still need binding; no source obligation is invented from this missing notice review."
+    },
+    {
+      "component": "conpty",
+      "kind": "original-grant-notice-missing"
+    },
+    {
+      "component": "cpython",
+      "kind": "grant-review-required",
+      "detail": "Original Windows linked-component grants now staged, but actual Microsoft CRT redistributable grant/conditions still need separate review; do not attribute those DLLs to PSF."
+    },
+    {
+      "component": "cpython",
+      "kind": "original-notice-not-shipped-or-changed",
+      "sha256": "bd5628cc76fb0ebf9c657d1dd4d1a240a1a7b216c31663e7bbf1131c0b70a910",
+      "path": "resources/licenses/ymzz/native-third-party/cpython-3.12.14-Windows-LICENSE.bzip2.txt.original.txt"
+    },
+    {
+      "component": "cpython",
+      "kind": "original-notice-not-shipped-or-changed",
+      "sha256": "8fe98bf9822926d854f56ffd8d97877d8b942617aa44eb7ea77fd99e22f2537e",
+      "path": "resources/licenses/ymzz/native-third-party/cpython-3.12.14-Windows-LICENSE.cpython.txt.original.txt"
+    },
+    {
+      "component": "cpython",
+      "kind": "original-notice-not-shipped-or-changed",
+      "sha256": "8a9cfe4b5924f4b25881aa0c9f5e4561c5f31065d0c4a13cdcdbcf917edf39aa",
+      "path": "resources/licenses/ymzz/native-third-party/cpython-3.12.14-Windows-LICENSE.expat.txt.original.txt"
+    },
+    {
+      "component": "cpython",
+      "kind": "original-notice-not-shipped-or-changed",
+      "sha256": "9afb8970cd29fc1031fa647278e4bef613399e2e3468a1e3a397f4d158c6101c",
+      "path": "resources/licenses/ymzz/native-third-party/cpython-3.12.14-Windows-LICENSE.libffi.txt.original.txt"
+    },
+    {
+      "component": "cpython",
+      "kind": "original-notice-not-shipped-or-changed",
+      "sha256": "d87d218dd908b3243ec4cbc72af400e5b7437513ea9d9229291d0812b8464fec",
+      "path": "resources/licenses/ymzz/native-third-party/cpython-3.12.14-Windows-LICENSE.liblzma.txt.original.txt"
+    },
+    {
+      "component": "cpython",
+      "kind": "original-notice-not-shipped-or-changed",
+      "sha256": "cbccaa3efe07a9a602751375085be572d4410a250b996716fbe8c5255c7ec6f2",
+      "path": "resources/licenses/ymzz/native-third-party/cpython-3.12.14-Windows-LICENSE.libuuid.txt.original.txt"
+    },
+    {
+      "component": "cpython",
+      "kind": "original-notice-not-shipped-or-changed",
+      "sha256": "f094277cd46e1f6e4d87916cc4b51e22f613d45eb81f48231c3cb7caf8fc8a6a",
+      "path": "resources/licenses/ymzz/native-third-party/cpython-3.12.14-Windows-LICENSE.mpdecimal.txt.original.txt"
+    },
+    {
+      "component": "cpython",
+      "kind": "original-notice-not-shipped-or-changed",
+      "sha256": "ed72ce2b51ee58f117e5a021e2e04af158857f40269fbc03491f0b2a99dbcc96",
+      "path": "resources/licenses/ymzz/native-third-party/cpython-3.12.14-Windows-LICENSE.openssl-3.txt.original.txt"
+    },
+    {
+      "component": "cpython",
+      "kind": "original-notice-not-shipped-or-changed",
+      "sha256": "d8eb9aba7ef6b5ed06cb3ec19a7242316af2e5933c638eb67fb781c13884e01d",
+      "path": "resources/licenses/ymzz/native-third-party/cpython-3.12.14-Windows-LICENSE.sqlite.txt.original.txt"
+    },
+    {
+      "component": "cpython",
+      "kind": "original-notice-not-shipped-or-changed",
+      "sha256": "41613eabfc08921a7da9c4bfd7f3ce5d5406f55214b253d89f392ed86eebeb8f",
+      "path": "resources/licenses/ymzz/native-third-party/cpython-3.12.14-Windows-LICENSE.tcl.txt.original.txt"
+    },
+    {
+      "component": "cpython",
+      "kind": "original-notice-not-shipped-or-changed",
+      "sha256": "8cdff3addb9e9eb108c78e2cf5e05f26b216c098304945733bbec382b2eaef66",
+      "path": "resources/licenses/ymzz/native-third-party/cpython-3.12.14-Windows-LICENSE.tix.txt.original.txt"
+    },
+    {
+      "component": "cpython",
+      "kind": "original-notice-not-shipped-or-changed",
+      "sha256": "365e36720db366054863235aea5d6f440142ab968834bfaf81fa9d187c99b9b8",
+      "path": "resources/licenses/ymzz/native-third-party/cpython-3.12.14-Windows-LICENSE.zlib.txt.original.txt"
+    },
+    {
+      "component": "electron-chromium",
+      "kind": "native-obligation-review-required",
+      "detail": "Actual constituent source obligations not fully classified; no blanket permissive npm inheritance"
+    },
+    {
+      "component": "electron-chromium",
+      "kind": "grant-review-required",
+      "detail": "Exact original constituent grant/notice and producer provenance still need binding; no source obligation is invented from this missing notice review."
+    },
+    {
+      "component": "nsis-builder",
+      "kind": "native-obligation-review-required",
+      "detail": "Actual constituent source obligations not fully classified; no blanket permissive npm inheritance"
+    },
+    {
+      "component": "nsis-builder",
+      "kind": "grant-review-required",
+      "detail": "Exact original constituent grant/notice and producer provenance still need binding; no source obligation is invented from this missing notice review."
+    },
+    {
+      "component": "nsis-builder",
+      "kind": "original-grant-notice-missing"
+    },
+    {
+      "component": "pnpm-fastlist",
+      "kind": "native-obligation-review-required",
+      "detail": "Actual constituent source obligations not fully classified; no blanket permissive npm inheritance"
+    },
+    {
+      "component": "pnpm-fastlist",
+      "kind": "grant-review-required",
+      "detail": "Exact original constituent grant/notice and producer provenance still need binding; no source obligation is invented from this missing notice review."
+    },
+    {
+      "component": "pnpm-fastlist",
+      "kind": "original-grant-notice-missing"
+    },
+    {
+      "component": "reflink",
+      "kind": "native-obligation-review-required",
+      "detail": "Actual constituent source obligations not fully classified; no blanket permissive npm inheritance"
+    },
+    {
+      "component": "reflink",
+      "kind": "grant-review-required",
+      "detail": "Exact original constituent grant/notice and producer provenance still need binding; no source obligation is invented from this missing notice review."
+    },
+    {
+      "component": "reflink",
+      "kind": "original-grant-notice-missing"
+    },
+    {
+      "component": "sherpa-onnx",
+      "kind": "native-obligation-review-required",
+      "detail": "Actual constituent source obligations not fully classified; no blanket permissive npm inheritance"
+    },
+    {
+      "component": "sherpa-onnx",
+      "kind": "grant-review-required",
+      "detail": "Original constituent grant remains unverified"
+    },
+    {
+      "component": "sherpa-onnx",
+      "kind": "native-license-policy-hold",
+      "detail": "Native archive is byte-identical to actual shipped files. Official v1.13.8 Windows NPM recipe enables TTS and statically adds eSpeak-ng ed530aa (GPLv3); actual c-api DLL contains eSpeak implementation call strings and has no external eSpeak import. Apache npm metadata cannot clear it. Prefer source-built variant preserving all DSH SenseVoice+VAD usage; do not assume a GPL waiver."
+    },
+    {
+      "component": "sherpa-onnx",
+      "kind": "original-grant-notice-missing"
+    },
+    {
+      "component": "sherpa-onnx",
+      "kind": "matching-covered-source-materials-missing",
+      "group": "sherpa-espeak-gpl",
+      "detail": null
+    },
+    {
+      "component": "windows-graphics",
+      "kind": "native-obligation-review-required",
+      "detail": "Actual constituent source obligations not fully classified; no blanket permissive npm inheritance"
+    },
+    {
+      "component": "windows-graphics",
+      "kind": "grant-review-required",
+      "detail": "Retain exact applicable DXC/Windows SDK grants and satisfy object-code redistribution/end-user protective terms; permissive npm metadata or full source is not a substitute."
+    },
+    {
+      "component": "windows-graphics",
+      "kind": "original-grant-notice-missing"
+    }
+  ],
+  "nativeGatePassed": false,
+  "releaseCleared": false,
+  "inventorySHA256": "938ff69e091cc30c6f7ad300d9c6f63a3d96c878ecc3a56429806fdc3aebbad3",
+  "matrixSHA256": "96532eea7f398d5ca96d02840a3176cafe914883549f65535b241427d55bb095",
+  "appAsarSHA256": "b636be54b3e753578913e396225c724895c2a6f270e9b87300e61f2b5d7e8689",
+  "actualRootsVerified": false
+}

@@ -49,6 +49,7 @@ jobs:
           python ymzz/packaging/tests/test_source_materials.py
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           python ymzz/packaging/tests/test_native_inventory.py
+          python ymzz/packaging/tests/test_native_rights.py
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           python ymzz/packaging/tests/test_numpy_overlay.py
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }

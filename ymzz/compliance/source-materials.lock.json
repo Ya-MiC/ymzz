@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "distributionCleared": false,
-  "review": "Downloaded actual archives; SHA256 verified. Full preferred-source and native-payload qualification are NOT claimed.",
+  "review": "Preserved historical original research sources including old Office023 archives; NOT the final release asset manifest. Current selected Office013/Sharp full-source proofs use04\u201307; minimal FFmpeg/static-lxml delivery uses08. Native rights matrix still holds distribution.",
   "upstreamElectron": "44.7.0",
   "chromium": "152.0.7977.130",
   "ffmpeg": "2b68d2babae73714846961fb0ee47e3b3d2e39a9",
@@ -135,8 +135,8 @@
     }
   ],
   "pending": [
-    "MPL API0.2.3 complete preferred-source availability: published package has no TypeScript implementation/source maps; public upstream is0.1.3. Native engine modified sources/patches ARE supplied and preserved, not mistaken for missing all Office source.",
-    "Actual entire installed payload audit/GUI qualification.",
-    "Owner decision required for newly identified bundled NumPy GCC runtime GPL-3.0-or-later WITH GCC-exception-3.1; not covered by LGPL/MPL approval. Exception permits non-GPL applications; this is not a claim that ymzz becomes GPL."
+    "Complete actual native original-grant/redistribution-condition coverage from native-obligations.lock.json, including Windows CRT/graphics and NSIS constituents",
+    "Resolve actual Sherpa/eSpeak static native GPL dependency without assuming a waiver; independent ASR-source profile preserves all current DSH SenseVoice/VAD consumers but is not production selected",
+    "Final exact-head installed Windows qualification and CI material delivery after native rights/source matrix clears. Prior installed GUI success remains historical, not new Univer/source-variant GUI acceptance."
   ]
 }
