@@ -1,0 +1,3 @@
+# Verbatim third-party originals: formatting changes would break the pinned source hashes.
+# All bytes are checked by source staging; application code retains normal whitespace checks.
+*.original.txt -text -whitespace

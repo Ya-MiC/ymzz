@@ -15,7 +15,7 @@ def identity(row):return(row['root'],row['path'],row['sha256'],row['bytes'])
 def source_verified(group,sources,inventory):
  r=sources.get(group,{})
  return r.get('verified')is True and r.get('proof',{}).get('installedInventoryMatch',{}).get('appAsarSHA256')==inventory.get('appAsarSHA256') and bool(inventory.get('appAsarSHA256'))
-def evaluate(inventory,matrix,sources,actual_roots_verified=False):
+def evaluate(inventory,matrix,sources,actual_roots_verified=False,producer_proofs=None):
  if matrix.get('schema')!=1:raise ValueError('NATIVE_MATRIX_SCHEMA')
  components={r['id']:r for r in matrix['components']}
  if len(components)!=len(matrix['components']):raise ValueError('DUPLICATE_NATIVE_COMPONENT')
@@ -29,11 +29,15 @@ def evaluate(inventory,matrix,sources,actual_roots_verified=False):
    if k in expected:raise ValueError('DUPLICATE_NATIVE_LOCATION')
    expected[k]=r
  notices={(r['sha256'],r['bytes'])for r in inventory.get('originalNoticeFiles',[])if NATIVE.is_notice_path(r['path'])}
- holds=[];used=set();seen=set();matched=0
+ holds=[];used=set();seen=set();matched=0;variations=[]
  for r in inventory['nativeFiles']:
   k=(r['root'],r['path'])
   if k in seen:raise ValueError('DUPLICATE_ACTUAL_NATIVE_LOCATION')
   seen.add(k);pin=expected.get(k)
+  if pin and(pin['sha256'],pin['bytes'])!=(r['sha256'],r['bytes']):
+   proof=(producer_proofs or{}).get(k,{});profile=matrix.get('producerIdentities',{}).get(pin['component'],{})
+   if actual_roots_verified and pin['component']=='electron-chromium'and profile.get('kind')=='electron-resource-rebrand-v1'and profile.get('location')=={'root':r['root'],'path':r['path']}and proof.get('codeIdentityVerified')is True and proof.get('referenceSHA256')==profile.get('referenceExeSHA256')and proof.get('actualExecutableSHA256')==r['sha256']and proof.get('currentAppAsarSHA256')==inventory.get('appAsarSHA256'):
+    used.add(pin['component']);matched+=1;variations.append(proof);continue
   if not pin or(pin['sha256'],pin['bytes'])!=(r['sha256'],r['bytes']):
    holds.append({'kind':'unknown-or-changed-native','root':r['root'],'path':r['path'],'sha256':r['sha256']});continue
   used.add(pin['component']);matched+=1
@@ -60,7 +64,7 @@ def evaluate(inventory,matrix,sources,actual_roots_verified=False):
  coverage=bool(seen)and matched==len(seen)and set(expected)==seen
  rights=bool(used)and coverage and not any(i['kind']!='matching-covered-source-materials-missing'for i in holds)
  inspected=actual_roots_verified and bool(seen)
- return {'schema':1,'scope':'All current native hash/path identities, original grant notices, and selective corresponding-source obligations. No source duty is inferred from a permissive DLL.','nativeRepresentations':len(seen),'nativeRepresentationsMatched':matched,'nativeCoverageComplete':coverage,'packagedNativePayloadInspected':inspected,'nativeRightsVerified':rights,'requiredSourceGroups':sorted(required),'correspondingSourceMaterialsVerified':source_pass,'components':outcomes,'sourceResults':sources,'holds':holds,'nativeGatePassed':inspected and rights and source_pass,'releaseCleared':False}
+ return {'schema':1,'scope':'All current native hash/path identities, original grant notices, and selective corresponding-source obligations. No source duty is inferred from a permissive DLL.','nativeRepresentations':len(seen),'nativeRepresentationsMatched':matched,'nativeCoverageComplete':coverage,'verifiedNativeProducerVariations':variations,'packagedNativePayloadInspected':inspected,'nativeRightsVerified':rights,'requiredSourceGroups':sorted(required),'correspondingSourceMaterialsVerified':source_pass,'components':outcomes,'sourceResults':sources,'holds':holds,'nativeGatePassed':inspected and rights and source_pass,'releaseCleared':False}
 def verify_sources(materials,inventory):
  result={}
  if not materials:return result
@@ -78,7 +82,7 @@ def verify_sources(materials,inventory):
   except (OSError,ValueError,KeyError,AssertionError)as e:result[group]={'verified':False,'error':type(e).__name__+': '+str(e)}
  return result
 def main():
- p=argparse.ArgumentParser(description=__doc__);p.add_argument('--inventory',type=Path,required=True);p.add_argument('--matrix',type=Path,default=REPO/'ymzz/compliance/native-obligations.lock.json');p.add_argument('--installed',type=Path);p.add_argument('--asar-copy',type=Path);p.add_argument('--source-materials',type=Path);p.add_argument('--output',type=Path);a=p.parse_args()
+ p=argparse.ArgumentParser(description=__doc__);p.add_argument('--inventory',type=Path,required=True);p.add_argument('--matrix',type=Path,default=REPO/'ymzz/compliance/native-obligations.lock.json');p.add_argument('--installed',type=Path);p.add_argument('--asar-copy',type=Path);p.add_argument('--source-materials',type=Path);p.add_argument('--electron-reference',type=Path,default=REPO/'apps/desktop/.desktop-build/targets/win-x64/electron/electron.exe');p.add_argument('--output',type=Path);a=p.parse_args()
  inventory=json.loads(a.inventory.read_text(encoding='utf-8'));bound=False
  if bool(a.installed)!=bool(a.asar_copy):raise ValueError('BOTH_ACTUAL_ROOTS_REQUIRED')
  if a.installed:
@@ -87,7 +91,14 @@ def main():
   if digest(a.installed/'resources/app.asar')!=inventory['appAsarSHA256']:raise ValueError('CURRENT_ASAR_BINDING_MISMATCH')
   inventory['originalNoticeFiles']=fresh['originalNoticeFiles'];bound=True
  source_results=verify_sources(a.source_materials,a.inventory)
- report=evaluate(inventory,json.loads(a.matrix.read_text(encoding='utf-8')),source_results,bound)
+ matrix=json.loads(a.matrix.read_text(encoding='utf-8'));producer_proofs={};producer_issues=[]
+ if bound and a.electron_reference.is_file():
+  profile=matrix.get('producerIdentities',{}).get('electron-chromium',{});where=profile.get('location',{})
+  if where=={'root':'actual-installed','path':'湛箴_ymzz.exe'}:
+   try:
+    pe=load_module('ymzz_generated_pe',Path(__file__).with_name('verify_generated_pe.py'));proof=pe.compare(a.electron_reference.read_bytes(),(a.installed/where['path']).read_bytes(),profile['referenceExeSHA256'],pe.asar_header_digest(a.installed/'resources/app.asar'));proof['currentAppAsarSHA256']=inventory['appAsarSHA256'];producer_proofs[(where['root'],where['path'])]=proof
+   except (OSError,ValueError,KeyError)as e:producer_issues.append({'component':'electron-chromium','kind':'generated-pe-code-identity-not-verified','detail':str(e)})
+ report=evaluate(inventory,matrix,source_results,bound,producer_proofs);report['producerIdentityDiagnostics']=producer_issues
  report.update({'inventorySHA256':digest(a.inventory),'matrixSHA256':digest(a.matrix),'appAsarSHA256':inventory.get('appAsarSHA256'),'actualRootsVerified':bound})
  text=json.dumps(report,ensure_ascii=False,indent=2)+'\n'
  if a.output:a.output.parent.mkdir(parents=True,exist_ok=True);a.output.write_text(text,encoding='utf-8')

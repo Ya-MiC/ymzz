@@ -1,0 +1,9 @@
+{
+  "scope": "Exact0.1.3 full native modification patch applies to actual retained pinned LibreOffice base source; third-party source completeness and actual native rebuild still separate",
+  "patchSHA256": "0d3a81482804e0cda02c6aec42b248d9e5112a2f45fb3d83ef046b4677975a4b",
+  "checkedOriginalFiles": 123,
+  "gitApplyCheckExit": 0,
+  "diagnostic": "warning: external/gpgmepp/Wincompatible-function-pointer-types.patch has type 100644, expected 100755\n",
+  "passed": true,
+  "releaseCleared": false
+}

@@ -1,0 +1,38 @@
+{
+  "schema": 1,
+  "scope": "Precise primary producer/native facts, NOT blanket native rights clearance",
+  "findings": [
+    {
+      "component": "pnpm-fastlist",
+      "producerVersion": "MarkTiedemann/fastlist v0.3.0",
+      "nativeFile": "fastlist-0.3.0-x64.exe",
+      "sha256": "d1a71f9ac1728082c1b276392725c3e010b98714888579b99152e401abedbf11",
+      "sourceGrant": "Actual v0.3.0 source README explicitly licenses MIT; no original full MIT copyright notice exists in tag. Do not invent author notice. Native source includes ATL/iostream and release notes static runtime inclusion; Microsoft CRT constituent redistribution conditions remain separate.",
+      "binaryMatched": true
+    },
+    {
+      "component": "pnpm-fastlist",
+      "producerVersion": "MarkTiedemann/fastlist v0.3.0",
+      "nativeFile": "fastlist-0.3.0-x86.exe",
+      "sha256": "017411f3b0b5c0402cc3b2cb87c32c6fc71abd82e5b17ea6108990096c75a65d",
+      "sourceGrant": "Actual v0.3.0 source README explicitly licenses MIT; no original full MIT copyright notice exists in tag. Do not invent author notice. Native source includes ATL/iostream and release notes static runtime inclusion; Microsoft CRT constituent redistribution conditions remain separate.",
+      "binaryMatched": true
+    },
+    {
+      "component": "reflink",
+      "producerGitHead": "2223f06f51cca2635846937281892673415f332b",
+      "sourceArchiveSHA256": "d7b78e667c188837a8250224389c9b29d19c2348a8cca1d10aac8efe03a8c2fa",
+      "sourceGrant": "Parent and platform package manifests in actual source commit designate MIT; no LICENSE file or README license section exists. Cargo.toml has real static dependencies; exact transitive original notices still need covering, not invented full source requirement."
+    },
+    {
+      "component": "nsis-builder",
+      "producerCompiler": "nsis-3.0.4.1.7z",
+      "archiveSHA256": "9877df902530f96357d13a7a31ae2b9df67f48b11ffc9a1700a7c961574ec5fa",
+      "elevateSHA256Matched": "9b1fbf0c11c520ae714af8aa9af12cfd48503eedecd7398d8992ee94d1b4dc37",
+      "actualCompilerWrapperSHA256": "fa6d32306dc6eb12d656c4c821aad691f0efa47508df100ef046364d409c521f",
+      "actualOutputCompressor": "zlib (or compression off when store), not LZMA",
+      "licenseInterpretation": "Original NSIS COPYING explicitly licenses source/plugins zlib except named modules. CPL in COPYING is ONLY LZMA compression module; actual builder picks zlib, so do not invent CPL output hold. Additional resources/StdUtils and embedded 7za need their own actual grant/source coverage. Installer contains transient native files absent from installed-only baseline; final verifier must also inspect those."
+    }
+  ],
+  "releaseCleared": false
+}

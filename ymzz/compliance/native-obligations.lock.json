@@ -9,14 +9,28 @@
   "components": [
     {
       "id": "conpty",
-      "licenseBasis": "Microsoft Terminal/ConPTY grant needs exact native provenance and original text",
+      "licenseBasis": "MIT: exact Microsoft ConPTY native NuGet 1.25.260303002-preview; original publisher copyright/grant retained",
       "obligation": "original-notices",
-      "originalNoticePins": [],
+      "originalNoticePins": [
+        {
+          "sha256": "31d61e585b6a8b7ca3c50145b8a244b588225f812c63c63b03fd9fceb83bfe52",
+          "bytes": 744,
+          "examplePath": "resources/licenses/ymzz/native-third-party/conpty-1.25.260303002-preview.nuspec.original.txt"
+        },
+        {
+          "sha256": "5d177f23ecfeb0ea8e050b6a5a16355e1ae9a0b286436ca8f83ed08b3795be6b",
+          "bytes": 1116,
+          "examplePath": "resources/licenses/ymzz/native-third-party/conpty-Microsoft-Terminal-LICENSE.original.txt"
+        }
+      ],
       "sourceGroup": null,
-      "grantReviewed": false,
-      "evidence": [],
-      "reviewHold": "Exact original constituent grant/notice and producer provenance still need binding; no source obligation is invented from this missing notice review.",
-      "sourceObligationsReviewed": false
+      "grantReviewed": true,
+      "evidence": [
+        "ymzz/compliance/research/conpty-exact-native-producer.json",
+        "https://api.nuget.org/v3-flatcontainer/microsoft.windows.console.conpty/1.25.260303002-preview/microsoft.windows.console.conpty.1.25.260303002-preview.nupkg",
+        "https://raw.githubusercontent.com/microsoft/terminal/main/LICENSE"
+      ],
+      "sourceObligationsReviewed": true
     },
     {
       "id": "cpython",
@@ -2375,5 +2389,19 @@
         }
       ]
     }
-  ]
+  ],
+  "producerIdentities": {
+    "electron-chromium": {
+      "kind": "electron-resource-rebrand-v1",
+      "version": "44.7.0",
+      "referenceExeSHA256": "2529b494f4123f152bce346051f7bd855ef95006424a561953cf17c49a3d1ba8",
+      "referenceArchiveSHA256": "eee30dc8fa1f5ea95490e59f44e46ea68dd24c6e93d22facf70fe5c2d4c2665c",
+      "referenceURL": "https://github.com/electron/electron/releases/download/v44.7.0/electron-v44.7.0-win32-x64.zip",
+      "location": {
+        "root": "actual-installed",
+        "path": "湛箴_ymzz.exe"
+      },
+      "scope": "Fresh code/loader/resource/actual ASAR binding, never a license-policy waiver"
+    }
+  }
 }

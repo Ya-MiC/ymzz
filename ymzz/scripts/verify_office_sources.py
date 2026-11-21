@@ -3,7 +3,7 @@ Collection and matching-source proof are not new native execution or global rele
 """
 import argparse,hashlib,io,json,re,tarfile,zipfile
 from pathlib import Path
-from verify_sharp_sources import REPO,digest,file_digest,require,verify_zip
+from verify_sharp_sources import REPO,digest,file_digest,require,verify_zip,verify_reconstructed_asset
 CORE='bce0998afefdbc355585ca324285661a2170ba77'
 def parse_downloads(text):
     values=dict(re.findall(r'^(\w+)\s*:?=\s*(.*?)\s*$',text,re.M));out={}
@@ -23,9 +23,8 @@ def tar_source(t,relative):
     matches=[m for m in t.getmembers()if m.name.endswith('/'+relative)];require(len(matches)==1 and matches[0].isfile(),'PREFERRED_SOURCE_MISSING_OR_AMBIGUOUS '+relative);return t.extractfile(matches[0]).read()
 def verify(base,external,inventory=None):
     p=json.loads((REPO/'ymzz/compliance/office013-all-external-sources.lock.json').read_text(encoding='utf-8'));bp=json.loads((REPO/'ymzz/compliance/materials-addendum-04.json').read_text(encoding='utf-8'))
-    require(base.stat().st_size==bp['archive']['bytes']and file_digest(base)==bp['archive']['sha256'],'OFFICE_BASE_ARCHIVE_PIN_MISMATCH')
     with zipfile.ZipFile(base)as z,zipfile.ZipFile(external)as ez:
-        verify_zip(z,bp['entries']);verify_zip(ez,[{'path':'sources/'+r['file'],'sha256':r['sha256'],'bytes':r['bytes']}for r in p['sources']])
+        verify_reconstructed_asset(z,bp['archive']['filename']);verify_reconstructed_asset(ez,external.name);verify_zip(ez,[{'path':'sources/'+r['file'],'sha256':r['sha256'],'bytes':r['bytes']}for r in p['sources']])
         require(ez.read('compliance/office013-all-external-sources.lock.json')==(REPO/'ymzz/compliance/office013-all-external-sources.lock.json').read_bytes(),'OFFICE_SOURCE_PROFILE_CHANGED')
         # Core archive's real preferred-source list, not a generated list claiming success.
         core_name='source/libreoffice-core-'+CORE+'.tar.gz';download=None

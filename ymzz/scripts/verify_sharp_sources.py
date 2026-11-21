@@ -28,6 +28,13 @@ def verify_zip(z,rows):
         safe_name(r['path']);i=z.getinfo(r['path']);require(i.file_size==r['bytes'],'MATERIAL_SIZE_MISMATCH '+r['path'])
         with z.open(i)as f:h=hashlib.file_digest(f,'sha256').hexdigest()
         require(h==r['sha256'],'MATERIAL_SHA256_MISMATCH '+r['path'])
+def verify_exact_entries(z,rows):
+    require(set(z.namelist())=={r['path']for r in rows},'EXTRA_OR_MISSING_SOURCE_ONLY_MEMBER')
+    verify_zip(z,rows)
+def verify_reconstructed_asset(z,filename):
+    profile=json.loads((REPO/'ymzz/compliance/source-staging.lock.json').read_text(encoding='utf-8'))
+    rows=[a for a in profile['assets']if a['file']==filename];require(len(rows)==1,'UNKNOWN_SOURCE_ASSET')
+    verify_exact_entries(z,rows[0]['entries'])
 def recipe_member(z,archive,suffix):
     with tarfile.open(fileobj=io.BytesIO(z.read('preferred-sources/'+archive)),mode='r:*')as t:
         matches=[m for m in t.getmembers()if m.name.endswith('/'+suffix)]
@@ -39,10 +46,9 @@ def fields(text,pkg):
 def verify(profile,native,constituents,rust,inventory=None):
     validate_components(profile,native)
     rust_profile=json.loads((REPO/'ymzz/compliance/materials-addendum-05.json').read_text(encoding='utf-8'))
-    require(rust.stat().st_size==rust_profile['archive']['bytes']and file_digest(rust)==rust_profile['archive']['sha256'],'RUST_ARCHIVE_PIN_MISMATCH')
     rows=[{'path':'sources/'+r['file'],'bytes':r['bytes'],'sha256':r['sha256']}for r in profile['components']]
     with zipfile.ZipFile(constituents)as z,zipfile.ZipFile(rust)as rz:
-        verify_zip(z,rows);verify_zip(rz,rust_profile['entries'])
+        verify_zip(z,rows);verify_reconstructed_asset(rz,rust_profile['archive']['filename']);verify_reconstructed_asset(z,constituents.name)
         require(z.read('compliance/sharp-win32-sources.lock.json')==(REPO/'ymzz/compliance/sharp-win32-sources.lock.json').read_bytes(),'SOURCE_PROFILE_CHANGED')
         for r in profile['recipeArchives']:
             data=rz.read('preferred-sources/'+r['file']);require(len(data)==r['bytes']and digest(data)==r['sha256'],'RECIPE_ARCHIVE_CHANGED')

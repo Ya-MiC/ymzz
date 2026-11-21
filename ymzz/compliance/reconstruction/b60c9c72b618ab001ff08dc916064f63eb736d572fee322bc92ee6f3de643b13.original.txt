@@ -1,0 +1,15 @@
+--- a/packages/entry/src/index.ts
++++ b/packages/entry/src/index.ts
+@@ -34,0 +35,2 @@
++  /** ymzz MPL modification: caller-anchored manifest resolver for physical unpacked native engines. */
++  resolveEnginePackage?: (name: string) => string
+@@ -238 +240,5 @@
+-  const resolvedOptions = resolveOptions(options)
++  // ymzz MPL modification: preserve original validation and all conversion APIs.
++  if (options !== undefined && (options === null || typeof options !== 'object' || Array.isArray(options))) throw new TypeError('Converter options must be an object.')
++  const { resolveEnginePackage, ...limits } = options ?? {}
++  if (resolveEnginePackage !== undefined && typeof resolveEnginePackage !== 'function') throw new TypeError('resolveEnginePackage must be a function.')
++  const resolvedOptions = resolveOptions(limits)
+@@ -240 +246 @@
+-  try { engine = await resolveEngine() } catch (cause) { throw new ConversionError('unavailable', (cause as Error).message, { cause }) }
++  try { engine = await resolveEngine(resolveEnginePackage) } catch (cause) { throw new ConversionError('unavailable', (cause as Error).message, { cause }) }

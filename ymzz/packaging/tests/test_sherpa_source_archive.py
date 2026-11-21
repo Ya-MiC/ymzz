@@ -10,6 +10,19 @@ class SourceExtract(unittest.TestCase):
    n=tarfile.TarInfo('source/CMakeLists.txt');data=b'# inert source';n.size=len(data);t.addfile(n,io.BytesIO(data))
    n=tarfile.TarInfo('source/'+path);n.type=tarfile.SYMTYPE;n.linkname=target;t.addfile(n)
   return p
+ def test_real_pcm_fixture_preserved_without_shadowing_wave_module(self):
+  import wave,struct
+  with tempfile.TemporaryDirectory()as d:
+   source=Path(d)/'原音訊.wav';dest=Path(d)/'normalized.wav';pcm=struct.pack('<hhh',-32000,0,32000)
+   with wave.open(str(source),'wb')as writer:writer.setparams((1,2,16000,0,'NONE','not compressed'));writer.writeframes(pcm)
+   self.assertEqual(m.normalize_audio_fixture(source,dest),pcm)
+   with wave.open(str(dest),'rb')as reader:self.assertEqual(reader.readframes(3),pcm);self.assertEqual(reader.getnframes(),3)
+ def test_stereo_fixture_not_silently_downmixed(self):
+  import wave
+  with tempfile.TemporaryDirectory()as d:
+   source=Path(d)/'stereo.wav'
+   with wave.open(str(source),'wb')as writer:writer.setparams((2,2,16000,0,'NONE','not compressed'));writer.writeframes(b'\0'*8)
+   with self.assertRaisesRegex(ValueError,'AUDIO_FIXTURE_FORMAT'):m.normalize_audio_fixture(source,Path(d)/'out.wav')
  def test_cmake_chinese_space_path_is_read_as_utf8_not_windows_ansi(self):
   with tempfile.TemporaryDirectory()as d:
    p=Path(d)/'CMakeCache.txt';text='CMAKE_HOME_DIRECTORY:INTERNAL=D:/源碼 space/build';p.write_text(text,encoding='utf-8');self.assertEqual(m.read_utf8(p),text)

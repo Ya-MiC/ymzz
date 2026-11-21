@@ -99,6 +99,13 @@ jobs:
         if: ${{ !cancelled() && steps.artifacts.conclusion == 'success' }}
         shell: pwsh
         run: node ymzz/scripts/stage-notices.mjs
+      - name: Stage exact corresponding source-only assets from pinned original bytes
+        id: source-materials
+        if: ${{ !cancelled() && steps.artifacts.conclusion == 'success' && steps.preflight.conclusion == 'success' }}
+        shell: pwsh
+        run: |
+          python ymzz/scripts/stage_source_materials.py --cache "$env:RUNNER_TEMP/ymzz-source-cas" --output "$env:RUNNER_TEMP/ymzz 對應源碼 materials" --download-missing --report ymzz/docs/evidence/windows/source-materials-staging.json
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
       - name: Restore exact already-qualified GNU-free NumPy wheel (never rebuild or download arbitrary code)
         id: numpy-cache
         if: ${{ !cancelled() && steps.artifacts.conclusion == 'success' && steps.preflight.conclusion == 'success' }}
@@ -118,7 +125,7 @@ jobs:
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
       - name: Build actual official unsigned Windows Electron installer for local qualification
         id: package
-        if: ${{ !cancelled() && steps.artifacts.conclusion == 'success' && steps.preflight.conclusion == 'success' && steps.office-source.conclusion == 'success' && steps.numpy-cache.conclusion == 'success' }}
+        if: ${{ !cancelled() && steps.artifacts.conclusion == 'success' && steps.preflight.conclusion == 'success' && steps.office-source.conclusion == 'success' && steps.numpy-cache.conclusion == 'success' && steps.source-materials.conclusion == 'success' }}
         shell: pwsh
         env:
           YMZZ_QUALIFIED_OFFICE_SOURCE: ${{ runner.temp }}/ymzz-office-source-candidate/derived-runtime/libreoffice-kit
@@ -145,7 +152,7 @@ jobs:
         shell: pwsh
         run: |
           $installed = Join-Path $env:RUNNER_TEMP '湛箴_ymzz 安裝 中文 空格'
-          node ymzz/scripts/inspect-installed-payload.mjs --installed $installed --output ymzz/docs/evidence/windows/native-payload-inventory.json --enforce
+          node ymzz/scripts/inspect-installed-payload.mjs --installed $installed --output ymzz/docs/evidence/windows/native-payload-inventory.json --source-materials "$env:RUNNER_TEMP/ymzz 對應源碼 materials" --enforce
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
       - name: Audit actual installed source-qualified scientific namespace and embedded Python numerics/pandas
         if: ${{ !cancelled() && steps.package.conclusion == 'success' }}

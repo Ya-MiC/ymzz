@@ -46,6 +46,13 @@ def extract(archive,dest,excluded_links=()):
   t.extractall(dest,members=members,filter='data')
  return next(p for p in dest.iterdir()if p.is_dir())
 def run(cmd,cwd=None):subprocess.run([str(x)for x in cmd],cwd=cwd,check=True,timeout=1800)
+def normalize_audio_fixture(original,output):
+ with wave.open(str(original),'rb')as reader:
+  if(reader.getnchannels(),reader.getsampwidth(),reader.getframerate())!=(1,2,16000):raise ValueError('AUDIO_FIXTURE_FORMAT')
+  pcm=reader.readframes(reader.getnframes())
+ with wave.open(str(output),'wb')as writer:
+  writer.setnchannels(1);writer.setsampwidth(2);writer.setframerate(16000);writer.writeframes(pcm)
+ return pcm
 def main():
  sys.stdout.reconfigure(encoding='utf-8');sys.stderr.reconfigure(encoding='utf-8')
  p=argparse.ArgumentParser(description=__doc__);p.add_argument('--work',type=Path,required=True);p.add_argument('--output',type=Path,required=True);p.add_argument('--contract-only',action='store_true');a=p.parse_args();profile=json.loads((REPO/'ymzz/compliance/candidates/sherpa-asr-source-profile.json').read_text(encoding='utf-8'));contract(profile)
@@ -68,11 +75,7 @@ def main():
   original=fetch(row,inputs/row['file'])
   # Browser recordings are canonical PCM16 WAV; normalize only the container,
   # keeping every original audio sample. Never relax the real DSH validator.
-  with wave.open(str(original),'rb')as reader:
-   if(reader.getnchannels(),reader.getsampwidth(),reader.getframerate())!=(1,2,16000):raise ValueError('AUDIO_FIXTURE_FORMAT')
-   pcm=reader.readframes(reader.getnframes())
-  with wave.open(str(assets/row['file']),'wb')as writer:
-   writer.setnchannels(1);writer.setsampwidth(2);writer.setframerate(16000);writer.writeframes(pcm)
+  normalize_audio_fixture(original,assets/row['file'])
  if len(profile['testFixtures'])!=2:raise ValueError('BOTH_REAL_AUDIO_FIXTURES_REQUIRED')
  results={};native=[]
  for variant in ['original','source-candidate']:
@@ -89,8 +92,8 @@ def main():
   data=(platform/'sherpa-onnx-c-api.dll').read_bytes();markers=[b'CallPhonemizeEspeak',b'Failed to initialize espeak-ng with data dir']
   if variant=='original'and not all(s in data for s in markers):raise ValueError('ORIGINAL_NATIVE_ESPEAK_EVIDENCE_CHANGED')
   if variant=='source-candidate'and any(s in data for s in markers):raise ValueError('ESPEAK_IMPLEMENTATION_IN_REBUILT_NATIVE')
-  wave=nm/'@deepseek-ai/dsh-experimental-speech-to-text';wave.mkdir(parents=True);(wave/'package.json').write_text('{"type":"module","exports":{"./wave":"./wave.mjs"}}')
-  run(['node',REPO/'ymzz/scripts/probe-sherpa-transcriber.mjs','--prepare-wave',REPO/'packages/experimental/speech-to-text/src/wave.ts',wave/'wave.mjs'])
+  wave_package=nm/'@deepseek-ai/dsh-experimental-speech-to-text';wave_package.mkdir(parents=True);(wave_package/'package.json').write_text('{"type":"module","exports":{"./wave":"./wave.mjs"}}')
+  run(['node',REPO/'ymzz/scripts/probe-sherpa-transcriber.mjs','--prepare-wave',REPO/'packages/experimental/speech-to-text/src/wave.ts',wave_package/'wave.mjs'])
   result=work/(variant+'-transcriber.json');run(['node',REPO/'ymzz/scripts/probe-sherpa-transcriber.mjs',consumer,assets,result]);results[variant]=json.loads(result.read_text(encoding='utf-8'))
   if variant=='source-candidate':
    native=[{'file':p.name,'sha256':sha(p),'bytes':p.stat().st_size}for p in sorted(platform.iterdir())if p.suffix.lower()in('.dll','.node')]

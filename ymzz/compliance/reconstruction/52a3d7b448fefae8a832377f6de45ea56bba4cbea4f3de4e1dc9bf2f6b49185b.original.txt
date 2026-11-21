@@ -1,0 +1,223 @@
+{
+  "schema": 1,
+  "scope": "Actual preferred adapter/Core/covered third-party source archives and original modified native source recipe/patch/notices. NOT an installer or final all-component license clearance.",
+  "entries": [
+    {
+      "path": "third-party/libabw-0.1.4.tar.xz",
+      "sha256": "fa2685a3440da6e03a66a778480d93cb95f6064e4541e58e37397680760fd6a0",
+      "bytes": 333348
+    },
+    {
+      "path": "third-party/cairo-1.18.4.tar.xz",
+      "sha256": "445ed8208a6e4823de1226a74ca319d3600e83f6369f99b14265006599c32ccb",
+      "bytes": 32578804
+    },
+    {
+      "path": "third-party/libcdr-0.1.9.tar.xz",
+      "sha256": "f7bb6abdd7f226820f288a93dd8d07759833c0250d9e202af90f9b312c4665a3",
+      "bytes": 632896
+    },
+    {
+      "path": "third-party/libe-book-0.1.4.tar.xz",
+      "sha256": "104b7e791b6632745898e9b6a0037b7540235771a4d8c3bde2c764466ad912f1",
+      "bytes": 430872
+    },
+    {
+      "path": "third-party/libepubgen-0.1.1.tar.xz",
+      "sha256": "03e084b994cbeffc8c3dd13303b2cb805f44d8f2c3b79f7690d7e3fc7f6215ad",
+      "bytes": 324380
+    },
+    {
+      "path": "third-party/libetonyek-0.1.13.tar.xz",
+      "sha256": "032b71cb597edd92a0b270b916188281bc35be55296b263f6817b29adbcb1709",
+      "bytes": 1514256
+    },
+    {
+      "path": "third-party/libfreehand-0.1.3.tar.xz",
+      "sha256": "a431d78767e5aa27ade7c6d1b7a11a9f1848cb4b9260bf0a6a44689553ecccfe",
+      "bytes": 534768
+    },
+    {
+      "path": "third-party/graphite2-minimal-1.3.15.tgz",
+      "sha256": "10cfc69a6f859ce875b9708d170b8222eba76cdb89b6dbb4ee1e375bc7242409",
+      "bytes": 147635
+    },
+    {
+      "path": "third-party/hunspell-1.7.3.tar.gz",
+      "sha256": "433274dac0619cb00c2e18b43a3dd3a9d50da5b5613fa9b5c21781e35dd76bc1",
+      "bytes": 1605476
+    },
+    {
+      "path": "third-party/442b985e604f8143a5a0e7bacd6b2e40-hyphen-2.8.9.tar.gz",
+      "sha256": "783743daf477de8c4d16e3c74b4d2827377017718d8e17e2d9440210246f6abe",
+      "bytes": 692993
+    },
+    {
+      "path": "third-party/libeot-0.01.tar.bz2",
+      "sha256": "cf5091fa8e7dcdbe667335eb90a2cfdd0a3fe8f8c7c8d1ece44d9d055736a06a",
+      "bytes": 260288
+    },
+    {
+      "path": "third-party/liblangtag-0.6.8.tar.bz2",
+      "sha256": "a96975b79ddd8fef6d9295c083fe3f1afa1a8898a57235d4069255ade44e5cf2",
+      "bytes": 768482
+    },
+    {
+      "path": "third-party/libmspub-0.1.5.tar.xz",
+      "sha256": "3671095f5a10bee8a755052a30576952c5b16d8b0f2ba9f2fb998338c18cb119",
+      "bytes": 393340
+    },
+    {
+      "path": "third-party/libmwaw-0.3.23.tar.xz",
+      "sha256": "ac3590f691a2904eb8c7dc8b757b8a29f125f592449e421459ae8fa928b399eb",
+      "bytes": 1435752
+    },
+    {
+      "path": "third-party/libodfgen-0.1.8.tar.xz",
+      "sha256": "55200027fd46623b9bdddd38d275e7452d1b0ff8aeddcad6f9ae6dc25f610625",
+      "bytes": 386156
+    },
+    {
+      "path": "third-party/liborcus-0.21.0.tar.xz",
+      "sha256": "1c6e473d6b8a63d61d0e6874a1762d6f0e0e78338d763e48ac93126ecde19b37",
+      "bytes": 2267752
+    },
+    {
+      "path": "third-party/libpagemaker-0.0.4.tar.xz",
+      "sha256": "66adacd705a7d19895e08eac46d1e851332adf2e736c566bef1164e7a442519d",
+      "bytes": 306496
+    },
+    {
+      "path": "third-party/libqxp-0.0.3.tar.xz",
+      "sha256": "4687a9cc96c32d7406e5072c4da150fca696c563e5cde62b024f82fa53d32332",
+      "bytes": 356004
+    },
+    {
+      "path": "third-party/librevenge-0.0.6.tar.bz2",
+      "sha256": "52a65e904d255dbdd97a8b7bb28d6574e14f999eb01416aff004502406d0904d",
+      "bytes": 522546
+    },
+    {
+      "path": "third-party/libstaroffice-0.0.8.tar.xz",
+      "sha256": "bbca92882e96c55bd1527670866d6bc7529ccb12786da55a2398b60a063378da",
+      "bytes": 716420
+    },
+    {
+      "path": "third-party/libvisio-0.1.11.tar.xz",
+      "sha256": "2a6efd40b6d9dbcb70fba3be53112366882ba97b57151df3698dfa478c8d8dd3",
+      "bytes": 2051520
+    },
+    {
+      "path": "third-party/libwpd-0.10.3.tar.xz",
+      "sha256": "2465b0b662fdc5d4e3bebcdc9a79027713fb629ca2bff04a3c9251fdec42dd09",
+      "bytes": 534712
+    },
+    {
+      "path": "third-party/libwpg-0.3.4.tar.xz",
+      "sha256": "b55fda9440d1e070630eb2487d8b8697cf412c214a27caee9df69cec7c004de3",
+      "bytes": 340428
+    },
+    {
+      "path": "third-party/libwps-0.4.14.tar.xz",
+      "sha256": "365b968e270e85a8469c6b160aa6af5619a4e6c995dbb04c1ecc1b4dd13e80de",
+      "bytes": 719016
+    },
+    {
+      "path": "third-party/libzmf-0.0.2.tar.xz",
+      "sha256": "27051a30cb057fdb5d5de65a1f165c7153dc76e27fe62251cbb86639eb2caf22",
+      "bytes": 320952
+    },
+    {
+      "path": "third-party/26b3e95ddf3d9c077c480ea45874b3b8-lp_solve_5.5.tar.gz",
+      "sha256": "171816288f14215c69e730f7a4f1c325739873e21f946ff83884b350574e6695",
+      "bytes": 769268
+    },
+    {
+      "path": "third-party/mdds-3.2.1.tar.xz",
+      "sha256": "673f5bb94612dbba581fc92b99b5e5dd1a53e29496a5dbc936432f6b0687c112",
+      "bytes": 648256
+    },
+    {
+      "path": "third-party/raptor2-2.0.16.tar.gz",
+      "sha256": "089db78d7ac982354bdbf39d973baf09581e6904ac4c92a98c5caadb3de44680",
+      "bytes": 1750726
+    },
+    {
+      "path": "third-party/1f5def51ca0026cd192958ef07228b52-rasqal-0.9.33.tar.gz",
+      "sha256": "6924c9ac6570bd241a9669f83b467c728a322470bf34f4b2da4f69492ccfd97c",
+      "bytes": 1595647
+    },
+    {
+      "path": "third-party/e5be03eda13ef68aabab6e42aa67715e-redland-1.0.17.tar.gz",
+      "sha256": "de1847f7b59021c16bdc72abb4d8e2d9187cd6124d69156f3326dd34ee043681",
+      "bytes": 1621566
+    },
+    {
+      "path": "source/dsh-libreoffice-kit-b19bb73c74ed893b8a5d1716d32df32a113ed31b.tar.gz",
+      "sha256": "33839347e44b8df44c59115b566e9664e7db04a612a8f37ee2b220d7e501c036",
+      "bytes": 446676
+    },
+    {
+      "path": "native-original-materials/licenses/LibreOffice-third-party.html",
+      "sha256": "6ef5eb44a3b8127960c27cb9c038fe89c221e139431ef33057c70811d91026ea",
+      "bytes": 351625
+    },
+    {
+      "path": "native-original-materials/prebuilds.json",
+      "sha256": "578a3b54cbfb4b383188ac42e9377e0561e22ce87aaef4cbe53d73128db3de35",
+      "bytes": 98173
+    },
+    {
+      "path": "native-original-materials/sources/core-changes.patch",
+      "sha256": "0d3a81482804e0cda02c6aec42b248d9e5112a2f45fb3d83ef046b4677975a4b",
+      "bytes": 170417
+    },
+    {
+      "path": "native-original-materials/sources/core-source.json",
+      "sha256": "39340edab26fd8f702380a0b9fedcfcc6a181793b46dd6d7dee01fa80a2458f0",
+      "bytes": 120
+    },
+    {
+      "path": "native-original-materials/sources/core.json",
+      "sha256": "d20009de4dfd7f9f99c8118354f0b76c9693c7283c56584bb9f8cfb2977e2102",
+      "bytes": 6747
+    },
+    {
+      "path": "native-original-materials/sources/payload-shaping.json",
+      "sha256": "4b2147b61c2283144593084a658e08c4bab5334c9d7d6c01714fea8215478d10",
+      "bytes": 124083
+    },
+    {
+      "path": "ymzz-modifications/LICENSE-MPL-2.0.txt",
+      "sha256": "1f256ecad192880510e84ad60474eab7589218784b9a50bc7ceee34c2b91f1d5",
+      "bytes": 16725
+    },
+    {
+      "path": "ymzz-modifications/native-resolver.MPL-2.0.patch",
+      "sha256": "b60c9c72b618ab001ff08dc916064f63eb736d572fee322bc92ee6f3de643b13",
+      "bytes": 1139
+    },
+    {
+      "path": "evidence/third-party-sources.json",
+      "sha256": "316cfbb87f9c1bcaa9a91c6cb04ac5e53b0ac3ab6fad078f419395f90f97bc51",
+      "bytes": 9085
+    },
+    {
+      "path": "evidence/native-preferred-all-source-comparison.json",
+      "sha256": "c648b4ce1c71f3e50e088aceec499977965a6b259b69e02dd5ab577967b4db63",
+      "bytes": 275
+    },
+    {
+      "path": "evidence/core-patch-applicability.json",
+      "sha256": "1db8f852e89fe3960eb9f8cbf6c28a12ecdbb7be1ec841e4101a7d73bb8bda1c",
+      "bytes": 501
+    },
+    {
+      "path": "source/libreoffice-core-bce0998afefdbc355585ca324285661a2170ba77.tar.gz",
+      "sha256": "c046d25748ff3cd0c31e226f45ba47eb328aeba3f8d4d844b9d9db78cf1f85eb",
+      "bytes": 353665929
+    }
+  ],
+  "binaryOffice023Included": false,
+  "releaseCleared": false
+}

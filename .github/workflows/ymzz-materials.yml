@@ -1,0 +1,30 @@
+name: ymzz source-only material reconstruction (no binaries or release)
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: ymzz-materials-source
+  cancel-in-progress: false
+jobs:
+  reconstruct:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - name: Security and content-identity regressions
+        run: python -m unittest discover -s ymzz/packaging/tests -p 'test_*.py'
+      - name: Reconstruct all exact source entry bytes from official HTTPS origins
+        run: python ymzz/scripts/stage_source_materials.py --cache "${{ runner.temp }}/source-cas" --output "${{ runner.temp }}/source-only materials" --download-missing --report ymzz/docs/evidence/source-materials-staging.json
+      - name: Retain JSON hashes only, not source bundles, runtimes, installers or models
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ymzz-source-materials-evidence-${{ github.sha }}
+          path: ymzz/docs/evidence/source-materials-staging.json
+          if-no-files-found: warn

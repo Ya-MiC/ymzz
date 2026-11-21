@@ -1,0 +1,7 @@
+{
+  "scope": "Exact native0.1.3 preferred worker/build/patch source hash comparison against official prebuilds receipt, not native binary compatibility or complete third-party source closure",
+  "matched": 85,
+  "checked": 85,
+  "mismatches": [],
+  "releaseCleared": false
+}
