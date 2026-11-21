@@ -10,6 +10,9 @@ class SourceExtract(unittest.TestCase):
    n=tarfile.TarInfo('source/CMakeLists.txt');data=b'# inert source';n.size=len(data);t.addfile(n,io.BytesIO(data))
    n=tarfile.TarInfo('source/'+path);n.type=tarfile.SYMTYPE;n.linkname=target;t.addfile(n)
   return p
+ def test_cmake_chinese_space_path_is_read_as_utf8_not_windows_ansi(self):
+  with tempfile.TemporaryDirectory()as d:
+   p=Path(d)/'CMakeCache.txt';text='CMAKE_HOME_DIRECTORY:INTERNAL=D:/源碼 space/build';p.write_text(text,encoding='utf-8');self.assertEqual(m.read_utf8(p),text)
  def test_unknown_absolute_source_link_remains_rejected(self):
   with tempfile.TemporaryDirectory()as d:
    p=Path(d);a=self.archive(p,'sherpa-onnx/csrc/trap','/outside/source')

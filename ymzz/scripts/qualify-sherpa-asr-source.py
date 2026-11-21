@@ -5,6 +5,7 @@ and rebuilt DLLs and real pinned offline models/audio. No paid/LLM transport.
 import argparse,hashlib,json,os,shutil,subprocess,sys,tarfile,urllib.request,wave
 from pathlib import Path
 REPO=Path(__file__).resolve().parents[2]
+def read_utf8(p):return Path(p).read_text(encoding='utf-8')
 def sha(p):
  with p.open('rb')as f:return hashlib.file_digest(f,'sha256').hexdigest()
 def contract(profile):
@@ -46,7 +47,8 @@ def extract(archive,dest,excluded_links=()):
  return next(p for p in dest.iterdir()if p.is_dir())
 def run(cmd,cwd=None):subprocess.run([str(x)for x in cmd],cwd=cwd,check=True,timeout=1800)
 def main():
- p=argparse.ArgumentParser(description=__doc__);p.add_argument('--work',type=Path,required=True);p.add_argument('--output',type=Path,required=True);p.add_argument('--contract-only',action='store_true');a=p.parse_args();profile=json.loads((REPO/'ymzz/compliance/candidates/sherpa-asr-source-profile.json').read_text());contract(profile)
+ sys.stdout.reconfigure(encoding='utf-8');sys.stderr.reconfigure(encoding='utf-8')
+ p=argparse.ArgumentParser(description=__doc__);p.add_argument('--work',type=Path,required=True);p.add_argument('--output',type=Path,required=True);p.add_argument('--contract-only',action='store_true');a=p.parse_args();profile=json.loads((REPO/'ymzz/compliance/candidates/sherpa-asr-source-profile.json').read_text(encoding='utf-8'));contract(profile)
  if a.contract_only:print('Actual DSH Sherpa consumers unchanged; only OfflineRecognizer+Vad are used. Candidate NOT production.');return
  if sys.platform!='win32':raise ValueError('NATIVE_WINDOWS_REQUIRED')
  work=a.work.resolve();work.mkdir(parents=True,exist_ok=True)
@@ -54,13 +56,13 @@ def main():
  a.output.parent.mkdir(parents=True,exist_ok=True);a.output.write_text(json.dumps({'schema':1,'status':'in-progress','phase':'source-build','productionSelected':False,'releaseCleared':False})+'\n')
  inputs=work/'inputs';source=profile['source'];archive=fetch(source,inputs/('sherpa-onnx-'+source['commit']+'.tar.gz'));src=extract(archive,work/'source',profile.get('excludedUnbuiltExampleLinks',[]));build=work/'build';install=build/'install'
  run(['cmake','-S',src,'-B',build,'-A','x64','-DCMAKE_INSTALL_PREFIX='+str(install),*profile['cmakeFlags']])
- cache=(build/'CMakeCache.txt').read_text()
+ cache=read_utf8(build/'CMakeCache.txt')
  if 'SHERPA_ONNX_ENABLE_TTS:BOOL=OFF'not in cache:raise ValueError('TTS_PROFILE_NOT_ACTUAL')
  forbidden=[p.name for p in(build/'_deps').iterdir()if'espeak'in p.name.lower()or'piper'in p.name.lower()]
  if forbidden:raise ValueError('UNEXPECTED_GPL_DEPENDENCY '+str(forbidden))
  run(['cmake','--build',build,'--config','Release','--target','install','--parallel','4'])
  for row in profile['packages']:fetch(row,inputs/row['file'])
- models=json.loads((REPO/profile['modelAssetsFile']).read_text());assets=work/'assets'
+ models=json.loads((REPO/profile['modelAssetsFile']).read_text(encoding='utf-8'));assets=work/'assets'
  for row in [models['models']['int8'],models['tokens'],models['vad']]:fetch(row,assets/row['name'])
  for row in profile['testFixtures']:
   original=fetch(row,inputs/row['file'])
@@ -89,7 +91,7 @@ def main():
   if variant=='source-candidate'and any(s in data for s in markers):raise ValueError('ESPEAK_IMPLEMENTATION_IN_REBUILT_NATIVE')
   wave=nm/'@deepseek-ai/dsh-experimental-speech-to-text';wave.mkdir(parents=True);(wave/'package.json').write_text('{"type":"module","exports":{"./wave":"./wave.mjs"}}')
   run(['node',REPO/'ymzz/scripts/probe-sherpa-transcriber.mjs','--prepare-wave',REPO/'packages/experimental/speech-to-text/src/wave.ts',wave/'wave.mjs'])
-  result=work/(variant+'-transcriber.json');run(['node',REPO/'ymzz/scripts/probe-sherpa-transcriber.mjs',consumer,assets,result]);results[variant]=json.loads(result.read_text())
+  result=work/(variant+'-transcriber.json');run(['node',REPO/'ymzz/scripts/probe-sherpa-transcriber.mjs',consumer,assets,result]);results[variant]=json.loads(result.read_text(encoding='utf-8'))
   if variant=='source-candidate':
    native=[{'file':p.name,'sha256':sha(p),'bytes':p.stat().st_size}for p in sorted(platform.iterdir())if p.suffix.lower()in('.dll','.node')]
  atext=[r['text']for r in results['original']['transcripts']];btext=[r['text']for r in results['source-candidate']['transcripts']]
