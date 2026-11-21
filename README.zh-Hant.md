@@ -34,6 +34,12 @@ pnpm exec node ymzz/scripts/dev.mjs --no-open --port 3081
 
 原生對話、檔案／工作區面板、模型設定與插件系統都留在原位。首次啟動可依原生畫面選 **Add API Key → Set up later**，再設定暱稱，不用捏造金鑰。工作區操作不是 OS／網路沙盒；本機真模型、Windows 原生目錄選擇器 GUI 仍未驗證，沒有宣稱 live 推論。更新只有暫存，不冒充已安裝／一鍵重啟；正式公鑰與通道尚未配置。支付由作者自己處理。
 
+## Google 網頁指南與 Univer 本機試算表
+
+在既有「湛箴_ymzz 插件」內展開「Google 網頁指南與 Univer 試算表」。Google Modern Web Guidance 原已內附 209 份鎖定版本指南；新增離線搜尋、分段查閱及兩個仍逐次核准的代理唯讀工具，不執行上游的 `npx @latest`。Univer 1.5.2 開源 Sheets Core 提供可編輯試算表、公式與本機 JSON 開啟／下載；無自動儲存或上傳，不把 XLSX/PDF、協作伺服器與 Pro 功能算作此次接入。
+
+[來源、授權、操作與驗收範圍](ymzz/docs/GOOGLE-UNIVER.zh-Hant.md)。Sure 只作產品參考，不搬入其 AGPL 程式。既有 Office 轉換工具、原生 DSH 與獨立 Loop 均不替換。
+
 ## Loop 是另一個已完成的產品
 
 [Loop](https://ya-mic.github.io/ymzz-loop/) 是**獨立、已完成的專案管理產品**；這裡只借鑑其官網呈現風格，不匯入其運行時、不合併其 Tauri 軟體、不遷移資料、不取代下載。既有稟冊等其他軟體仍保留在原處；歷史安裝包不等於本 Agent 安裝包。

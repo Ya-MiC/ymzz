@@ -13,6 +13,13 @@ assert.ok(applyApplicationBranding({dryRun:true}).changes.every(c=>!c.changed),'
 for(const file of TEXT_BRAND_TARGETS)assert.deepEqual(fs.readFileSync(path.join(root,'ymzz/branding/archive/upstream-text-branding',file+'.source')),git('show',pin+':'+file));
 for(const file of ['LICENSE','THIRD_PARTY_NOTICES.md','apps/desktop/src/mandatory-update-policy.ts'])assert.deepEqual(fs.readFileSync(path.join(root,file)),git('show',pin+':'+file));
 const before=git('show',pin+':pnpm-lock.yaml').toString(),after=fs.readFileSync(path.join(root,'pnpm-lock.yaml'),'utf8');for(const section of ['packages:','snapshots:'])assert.equal(after.slice(after.indexOf('\n'+section)),before.slice(before.indexOf('\n'+section)),'EXTERNAL_DEPENDENCY_GRAPH_CHANGED: '+section);
-console.log(JSON.stringify({upstream:pin,preserved:true,changedTrackedPaths:names.length,newExternalDependencyVersions:0,brandingIdempotent:true,signedPolicyUnchanged:true,unsignedPolicyExceptionOwnerApproved:true,layoutCoreUnchanged:true},null,2));
+// Owner-requested Univer is isolated; the upstream graph above remains byte-identical.
+const univerManifest=JSON.parse(fs.readFileSync(path.join(root,'ymzz/integrations/univer/package.json'),'utf8')),univerLock=JSON.parse(fs.readFileSync(path.join(root,'ymzz/integrations/univer/package-lock.json'),'utf8'));
+assert.deepEqual(univerManifest.dependencies,{'@univerjs/presets':'1.5.2','@univerjs/preset-sheets-core':'1.5.2',react:'18.3.1','react-dom':'18.3.1',rxjs:'7.8.2'},'ONLY_APPROVED_UNIVER_OPEN_CORE_DEPENDENCIES');
+assert.deepEqual(univerManifest.devDependencies,{esbuild:'0.28.2'},'ONLY_PINNED_UNIVER_BUNDLER');
+for(const [name,p]of Object.entries(univerLock.packages)){if(!name)continue;assert.match(p.resolved,/^https:\/\/registry\.npmjs\.org\//,'UNIVER_REGISTRY_REQUIRED');assert.match(p.integrity,/^sha512-/, 'UNIVER_INTEGRITY_REQUIRED');assert.ok(!name.includes('@univerjs-pro')&&!name.includes('we-promise'),'NO_COMMERCIAL_UNIVER_OR_SURE_DEPENDENCIES')}
+for(const id of ['presets','preset-sheets-core'])assert.equal(univerLock.packages['node_modules/@univerjs/'+id].version,'1.5.2','UNIVER_RELEASE_LINE_MISMATCH');
+console.log(JSON.stringify({upstream:pin,preserved:true,changedTrackedPaths:names.length,upstreamExternalDependencyGraphUnchanged:true,isolatedUniverLockedPackages:Object.keys(univerLock.packages).length-1,
+brandingIdempotent:true,signedPolicyUnchanged:true,unsignedPolicyExceptionOwnerApproved:true,layoutCoreUnchanged:true},null,2));
 
 assert.equal(fs.readFileSync(path.join(root,'apps/desktop/scripts/desktop-package-environment.mjs'),'utf8'),git('show',pin+':apps/desktop/scripts/desktop-package-environment.mjs').toString().replace("if (target.platform !== 'darwin' || !options.unsigned) resolveDesktopPolicyEnvironment(environment)","if (!options.unsigned) resolveDesktopPolicyEnvironment(environment)"),'ONLY_APPROVED_UNSIGNED_CONDITIONAL_MAY_CHANGE');

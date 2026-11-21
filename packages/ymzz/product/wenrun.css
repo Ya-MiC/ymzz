@@ -38,3 +38,9 @@ body[data-ymzz-wenrun][data-ymzz-scheme="dark"] {
 /* Keep owned theme ink immediate; upstream transitions must not leave light ink
    stale while a newly selected dark surface already paints. Layout is unchanged. */
 #ymzz-dsh-panel, #ymzz-dsh-panel :where(h2,h3,h4,p,label,summary,pre,article,a) { transition-property: none; }
+
+/* Isolated optional editor; do not alter upstream DSH panels or palettes. */
+#ymzz-univer-panel{width:min(96vw,1440px);height:92vh;max-width:96vw;max-height:94vh;padding:10px;background:var(--bg-0,#faf8f4);color:var(--ymzz-readable-ink,#292924)}
+#ymzz-univer-panel iframe{display:block;width:100%;height:calc(100% - 56px);border:1px solid currentColor;margin-top:8px}#ymzz-univer-panel>button{min-height:44px}
+
+#ymzz-univer-panel:modal{overscroll-behavior:contain}#ymzz-univer-panel::backdrop{overflow:hidden;overscroll-behavior:contain}

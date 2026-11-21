@@ -1,0 +1,17 @@
+// Isolated reproducible dependency graph; never rewrites upstream pnpm-lock.yaml.
+import {packageNotice} from './notices.mjs';
+import fs from 'node:fs';import path from 'node:path';import {createHash} from 'node:crypto';import {execFileSync} from 'node:child_process';
+const root=import.meta.dirname,out=path.resolve(root,'../../../packages/ymzz/product/lib/univer'),sha=b=>createHash('sha256').update(b).digest('hex');
+const lock=fs.readFileSync(path.join(root,'package-lock.json')),lockHash=sha(lock),marker=path.join(root,'node_modules/.ymzz-lock-sha256');
+if(!fs.existsSync(marker)||fs.readFileSync(marker,'utf8')!==lockHash){execFileSync(process.platform==='win32'?'npm.cmd':'npm',['ci','--ignore-scripts','--no-audit','--no-fund'],{cwd:root,stdio:'inherit',shell:process.platform==='win32'});fs.writeFileSync(marker,lockHash)}
+const {build}=await import('esbuild');fs.mkdirSync(out,{recursive:true});
+const result=await build({absWorkingDir:root,entryPoints:['editor.js'],bundle:true,write:false,metafile:true,format:'iife',platform:'browser',target:'es2022',minify:true,legalComments:'inline',outfile:'editor.js',loader:{'.woff2':'dataurl','.woff':'dataurl','.ttf':'dataurl','.svg':'dataurl','.png':'dataurl','.jpg':'dataurl','.gif':'dataurl'},define:{'process.env.NODE_ENV':'"production"'}});
+const js=result.outputFiles.find(f=>f.path.endsWith('.js')).text,css=result.outputFiles.find(f=>f.path.endsWith('.css'))?.text||'';
+const html=fs.readFileSync(path.join(root,'page.html'),'utf8').replace('__YMZZ_CSS__',()=>css.replace(/<\/style/gi,'<\\/style')).replace('__YMZZ_JS__',()=>js.replace(/<\/script/gi,'<\\/script'));
+fs.writeFileSync(path.join(out,'index.html'),html);
+const packages=new Map();for(const input of Object.keys(result.metafile.inputs)){if(!input.includes('node_modules/'))continue;let dir=path.dirname(path.resolve(root,input));let p;while(dir.startsWith(root)){const f=path.join(dir,'package.json');if(fs.existsSync(f)){p=JSON.parse(fs.readFileSync(f,'utf8'));if(typeof p.name==='string')break}dir=path.dirname(dir)}if(!dir.startsWith(root)||!p?.name)throw new Error('UNIVER_DEPENDENCY_OWNER_MISSING');packages.set(p.name,{name:p.name,version:p.version,license:p.license||'SEE_LICENSE',directory:dir})}
+const licenseRoot=path.join(root,'licenses'),licenseManifest=JSON.parse(fs.readFileSync(path.join(licenseRoot,'manifest.json'),'utf8'));
+let notices='Bundled Univer open-source editor and transitive dependencies. No Sure code.\nSupplemental notices are not source-equivalence or release clearance.\n\n';for(const p of [...packages.values()].sort((a,b)=>a.name.localeCompare(b.name))){const n=packageNotice(p,licenseRoot,licenseManifest);p.licenseSources=n.sources;if(n.note)p.licenseNote=n.note;notices+='\n### '+p.name+' '+p.version+' (package metadata: '+p.license+')\n'+JSON.stringify(n.sources)+'\n'+(n.note||'')+'\n'+n.text+'\n'}
+fs.writeFileSync(path.join(out,'THIRD_PARTY_NOTICES.txt'),notices);
+const provenance={schema:1,repository:'https://github.com/dream-num/univer',version:'1.5.2',license:'Apache-2.0',scope:'open-source local Sheets Core only',packageLockSHA256:lockHash,packages:[...packages.values()].map(({directory,...p})=>p),files:Object.fromEntries(['index.html','THIRD_PARTY_NOTICES.txt'].map(f=>[f,sha(fs.readFileSync(path.join(out,f)))]))};
+fs.writeFileSync(path.join(out,'provenance.json'),JSON.stringify(provenance,null,2)+'\n');console.log(JSON.stringify({univer:provenance.version,bytes:Buffer.byteLength(html),packages:packages.size,offlineRuntime:true,packageLockSHA256:lockHash}));
