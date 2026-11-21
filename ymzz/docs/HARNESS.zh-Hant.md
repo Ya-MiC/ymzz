@@ -51,3 +51,12 @@ python3 ymzz/scripts/test-harness-local.py --port 3092 --output /tmp/ymzz-harnes
 只適用本插件有界 Node-test 任務，不自動替所有 DSH／Office／外部工具背書。沒有新增模型／backend／相依套件或網路 egress，沒有擴大工具／檔案權限、收款或自動發訊息。Loop 仍是另一個獨立已完成產品。
 
 **Release 仍受實際 selected Office/libvips 對應源碼材料閉合門禁阻擋。** 此功能不修改授權／release clearance、不冒發舊二進位、不讓官網虛構安裝下載；商用義務及精確 Windows 完整驗收各自保留。
+
+
+## 明選收據交接到下一個本機模型任務
+
+工作區任務區預設「不附加歷史收據」。你可以明確選擇一張已驗收收據，按預覽重新讀取有界工作區、核對receipt與ledger錨點；預覽本身不請求模型。相對檔名與hash亦可能敏感，請先查看。
+
+只有你按執行才將該metadata交到原生DSH任務的訊息內容。僅限同一工作區；啟動任務前及原生agent建立後、送出訊息前再重查。改檔、換收據、跨工作區、缺同意、壞ledger或缺anchor均拒絕，不重用預覽快取。此內容是標記為不可信的歷史資料，不是系統指令、工具核准或新任務測試結果；檔名中的文字也不是指令。只含既有相對檔名/hash、gate/model provenance，不含原始檔案、prompt、絕對工作區路徑。每次工具核准、新任務gate與人工驗收保持原樣。
+
+這是明選一張本機收據的metadata交接，不是自動記憶檢索、跨機匯入、模型訓練或永久有效證明。Node/HTTP測試不是真實模型品質、瀏覽器點擊或Windows新功能驗收。

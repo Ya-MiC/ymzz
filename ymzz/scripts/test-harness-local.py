@@ -23,7 +23,7 @@ with log.open('w')as stream:
   subprocess.run(['node',str(repo/'ymzz/scripts/verify-acceptance-capsule.mjs'),str(capsule)],cwd=repo,check=True,timeout=10)
   broken=json.loads(capsule.read_text());broken['payload']['receipt']['payload']['revision']+=1;tampered=private/'tampered-capsule.json';tampered.write_text(json.dumps(broken));bad=subprocess.run(['node',str(repo/'ymzz/scripts/verify-acceptance-capsule.mjs'),str(tampered)],cwd=repo,capture_output=True,timeout=10);assert bad.returncode!=0,'TAMPERED_CAPSULE_CLI_ACCEPTED'
   files=['packages/ymzz/product/acceptance.mjs','packages/ymzz/product/index.mjs','packages/ymzz/product/ui.js','ymzz/scripts/smoke-product.py']
-  proof['harnessAcceptance']={'fullDSHHTTP':True,'offlineCapsuleCLI':True,'tamperedCapsuleCLIRejected':True,'newFeatureWindowsGUIQualified':False,'sourceFilesSHA256':{f:hashlib.sha256((repo/f).read_bytes()).hexdigest()for f in files}}
+  proof['harnessAcceptance']={'fullDSHHTTP':True,'offlineCapsuleCLI':True,'tamperedCapsuleCLIRejected':True,'newFeatureWindowsGUIQualified':False,'explicitReceiptContextHTTPPreview':True,'sourceFilesSHA256':{f:hashlib.sha256((repo/f).read_bytes()).hexdigest()for f in files}}
   out.write_text(json.dumps(proof,ensure_ascii=False,indent=2)+'\n');print('Real full DSH acceptance -> content drift rejection -> fresh memory -> capsule/CLI passed; no live inference')
  finally:
   if server.poll()is None:

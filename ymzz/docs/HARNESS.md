@@ -59,3 +59,10 @@ It uses a new private profile, approves real tool requests, observes failing→r
 Scope is the owned bounded Node-test task path, not automatic attestation of every native DSH/Office/external tool. Office functionality and native source qualification remain separate. No automatic resume, wider filesystem/network sandbox, third-party signature, paid backend or AGH feature breadth is promised. No dependency/network egress was added. Loop remains a separate completed product.
 
 **Release is still held by corresponding-source/material closure for the actual selected Office/libvips payload.** This feature does not set release/license flags, republish older binaries, or turn the website into a false installer download. Commercial/dependency obligations and full Windows qualification remain independent gates.
+
+
+## Explicit receipt context for the next local-model task
+
+Workspace tasks default to no receipt. Select one accepted local receipt and preview it to recheck bounded workspace contents, receipt integrity and ledger anchoring without requesting a model. Relative filenames and hashes can be sensitive. Only pressing Run attaches the metadata to the native DSH task. The source must be the same workspace; rechecking happens before task creation and again after agent creation immediately before followup, never by trusting a cached preview. Consent, exact receipt selection, current content and ledger/anchor checks fail closed.
+
+The metadata is labeled untrusted historical data, not instructions or tool authority. Strings inside filenames are data. It excludes source contents, original prompts and absolute workspace paths; provenance preserves fixture and legacy gaps. New tasks still need their own tests, individual tool approvals and human review. This is explicit single-receipt handoff, not automatic retrieval, imported capsule execution, training, permanent freshness or verified model quality. Unit/HTTP checks do not qualify browser or Windows GUI interaction.
