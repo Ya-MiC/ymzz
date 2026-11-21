@@ -1,6 +1,6 @@
 // MIT. Plugin route/native-followup adapter tests; no model, browser or external requests.
 import test from 'node:test';import assert from 'node:assert/strict';import fs from 'node:fs';import os from 'node:os';import path from 'node:path';import{Readable}from'node:stream';import{createHash}from'node:crypto';
-import{apply}from'../index.mjs';import{createAcceptanceReceipt,evidenceHash}from'../acceptance.mjs';
+import{apply}from'../../index.mjs';import{createAcceptanceReceipt,evidenceHash}from'../../acceptance.mjs';
 const sha=s=>createHash('sha256').update(s).digest('hex');
 async function setup(t,{driftOnCreate=false,foreignSource=false}={}){
  const home=fs.mkdtempSync(path.join(os.tmpdir(),'ymzz-context-route-')),root=path.join(home,'project'),dataDir=path.join(home,'profile');fs.mkdirSync(root);fs.mkdirSync(dataDir);fs.writeFileSync(path.join(root,'app.mjs'),'export const n=1;\n');fs.writeFileSync(path.join(root,'app.test.mjs'),'import \'node:test\';\n');

@@ -30,6 +30,8 @@ jobs:
           node ymzz/scripts/check-site.mjs
       - name: Complete official eight-gate artifact build
         run: corepack pnpm run build:artifacts
+      - name: Native task context integration against built workspace packages
+        run: node --test packages/ymzz/product/tests/integration/*.test.mjs
       - name: Real DSH approvals, tests, acceptance, fresh memory and offline capsule
         run: python ymzz/scripts/test-harness-local.py --port 3092 --output ymzz/.build/harness-evidence/actual-http.json
       - name: Public synthetic test evidence only (no profile, launch token or raw logs)

@@ -60,3 +60,5 @@ python3 ymzz/scripts/test-harness-local.py --port 3092 --output /tmp/ymzz-harnes
 只有你按執行才將該metadata交到原生DSH任務的訊息內容。僅限同一工作區；啟動任務前及原生agent建立後、送出訊息前再重查。改檔、換收據、跨工作區、缺同意、壞ledger或缺anchor均拒絕，不重用預覽快取。此內容是標記為不可信的歷史資料，不是系統指令、工具核准或新任務測試結果；檔名中的文字也不是指令。只含既有相對檔名/hash、gate/model provenance，不含原始檔案、prompt、絕對工作區路徑。每次工具核准、新任務gate與人工驗收保持原樣。
 
 這是明選一張本機收據的metadata交接，不是自動記憶檢索、跨機匯入、模型訓練或永久有效證明。Node/HTTP測試不是真實模型品質、瀏覽器點擊或Windows新功能驗收。
+
+原生路由整合測試須在完整 artifact build 後執行：`node --test packages/ymzz/product/tests/integration/*.test.mjs`。它以 mock agent handle 測真插件，需要已建置的工作區套件；不是實際模型推論測試。
