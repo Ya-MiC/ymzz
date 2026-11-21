@@ -384,14 +384,258 @@
     },
     {
       "id": "reflink",
-      "licenseBasis": "MIT original upstream grant",
+      "licenseBasis": "MIT exact source-repository root manifest grant, with independently preserved Cargo.lock/Rust constituent grants (MIT/Apache/ISC/Unicode-DFS); not inherited from npm metadata alone.",
       "obligation": "original-notices",
-      "originalNoticePins": [],
+      "originalNoticePins": [
+        {
+          "sha256": "01c266bced4a434da0051174d6bee16a4c82cf634e2679b6155d40d75012390f",
+          "bytes": 126,
+          "examplePath": "resources/licenses/ymzz/native-third-party/reflink-winapi-util-0.1.9-COPYING.original.txt"
+        },
+        {
+          "sha256": "0f96a83840e146e43c0ec96a22ec1f392e0680e6c1226e6f3ba87e0740af850f",
+          "bytes": 1081,
+          "examplePath": "resources/licenses/ymzz/native-third-party/reflink-termcolor-1.4.1-LICENSE-MIT.original.txt"
+        },
+        {
+          "sha256": "a60eea817514531668d7e00765731449fe14d059d3249e0bc93b36de45f759f2",
+          "bytes": 10847,
+          "examplePath": "resources/licenses/ymzz/native-third-party/reflink-unicode-segmentation-1.10.1-LICENSE-APACHE.original.txt"
+        },
+        {
+          "sha256": "27995d58ad5c1145c1a8cd86244ce844886958a35eb2b78c6b772748669999ac",
+          "bytes": 1054,
+          "examplePath": "resources/licenses/ymzz/native-third-party/reflink-autocfg-1.1.0-LICENSE-MIT.original.txt"
+        },
+        {
+          "sha256": "6485b8ed310d3f0340bf1ad1f47645069ce4069dcc6bb46c7d5c6faf41de1fdb",
+          "bytes": 1071,
+          "examplePath": "resources/licenses/ymzz/native-third-party/reflink-regex-syntax-0.8.2-LICENSE-MIT.original.txt"
+        },
+        {
+          "sha256": "378f5840b258e2779c39418f3f2d7b2ba96f1c7917dd6be0713f88305dbda397",
+          "bytes": 1057,
+          "examplePath": "resources/licenses/ymzz/native-third-party/reflink-cfg-if-1.0.0-LICENSE-MIT.original.txt"
+        },
+        {
+          "sha256": "797087750c4103075e96bb7a60202a040812f8679ae2f7263148a1cc0b298d28",
+          "bytes": 1069,
+          "examplePath": "resources/licenses/ymzz/native-third-party/reflink-convert_case-0.6.0-LICENSE.original.txt"
+        },
+        {
+          "sha256": "c34171fa7cc05969962964843a23029351d45351edc48b0e3c01bfe719de9e16",
+          "bytes": 732,
+          "examplePath": "resources/licenses/ymzz/native-third-party/reflink-copy_on_write-0.1.3-Cargo.toml.original.txt"
+        },
+        {
+          "sha256": "a8ad31b1c3f40dca5a84119351b8fa8ddc868edd77fad8a8ebf6d8f2d16fa4ae",
+          "bytes": 11324,
+          "examplePath": "resources/licenses/ymzz/native-third-party/reflink-ctor-0.2.5-LICENSE-APACHE.original.txt"
+        },
+        {
+          "sha256": "bccaa8b6c09f94e81f06696e179dbe058464bbdfbc823b6d49cada1d71e84ac3",
+          "bytes": 1022,
+          "examplePath": "resources/licenses/ymzz/native-third-party/reflink-ctor-0.2.5-LICENSE-MIT.original.txt"
+        },
+        {
+          "sha256": "c6596eb7be8581c18be736c846fb9173b69eccf6ef94c5135893ec56bd92ba08",
+          "bytes": 11358,
+          "examplePath": "resources/licenses/ymzz/native-third-party/reflink-humantime-2.1.0-LICENSE-APACHE.original.txt"
+        },
+        {
+          "sha256": "6efb0476a1cc085077ed49357026d8c173bf33017278ef440f222fb9cbcb66e6",
+          "bytes": 1062,
+          "examplePath": "resources/licenses/ymzz/native-third-party/reflink-env_logger-0.10.2-LICENSE-MIT.original.txt"
+        },
+        {
+          "sha256": "8764a597675778ddfd4e25f81b08a05dbcf089ac05662df7613fe67f150e3aa2",
+          "bytes": 1054,
+          "examplePath": "resources/licenses/ymzz/native-third-party/reflink-errno-0.3.9-LICENSE-MIT.original.txt"
+        },
+        {
+          "sha256": "23f18e03dc49df91622fe2a76176497404e46ced8a715d9d2b67a7446571cca3",
+          "bytes": 1023,
+          "examplePath": "resources/licenses/ymzz/native-third-party/reflink-rust-stdlib-LICENSE-MIT.txt.original.txt"
+        },
+        {
+          "sha256": "275c491d6d1160553c32fd6127061d7f9606c3ea25abfad6ca3f6ed088785427",
+          "bytes": 10874,
+          "examplePath": "resources/licenses/ymzz/native-third-party/reflink-futures-util-0.3.31-LICENSE-APACHE.original.txt"
+        },
+        {
+          "sha256": "6652c868f35dfe5e8ef636810a4e576b9d663f3a17fb0f5613ad73583e1b88fd",
+          "bytes": 1094,
+          "examplePath": "resources/licenses/ymzz/native-third-party/reflink-futures-util-0.3.31-LICENSE-MIT.original.txt"
+        },
+        {
+          "sha256": "f6deca8261a8f4a3403dc74c725c46051157fd36c27cd4b100277eb1f303ad11",
+          "bytes": 1252,
+          "examplePath": "resources/licenses/ymzz/native-third-party/reflink-humantime-2.1.0-LICENSE-MIT.original.txt"
+        },
+        {
+          "sha256": "bab426a663ce3d5bbbcea9cdc300da74e94d76c3c79e46699a953f967a08e533",
+          "bytes": 1176,
+          "examplePath": "resources/licenses/ymzz/native-third-party/reflink-is-terminal-0.4.13-LICENSE-MIT-atty.original.txt"
+        },
+        {
+          "sha256": "0621878e61f0d0fda054bcbe02df75192c28bde1ecc8289cbd86aeba2dd72720",
+          "bytes": 1071,
+          "examplePath": "resources/licenses/ymzz/native-third-party/reflink-lazy_static-1.5.0-LICENSE-MIT.original.txt"
+        },
+        {
+          "sha256": "62c7a1e35f56406896d7aa7ca52d0cc0d272ac022b5d2796e7d6905db8a3636a",
+          "bytes": 9723,
+          "examplePath": "resources/licenses/ymzz/native-third-party/reflink-unicode-ident-1.0.12-LICENSE-APACHE.original.txt"
+        },
+        {
+          "sha256": "a8d47ff51ca256f56a8932dba07660672dbfe3004257ca8de708aac1415937a1",
+          "bytes": 1076,
+          "examplePath": "resources/licenses/ymzz/native-third-party/reflink-libc-0.2.164-LICENSE-MIT.original.txt"
+        },
+        {
+          "sha256": "b29f8b01452350c20dd1af16ef83b598fea3053578ccc1c7a0ef40e57be2620f",
+          "bytes": 736,
+          "examplePath": "resources/licenses/ymzz/native-third-party/reflink-libloading-0.8.5-LICENSE.original.txt"
+        },
+        {
+          "sha256": "3290ae0fbc9ddb77d2239121d710f0bb9d31b3b4744e6d97fe01e652b4c1870b",
+          "bytes": 881,
+          "examplePath": "resources/licenses/ymzz/native-third-party/reflink-linux-raw-sys-0.4.14-COPYRIGHT.original.txt"
+        },
+        {
+          "sha256": "268872b9816f90fd8e85db5a28d33f8150ebb8dd016653fb39ef1f94f2686bc5",
+          "bytes": 12243,
+          "examplePath": "resources/licenses/ymzz/native-third-party/reflink-rustix-0.38.41-LICENSE-Apache-2.0_WITH_LLVM-exception.original.txt"
+        },
+        {
+          "sha256": "9d6b6431f43863e5408bab068200d016970d9435ab0c3c847ce77fbab054f888",
+          "bytes": 2544,
+          "examplePath": "resources/licenses/ymzz/native-third-party/reflink-napi-2.16.13-Cargo.toml.original.txt"
+        },
+        {
+          "sha256": "a9b1479e667f4580dfd31bdbf1ca0d9589cdf2af7e8cbf385bef443c6d71295f",
+          "bytes": 412,
+          "examplePath": "resources/licenses/ymzz/native-third-party/reflink-napi-build-2.1.3-Cargo.toml.original.txt"
+        },
+        {
+          "sha256": "fef69a9a6e75e16b909face0c2eb68b22159c7f19c7d5c5c900890c908b757ff",
+          "bytes": 846,
+          "examplePath": "resources/licenses/ymzz/native-third-party/reflink-napi-derive-2.16.12-Cargo.toml.original.txt"
+        },
+        {
+          "sha256": "f5f8a5a6c29150bd1330e246f51af517b0730f63a3306dc99dc51c5d9a9915ff",
+          "bytes": 643,
+          "examplePath": "resources/licenses/ymzz/native-third-party/reflink-napi-derive-backend-1.0.74-Cargo.toml.original.txt"
+        },
+        {
+          "sha256": "804db18075a2c7fea9e68cd7136902bad1f591596a49adb09163316d98bb8414",
+          "bytes": 728,
+          "examplePath": "resources/licenses/ymzz/native-third-party/reflink-napi-sys-2.4.0-Cargo.toml.original.txt"
+        },
+        {
+          "sha256": "0d542e0c8804e39aa7f37eb00da5a762149dc682d7829451287e11b938e94594",
+          "bytes": 10174,
+          "examplePath": "resources/licenses/ymzz/native-third-party/reflink-pin-project-lite-0.2.13-LICENSE-APACHE.original.txt"
+        },
+        {
+          "sha256": "a4db788775cb25f2da419a7ccd3f1f89c3d2cfa8748fb25257596b88183b4c77",
+          "bytes": 10841,
+          "examplePath": "resources/licenses/ymzz/native-third-party/reflink-pin-utils-0.1.0-LICENSE-APACHE.original.txt"
+        },
+        {
+          "sha256": "28802412d2bfbafe432b305634413b41a984d30fba0df41d30aa2c8a2077c5b1",
+          "bytes": 1065,
+          "examplePath": "resources/licenses/ymzz/native-third-party/reflink-pin-utils-0.1.0-LICENSE-MIT.original.txt"
+        },
+        {
+          "sha256": "eb9c7f938c31b542da6906e2ac11b8996cfb2ca4afe3f7440df2b5063b52f615",
+          "bytes": 1080,
+          "examplePath": "resources/licenses/ymzz/native-third-party/reflink-pipe-trait-0.4.0-LICENSE.md.original.txt"
+        },
+        {
+          "sha256": "377c2e7c53250cc5905c0b0532d35973392af16ffb9596a41d99d202cf3617c9",
+          "bytes": 853,
+          "examplePath": "resources/licenses/ymzz/native-third-party/reflink-rustix-0.38.41-COPYRIGHT.original.txt"
+        },
+        {
+          "sha256": "8ce0830173fdac609dfb4ea603fdc002c2f4af0dc9b1a005653f5da9cf534b18",
+          "bytes": 1055,
+          "examplePath": "resources/licenses/ymzz/native-third-party/reflink-slab-0.4.9-LICENSE.original.txt"
+        },
+        {
+          "sha256": "8b427f5bc501764575e52ba4f9d95673cf8f6d80a86d0d06599852e1a9a20a36",
+          "bytes": 1056,
+          "examplePath": "resources/licenses/ymzz/native-third-party/reflink-tempfile-3.14.0-LICENSE-MIT.original.txt"
+        },
+        {
+          "sha256": "68f5b9f5ea36881a0942ba02f558e9e1faf76cc09cb165ad801744c61b738844",
+          "bytes": 2315,
+          "examplePath": "resources/licenses/ymzz/native-third-party/reflink-unicode-ident-1.0.12-LICENSE-UNICODE.original.txt"
+        },
+        {
+          "sha256": "23860c2a7b5d96b21569afedf033469bab9fe14a1b24a35068b8641c578ce24d",
+          "bytes": 321,
+          "examplePath": "resources/licenses/ymzz/native-third-party/reflink-unicode-segmentation-1.10.1-COPYRIGHT.original.txt"
+        },
+        {
+          "sha256": "7b63ecd5f1902af1b63729947373683c32745c16a10e8e6292e2e2dcd7e90ae0",
+          "bytes": 1071,
+          "examplePath": "resources/licenses/ymzz/native-third-party/reflink-unicode-segmentation-1.10.1-LICENSE-MIT.original.txt"
+        },
+        {
+          "sha256": "36bb253818ac13761081556ff5c457d626da9df1eb4f56194d9ad3926c418a68",
+          "bytes": 18,
+          "examplePath": "resources/licenses/ymzz/native-third-party/reflink-widestring-1.1.0-LICENSE.original.txt"
+        },
+        {
+          "sha256": "cb3c929a05e6cbc9de9ab06a4c57eeb60ca8c724bef6c138c87d3a577e27aa14",
+          "bytes": 1081,
+          "examplePath": "resources/licenses/ymzz/native-third-party/reflink-winapi-util-0.1.9-LICENSE-MIT.original.txt"
+        },
+        {
+          "sha256": "c16f8dcf1a368b83be78d826ea23de4079fe1b4469a0ab9ee20563f37ff3d44b",
+          "bytes": 11351,
+          "examplePath": "resources/licenses/ymzz/native-third-party/reflink-windows_x86_64_msvc-0.52.6-license-apache-2.0.original.txt"
+        },
+        {
+          "sha256": "c2cfccb812fe482101a8f04597dfc5a9991a6b2748266c47ac91b6a5aae15383",
+          "bytes": 1141,
+          "examplePath": "resources/licenses/ymzz/native-third-party/reflink-windows_x86_64_msvc-0.52.6-license-mit.original.txt"
+        },
+        {
+          "sha256": "3f1ce66533302df3a32edbfdfc0b78f0dd34659e4c1f5817162e5ea3c2297215",
+          "bytes": 2138,
+          "examplePath": "resources/licenses/ymzz/native-third-party/reflink-rust-napi-sys-2.4.0-LICENSE.txt.original.txt"
+        },
+        {
+          "sha256": "bd0581fef622b3d8b25836cf70feb7e1a7a6171ea9e440b46dfda74c46a0ed0d",
+          "bytes": 21109,
+          "examplePath": "resources/licenses/ymzz/native-third-party/reflink-rust-stdlib-COPYRIGHT.txt.original.txt"
+        },
+        {
+          "sha256": "447c947828960b38e842b8c1193e5e521c4532e4a88a959ca4ce706ce09e3a48",
+          "bytes": 443,
+          "examplePath": "resources/licenses/ymzz/native-third-party/reflink-root-Cargo.toml.original.txt"
+        },
+        {
+          "sha256": "60ee59b4c083e4cd948c041d85e5b0373c2b636ca51eecfaaf947ee8ecc857cf",
+          "bytes": 402,
+          "examplePath": "resources/licenses/ymzz/native-third-party/reflink-root-package.json.original.txt"
+        },
+        {
+          "sha256": "c9829fcb546e398b366505d17480e8daffd014b1ed4f4787233bd894c35d7868",
+          "bytes": 1405,
+          "examplePath": "resources/licenses/ymzz/native-third-party/reflink-0.1.19-package.json.original.txt"
+        }
+      ],
       "sourceGroup": null,
-      "grantReviewed": false,
-      "evidence": [],
-      "reviewHold": "Exact original constituent grant/notice and producer provenance still need binding; no source obligation is invented from this missing notice review.",
-      "sourceObligationsReviewed": false
+      "grantReviewed": true,
+      "evidence": [
+        "ymzz/compliance/research/reflink-original-constituent-grants.json",
+        "ymzz/compliance/research/reflink-0.1.19-Cargo.toml.original.txt",
+        "ymzz/compliance/research/reflink-0.1.19-Cargo.lock.original.txt"
+      ],
+      "sourceObligationsReviewed": true
     },
     {
       "id": "require-builtin",

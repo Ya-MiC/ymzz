@@ -39,3 +39,20 @@ class StagingTests(unittest.TestCase):
   p=self.plan();p['assets'][0]['entries'].append(self.row())
   with self.assertRaisesRegex(ValueError,'DUPLICATE_SOURCE_ENTRY'):m.validate_plan(p)
 if __name__=='__main__':unittest.main()
+
+class CrateSourceVersionTests(unittest.TestCase):
+ def test_build_metadata_is_version_not_crate_name(self):
+  self.assertEqual(m.crate_source_url("toml-1.1.6+spec-1.1.0.crate"),"https://static.crates.io/crates/toml/toml-1.1.6+spec-1.1.0.crate")
+ def test_hyphenated_crate_name_is_preserved(self):
+  self.assertEqual(m.crate_source_url("unicode-ident-1.0.22.crate"),"https://static.crates.io/crates/unicode-ident/unicode-ident-1.0.22.crate")
+
+class TemporaryOwnershipTests(unittest.TestCase):
+ def test_failed_network_does_not_delete_preexisting_partial(self):
+  from unittest.mock import patch
+  import os
+  with tempfile.TemporaryDirectory() as directory:
+   cache=Path(directory);h=hashlib.sha256(b"abc").hexdigest();prior=cache/(h+".partial-"+str(os.getpid()));prior.write_bytes(b"preserve prior evidence")
+   row={"path":"source.tar.gz","bytes":3,"sha256":h,"urls":["https://static.crates.io/nonexistent"]}
+   with patch.object(m.urllib.request,"urlopen",side_effect=OSError("offline")):
+    with self.assertRaisesRegex(ValueError,"NO_VERIFIED_SOURCE_MIRROR"):m.fetch(row,cache,True)
+   self.assertEqual(prior.read_bytes(),b"preserve prior evidence")

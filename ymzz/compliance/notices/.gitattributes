@@ -1,0 +1,2 @@
+# Original publisher grants are byte-pinned; retain their exact line endings/format.
+*.original.txt -text -whitespace

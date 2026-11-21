@@ -1,0 +1,28 @@
+[package]
+name = "copy_on_write"
+version = "0.1.3"
+edition = "2021"
+description = "Copy-On-Write Rust implementation."
+license = "MIT"
+
+[dependencies]
+env_logger = { version = "0.10.0", features = ["auto-color", "color"] }
+lazy_static = "1.4.0"
+log = "0.4.20"
+tempfile = "3.8.0"
+
+# Dependencies specific to Windows
+[target.'cfg(target_os = "windows")'.dependencies]
+windows = { version = "0.51.1", features = [
+    "Win32_Storage_FileSystem",
+    "Win32_Foundation",
+    "Win32_System_Ioctl",
+    "Win32_System_IO",
+    "Win32_System_SystemServices",
+    "Win32_Security",
+] }
+widestring = "1.0.2"
+
+# Dependencies specific to Non-windows
+[target.'cfg(not(target_os = "windows"))'.dependencies]
+reflink-copy = { version = "0.1.10" }

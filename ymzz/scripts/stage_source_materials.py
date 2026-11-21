@@ -2,12 +2,15 @@
 Each inner byte is authoritative; original ZIP compression/timestamps are not source.
 No installer, runtime bundle, license policy change, upload, or unsafe extraction.
 """
-import argparse,concurrent.futures,hashlib,json,os,shutil,urllib.parse,urllib.request,zipfile
+import argparse,concurrent.futures,hashlib,json,os,re,shutil,tempfile,urllib.parse,urllib.request,zipfile
 from pathlib import Path
 from verify_sharp_sources import REPO,require,file_digest,safe_name,verify_exact_entries
 HOSTS={'cairographics.org','chromium.googlesource.com','codeload.github.com','dev-www.libreoffice.org','download.gnome.org','download.osgeo.org','downloads.sourceforge.net','files.pythonhosted.org','ftp-osl.osuosl.org','ftp.osuosl.org','github.com','gitlab.freedesktop.org','static.crates.io','storage.googleapis.com','www.libarchive.org','xorg.freedesktop.org'}
 def validate_url(url):
  p=urllib.parse.urlparse(url);require(p.scheme=='https'and p.hostname in HOSTS and not p.username and not p.password and p.port in(None,443)and not p.fragment,'UNREVIEWED_SOURCE_ORIGIN')
+def crate_source_url(filename):
+ m=re.fullmatch(r'(.+?)-(\d+\.\d+\.\d+.*)\.crate',filename);require(bool(m),'INVALID_CRATE_SOURCE_NAME')
+ return 'https://static.crates.io/crates/'+m[1]+'/'+filename
 def valid(p,r):return p.is_file()and not p.is_symlink()and p.stat().st_size==r['bytes']and file_digest(p)==r['sha256']
 def validate_plan(plan):
  require(plan['schema']==1 and bool(plan['assets']),'SOURCE_STAGE_SCHEMA');names=set();known={}
@@ -17,7 +20,9 @@ def validate_plan(plan):
    safe_name(r['path']);require(Path(r['path']).suffix.lower()not in{'.exe','.dll','.node','.pyd','.wasm','.so'},'RUNTIME_IN_SOURCE_ASSET');require(r['path']not in entries,'DUPLICATE_SOURCE_ENTRY');entries.add(r['path']);require(len(r['sha256'])==64 and all(c in'0123456789abcdef'for c in r['sha256'])and isinstance(r['bytes'],int)and r['bytes']>0,'INVALID_SOURCE_ENTRY_PIN')
    require(bool(r.get('repoFile'))!=bool(r.get('urls')),'AMBIGUOUS_SOURCE_ORIGIN')
    if r.get('repoFile'):safe_name(r['repoFile']);require(r['repoFile'].startswith('ymzz/compliance/reconstruction/'),'SOURCE_REPO_INPUT_OUTSIDE_REVIEWED_ROOT')
-   for url in r.get('urls',[]):validate_url(url)
+   for url in r.get('urls',[]):
+    validate_url(url)
+    if r['path'].endswith('.crate'):require(url==crate_source_url(Path(r['path']).name),'CRATE_NAME_VERSION_ORIGIN_MISMATCH')
    require(r['sha256']not in known or known[r['sha256']]['bytes']==r['bytes'],'CONFLICTING_SOURCE_PIN');known.setdefault(r['sha256'],r)
  return known
 
@@ -27,18 +32,21 @@ def fetch(r,cache,download):
  if r.get('repoFile'):
   source=REPO/r['repoFile'];require(source.resolve().is_relative_to(REPO.resolve())and valid(source,r),'CHANGED_REPO_SOURCE_INPUT');shutil.copyfile(source,p);return p
  require(download,'MISSING_OFFLINE_SOURCE '+r['path'])
+ errors=[]
  for url in r['urls']:
-  tmp=cache/(r['sha256']+'.partial-'+str(os.getpid()))
+  tmp=None
   try:
    validate_url(url)
-   with urllib.request.urlopen(url,timeout=120)as response,tmp.open('xb')as output:
+   with urllib.request.urlopen(url,timeout=120)as response,tempfile.NamedTemporaryFile(prefix=r['sha256']+'.partial-',dir=cache,delete=False)as output:
+    tmp=Path(output.name)
     require(urllib.parse.urlparse(response.geturl()).scheme=='https','INSECURE_SOURCE_REDIRECT');size=0;h=hashlib.sha256()
     while chunk:=response.read(1024*1024):
      size+=len(chunk);require(size<=r['bytes'],'SOURCE_DOWNLOAD_TOO_LARGE');output.write(chunk);h.update(chunk)
    require(size==r['bytes']and h.hexdigest()==r['sha256'],'SOURCE_DOWNLOAD_PIN_MISMATCH');tmp.rename(p);return p
-  except Exception:
-   if tmp.exists():tmp.unlink()
- raise ValueError('NO_VERIFIED_SOURCE_MIRROR '+r['path'])
+  except Exception as error:
+   errors.append(urllib.parse.urlparse(url).hostname+':'+type(error).__name__+':'+str(getattr(error,'code','source-pin-or-network-error')))
+   if tmp is not None and tmp.exists():tmp.unlink()
+ raise ValueError('NO_VERIFIED_SOURCE_MIRROR '+r['path']+' '+';'.join(errors))
 
 def stage(plan,cache,output,seeds=None,download=False):
  rows=validate_plan(plan);cache.mkdir(parents=True,exist_ok=True);output.mkdir(parents=True,exist_ok=True);require(not cache.is_symlink()and not output.is_symlink(),'SOURCE_STAGE_ROOT_LINK')

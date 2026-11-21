@@ -19,6 +19,11 @@ jobs:
           python-version: "3.13"
       - name: Security and content-identity regressions
         run: python -m unittest discover -s ymzz/packaging/tests -p 'test_*.py'
+      - uses: actions/cache@v4
+        with:
+          path: ${{ runner.temp }}/source-cas
+          key: ymzz-source-cas-v1-${{ hashFiles('ymzz/compliance/source-staging.lock.json') }}
+          restore-keys: ymzz-source-cas-v1-
       - name: Reconstruct all exact source entry bytes from official HTTPS origins
         run: python ymzz/scripts/stage_source_materials.py --cache "${{ runner.temp }}/source-cas" --output "${{ runner.temp }}/source-only materials" --download-missing --report ymzz/docs/evidence/source-materials-staging.json
       - name: Retain JSON hashes only, not source bundles, runtimes, installers or models
