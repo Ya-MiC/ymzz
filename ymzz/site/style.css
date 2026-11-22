@@ -43,7 +43,9 @@
   --focus-halo:rgba(61,56,51,.45);
   --safe-top:env(safe-area-inset-top,0px);--safe-bottom:env(safe-area-inset-bottom,0px);
   --safe-left:env(safe-area-inset-left,0px);--safe-right:env(safe-area-inset-right,0px);
-  /* Loop marketing type scale */
+  /* Loop marketing type scale — one ladder for the whole site:
+     h1(home) 4xl · h1(sub) 3xl · h2 2xl · h3 lg · body base · meta/hint sm.
+     Do not introduce other sizes; adjust the ladder itself instead. */
   --t-xs:clamp(.75rem,.72rem + .1vw,.8125rem);
   --t-sm:clamp(.875rem,.85rem + .12vw,.9375rem);
   --t-base:clamp(1rem,.96rem + .2vw,1.0625rem);
@@ -214,7 +216,7 @@ button{font:inherit;color:inherit;cursor:pointer}
   min-block-size:var(--hit);min-inline-size:var(--hit);
   padding-inline:var(--s5);
   border-radius:99rem;border:0;
-  font-weight:600;font-size:var(--t-base);text-decoration:none;
+  font-weight:600;font-size:var(--t-sm);text-decoration:none;
   transition:transform var(--t-micro) var(--ease-ink), box-shadow var(--t-panel) var(--ease-ink), background var(--t-micro) var(--ease-ink);
 }
 .btn:active{transform:scale(.97);transition-duration:var(--t-press)}
@@ -229,17 +231,18 @@ button{font:inherit;color:inherit;cursor:pointer}
   border-radius:var(--Ri);
   background:color-mix(in srgb,var(--accent-soft) 55%,var(--panel));
   color:var(--ink);
+  font-size:var(--t-sm);
   max-inline-size:var(--measure);
 }
 .sec{margin-block:var(--frame);display:grid;gap:var(--frame)}
 .sec-head{padding:clamp(1.5rem,4vw,3rem) clamp(1.25rem,4vw,3rem) var(--s5)}
-.sec-head h2{margin:var(--s3) 0 0;font:400 var(--t-3xl)/var(--lh-tight) var(--f-display)}
+.sec-head h2{margin:var(--s3) 0 0;font:400 var(--t-2xl)/var(--lh-tight) var(--f-display)}
 .sec-head .lede,.lede{color:var(--ink-2);max-inline-size:var(--measure)}
 
 .facts{margin:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(16rem,1fr));gap:var(--frame);padding:0 0 var(--s6);list-style:none}
 .fact{padding:var(--s5);border-radius:var(--R);background:var(--panel);box-shadow:var(--sh);display:grid;gap:var(--s2)}
-.fact .bn{font:400 var(--t-2xl)/var(--lh-tight) var(--f-display)}
-.fact dt,.fact h3{margin:0;font-size:var(--t-xl);font-weight:500;font-family:var(--f-display)}
+.fact .bn{font:400 var(--t-xl)/var(--lh-tight) var(--f-display)}
+.fact dt,.fact h3{margin:0;font-size:var(--t-lg);font-weight:500;font-family:var(--f-display)}
 .fact dd,.fact p{margin:0;color:var(--ink-2)}
 
 .steps{margin:0;padding:0;list-style:none;display:grid;gap:var(--s4)}
@@ -272,7 +275,7 @@ td,th{box-shadow:inset 0 -1px 0 var(--line-1)}
   transition:transform var(--t-micro) var(--ease-ink), box-shadow var(--t-panel) var(--ease-ink);
 }
 .family-card:hover{transform:translateY(-.12rem);box-shadow:var(--sh2)}
-.family-card h3{margin:0;font:500 var(--t-xl)/var(--lh-snug) var(--f-display)}
+.family-card h3{margin:0;font:500 var(--t-lg)/var(--lh-snug) var(--f-display)}
 .family-card p{margin:0;color:var(--ink-2)}
 .family-card .k{color:var(--ink-2)}
 

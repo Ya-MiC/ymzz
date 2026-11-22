@@ -67,7 +67,7 @@
     <p class="eyebrow" data-i18n="hero.eyebrow">開源 · 晏銘湛箴 / Ya-MiC</p>
     <h1 data-i18n="hero.h1">湛箴_ymzz</h1>
     <p class="meaning" data-i18n="hero.meaning">深淵的清澈的水，纂刻于竹篾上的痕，珍重微小，有所依據，立傳傳世</p>
-    <p class="lede" data-i18n="hero.lede">以完整 DeepSeek Harness 為底、透過原生插件擴充的本機優先智能體。不重寫 runtime，不改原生元件位置。一切皆是插件。</p>
+    <p class="lede" data-i18n="hero.lede">以完整 DeepSeek Harness 為底、透過原生插件擴充的本機優先智能體。桌面版以 Rust + Tauri 2 封裝成全平台軟體（Windows／macOS／Linux）；DeepSeek Harness 本體不重寫，一切皆是插件。</p>
     <p class="status-note" id="release-status" data-i18n="hero.status">目前沒有已驗收的公開安裝包。Windows 安裝包尚未發佈與驗收。macOS 與 Linux 桌面包不在目前保證範圍。請先從原始碼運行。</p>
     <div class="cta">
       <a class="btn primary" href="start.html" id="cta-primary" data-i18n="cta.source">從原始碼運行</a>
@@ -113,7 +113,7 @@
       <p class="lede" data-i18n="product.p">Agent 本體為轂，技能與原生插件為可換的輻。新增程式為 MIT、不新增遙測、連線須明確同意；實際原生第三方授權與安裝行為仍是發版閘，非 DeepSeek 官方產品。</p>
     </div>
     <ul class="facts">
-      <li class="fact"><h3 data-i18n="product.1h">完整官方 DSH</h3><p data-i18n="product.1p">以完整 DeepSeek Harness 為底，保留原生佈局與元件位置。桌面版以 Rust + Tauri 2 作外殼，只負責視窗、安裝、更新與啟停；DSH runtime 不重寫。</p></li>
+      <li class="fact"><h3 data-i18n="product.1h">完整官方 DSH</h3><p data-i18n="product.1p">以完整 DeepSeek Harness 為底，保留原生佈局與元件位置；桌面版以 Rust + Tauri 2 封裝成全平台軟體，只負責視窗、安裝、更新與啟停，Harness 本體不重寫。</p></li>
       <li class="fact"><h3 data-i18n="product.2h">一切皆是插件</h3><p data-i18n="product.2p">一個原生 ymzz 插件註冊品牌／主題插槽、9個固定來源指令技能與真正 DSH 核准任務。審核更新目前只到簽署清單的本機驗證暫存，不冒充正式安裝通道。</p></li>
       <li class="fact"><h3 data-i18n="product.3h">溫潤四主題</h3><p data-i18n="product.3p">雲箋淺、雲箋暗、陶土淺、陶土暗。已在真正 DSH 主題服務註冊，本站也可切換；Windows 打包後的呈現仍待 GUI 驗收。</p></li>
       <li class="fact"><h3 data-i18n="product.4h">支付另接</h3><p data-i18n="product.4p">收費與支付由作者自行接入，本站不提供支付介面，也不收集付款資料。</p></li>
@@ -143,7 +143,7 @@
     <div class="sec-head">
       <p class="label" data-i18n="plugins.k">插件哲學</p>
       <h2 data-i18n="plugins.h">轂是空的，輻可以換</h2>
-      <p class="lede" data-i18n="plugins.p">9個指令技能已透過官方 ctx.skills 註冊，596個複製檔案與固定上游雜湊一致。不代表第三方 CLI 已安裝，不授予執行／網路／付費權限；發佈授權閘未放寬。</p>
+      <p class="lede" data-i18n="plugins.p">9個指令技能已透過官方 ctx.skills 註冊，596個複製檔案與固定上游雜湊一致。不代表第三方 CLI 已安裝，不授予執行／網路／付費權限；發佈授權閘未放寬。架構與流程示意規劃採用 tt-a1i/archify（Apache-2.0，含 DSH 插件）。</p>
     </div>
   </div>
 </section>
@@ -249,7 +249,7 @@
       </details>
       <details>
         <summary data-i18n="faq.9q">Tauri 在這裡是什麼角色？</summary>
-        <div class="ans" data-i18n="faq.9a">只是外殼：負責視窗、安裝、更新與啟停。內部仍然啟動完整 DSH runtime，左側導航、中間對話、右側工作區、四套主題與原生功能面板都不重寫。</div>
+        <div class="ans" data-i18n="faq.9a">只是外殼：負責視窗、安裝、更新與啟停。內部仍然啟動完整 DeepSeek Harness，左側導航、中間對話、右側工作區、四套主題與原生功能面板都不重寫。</div>
       </details>
     </div>
   </div>
