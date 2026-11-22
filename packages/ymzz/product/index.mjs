@@ -3,6 +3,7 @@ import {WebGuidance} from './web-guidance.mjs';
 import {evidenceHash,createAcceptanceReceipt,requireFreshReceipt,createAcceptanceCapsule,createReceiptContext} from './acceptance.mjs';
 import {consumeWenrunTheme} from './wenrun-consumption.mjs';
 import {approvalOnce} from './ui-approval.mjs';
+import {KnowledgeService} from './knowledge-service.mjs';
 // MIT. A real plugin loaded by the FULL official DSH application, not a second agent loop.
 import fs from 'node:fs';
 import {providerConfig,requestCompletion,completionChunks} from './local-provider.mjs';
@@ -28,6 +29,10 @@ export async function apply(ctx,config={}){
  const root=import.meta.dirname,guidance=new WebGuidance(root),data=path.resolve(config.dataDir||path.join(resolveDshHome(),'ymzz'));
  const updates=new ReviewedUpdates({directory:path.join(data,'reviewed-updates'),channel:JSON.parse(fs.readFileSync(path.join(import.meta.dirname,'maintainer-channel.json'),'utf8')),currentDSHCommit:'39163dd30f703a79079e2d2446545cff3c453738'});
  fs.mkdirSync(data,{recursive:true,mode:0o700});const statePath=path.join(data,'tasks.json');
+ // Knowledge tagging keeps its own ledger. A broken ledger must degrade the
+ // panel, never the whole plugin: the reason is surfaced on every knowledge route.
+ let knowledge=null,knowledgeError='';
+ try{knowledge=new KnowledgeService({ctx,root:data})}catch(error){knowledgeError=/^[A-Z][A-Z0-9_]+$/.test(error?.message||'')?error.message:'KNOWLEDGE_UNAVAILABLE'}
  const saved=fs.existsSync(statePath)?JSON.parse(fs.readFileSync(statePath,'utf8')):{tasks:{},nickname:'',memory:[],events:[]};
  saved.provider??={enabled:false};const selected=new Map();
  const handles=new Map(),pending=new Map(),timers=new Map(),proposals=new Map();
@@ -102,15 +107,28 @@ export async function apply(ctx,config={}){
   return startTask(directory,{mode:'offline-fixture',title:'修正 add(2,3)：明確假模型／真實 DSH 工具',testFile:'calculator.test.mjs'});
  }
  const state=()=>({engine:'FULL official DeepSeek Harness',plugin:name,upstream:'39163dd30f703a79079e2d2446545cff3c453738',nickname:saved.nickname,provider:{...saved.provider,modelInferenceVerified:false},selected:[...selected].map(([id,w])=>({id,path:w.root,files:w.files()})),memory:saved.memory,updates:updates.state(),skills:lock.skills.map(s=>s.id),webGuidance:guidance.summary(),univer:univerStatus(root),tasks:Object.values(saved.tasks).map(view),pending:[...pending.values()].map(({settle,...p})=>p),evidenceValid:valid(),events:saved.events});
- const ui=fs.readFileSync(path.join(import.meta.dirname,'ui.js'),'utf8'),tokens=fs.readFileSync(path.join(root,'wenrun-tokens.css'),'utf8'),css=fs.readFileSync(path.join(import.meta.dirname,'wenrun.css'),'utf8');
- ctx.on('webserver/index-inject',table=>{table.push({kind:'global',name:'__YMZZ_THEME_DIAGNOSTICS__',value:process.env.YMZZ_THEME_DIAGNOSTICS==='1'},{kind:'global',name:'__YMZZ_THEME_ASSETS__',value:{uiSHA256:hash(ui),cssSHA256:hash(css)}},{kind:'global',name:'__YMZZ_DSH_BRAND__',value:'data:image/png;base64,'+fs.readFileSync(path.join(root,'icon-128.png')).toString('base64')},{kind:'style',text:tokens+'\n'+css},{kind:'script',placement:'body',text:'globalThis.__YMZZ_CONSUME_WENRUN__='+consumeWenrunTheme.toString()+';\nconst __YMZZ_APPROVAL_ONCE__='+approvalOnce.toString()+';\n'+ui})});
+const ui=fs.readFileSync(path.join(import.meta.dirname,'ui.js'),'utf8'),tokens=fs.readFileSync(path.join(root,'wenrun-tokens.css'),'utf8'),css=fs.readFileSync(path.join(import.meta.dirname,'wenrun.css'),'utf8');
+// The knowledge dock is an independent DOM root + script so the 700ms task-card
+// re-render can never clear it. Same authenticated /ymzz routes, same tokens.
+const knowledgeUi=fs.readFileSync(path.join(import.meta.dirname,'knowledge-ui.js'),'utf8'),knowledgeCss=fs.readFileSync(path.join(import.meta.dirname,'knowledge-ui.css'),'utf8');
+ctx.on('webserver/index-inject',table=>{table.push({kind:'global',name:'__YMZZ_THEME_DIAGNOSTICS__',value:process.env.YMZZ_THEME_DIAGNOSTICS==='1'},{kind:'global',name:'__YMZZ_THEME_ASSETS__',value:{uiSHA256:hash(ui),cssSHA256:hash(css),knowledgeSHA256:hash(knowledgeUi+knowledgeCss)}},{kind:'global',name:'__YMZZ_DSH_BRAND__',value:'data:image/png;base64,'+fs.readFileSync(path.join(root,'icon-128.png')).toString('base64')},{kind:'style',text:tokens+'\n'+css+'\n'+knowledgeCss},{kind:'script',placement:'body',text:'globalThis.__YMZZ_CONSUME_WENRUN__='+consumeWenrunTheme.toString()+';\nconst __YMZZ_APPROVAL_ONCE__='+approvalOnce.toString()+';\n'+ui},{kind:'script',placement:'body',text:knowledgeUi})});
  ctx.effect(()=>ctx.webServer.register({kind:'prefix',path:'/ymzz',auth:'required',handler:async(req,res)=>{
   try{const url=new URL(req.url,'http://127.0.0.1');let out;
    if(req.method==='GET'&&url.pathname.startsWith('/ymzz/univer/')){const {serveUniverAsset}=await import('./univer-assets.mjs');return serveUniverAsset(url,res,root)}
    if(req.method==='GET'&&url.pathname==='/ymzz/guidance/search')out={source:guidance.summary(),results:guidance.search(url.searchParams.get('q'))};
    else if(req.method==='GET'&&url.pathname==='/ymzz/guidance/read')out=guidance.read(url.searchParams.get('id'),Number(url.searchParams.get('offset')||0));
    else if(req.method==='GET'&&url.pathname==='/ymzz/state')out=state();
-   else{ensure(req.method==='POST'&&req.headers['x-ymzz-action']==='1'&&req.headers['sec-fetch-site']!=='cross-site','ACTION_REJECTED');let body='';for await(const b of req){body+=b;ensure(Buffer.byteLength(body)<=8192,'BODY_TOO_LARGE')}const input=JSON.parse(body||'{}');
+   else if(req.method==='GET'&&url.pathname==='/ymzz/knowledge/state'){ensure(knowledge,knowledgeError||'KNOWLEDGE_UNAVAILABLE');out=knowledge.state()}
+   else if(req.method==='GET'&&url.pathname==='/ymzz/knowledge/sessions'){ensure(knowledge,knowledgeError||'KNOWLEDGE_UNAVAILABLE');out=await knowledge.listSessions()}
+   else if(req.method==='GET'&&url.pathname==='/ymzz/knowledge/session'){ensure(knowledge,knowledgeError||'KNOWLEDGE_UNAVAILABLE');out=await knowledge.readSession(url.searchParams.get('id')||'')}
+   else if(req.method==='GET'&&url.pathname==='/ymzz/knowledge/search'){ensure(knowledge,knowledgeError||'KNOWLEDGE_UNAVAILABLE');out=knowledge.search({query:url.searchParams.get('q')||'',tag:url.searchParams.get('tag')||''})}
+   else if(req.method==='GET'&&url.pathname==='/ymzz/knowledge/open'){ensure(knowledge,knowledgeError||'KNOWLEDGE_UNAVAILABLE');out=knowledge.open(url.searchParams.get('id')||'')}
+   else if(req.method==='GET'&&url.pathname==='/ymzz/tags/state'){ensure(knowledge,knowledgeError||'KNOWLEDGE_UNAVAILABLE');out=knowledge.tagState({limit:Number(url.searchParams.get('limit')||0)||undefined,kind:url.searchParams.get('kind')||'',tag:url.searchParams.get('tag')||'',list:url.searchParams.get('list')||'',query:url.searchParams.get('q')||''})}
+   else if(req.method==='GET'&&url.pathname==='/ymzz/tags/query'){ensure(knowledge,knowledgeError||'KNOWLEDGE_UNAVAILABLE');out=knowledge.queryTags({kind:url.searchParams.get('kind')||'',tag:url.searchParams.get('tag')||'',list:url.searchParams.get('list')||'',query:url.searchParams.get('q')||''})}
+   else if(req.method==='GET'&&url.pathname==='/ymzz/tags/locate'){ensure(knowledge,knowledgeError||'KNOWLEDGE_UNAVAILABLE');out=knowledge.locateEntity(url.searchParams.get('id')||'')}
+   else if(req.method==='GET'&&url.pathname==='/ymzz/tags/revisions'){ensure(knowledge,knowledgeError||'KNOWLEDGE_UNAVAILABLE');out=knowledge.entityRevisions(url.searchParams.get('id')||'')}
+   else{ensure(req.method==='POST'&&req.headers['x-ymzz-action']==='1'&&req.headers['sec-fetch-site']!=='cross-site','ACTION_REJECTED');const limit=url.pathname.startsWith('/ymzz/knowledge')||url.pathname.startsWith('/ymzz/tags')?262144:8192;let body='';for await(const b of req){body+=b;ensure(Buffer.byteLength(body)<=limit,'BODY_TOO_LARGE')}const input=JSON.parse(body||'{}');
+    if(url.pathname.startsWith('/ymzz/knowledge/')||url.pathname.startsWith('/ymzz/tags/'))ensure(knowledge,knowledgeError||'KNOWLEDGE_UNAVAILABLE');
     if(url.pathname==='/ymzz/profile'){ensure(typeof input.nickname==='string'&&input.nickname.trim()&&input.nickname.length<=60,'NICKNAME_INVALID');saved.nickname=input.nickname.trim();persist();out={ok:true}}
     else if(url.pathname==='/ymzz/update/stage')out=await updates.stage(input);
     else if(url.pathname==='/ymzz/update/rollback')out=await updates.rollback(input.consent);
@@ -121,6 +139,23 @@ export async function apply(ctx,config={}){
     else if(url.pathname==='/ymzz/evidence/capsule'){ensure(input.consent===true,'REPORT_CONSENT_REQUIRED');const t=saved.tasks[input.id];ensure(t,'YMZZ_TASK_REQUIRED');ensure(t.state==='accepted','ACCEPT_FIRST');let live;try{live=snapshot(new Workspace(t.root))}catch{}out={capsule:createAcceptanceCapsule(t,saved.events,{ledgerValid:valid(),consent:input.consent,snapshot:live})}}
     else if(url.pathname==='/ymzz/evidence/export'){ensure(input.consent===true,'REPORT_CONSENT_REQUIRED');out={markdown:'# 湛箴_ymzz · 任務證據 · '+saved.nickname+'\n\n'+Object.values(saved.tasks).map(t=>'## '+(t.title||t.id)+'\n狀態：'+t.state+'\n測試：'+t.gates.map(g=>g.passed?'通過':'失敗').join(' → ')+'\n已變更：'+Object.keys(t.changed).join('、')+'\n驗收收據 SHA256：'+(t.acceptanceReceipt?.sha256||'歷史紀錄未附收據')+'\n模型 transport：'+t.mode+'；此匯出不是身分簽章或外部完成憑證。').join('\n\n')+'\n\n本機任務證據；Loop 是已完成的獨立專案管理產品，不在此匯入或遷移。\n'}}
     else if(url.pathname==='/ymzz/demo')out=await demo();
+    else if(url.pathname==='/ymzz/knowledge/draft'){ensure(input.consent===true,'CONSENT_REQUIRED');out=knowledge.saveDraft(input.draft)}
+    else if(url.pathname==='/ymzz/knowledge/draft/delete'){ensure(input.consent===true,'CONSENT_REQUIRED');out=knowledge.deleteDraft(String(input.id||''))}
+    else if(url.pathname==='/ymzz/knowledge/approve'){ensure(input.consent===true,'CONSENT_REQUIRED');out=knowledge.approve(String(input.id||''))}
+    else if(url.pathname==='/ymzz/knowledge/commit')out=knowledge.commit(String(input.id||''),{consent:input.consent});
+    else if(url.pathname==='/ymzz/knowledge/revoke')out=knowledge.revoke(String(input.id||''),{consent:input.consent});
+    else if(url.pathname==='/ymzz/knowledge/vault')out=knowledge.setVault(String(input.path||''),{consent:input.consent});
+    else if(url.pathname==='/ymzz/knowledge/vault/pick'){ensure(input.consent===true,'VAULT_CONSENT_REQUIRED');const capability=ctx.directoryPicker.capability();ensure(capability.kind==='native','NATIVE_PICKER_REQUIRED');const picked=await capability.pick(AbortSignal.timeout(90000));out=picked?{...knowledge.setVault(picked,{consent:true}),cancelled:false}:{cancelled:true}}
+    else if(url.pathname==='/ymzz/knowledge/mcp/probe')out=await knowledge.probeMcp(String(input.name||''));
+    else if(url.pathname==='/ymzz/knowledge/mcp/restart')out=await knowledge.restartMcp(String(input.name||''));
+    else if(url.pathname==='/ymzz/tags/entity'){ensure(input.consent===true,'CONSENT_REQUIRED');out=knowledge.addEntity({...(input.entity&&typeof input.entity==='object'?input.entity:{}),consent:true})}
+    else if(url.pathname==='/ymzz/tags/entity/update'){ensure(input.consent===true,'CONSENT_REQUIRED');out=knowledge.updateEntity(String(input.id||''),input.patch||{},{consent:true})}
+    else if(url.pathname==='/ymzz/tags/entity/delete'){ensure(input.consent===true,'CONSENT_REQUIRED');out=knowledge.removeEntity(String(input.id||''),{consent:true})}
+    else if(url.pathname==='/ymzz/tags/tag'){ensure(input.consent===true,'CONSENT_REQUIRED');out=knowledge.setTag(String(input.id||''),input.tag,{consent:true,add:input.add!==false})}
+    else if(url.pathname==='/ymzz/tags/list'){ensure(input.consent===true,'CONSENT_REQUIRED');out=knowledge.createList({name:input.name,description:input.description,consent:true})}
+    else if(url.pathname==='/ymzz/tags/list/delete'){ensure(input.consent===true,'CONSENT_REQUIRED');out=knowledge.removeList(String(input.id||''),{consent:true})}
+    else if(url.pathname==='/ymzz/tags/membership'){ensure(input.consent===true,'CONSENT_REQUIRED');out=knowledge.setMembership({listId:String(input.listId||''),entityId:String(input.entityId||''),present:input.present!==false,consent:true})}
+    else if(url.pathname==='/ymzz/tags/restore'){ensure(input.consent===true,'CONSENT_REQUIRED');out=knowledge.restoreEntityRevision(String(input.id||''),input.revision,{consent:true})}
     else if(url.pathname==='/ymzz/approval'){const p=pending.get(input.id);ensure(p&&typeof input.allow==='boolean','APPROVAL_NOT_PENDING');event(p.task,'human-tool-approval',{tool:p.tool,allowed:input.allow});p.settle(input.allow?'allowed-once':'rejected');out={ok:true}}
     else if(url.pathname==='/ymzz/review'){const t=saved.tasks[input.id];ensure(t&&input.consent===true&&['accept','rollback','remember'].includes(input.action),'REVIEW_REQUIRED');const w=new Workspace(t.root);ensure(!handles.get(t.id)||handles.get(t.id).agent.status==='idle','DSH_AGENT_NOT_IDLE');
      if(input.action==='remember'){ensure(t.state==='accepted','ACCEPT_FIRST');ensure(!saved.memory.some(m=>m.id===t.id),'ALREADY_REMEMBERED');ensure(valid(),'EVIDENCE_CHAIN_INVALID');const live=snapshot(w);if(!t.acceptanceReceipt){t.acceptanceReceipt=createAcceptanceReceipt(t,live,saved.events.at(-1)?.hash||'0'.repeat(64));event(t.id,'legacy-acceptance-receipt-bound',{receiptSHA256:t.acceptanceReceipt.sha256})}const receipt=requireFreshReceipt(t,live);createAcceptanceCapsule(t,saved.events,{ledgerValid:valid(),consent:true,snapshot:live});saved.memory.push({id:t.id,text:'人工驗收且記憶時內容仍匹配；驗收收據 '+receipt.sha256,receiptSHA256:receipt.sha256,snapshotSHA256:receipt.payload.snapshotSHA256,model:receipt.payload.model});event(t.id,'memory-confirmed',{receiptSHA256:receipt.sha256});out={ok:true,receiptSHA256:receipt.sha256}}
