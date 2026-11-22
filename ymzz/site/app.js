@@ -214,7 +214,7 @@
       const note = box.querySelector(".status-note");
       document.getElementById("ymzz-public-releases")?.remove();
       box.prepend(listEl);
-      const win = assets.find(({ asset }) => asset.name.startsWith("湛箴_ymzz-") && isWindowsAsset(asset.name) && assetLooksLikeInstaller(asset.name));
+      const win = assets.find(({ asset }) => /^湛箴_ymzz[-_]/u.test(asset.name) && isWindowsAsset(asset.name) && assetLooksLikeInstaller(asset.name));
       if(win && note)note.remove();
       if (win && cta) {
         cta.href = win.asset.browser_download_url;
@@ -226,6 +226,67 @@
       }
     } catch {
       if(status)status.textContent=message("release.error","GitHub 查詢失敗或已停用；保留未發佈狀態。");
+    }
+  }
+
+  // Canary installer listing: strictly opt-in, clearly labelled 未驗收, and
+  // never promoted into the main call to action. Prerelease assets only.
+  async function hydrateCanary() {
+    const box = document.getElementById("canary");
+    const listHost = document.getElementById("canary-list");
+    if (cfg.releasesApi!=="https://api.github.com/repos/Ya-MiC/ymzz/releases?per_page=10" || !box || !listHost) return;
+    releaseRequest?.abort(); releaseRequest=new AbortController();
+    try {
+      const res = await fetch(cfg.releasesApi, {
+        headers: { Accept: "application/vnd.github+json" }, redirect: "error",
+        credentials: "omit", referrerPolicy: "no-referrer", cache: "no-store", signal: AbortSignal.any([AbortSignal.timeout(8000),releaseRequest.signal])
+      });
+      if (!res.ok) throw new Error("PUBLIC_RELEASE_LOOKUP_FAILED");
+      const list = await res.json();
+      if (!Array.isArray(list)) return;
+      const canary = list.filter((r) => r && r.draft === false && r.prerelease === true);
+      const assets = [];
+      canary.forEach((r) => {
+        (r.assets || []).forEach((a) => {
+          if (safeReleaseAsset(a)) assets.push({ release: r, asset: a });
+        });
+      });
+      listHost.replaceChildren();
+      const empty = document.getElementById("canary-empty");
+      if (!assets.length) {
+        if (empty) empty.hidden = false;
+        return;
+      }
+      if (empty) empty.hidden = true;
+      const listEl = document.createElement("ul");
+      listEl.className = "facts";
+      listEl.id = "ymzz-canary-releases";
+      assets.forEach(({ release, asset }) => {
+        const li = document.createElement("li");
+        li.className = "fact";
+        const h = document.createElement("h3");
+        h.textContent = asset.name;
+        const p = document.createElement("p");
+        p.textContent = (release.name || release.tag_name || "") + " · " + asset.size + " bytes";
+        const badge = document.createElement("span");
+        badge.className = "tag wait";
+        badge.dataset.i18n = "canary.badge";
+        badge.textContent = "未驗收 canary";
+        const a = document.createElement("a");
+        a.className = "btn ghost";
+        a.href = asset.browser_download_url;
+        a.rel = "noopener noreferrer";
+        a.textContent = asset.name;
+        li.append(h, p, badge, a);
+        listEl.append(li);
+      });
+      listHost.append(listEl);
+    } catch {
+      const failed = document.getElementById("canary-empty");
+      if (failed) {
+        failed.hidden = false;
+        failed.textContent = message("canary.error", "GitHub 查詢失敗或已停用；保留未發佈狀態。");
+      }
     }
   }
 
@@ -304,5 +365,17 @@
     button.addEventListener("click",()=>{if(allow.checked)void hydrateReleases()});
     for(const [key,text]of [["release.none","尚無公開正式產品安裝包；保留未發佈狀態。"],["release.error","GitHub 查詢失敗或已停用；保留未發佈狀態。"]]){const span=document.createElement("span");span.hidden=true;span.dataset.i18n=key;span.textContent=text;preferences.append(span)}
     preferences.append(label,button);download.append(preferences);
+  }
+  // Canary listing is a second, separate opt-in with its own off switch.
+  const canary=document.getElementById("canary");
+  if(canary){
+    const controls=document.createElement("div"),label=document.createElement("label"),allow=document.createElement("input"),button=document.createElement("button");
+    controls.className="release-controls";
+    allow.type="checkbox";allow.checked=false;allow.setAttribute("aria-label","允許列出未驗收 canary 安裝包");allow.setAttribute("data-i18n-aria","canary.allow");
+    const consent=document.createElement("span");consent.dataset.i18n="canary.allow";consent.textContent=" 我知道這些是未驗收的 canary 安裝包，列出它們";label.append(allow,consent);
+    button.type="button";button.className="btn ghost";button.textContent="列出 canary 安裝包";button.dataset.i18n="canary.check";button.disabled=true;
+    allow.addEventListener("change",()=>{button.disabled=!allow.checked;if(!allow.checked)releaseRequest?.abort()});
+    button.addEventListener("click",()=>{if(allow.checked)void hydrateCanary()});
+    controls.append(label,button);canary.append(controls);
   }
 })();

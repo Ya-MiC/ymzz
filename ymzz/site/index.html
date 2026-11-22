@@ -35,6 +35,7 @@
 <header class="nav">
   <a class="brand" href="#top"><img src="favicon.svg" width="28" height="28" alt=""><span>湛箴<b>_</b>ymzz</span></a>
   <a class="nav-guide" href="start.html" data-i18n="nav.start">從原始碼運行</a>
+  <a class="nav-guide" href="download.html" data-i18n="nav.download">下載</a>
   <a class="nav-guide" href="#get" data-i18n="nav.get">取得</a>
   <a class="nav-guide" href="#family" data-i18n="nav.family">家族產品</a>
   <a class="nav-guide" href="https://github.com/Ya-MiC/ymzz" rel="noopener noreferrer" data-i18n="nav.github">GitHub</a>
@@ -101,6 +102,12 @@
     <div id="download" class="table-wrap">
       <p class="status-note" data-i18n="get.pending">目前沒有公開正式產品安裝包。只有勾選允許並按下手動檢查，才查詢 GitHub 公開 Release 資料。</p>
       <p><a href="https://github.com/Ya-MiC/ymzz/releases" rel="noopener noreferrer" data-i18n="get.releases">查看 GitHub Releases（目前為空）</a></p>
+    </div>
+    <div id="canary" class="table-wrap">
+      <p class="status-note" data-i18n="canary.note">開發者通道：CI 自動構建的 canary 安裝包屬於預發佈（prerelease），未通過真機點按驗收。只有勾選允許並按下列出，才會查詢；安裝前請比對 Release 頁的說明。</p>
+      <div id="canary-list"></div>
+      <p id="canary-empty" class="status-note" hidden data-i18n="canary.none">目前沒有 canary 安裝包；保留未發佈狀態。</p>
+      <p><a href="download.html" data-i18n="get.guide">下載與首次啟動指引</a></p>
     </div>
   </div>
 </section>

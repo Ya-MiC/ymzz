@@ -1,0 +1,149 @@
+<!doctype html>
+<!-- SPDX-License-Identifier: MIT · © 2026 YanMing Cao (晏銘湛箴) -->
+<html lang="zh-Hant" dir="ltr" data-theme="light" data-palette="cloud">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; font-src 'self'; script-src 'self'; connect-src 'self' https://api.github.com; base-uri 'self'; form-action 'none'; upgrade-insecure-requests">
+<title>下載與首次啟動 · 湛箴_ymzz</title>
+<meta name="description" content="湛箴_ymzz 下載與首次啟動指引：平台安裝包現況、四步首次體驗、完整性核對與問題回饋管道。">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://ya-mic.github.io/ymzz/download.html">
+<meta property="og:url" content="https://ya-mic.github.io/ymzz/download.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="下載與首次啟動 · 湛箴_ymzz">
+<meta property="og:description" content="平台現況據實標注；canary 安裝包未驗收，僅供第一位產品體驗者測試並回饋。">
+<meta property="og:image" content="https://ya-mic.github.io/ymzz/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#F8F6EF">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="alternate" type="text/plain" title="llms.txt" href="llms.txt">
+<link rel="author" type="text/plain" href="humans.txt">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<a class="skip" href="#main" data-i18n="skip">跳到主要內容</a>
+<div class="grain" aria-hidden="true"></div>
+
+<header class="nav">
+  <a class="brand" href="index.html"><img src="favicon.svg" width="28" height="28" alt=""><span>湛箴<b>_</b>ymzz</span></a>
+  <a class="nav-guide" href="index.html" data-i18n="foot.home">首頁</a>
+  <a class="nav-guide" href="start.html" data-i18n="nav.start">從原始碼運行</a>
+  <a class="nav-guide" href="https://github.com/Ya-MiC/ymzz" rel="noopener noreferrer">GitHub</a>
+  <div class="tools">
+    <label class="chip sel"><span class="vh" data-i18n="ui.theme">主題</span>
+      <select id="theme" aria-label="Theme">
+        <option value="cloud-light">雲箋淺</option>
+        <option value="cloud-dark">雲箋暗</option>
+        <option value="earth-light">陶土淺</option>
+        <option value="wood-dark">陶土暗</option>
+      </select>
+    </label>
+  </div>
+</header>
+
+<main id="main" class="page">
+<section class="panel legal" id="download-guide">
+  <p class="label" data-i18n="download.k">下載與首次啟動</p>
+  <h1 data-i18n="download.h">第一位產品體驗者從這一頁開始</h1>
+  <p class="status-note" data-i18n="download.status">現況據實：正式（非預發佈）安裝包尚未發佈與驗收；canary 安裝包由 CI 自動構建，屬於預發佈資產，標注「未驗收」。你可以當第一位體驗者下載測試，並用 GitHub issues 回報。</p>
+
+  <h2>1. 平台現況</h2>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>平台</th><th>格式</th><th>狀態</th><th>入口</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Windows 10/11 x64</td>
+          <td>NSIS 安裝包（exe）</td>
+          <td><span class="tag wait" data-i18n="download.win.s">canary · 未驗收</span></td>
+          <td><a href="https://github.com/Ya-MiC/ymzz/releases" rel="noopener noreferrer">GitHub Releases</a></td>
+        </tr>
+        <tr>
+          <td>macOS（Apple Silicon）</td>
+          <td>DMG</td>
+          <td><span class="tag wait" data-i18n="download.mac.s">canary · 未驗收</span></td>
+          <td><a href="https://github.com/Ya-MiC/ymzz/releases" rel="noopener noreferrer">GitHub Releases</a></td>
+        </tr>
+        <tr>
+          <td>Linux x64</td>
+          <td>AppImage</td>
+          <td><span class="tag wait" data-i18n="download.linux.s">canary · 未驗收</span></td>
+          <td><a href="https://github.com/Ya-MiC/ymzz/releases" rel="noopener noreferrer">GitHub Releases</a></td>
+        </tr>
+        <tr>
+          <td data-i18n="download.src.n">任何平台 · 從原始碼運行</td>
+          <td>pnpm 源碼</td>
+          <td><span class="tag" data-i18n="download.src.s">目前真實入口</span></td>
+          <td><a href="start.html" data-i18n="download.src.p">查看開始步驟</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p data-i18n="download.canary.hint">首頁「取得」區的開發者通道只在你勾選允許後，才列出標注「未驗收 canary」的預發佈資產；它們不會出現在主按鈕上。等一個版本通過真機點按驗收後，才會轉為正式發佈並自動出現在首頁。</p>
+
+  <h2>2. 四步首次體驗</h2>
+  <ol class="steps">
+    <li>
+      <span class="n">1</span>
+      <div>
+        <h3 data-i18n="download.step1.h">下載</h3>
+        <p data-i18n="download.step1.p">到 GitHub Releases 的預發佈條目，選你平台的安裝包。檔名以「湛箴_ymzz」開頭；其他產品（含稟冊）的資產與本產品無關。</p>
+      </div>
+    </li>
+    <li>
+      <span class="n">2</span>
+      <div>
+        <h3 data-i18n="download.step2.h">核對後安裝</h3>
+        <p data-i18n="download.step2.p">安裝前先比對 Release 頁提供的 SHA256（canary 階段尚未配置代碼簽名，SmartScreen／Gatekeeper 可能提示未知發佈者，屬預期）。Windows 直接執行 NSIS 安裝程式；macOS 打開 DMG 拖入應用程式；Linux 賦予執行權限後運行 AppImage。</p>
+      </div>
+    </li>
+    <li>
+      <span class="n">3</span>
+      <div>
+        <h3 data-i18n="download.step3.h">首次啟動</h3>
+        <p data-i18n="download.step3.p">首次打開會要求一個暱稱；模型金鑰可以選 Add API Key → Set up later 先跳過，沒有配置供應商時產品不會宣稱模型可用。之後在原生 Settings 配置模型與 MCP。</p>
+      </div>
+    </li>
+    <li>
+      <span class="n">4</span>
+      <div>
+        <h3 data-i18n="download.step4.h">體驗標籤面板並回饋</h3>
+        <p data-i18n="download.step4.p">右側「知識」標籤打開面板：設定 Vault（原生目錄選擇器）→ 從會話或手工文字建立草稿 → 審批 → 寫入 Obsidian Vault → 搜尋／星雲圖／撤銷。哪裡不行，到 GitHub issues 回報：附版本號、平台、截圖與重現步驟。</p>
+      </div>
+    </li>
+  </ol>
+
+  <h2>3. 回饋與邊界</h2>
+  <ul>
+    <li data-i18n="download.feedback">回饋入口：<a href="https://github.com/Ya-MiC/ymzz/issues" rel="noopener noreferrer">Ya-MiC/ymzz issues</a>。canary 階段的目標就是找出「哪裡不行」。</li>
+    <li data-i18n="download.boundary">本頁不提供盜版、破解或第三方轉載下載；安裝包只來自本倉庫的 GitHub Releases。</li>
+    <li data-i18n="download.privacy">資料去哪：見<a href="privacy.html">隱私與 Cookie</a>。產品零遙測；模型金鑰只保存在本機。</li>
+  </ul>
+
+  <div class="en">
+    <h2>Summary (English)</h2>
+    <p>No stable installer is published yet. CI-built canary installers (NSIS / DMG / AppImage) are prerelease assets, labelled 未驗收 (not accepted), and listed only behind an explicit opt-in on the home page. Verify the SHA256 from the release page before installing; unsigned binaries may trigger SmartScreen or Gatekeeper warnings, which is expected for canary builds.</p>
+    <p>First run: pick a nickname, skip the model key with "Add API Key → Set up later", configure model and MCP in native Settings, then open the 知識 dock on the right to set a Vault and turn a conversation into an approved Obsidian note. Report anything broken at the GitHub issues page with version, platform, screenshot and steps.</p>
+  </div>
+</section>
+</main>
+
+<footer class="foot">
+  <p class="huge">湛箴<span>_</span>ymzz</p>
+  <p><b>晏銘湛箴 / Ya-MiC</b> · <span data-i18n="foot.ver">原始碼階段 · MIT © 2026 YanMing Cao</span></p>
+  <p class="label">
+    <a href="index.html" data-i18n="foot.home">首頁</a> ·
+    <a href="start.html" data-i18n="nav.start">從原始碼運行</a> ·
+    <a href="family.html" data-i18n="foot.family">家族索引</a> ·
+    <a href="privacy.html" data-i18n="foot.privacy">隱私與 Cookie</a> ·
+    <a href="humans.txt">humans.txt</a>
+  </p>
+</footer>
+<script src="config.js"></script>
+<script src="app.js" defer></script>
+</body>
+</html>

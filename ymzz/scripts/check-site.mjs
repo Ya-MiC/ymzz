@@ -27,7 +27,7 @@ function walk(dir, acc = []) {
 
 assert.ok(fs.existsSync(site), 'SITE_MISSING')
 const htmlFiles = walk(site).filter((p) => p.endsWith('.html')).map((p) => path.relative(site, p))
-assert.deepEqual(new Set(htmlFiles).size && htmlFiles.sort(), ['404.html', 'family.html', 'index.html', 'privacy.html', 'start.html'].sort())
+assert.deepEqual(new Set(htmlFiles).size && htmlFiles.sort(), ['404.html', 'download.html', 'family.html', 'index.html', 'privacy.html', 'start.html'].sort())
 
 const allText = walk(site).filter((p) => /\.(html|js|css|txt|xml|md|json)$/.test(p)).map((p) => fs.readFileSync(p, 'utf8')).join('\n')
 
@@ -71,9 +71,11 @@ assert.match(css, /prefers-reduced-motion:\s*reduce/)
 assert.match(css, /min-block-size:\s*var\(--hit\)/)
 
 // Honesty: no false installer claims in static source; pending + source-run required
-assert.doesNotMatch(read('index.html') + read('start.html'), installClaimRe, 'FALSE_INSTALLER_CLAIM')
+assert.doesNotMatch(read('index.html') + read('start.html') + read('download.html'), installClaimRe, 'FALSE_INSTALLER_CLAIM')
 assert.match(read('index.html'), windowsPendingRe)
 assert.match(read('start.html'), windowsPendingRe)
+assert.match(read('download.html'), windowsPendingRe)
+assert.match(read('download.html'), sourceRe)
 assert.match(read('index.html'), sourceRe)
 assert.match(read('start.html'), sourceRe)
 assert.match(read('index.html') + read('family.html'), /稟冊/)
@@ -122,7 +124,13 @@ assert.match(app, /CONSENT_KEY = "ymzz-site-consent"/)
 assert.match(app, /function mayPersist\(\)/)
 assert.match(app, /if \(key !== CONSENT_KEY && !mayPersist\(\)\) return;/)
 assert.match(read('index.html'), /href="privacy.html"/)
+assert.match(read('index.html'), /href="download.html"/)
 assert.match(read('privacy.html'), /data-consent-reset/)
+// Canary installers stay behind an explicit opt-in and never become the CTA.
+assert.match(app, /prerelease === true/)
+assert.match(app, /void hydrateCanary\(\)/)
+assert.match(app, /canary\.allow/)
+assert.doesNotMatch(app, /cta\.href = canary/u)
 assert.doesNotMatch(allText, /document\.cookie\s*=/i, 'COOKIE_WRITE')
 assert.doesNotMatch(app, /beforeunload[\s\S]{0,80}fetch\(/, 'UNLOAD_EGRESS')
 
@@ -219,6 +227,9 @@ console.log(JSON.stringify({
 }, null, 2))
 
 assert.match(read('app.js'),/safeReleaseAsset\(a\)/)
-assert.match(read('app.js'),/asset\.name\.startsWith\("湛箴_ymzz-"\)/)
+// Tauri bundle names use `_` separators while the historical convention used
+// `-`; the CTA matcher must accept both.
+assert.match(read('app.js'),/湛箴_ymzz\[-_\]/u)
+assert.doesNotMatch(read('app.js'),/asset\.name\.startsWith\("湛箴_ymzz-"\)/)
 
 assert.match(read('style.css'),/\.release-controls label\{[^}]*min-height:44px/)
