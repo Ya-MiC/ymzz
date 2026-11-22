@@ -27,7 +27,7 @@ function walk(dir, acc = []) {
 
 assert.ok(fs.existsSync(site), 'SITE_MISSING')
 const htmlFiles = walk(site).filter((p) => p.endsWith('.html')).map((p) => path.relative(site, p))
-assert.deepEqual(new Set(htmlFiles).size && htmlFiles.sort(), ['404.html', 'family.html', 'index.html', 'start.html'].sort())
+assert.deepEqual(new Set(htmlFiles).size && htmlFiles.sort(), ['404.html', 'family.html', 'index.html', 'privacy.html', 'start.html'].sort())
 
 const allText = walk(site).filter((p) => /\.(html|js|css|txt|xml|md|json)$/.test(p)).map((p) => fs.readFileSync(p, 'utf8')).join('\n')
 
@@ -112,7 +112,19 @@ const sitemap = read('sitemap.xml')
 assert.match(sitemap, /https:\/\/ya-mic\.github\.io\/ymzz\//)
 assert.match(sitemap, /https:\/\/ya-mic\.github\.io\/ymzz\/start\.html/)
 assert.match(sitemap, /https:\/\/ya-mic\.github\.io\/ymzz\/family\.html/)
+assert.match(sitemap, /https:\/\/ya-mic\.github\.io\/ymzz\/privacy\.html/)
 assert.doesNotMatch(sitemap, /https:\/\/ya-mic\.github\.io\/(?!ymzz\/)/)
+
+// Consent must be opt-in: nothing is persisted before an explicit choice, and
+// the privacy page must stay reachable from the homepage footer.
+const app = read('app.js')
+assert.match(app, /CONSENT_KEY = "ymzz-site-consent"/)
+assert.match(app, /function mayPersist\(\)/)
+assert.match(app, /if \(key !== CONSENT_KEY && !mayPersist\(\)\) return;/)
+assert.match(read('index.html'), /href="privacy.html"/)
+assert.match(read('privacy.html'), /data-consent-reset/)
+assert.doesNotMatch(allText, /document\.cookie\s*=/i, 'COOKIE_WRITE')
+assert.doesNotMatch(app, /beforeunload[\s\S]{0,80}fetch\(/, 'UNLOAD_EGRESS')
 
 // Internal href IDs
 function idsIn(html) {

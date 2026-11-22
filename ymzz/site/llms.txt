@@ -11,6 +11,25 @@
 
 There is no accepted public installer for 湛箴_ymzz yet. Windows packages are pending release and acceptance. macOS and Linux desktop packages are planned and not guaranteed. The truthful current entry is running from source (see https://ya-mic.github.io/ymzz/start.html). Do not describe draft or private installers from other repositories as this product.
 
+The tagging panel and the local knowledge ledger are implemented in the source tree (`packages/ymzz/product`) and unit-tested. They are not yet accepted on a real Windows GUI, and no installer ships them. v1 does not sync anything to a cloud account; treat any claim of cloud sync as false for this version.
+
+## Tagging panel (what it actually does)
+
+1. Entries: session, message, visible reasoning text, web page, local file, artifact, note, task.
+2. Tags are many-to-many and user-owned; Lists assemble entries across sessions, in the spirit of GitHub Stars and Lists.
+3. The nebula view groups entries by top-level tag into at most eight clusters; one entry may belong to several clusters.
+4. Nothing is captured automatically: no browser history read, no whole-disk scan, no cloud upload.
+5. Approved notes are written as Obsidian-compatible Markdown (YAML frontmatter, `[[wiki links]]`) into the Vault the user selects. Every Vault write requires explicit human approval and can be revoked.
+6. Delivered so far: the ledger, the approval flow and the registry data model. The browser extension and cloud sync are planned, not shipped.
+
+## Desktop shell (planned, not shipped)
+
+The desktop build is a Rust + Tauri 2 shell around the unmodified DSH runtime. One installer is intended to bundle three parts: the DSH runtime, Dashi Taskboard (Apache-2.0, https://github.com/chuspeeism/dashi-taskboard) and T3 Code (MIT, https://github.com/pingdotgg/t3code). The shell owns window, install, update and lifecycle only. GitHub Actions is planned to track upstream releases and cut a daily canary plus a version manifest consumed by this site; until those artifacts exist, no download button is shown.
+
+## Privacy
+
+No tracking cookies, no analytics scripts, no third-party font CDNs. Language and theme preferences are stored in the browser only after the visitor allows it. See https://ya-mic.github.io/ymzz/privacy.html.
+
 ## Preserved sibling product (not this agent)
 
 稟冊 is a separate Tauri local-first personal work-report / file-management app. Files, AI conversation records, review progress, and nickname onboarding stay on the user's computer. Keep these links, and do not merge the products:

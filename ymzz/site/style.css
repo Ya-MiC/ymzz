@@ -340,3 +340,42 @@ details[open] .collapse-body{grid-template-rows:1fr}
 
 /* Account navigation is opt-in only after backend production acceptance. */
 [data-account-link][hidden]{display:none!important}
+
+/* Status notes that sit directly inside a .panel (outside .table-wrap). */
+.note-row{margin:0 var(--s5) var(--s4);max-inline-size:none}
+
+/* Storage consent: quiet, bottom-anchored, no scrim, no auto-dismiss. */
+.consent{
+  position:fixed;inset-inline:var(--frame);inset-block-end:max(var(--s4),var(--safe-bottom));
+  z-index:var(--z-toast);
+  display:flex;flex-wrap:wrap;align-items:center;gap:var(--s3) var(--s5);
+  inline-size:min(52rem,calc(100% - var(--frame) * 2));
+  margin-inline:auto;
+  padding:var(--s4) var(--s5);
+  border-radius:var(--R);
+  background:var(--bg-3);
+  box-shadow:var(--sh2);
+  backdrop-filter:var(--blur-glass);
+  -webkit-backdrop-filter:var(--blur-glass);
+}
+.consent p{margin:0;flex:1 1 20rem;color:var(--ink-2);font-size:var(--t-sm);line-height:var(--lh-snug)}
+.consent a{color:var(--ink);text-underline-offset:.22em}
+.consent-actions{display:flex;flex-wrap:wrap;gap:var(--s2);margin-inline-start:auto}
+.consent .btn{min-block-size:44px;padding-inline:var(--s5);font-size:var(--t-sm)}
+@media (max-width:32rem){
+  .consent{padding:var(--s4);gap:var(--s3)}
+  .consent-actions{inline-size:100%;margin-inline-start:0}
+  .consent .btn{flex:1 1 auto}
+}
+
+/* Long-form legal page: reuse the panel grid, keep the measure narrow. */
+.legal{padding:clamp(1.5rem,4vw,3rem)}
+.legal h1{margin:var(--s3) 0 var(--s4);font:400 var(--t-3xl)/var(--lh-tight) var(--f-display)}
+.legal h2{margin:var(--s7) 0 var(--s3);font:400 var(--t-xl)/var(--lh-snug) var(--f-display)}
+.legal h3{margin:var(--s5) 0 var(--s2);font-size:var(--t-base);font-weight:600}
+.legal p,.legal li{color:var(--ink-2);max-inline-size:var(--measure)}
+.legal ul,.legal ol{margin:0;padding-inline-start:1.4em;display:grid;gap:var(--s2)}
+.legal .meta{color:var(--ink-3);font-size:var(--t-xs)}
+.legal a{color:var(--ink)}
+.legal .en{border-block-start:1px solid var(--line-1);margin-block-start:var(--s7);padding-block-start:var(--s5)}
+.legal code{background:var(--panel);padding:.1em .35em;border-radius:.35em}

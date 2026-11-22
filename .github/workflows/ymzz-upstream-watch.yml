@@ -1,0 +1,31 @@
+name: ymzz upstream release watch
+on:
+  schedule:
+    # Daily 22:00 UTC = 每日清晨 6/7 點（東八區），记录上游版本，不下载任何产物。
+    - cron: "0 22 * * *"
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: ymzz-upstream-watch
+  cancel-in-progress: false
+jobs:
+  watch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Record upstream release tags into the manifest
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: node ymzz/scripts/watch-upstreams.mjs
+      - name: Commit manifest when it changed
+        run: |
+          if [ -n "$(git status --porcelain ymzz/upstreams.json)" ]; then
+            git config user.name "ymzz-upstream-watch"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add ymzz/upstreams.json
+            git commit -m "chore(ymzz): refresh upstream release manifest"
+            git push
+          else
+            echo "No upstream change."
+          fi

@@ -22,12 +22,31 @@
     "wood-dark": { theme: "dark", palette: "wood" }
   };
   const LANGS = ["zh-Hant", "zh-CN", "en"];
+  // No tracker uses storage. Language and theme are preferences, so they are
+  // written only after an explicit choice; "essential" keeps the session only.
+  const CONSENT_KEY = "ymzz-site-consent";
 
-  function stored(key) {
+  function rawGet(key) {
     try { return localStorage.getItem(key); } catch { return null; }
   }
-  function store(key, value) {
+  function rawSet(key, value) {
     try { localStorage.setItem(key, value); } catch { /* private mode */ }
+  }
+  function consentChoice() {
+    const value = rawGet(CONSENT_KEY);
+    return value === "all" || value === "essential" ? value : null;
+  }
+  function mayPersist() {
+    return consentChoice() === "all";
+  }
+
+  function stored(key) {
+    if (key !== CONSENT_KEY && !mayPersist()) return null;
+    return rawGet(key);
+  }
+  function store(key, value) {
+    if (key !== CONSENT_KEY && !mayPersist()) return;
+    rawSet(key, value);
   }
 
   function preferDark() {
@@ -92,6 +111,7 @@
       const file = (location.pathname.split("/").pop() || "index.html") || "index.html";
       const titleKey = file === "start.html" ? "start.doc.title"
         : file === "family.html" ? "family.doc.title"
+        : file === "privacy.html" ? "privacy.doc.title"
         : "doc.title";
       if (dict[titleKey]) document.title = dict[titleKey];
     } catch { /* keep server-rendered zh-Hant */ }
@@ -209,7 +229,67 @@
     }
   }
 
+  // Ask once. "essential" keeps the current session readable but persists nothing.
+  function mountConsent() {
+    if (consentChoice()) return;
+    // The privacy page explains the choice; it must not cover its own text.
+    if (location.pathname.endsWith("privacy.html")) return;
+    const bar = document.createElement("aside");
+    bar.className = "consent";
+    bar.setAttribute("role", "dialog");
+    bar.setAttribute("aria-label", "Cookie 與本機儲存選擇");
+    const text = document.createElement("p");
+    const body = document.createElement("span");
+    body.dataset.i18n = "consent.text";
+    body.textContent = "本站不使用追蹤 Cookie，也沒有第三方分析腳本。只有語言與主題偏好會寫入你的瀏覽器；選擇「僅必要」時不保存任何偏好。";
+    const more = document.createElement("a");
+    more.href = "privacy.html";
+    more.dataset.i18n = "consent.more";
+    more.textContent = "隱私與 Cookie 說明";
+    text.append(body, " ", more);
+    const actions = document.createElement("div");
+    actions.className = "consent-actions";
+    const allow = document.createElement("button");
+    allow.type = "button";
+    allow.className = "btn primary";
+    allow.dataset.i18n = "consent.all";
+    allow.textContent = "允許保存偏好";
+    const essential = document.createElement("button");
+    essential.type = "button";
+    essential.className = "btn ghost";
+    essential.dataset.i18n = "consent.essential";
+    essential.textContent = "僅必要";
+    const decide = (choice) => {
+      rawSet(CONSENT_KEY, choice);
+      bar.remove();
+      // Persist the preferences that were blocked while the choice was pending.
+      if (choice === "all") {
+        const themeSel = document.getElementById("theme");
+        applyTheme(themeSel && THEMES[themeSel.value] ? themeSel.value : currentThemeKey());
+        const langSel = document.getElementById("lang");
+        store(cfg.storageLang, normalizeLang(langSel ? langSel.value : navigator.language));
+      }
+    };
+    allow.addEventListener("click", () => decide("all"));
+    essential.addEventListener("click", () => decide("essential"));
+    actions.append(allow, essential);
+    bar.append(text, actions);
+    document.body.append(bar);
+    applyDict();
+  }
+
+  function mountConsentReset() {
+    document.querySelectorAll("[data-consent-reset]").forEach((button) => {
+      button.addEventListener("click", () => {
+        try { localStorage.removeItem(CONSENT_KEY); } catch { /* private mode */ }
+        location.reload();
+      });
+    });
+  }
+
   bootChrome();
+  mountConsent();
+  mountConsentReset();
   hidePre();
   readbar();
   // No automatic third-party request: one explicit user-triggered check, with an off switch.

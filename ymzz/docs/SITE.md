@@ -47,6 +47,16 @@ Loop's own Pages (for comparison only; do not modify):
 
 The main call to action is **run from source** until a non-draft, non-prerelease GitHub Release contains uploaded installer assets. The page must not advertise 稟冊 draft installers, private artifacts, or empty download buttons as if 湛箴_ymzz were already packaged.
 
+## Local storage consent
+
+The site sets no cookies and loads no third-party analytics, ads or CDN assets. Two preference keys (`ymzz-site-theme`, `ymzz-site-lang`) are written **only** after the visitor chooses "allow preferences"; choosing "essential only" keeps both settings for the current session and persists nothing. The choice itself is recorded in `ymzz-site-consent`, which is necessary to honour it. The banner is dismissed by an explicit button, never automatically, and it is suppressed on `privacy.html` so it cannot cover the explanation it links to.
+
+`privacy.html` states the same facts in Chinese and an English summary, lists every key and the single optional outbound request (a manual GitHub Releases lookup: no cookies, no referrer, 8 s timeout, aborted by unchecking the box), and exposes a `data-consent-reset` button that clears the choice and reloads. `check-site.mjs` asserts the consent wiring, the absence of `document.cookie` writes, and the absence of unload-time egress, so the claim cannot silently regress.
+
+## Desktop shell wording
+
+The desktop plan is a Rust + Tauri 2 **shell only**: window, install, update and lifecycle. The DSH runtime is not rewritten and native component positions do not move. The site must not claim an installer, a bundled Taskboard/T3 Code package, or a Tauri-based rewrite of the agent; those are stated as planned, with the pending-installer note kept in every language.
+
 ## Tests
 
 From the repository root:
@@ -55,7 +65,7 @@ From the repository root:
 node ymzz/scripts/check-site.mjs
 ```
 
-The script checks in-repo HTML/CSS/JS only (IDs, `/ymzz/` prefix rules, no trackers, four themes, installer honesty, CSP). Live family-site curl is optional and is recorded by the operator, not required for the unit check.
+The script checks in-repo HTML/CSS/JS only (IDs, `/ymzz/` prefix rules, no trackers, four themes, installer honesty, CSP, consent gating). Live family-site curl is optional and is recorded by the operator, not required for the unit check.
 
 ## Design sources
 

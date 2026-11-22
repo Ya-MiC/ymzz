@@ -1,0 +1,111 @@
+<!doctype html>
+<!-- SPDX-License-Identifier: MIT · © 2026 YanMing Cao (晏銘湛箴) -->
+<html lang="zh-Hant" dir="ltr" data-theme="light" data-palette="cloud">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; font-src 'self'; script-src 'self'; connect-src 'self' https://api.github.com; base-uri 'self'; form-action 'none'; upgrade-insecure-requests">
+<title>隱私與 Cookie · 湛箴_ymzz</title>
+<meta name="description" content="湛箴_ymzz 官網的隱私與 Cookie 說明：沒有追蹤 Cookie、沒有第三方分析腳本；語言與主題偏好只在你許可後存於本機瀏覽器。">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://ya-mic.github.io/ymzz/privacy.html">
+<meta property="og:url" content="https://ya-mic.github.io/ymzz/privacy.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="隱私與 Cookie · 湛箴_ymzz">
+<meta property="og:description" content="零追蹤、零分析腳本；本機偏好儲存需你明確許可，可隨時撤回。">
+<meta property="og:image" content="https://ya-mic.github.io/ymzz/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#F8F6EF">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="alternate" type="text/plain" title="llms.txt" href="llms.txt">
+<link rel="author" type="text/plain" href="humans.txt">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<a class="skip" href="#main" data-i18n="skip">跳到主要內容</a>
+<div class="grain" aria-hidden="true"></div>
+
+<header class="nav">
+  <a class="brand" href="index.html"><img src="favicon.svg" width="28" height="28" alt=""><span>湛箴<b>_</b>ymzz</span></a>
+  <a class="nav-guide" href="index.html" data-i18n="foot.home">首頁</a>
+  <a class="nav-guide" href="start.html" data-i18n="nav.start">從原始碼運行</a>
+  <a class="nav-guide" href="https://github.com/Ya-MiC/ymzz" rel="noopener noreferrer">GitHub</a>
+  <div class="tools">
+    <label class="chip sel"><span class="vh" data-i18n="ui.theme">主題</span>
+      <select id="theme" aria-label="Theme">
+        <option value="cloud-light">雲箋淺</option>
+        <option value="cloud-dark">雲箋暗</option>
+        <option value="earth-light">陶土淺</option>
+        <option value="wood-dark">陶土暗</option>
+      </select>
+    </label>
+  </div>
+</header>
+
+<main id="main" class="page">
+<section class="panel legal" id="privacy">
+  <p class="label" data-i18n="privacy.k">隱私與 Cookie</p>
+  <h1 data-i18n="privacy.h">這一頁只講事實：本站收了什麼、沒收什麼</h1>
+  <p class="meta" data-i18n="privacy.meta">最後更新：2026-11-22 · 適用範圍：ya-mic.github.io/ymzz 官網與隨附的瀏覽器擴展</p>
+
+  <h2>1. 本站不使用的東西</h2>
+  <ul>
+    <li>沒有追蹤 Cookie，沒有廣告像素，沒有指紋腳本。</li>
+    <li>沒有 Google Analytics、Umami、Plausible 之類的第三方分析。</li>
+    <li>沒有第三方字體或 CDN 請求；字體檔隨站點自行託管。</li>
+    <li>沒有帳戶系統，本站不接收你的帳號、對話或付款資料。</li>
+  </ul>
+
+  <h2>2. 本機儲存（localStorage）</h2>
+  <p>本站只用到三個鍵，全部存在你自己的瀏覽器裡，不會上傳：</p>
+  <ul>
+    <li><code>ymzz-site-theme</code>：你選的四套主題之一。</li>
+    <li><code>ymzz-site-lang</code>：你選的介面語言。</li>
+    <li><code>ymzz-site-consent</code>：你對上面兩項的許可選擇（「允許保存偏好」或「僅必要」）。</li>
+  </ul>
+  <p>選擇「僅必要」時，主題與語言只在本次瀏覽有效，關閉頁面即失效；選擇「允許保存偏好」時才會寫入。許可本身記錄在第三個鍵裡，屬於提供服務所必需。</p>
+  <p><button type="button" class="btn ghost" data-consent-reset>重新選擇儲存許可</button></p>
+
+  <h2>3. 唯一可能的外部請求</h2>
+  <p>「取得」區塊有一個手動檢查按鈕。只有你先勾選允許、再按下檢查，瀏覽器才會連線 <code>api.github.com</code> 查詢本倉庫的公開 Release 清單；請求不帶 Cookie、不帶 referrer、8 秒逾時，可隨時中止。GitHub 會看到你的 IP，這屬於 GitHub 的隱私政策範圍。本頁不會自動發出這個請求。</p>
+
+  <h2>4. 產品端（安裝後）的資料位置</h2>
+  <ul>
+    <li>知識帳本：<code>DSH_HOME/ymzz/knowledge.json</code>，單一本機 JSON。</li>
+    <li>核准後的筆記：以 Obsidian 相容 Markdown 寫入你自己指定的 Vault；未核准不會寫入，寫入後可撤銷。</li>
+    <li>瀏覽器擴展：只有你按下採集才寫一條記錄，預設存在本機；不讀瀏覽歷史、不整盤掃描、不上傳。</li>
+    <li>遙測：產品以 <code>DSH_TELEMETRY_DISABLED=1</code> 啟動，不自建遙測端點。</li>
+    <li>模型：你若自行設定雲端模型供應商，對話內容會依該供應商的條款處理，與本站無關。</li>
+  </ul>
+
+  <h2>5. 你的權利</h2>
+  <p>你可以隨時清除本機儲存（上方按鈕或瀏覽器設定）、刪除知識帳本與 Vault 中的筆記、卸載擴展。這些操作都不需要通知我方。若你認為有資料處理問題，請在 GitHub 倉庫開 issue：<a href="https://github.com/Ya-MiC/ymzz/issues" rel="noopener noreferrer">Ya-MiC/ymzz issues</a>。</p>
+
+  <h2>6. 變更</h2>
+  <p>本頁內容若變更，會直接修改此頁並更新上方日期；不另發通知信，因為本站沒有你的聯絡方式。</p>
+
+  <div class="en">
+    <h2>Summary (English)</h2>
+    <p>This site sets no tracking cookies and loads no third-party analytics, ads or CDN assets. Only three localStorage keys exist: your theme, your language, and your storage choice. Nothing is written until you choose "allow preferences"; choosing "essential only" keeps both settings for the current session only.</p>
+    <p>The single outbound request is a manual GitHub Releases lookup: it happens only after you tick the box and press the button, carries no cookies and no referrer, and times out after 8 seconds. The installed product stores its knowledge ledger at <code>DSH_HOME/ymzz/knowledge.json</code>, writes approved notes as Obsidian-compatible Markdown into the Vault you choose, runs with telemetry disabled, and does not upload browser history or scan your disk.</p>
+    <p>Questions: <a href="https://github.com/Ya-MiC/ymzz/issues" rel="noopener noreferrer">open an issue</a>.</p>
+  </div>
+</section>
+</main>
+
+<footer class="foot">
+  <p class="huge">湛箴<span>_</span>ymzz</p>
+  <p><b>晏銘湛箴 / Ya-MiC</b> · <span data-i18n="foot.ver">原始碼階段 · MIT © 2026 YanMing Cao</span></p>
+  <p class="label">
+    <a href="index.html" data-i18n="foot.home">首頁</a> ·
+    <a href="start.html" data-i18n="nav.start">從原始碼運行</a> ·
+    <a href="family.html" data-i18n="foot.family">家族索引</a> ·
+    <a href="llms.txt">llms.txt</a> ·
+    <a href="humans.txt">humans.txt</a>
+  </p>
+</footer>
+<script src="config.js"></script>
+<script src="app.js" defer></script>
+</body>
+</html>

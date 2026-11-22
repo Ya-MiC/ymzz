@@ -1,0 +1,43 @@
+{
+  "version": 1,
+  "fetchedAt": "2026-11-22T07:05:08.413Z",
+  "note": "Version records only. No artifact is downloaded or bundled by this workflow; installers require the Tauri shell and the release acceptance gate.",
+  "upstreams": [
+    {
+      "repo": "deepseek-ai/deepseek-harness",
+      "role": "DSH runtime (MIT, unmodified)",
+      "status": "ok",
+      "kind": "commit",
+      "tag": "commit d98f5d685192",
+      "name": "Merge pull request #8945 from deepseek-harness/worktree-release-dsh-0.2.3-alpha.1",
+      "url": "https://github.com/deepseek-ai/deepseek-harness/commit/d98f5d68519215da48f3002da2cb9c9d2068d81d",
+      "prerelease": false,
+      "draft": false,
+      "publishedAt": "2026-11-21T16:45:52Z"
+    },
+    {
+      "repo": "chuspeeism/dashi-taskboard",
+      "role": "Dashi Taskboard (Apache-2.0, planned bundle)",
+      "status": "ok",
+      "kind": "release",
+      "tag": "v1.1.27",
+      "name": "Codex Taskboard v1.1.27",
+      "url": "https://github.com/chuspeeism/dashi-taskboard/releases/tag/v1.1.27",
+      "prerelease": false,
+      "draft": false,
+      "publishedAt": "2026-10-21T06:44:48Z"
+    },
+    {
+      "repo": "pingdotgg/t3code",
+      "role": "T3 Code (MIT, planned bundle)",
+      "status": "ok",
+      "kind": "release",
+      "tag": "v0.1.11",
+      "name": "T3 Code v0.1.11",
+      "url": "https://github.com/pingdotgg/t3code/releases/tag/v0.1.11",
+      "prerelease": false,
+      "draft": false,
+      "publishedAt": "2026-11-20T07:38:08Z"
+    }
+  ]
+}

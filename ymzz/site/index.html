@@ -80,7 +80,7 @@
   <div class="panel sec-head">
     <p class="label" data-i18n="status.k">現況（據實）</p>
     <h2 data-i18n="status.h">這是產品官網，不是已完成的跨平台安裝包商店</h2>
-    <p class="lede" data-i18n="status.p">master 已接入完整 DSH 與原生 ymzz 插件：精確品牌、四套原生主題、9個固定來源指令技能。Linux artifacts 建置與真實逐次核准／失敗修復／驗收還原工具測試通過；Windows GUI、安裝包與真模型推論仍未驗收。</p>
+    <p class="lede" data-i18n="status.p">master 已接入完整 DSH 與原生 ymzz 插件：精確品牌、四套原生主題、9個固定來源指令技能。標籤面板與知識台賬已寫入源碼並通過單元測試；Windows GUI 驗收、安裝包與真模型推論仍未驗收。</p>
   </div>
   <ul class="facts">
     <li class="fact"><span class="bn">01</span><h3 data-i18n="status.1h">從原始碼運行</h3><p data-i18n="status.1p">這是目前真實可用的入口。需要 Node、Git 與 pnpm，步驟見開始頁。</p></li>
@@ -97,6 +97,7 @@
       <h2 data-i18n="get.h">先跑原始碼，安裝包要等合格發佈</h2>
       <p class="lede" data-i18n="get.p">主按鈕只指向實際可用的合格發佈。在公開 Releases 出現已驗收資產之前，這裡不會放空的下載按鈕。</p>
     </div>
+    <p class="status-note note-row" data-i18n="get.bundle">計劃中的桌面版以 Rust + Tauri 2 作外殼：一個安裝包捆綁 DSH runtime、Dashi Taskboard 與 T3 Code，並由 GitHub Actions 追蹤上游 Release 產生每日 canary。目前尚未產出合格安裝包。</p>
     <div id="download" class="table-wrap">
       <p class="status-note" data-i18n="get.pending">目前沒有公開正式產品安裝包。只有勾選允許並按下手動檢查，才查詢 GitHub 公開 Release 資料。</p>
       <p><a href="https://github.com/Ya-MiC/ymzz/releases" rel="noopener noreferrer" data-i18n="get.releases">查看 GitHub Releases（目前為空）</a></p>
@@ -112,11 +113,28 @@
       <p class="lede" data-i18n="product.p">Agent 本體為轂，技能與原生插件為可換的輻。新增程式為 MIT、不新增遙測、連線須明確同意；實際原生第三方授權與安裝行為仍是發版閘，非 DeepSeek 官方產品。</p>
     </div>
     <ul class="facts">
-      <li class="fact"><h3 data-i18n="product.1h">完整官方 DSH</h3><p data-i18n="product.1p">以完整 DeepSeek Harness 為底，保留原生佈局與元件位置，不另做一套 Tauri 重寫。</p></li>
+      <li class="fact"><h3 data-i18n="product.1h">完整官方 DSH</h3><p data-i18n="product.1p">以完整 DeepSeek Harness 為底，保留原生佈局與元件位置。桌面版以 Rust + Tauri 2 作外殼，只負責視窗、安裝、更新與啟停；DSH runtime 不重寫。</p></li>
       <li class="fact"><h3 data-i18n="product.2h">一切皆是插件</h3><p data-i18n="product.2p">一個原生 ymzz 插件註冊品牌／主題插槽、9個固定來源指令技能與真正 DSH 核准任務。審核更新目前只到簽署清單的本機驗證暫存，不冒充正式安裝通道。</p></li>
       <li class="fact"><h3 data-i18n="product.3h">溫潤四主題</h3><p data-i18n="product.3p">雲箋淺、雲箋暗、陶土淺、陶土暗。已在真正 DSH 主題服務註冊，本站也可切換；Windows 打包後的呈現仍待 GUI 驗收。</p></li>
       <li class="fact"><h3 data-i18n="product.4h">支付另接</h3><p data-i18n="product.4p">收費與支付由作者自行接入，本站不提供支付介面，也不收集付款資料。</p></li>
     </ul>
+  </div>
+</section>
+
+<section class="sec" id="tagging">
+  <div class="panel">
+    <div class="sec-head">
+      <p class="label" data-i18n="tagging.k">標籤面板</p>
+      <h2 data-i18n="tagging.h">聊完的、查過的、做出來的，都留得下</h2>
+      <p class="lede" data-i18n="tagging.p">面板長在原生右側工作區，跨會話存在。會話、可見的思考文字、查過的網頁、本機檔案與作品各自成條目，用多對多標籤與 Lists 彙編；星雲圖按頂級標籤分簇，同一條目可同時屬於多簇。寫入 Vault 需人工核准。</p>
+    </div>
+    <ul class="facts">
+      <li class="fact"><span class="bn">01</span><h3 data-i18n="tagging.1h">會話與思考</h3><p data-i18n="tagging.1p">從原生會話查詢讀標題與訊息，只取使用者訊息、助手回覆與待辦，不取隱藏推理鏈。標籤寫在本機帳本。</p></li>
+      <li class="fact"><span class="bn">02</span><h3 data-i18n="tagging.2h">網頁來源</h3><p data-i18n="tagging.2p">瀏覽器擴展尚未隨包發佈，計劃預設裝在系統盤並附安裝引導。設計上只有你按下採集才寫一條記錄到本機，不讀瀏覽歷史、不整盤掃描。</p></li>
+      <li class="fact"><span class="bn">03</span><h3 data-i18n="tagging.3h">作品與產出物</h3><p data-i18n="tagging.3p">本機檔案與產出物按路徑登記；雲端作品第一版只登記名稱與連結，不同步內容，雲端同步留給後續版本。</p></li>
+      <li class="fact"><span class="bn">04</span><h3 data-i18n="tagging.4h">彙編與星雲</h3><p data-i18n="tagging.4p">像 Stars 與 Lists：標籤可交叉、可合併、可撤銷；星雲圖最多八簇，佈局確定性生成並支援減少動效。</p></li>
+    </ul>
+    <p class="status-note" data-i18n="tagging.note">此面板已寫入源碼並通過單元測試，Windows 圖形介面與安裝包尚未驗收。第一版不做雲端同步，後續版本再提供。</p>
   </div>
 </section>
 
@@ -221,6 +239,18 @@
         <summary data-i18n="faq.6q">怎麼付費？</summary>
         <div class="ans" data-i18n="faq.6a">支付由作者自行接入，不在本站處理。本頁沒有收費方案，也沒有收款二維碼。</div>
       </details>
+      <details>
+        <summary data-i18n="faq.7q">標籤面板會自動讀我的瀏覽紀錄嗎？</summary>
+        <div class="ans" data-i18n="faq.7a">不會。沒有整盤掃描、沒有瀏覽歷史讀取、沒有雲端同步。網頁條目只在你於擴展按下採集時寫入本機帳本，且可逐條刪除。</div>
+      </details>
+      <details>
+        <summary data-i18n="faq.8q">資料存在哪裡？可以接到 Obsidian 嗎？</summary>
+        <div class="ans" data-i18n="faq.8a">帳本在 DSH_HOME/ymzz 下的單一本機 JSON。核准後的筆記以 Obsidian 相容 Markdown 寫入你指定的 Vault，帶 YAML frontmatter 與雙鏈；未核准不會寫入，寫入後可撤銷。</div>
+      </details>
+      <details>
+        <summary data-i18n="faq.9q">Tauri 在這裡是什麼角色？</summary>
+        <div class="ans" data-i18n="faq.9a">只是外殼：負責視窗、安裝、更新與啟停。內部仍然啟動完整 DSH runtime，左側導航、中間對話、右側工作區、四套主題與原生功能面板都不重寫。</div>
+      </details>
     </div>
   </div>
 </section>
@@ -240,9 +270,10 @@
     <a href="https://github.com/Ya-MiC/ymzz" rel="noopener noreferrer">GitHub</a> ·
     <a href="https://ya-mic.github.io/ymzz-loop/" rel="noopener noreferrer" data-i18n="foot.loop">Loop 專案管理</a> ·
     <a href="https://bingce.yanmingx0215.filegear-sg.me/#onboarding" rel="noopener noreferrer" data-i18n="foot.bingce">獨立評測站</a> ·
+    <a href="privacy.html" data-i18n="foot.privacy">隱私與 Cookie</a> ·
     <a href="humans.txt">humans.txt</a>
   </p>
-  <p class="small" data-i18n="foot.priv">本站無追蹤器、無第三方字體網路請求、無分析腳本。語言與主題只存在本機瀏覽器。</p>
+  <p class="small" data-i18n="foot.priv">本站無追蹤器、無第三方字體網路請求、無分析腳本。語言與主題偏好只在你選擇允許後保存於本機瀏覽器。</p>
   <p class="small" data-i18n="foot.legal">基於 DeepSeek Harness（MIT），非 DeepSeek 官方產品。產品圖標為作者提供的原作，放入倉庫不改授權為 MIT。</p>
 </footer>
 <script src="config.js"></script>
