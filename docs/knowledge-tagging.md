@@ -181,3 +181,19 @@ node --test packages/ymzz/product/tests/integration/*.test.mjs
 - 星雲圖同樣按頂級標籤分簇（≤8 簇），一個條目可同時出現在多簇；佈局確定性、可減少動效。
 - 資料位置：`$DSH_HOME/ymzz/tag-registry.json`，與知識帳本一樣是本機單一 JSON，
   損壞時備份後恢復空狀態並在面板標示。
+
+## 14. 已知限制（QA Round 2 记录，均不阻塞）
+
+1. **面板轮询开销**：`knowledge/state` 在 200 篇笔记规模下每 6 秒约 145ms 同步 CPU、
+   266KiB 载荷（逐篇 `noteExists` realpath + Host 侧 JSON 签名）。笔记上百篇后建议
+   改为 exists 缓存或 Host 侧预算签名；当前规模可用，规模化待优化。
+2. **knowledge-ui.css 存在 39 处硬编码色 var() fallback**：与真实 wenrun token 值不符
+   （token 总是注入所以正常情况无影响），后续统一清理。
+3. **撤销不校验当前 Vault**：`revoke` 用笔记自身记录的 vaultRoot；切换 Vault 后仍可撤销
+   旧 Vault 的文件——有 SHA256 守门，不会误删数据，仅语义意外。
+4. **公共载荷带绝对路径**（vaultRoot、trashPath、session cwd）：仅本地已认证 UI 可见，
+   截图/日志外发时注意脱敏。
+5. **`existingDirectory` 目录替换竞态**：已由 realpath 逃逸复查兜底；彻底修复需要 openat
+   式目录 fd，Node 不提供，记为残留风险。
+6. **审批前不回显 Markdown**：approve 只回传哈希，面板尚未渲染「将要写入的原文」预览；
+   想要「看过才批」体验需单独实现（当前边界：审批哈希已绑定最终渲染结果）。
