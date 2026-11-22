@@ -10,7 +10,9 @@
 # resources. NOTE: upstream supports win-x64 / mac-arm64 / mac-x64 only
 # (apps/desktop/scripts/desktop-build-paths.mjs SUPPORTED_TARGETS), so there is
 # no Linux job; the appimage bundle target in tauri.conf.json stays available
-# for a future upstream Linux payload.
+# for a future upstream Linux payload. macOS uses the pinned macos-15 runner
+# (macos-14 images were withdrawn by GitHub); macos-latest is avoided because
+# floating tags break the pipeline again in the future.
 name: ymzz-desktop
 
 on:
@@ -31,7 +33,7 @@ jobs:
           - os: windows-latest
             target: win-x64
             bundles: nsis
-          - os: macos-14
+          - os: macos-15
             target: mac-arm64
             bundles: dmg
     runs-on: ${{ matrix.os }}
