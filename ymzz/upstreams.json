@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "fetchedAt": "2026-11-22T07:05:08.413Z",
+  "fetchedAt": "2026-11-22T07:14:32.533Z",
   "note": "Version records only. No artifact is downloaded or bundled by this workflow; installers require the Tauri shell and the release acceptance gate.",
   "upstreams": [
     {
