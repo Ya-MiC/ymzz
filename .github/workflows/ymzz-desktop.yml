@@ -2,6 +2,15 @@
 #
 # Scope boundary: this workflow compiles and packages. It does NOT review,
 # accept or qualify the desktop GUI; every release body states that explicitly.
+#
+# The payload comes from the upstream Desktop packaging chain, not a hand-rolled
+# download: desktop/scripts/prepare-upstream-runtime.mjs mirrors the unsigned
+# preparation stages of apps/desktop/scripts/package-target.ts, and
+# desktop/scripts/assemble-resources.mjs copies the result into the Tauri
+# resources. NOTE: upstream supports win-x64 / mac-arm64 / mac-x64 only
+# (apps/desktop/scripts/desktop-build-paths.mjs SUPPORTED_TARGETS), so there is
+# no Linux job; the appimage bundle target in tauri.conf.json stays available
+# for a future upstream Linux payload.
 name: ymzz-desktop
 
 on:
@@ -20,20 +29,17 @@ jobs:
       matrix:
         include:
           - os: windows-latest
-            platform: win32
+            target: win-x64
             bundles: nsis
           - os: macos-14
-            platform: darwin
+            target: mac-arm64
             bundles: dmg
-          - os: ubuntu-22.04
-            platform: linux
-            bundles: appimage
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup pnpm (corepack)
+      - name: Setup Node 22 + corepack pnpm
         uses: actions/setup-node@v4
         with:
           node-version: 22
@@ -45,14 +51,19 @@ jobs:
       - name: Build repository artifacts
         run: pnpm build:artifacts
 
-      - name: Assemble desktop resources (official Node + DSH artifacts)
-        run: node desktop/scripts/assemble-resources.mjs --platform ${{ matrix.platform }}
+      - name: Prepare upstream Desktop runtime payload (build → pack incl. ymzz plugin → prepare:packages → prepare:dsh)
+        run: node desktop/scripts/prepare-upstream-runtime.mjs ${{ matrix.target }}
+
+      - name: Assemble Tauri resources (pure copy from the upstream targets)
+        run: node desktop/scripts/assemble-resources.mjs --target ${{ matrix.target }}
 
       - name: Rust toolchain
         uses: dtolnay/rust-toolchain@stable
 
+      # Pinned to 2.12.6 (verified on the npm registry, 2026-11-22) so the CLI
+      # cannot drift ahead of the Cargo.toml tauri 2 line mid-build.
       - name: Generate full icon set (ico/icns/png) from the committed source icon
-        run: npx --yes @tauri-apps/cli@latest icon desktop/src-tauri/icons/app-icon.png -o desktop/src-tauri/icons
+        run: npx --yes @tauri-apps/cli@2.12.6 icon desktop/src-tauri/icons/app-icon.png -o desktop/src-tauri/icons
 
       - name: Build and bundle desktop app
         uses: tauri-apps/tauri-action@v0
@@ -61,14 +72,19 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           projectPath: desktop
-          tauriScript: npx --yes @tauri-apps/cli@latest
+          # v0 is the project-maintained stable major tag; pin to a commit SHA
+          # once the first CI run proves the pipeline (sandbox cannot reach
+          # api.github.com to verify an exact release tag today).
+          tauriScript: npx --yes @tauri-apps/cli@2.12.6
           args: --bundles ${{ matrix.bundles }}
           tagName: ${{ startsWith(github.ref, 'refs/tags/desktop-v') && github.ref_name || '' }}
           releaseName: '湛箴_ymzz desktop canary ${{ github.ref_name }}'
           releaseBody: |
             CI 自动构建的**未验收 canary 安装包**：仅证明可编译、可打包，不构成任何
-            功能、安全或合规验收。桌面 GUI 尚未完成真人验收；验收完成前请以仓库
-            pnpm 源码运行方式为准。详见 desktop/README.md。
+            功能、安全或合规验收。**安装包未签名、未公证**（Windows 无 Authenticode
+            签名，macOS 无 codesign/notarization），首次运行可能触发 SmartScreen /
+            Gatekeeper 提示。桌面 GUI 尚未完成真人验收；验收完成前请以仓库 pnpm
+            源码运行方式为准。详见 desktop/README.md。
           releaseDraft: false
           prerelease: true
           includeRelease: ${{ startsWith(github.ref, 'refs/tags/desktop-v') }}

@@ -34,6 +34,8 @@ const POLL_INTERVAL: Duration = Duration::from_millis(250);
 const NODE_RUNTIME_ENV: &str = "DSH_PRIMARY_RUNTIME";
 /// Opt the bundled service out of telemetry; the shell never opts back in.
 const TELEMETRY_ENV: &str = "DSH_TELEMETRY_DISABLED";
+/// The ymzz plugin's state route — the only beacon that can detect plugin death.
+const PLUGIN_BEACON_PATH: &str = "ymzz/state";
 
 /// Operator config, read from `<app data dir>/desktop/ymzz-desktop.json`.
 /// Everything is optional; missing or invalid keys fall back to the defaults
@@ -64,9 +66,19 @@ impl Default for ShellConfig {
         Self {
             port: DEFAULT_PORT,
             port_scan: DEFAULT_PORT_SCAN,
-            node_path: if cfg!(windows) { "node/node.exe".to_string() } else { "node/bin/node".to_string() },
+            // Plugin contract (packages/ymzz/product/index.mjs:18-24): DSH_PRIMARY_RUNTIME
+            // is the runtime ROOT, and the plugin joins `dependencies/node/bin/node(.exe)`
+            // itself — so the executable lives under that exact hierarchy.
+            node_path: if cfg!(windows) { "dependencies/node/bin/node.exe".to_string() } else { "dependencies/node/bin/node".to_string() },
+            // The packaged runtime boots the standard web profile: its bundle stack is
+            // `@deepseek-ai/dsh-base` + `@deepseek-ai/dsh-web-app`
+            // (packages/util/official-bundles/src/bundles.ts:14-16), and the web-app layer
+            // inserts `@ymzz/dsh-product` (packages/bundle/web-app/cordis.patch.yml:638),
+            // resolved from the runtime's own node_modules.
             args: vec![
-                "dsh/serve.mjs".to_string(),
+                "node_modules/@deepseek-ai/dsh/lib/bin.js".to_string(),
+                "web".to_string(),
+                "--no-open".to_string(),
                 "--host".to_string(),
                 "127.0.0.1".to_string(),
                 "--port".to_string(),
@@ -125,33 +137,68 @@ fn find_free_port(preferred: u16, scan: u32) -> std::io::Result<u16> {
     Ok(port)
 }
 
-/// One plain HTTP/1.1 readiness probe over a raw TCP stream. No TLS stack is
-/// bundled in the shell, so TLS services should set `readyProbe: "tcp"`.
-fn probe_http(port: u16, path: &str) -> bool {
+/// Outcome of one `GET /ymzz/state` probe.
+enum PluginProbe {
+    /// The plugin answered (or the authenticated webserver did): it is mounted.
+    Alive,
+    /// The server answered but the plugin's route is absent: the plugin is not mounted.
+    Missing,
+    /// No usable answer yet (server still starting or transient drop).
+    Unknown,
+}
+
+/// One plain HTTP/1.1 probe returning the response status code (0 = unreachable).
+fn http_status(port: u16, path: &str) -> u16 {
     let address = SocketAddr::from((Ipv4Addr::LOCALHOST, port));
     let mut stream = match TcpStream::connect_timeout(&address, PROBE_TIMEOUT) {
         Ok(stream) => stream,
-        Err(_) => return false,
+        Err(_) => return 0,
     };
     if stream.set_read_timeout(Some(PROBE_TIMEOUT)).is_err() || stream.set_write_timeout(Some(PROBE_TIMEOUT)).is_err() {
-        return false;
+        return 0;
     }
     let request = format!("GET {path} HTTP/1.1\r\nHost: 127.0.0.1:{port}\r\nConnection: close\r\n\r\n");
     if stream.write_all(request.as_bytes()).is_err() {
-        return false;
+        return 0;
     }
     let mut head = [0u8; 256];
     let read = match stream.read(&mut head) {
         Ok(read) if read > 0 => read,
-        _ => return false,
+        _ => return 0,
     };
     let head = String::from_utf8_lossy(&head[..read]);
-    head.starts_with("HTTP/") && (head.contains(" 200") || head.contains(" 204") || head.contains(" 301") || head.contains(" 302") || head.contains(" 307"))
+    if !head.starts_with("HTTP/") {
+        return 0;
+    }
+    head.split_whitespace().nth(1).and_then(|code| code.parse::<u16>().ok()).unwrap_or(0)
+}
+
+/// HTTP readiness probe: any DSH webserver response (2xx/3xx) means the server
+/// is up. No TLS stack is bundled in the shell, so TLS services should set
+/// `readyProbe: "tcp"`.
+fn probe_http(port: u16, path: &str) -> bool {
+    matches!(http_status(port, path), 200..=399)
 }
 
 /// TCP-only probe: the port accepting a connection counts as ready.
 fn probe_tcp(port: u16) -> bool {
     TcpStream::connect_timeout(&SocketAddr::from((Ipv4Addr::LOCALHOST, port)), PROBE_TIMEOUT).is_ok()
+}
+
+/**
+ * The plugin beacon. `/ymzz/state` exists only when the `@ymzz/dsh-product`
+ * plugin is mounted, so after the server itself is up this is the ONLY signal
+ * that can detect plugin death — a plain root probe cannot (the server answers
+ * 200 even when every plugin route is gone). Authenticated-but-unauthorized
+ * answers (401/403) and webserver-level 400s all prove the route exists; a 404
+ * proves it does not.
+ */
+fn probe_plugin(port: u16, path: &str) -> PluginProbe {
+    match http_status(port, path) {
+        200 | 400 | 401 | 403 => PluginProbe::Alive,
+        404 => PluginProbe::Missing,
+        _ => PluginProbe::Unknown,
+    }
 }
 
 /** Locate the bundled backend directory inside the installed resources. */
@@ -233,7 +280,11 @@ fn launch_backend(app: tauri::AppHandle) {
             .command(&node)
             .args(args.iter().map(|argument| argument.as_str()))
             .env("PORT", port.to_string())
-            .env(NODE_RUNTIME_ENV, &node)
+            // Plugin contract: DSH_PRIMARY_RUNTIME must be the runtime ROOT containing
+            // `dependencies/node/bin/node(.exe)` — see packages/ymzz/product/index.mjs:18-24
+            // (resolveTestNode). Passing the executable itself made the plugin build
+            // `<node.exe>/dependencies/node/bin/node.exe` and die with ENOENT at apply().
+            .env(NODE_RUNTIME_ENV, &backend)
             .env(TELEMETRY_ENV, "1")
             .current_dir(&backend);
         match command.spawn() {
@@ -267,16 +318,37 @@ fn launch_backend(app: tauri::AppHandle) {
         return;
     }
     let deadline = Instant::now() + Duration::from_millis(config.ready_timeout_ms);
+    let mut server_up = false;
+    let mut plugin_missing_reported = false;
     loop {
         let ready = match config.ready_probe.as_str() {
             "tcp" => probe_tcp(port),
             _ => probe_http(port, &config.ready_path),
         };
         if ready {
-            break;
+            server_up = true;
+            // Server up; now verify the plugin beacon before navigating. The
+            // webserver answers 200 on `/` even with every plugin route gone,
+            // so only `/ymzz/state` can detect a missing plugin.
+            match probe_plugin(port, PLUGIN_BEACON_PATH) {
+                PluginProbe::Alive => break,
+                PluginProbe::Missing => {
+                    if !plugin_missing_reported {
+                        plugin_missing_reported = true;
+                        eprintln!("ymzz-desktop: /{PLUGIN_BEACON_PATH} returned 404 — the ymzz plugin is not mounted in the bundled runtime");
+                    }
+                }
+                PluginProbe::Unknown => {}
+            }
         }
         if Instant::now() >= deadline {
-            report_error(&app, format!("本地服务在 {} 毫秒内未就绪（http://127.0.0.1:{port}{}）。", config.ready_timeout_ms, config.ready_path));
+            if server_up && plugin_missing_reported {
+                report_error(&app, format!(
+                    "本地服务已在 http://127.0.0.1:{port} 就绪，但 ymzz 插件路由（/{PLUGIN_BEACON_PATH}）持续 404：打包运行时未装载 @ymzz/dsh-product。请检查 desktop/scripts/prepare-upstream-runtime.mjs 是否执行了 pack-local-packages 并重新组装资源。"
+                ));
+            } else {
+                report_error(&app, format!("本地服务在 {} 毫秒内未就绪（http://127.0.0.1:{port}{}）。", config.ready_timeout_ms, config.ready_path));
+            }
             return;
         }
         std::thread::sleep(POLL_INTERVAL);
