@@ -1,0 +1,85 @@
+# MIT. Build unreviewed canary installers for the 湛箴_ymzz Tauri desktop shell.
+#
+# Scope boundary: this workflow compiles and packages. It does NOT review,
+# accept or qualify the desktop GUI; every release body states that explicitly.
+name: ymzz-desktop
+
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - 'desktop-v*'
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: windows-latest
+            platform: win32
+            bundles: nsis
+          - os: macos-14
+            platform: darwin
+            bundles: dmg
+          - os: ubuntu-22.04
+            platform: linux
+            bundles: appimage
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm (corepack)
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+
+      - name: Install workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build repository artifacts
+        run: pnpm build:artifacts
+
+      - name: Assemble desktop resources (official Node + DSH artifacts)
+        run: node desktop/scripts/assemble-resources.mjs --platform ${{ matrix.platform }}
+
+      - name: Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Generate full icon set (ico/icns/png) from the committed source icon
+        run: npx --yes @tauri-apps/cli@latest icon desktop/src-tauri/icons/app-icon.png -o desktop/src-tauri/icons
+
+      - name: Build and bundle desktop app
+        uses: tauri-apps/tauri-action@v0
+        id: build
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          projectPath: desktop
+          tauriScript: npx --yes @tauri-apps/cli@latest
+          args: --bundles ${{ matrix.bundles }}
+          tagName: ${{ startsWith(github.ref, 'refs/tags/desktop-v') && github.ref_name || '' }}
+          releaseName: '湛箴_ymzz desktop canary ${{ github.ref_name }}'
+          releaseBody: |
+            CI 自动构建的**未验收 canary 安装包**：仅证明可编译、可打包，不构成任何
+            功能、安全或合规验收。桌面 GUI 尚未完成真人验收；验收完成前请以仓库
+            pnpm 源码运行方式为准。详见 desktop/README.md。
+          releaseDraft: false
+          prerelease: true
+          includeRelease: ${{ startsWith(github.ref, 'refs/tags/desktop-v') }}
+          includeUpdater: false
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: ymzz-desktop-${{ matrix.os }}
+          path: |
+            ${{ fromJSON(steps.build.outputs.artifactPaths) }}
+            desktop/src-tauri/target/release/bundle/**
+            desktop/src-tauri/target/*/release/bundle/**
+          if-no-files-found: error

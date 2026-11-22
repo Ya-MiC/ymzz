@@ -1,0 +1,42 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "湛箴_ymzz",
+  "version": "0.1.0",
+  "identifier": "io.github.ya-mic.ymzz",
+  "build": {
+    "frontendDist": "../resources/shell"
+  },
+  "app": {
+    "windows": [
+      {
+        "label": "main",
+        "title": "湛箴_ymzz",
+        "width": 1280,
+        "height": 800,
+        "minWidth": 960,
+        "minHeight": 640,
+        "center": true,
+        "url": "loading.html"
+      }
+    ],
+    "security": {
+      "csp": "default-src 'self' http://127.0.0.1:* https://127.0.0.1:*; connect-src 'self' http://127.0.0.1:* https://127.0.0.1:* ws://127.0.0.1:* wss://127.0.0.1:*; img-src 'self' data: blob: http://127.0.0.1:* https://127.0.0.1:*; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' http://127.0.0.1:* https://127.0.0.1:*"
+    }
+  },
+  "bundle": {
+    "active": true,
+    "category": "DeveloperTool",
+    "copyright": "MIT",
+    "shortDescription": "湛箴_ymzz 桌面壳",
+    "longDescription": "湛箴_ymzz 桌面壳：Tauri 窗口与生命周期管理，本体为打包随附的 DeepSeek Harness 本地服务。CI 产物为未验收 canary 安装包。",
+    "targets": ["nsis", "dmg", "appimage"],
+    "icon": ["icons/128x128.png", "icons/icon.ico", "icons/icon.icns"],
+    "resources": ["../resources/backend"],
+    "windows": {
+      "nsis": {
+        "displayLanguageSelector": true,
+        "languages": ["SimpChinese", "TradChinese", "English"]
+      }
+    }
+  }
+}

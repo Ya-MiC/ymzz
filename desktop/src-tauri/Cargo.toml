@@ -1,0 +1,29 @@
+# MIT. Tauri 2 desktop shell for 湛箴_ymzz: window + lifecycle only; the agent
+# runtime is the bundled, unmodified DeepSeek Harness web service.
+[package]
+name = "ymzz-desktop"
+version = "0.1.0"
+description = "湛箴_ymzz desktop shell (Tauri 2) around the bundled DeepSeek Harness web service"
+edition = "2021"
+license = "MIT"
+rust-version = "1.77"
+
+[lib]
+# The `lib` target keeps main.rs thin and lets CI build the same code on all
+# three desktop targets without main-attribute differences.
+name = "ymzz_desktop_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+tauri = { version = "2", features = [] }
+tauri-plugin-shell = "2"
+tauri-plugin-dialog = "2"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+
+# Fail the build on clearly unsafe code rather than shipping it.
+[lints.rust]
+unsafe_code = "forbid"
