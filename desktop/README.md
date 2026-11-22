@@ -62,7 +62,10 @@ pnpm dlx @tauri-apps/cli@2.12.6 icon desktop/src-tauri/icons/app-icon.png -o des
 pnpm dlx @tauri-apps/cli@2.12.6 build --project-path desktop
 ```
 
-只做快速检查时：`cd desktop/src-tauri && cargo check`。
+只做快速检查时：`cd desktop/src-tauri && cargo check`；assembler 的离线回归
+测试：`node --test desktop/scripts/assemble-resources.test.mjs`（6 条，覆盖目标
+映射、SHA256 fail-closed、copyTree 清陈旧 / merge 不清空目标、后端完整性四标记
+缺失硬拒并指向 pack-local-packages）。
 
 ## CI 产物与验收边界（重要）
 
