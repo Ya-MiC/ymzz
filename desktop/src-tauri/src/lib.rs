@@ -12,11 +12,13 @@
 // adds no model calls, no network endpoints and no storage of its own.
 
 use serde::Deserialize;
+use std::collections::VecDeque;
+use std::fs::OpenOptions;
 use std::io::{Read, Write};
 use std::net::{Ipv4Addr, SocketAddr, TcpListener, TcpStream};
 use std::path::PathBuf;
-use std::sync::Mutex;
-use std::time::{Duration, Instant};
+use std::sync::{Arc, Mutex};
+use std::time::{Duration, Instant, SystemTime, UNIX_EPOCH};
 use tauri::Manager;
 use tauri_plugin_dialog::{DialogExt, MessageDialogKind};
 use tauri_plugin_shell::process::{CommandChild, CommandEvent};
@@ -86,7 +88,7 @@ impl Default for ShellConfig {
             ],
             ready_path: "/".to_string(),
             ready_probe: "http".to_string(),
-            ready_timeout_ms: 30_000,
+            ready_timeout_ms: 90_000,
             backend_dir: "resources-backend".to_string(),
         }
     }
@@ -116,6 +118,43 @@ impl ShellConfig {
 
 /// Handle to the backend child process so the run loop can kill it on exit.
 struct BackendChild(Mutex<Option<CommandChild>>);
+
+/// Live backend status shared between the output-drain thread and the
+/// readiness loop: whether the child already exited, plus the most recent
+/// output lines so a failure dialog can show them without hunting for files.
+#[derive(Default)]
+struct BackendStatus {
+    exited: Option<String>,
+    recent: VecDeque<String>,
+}
+struct BackendStatusHandle(Arc<Mutex<BackendStatus>>);
+
+impl Clone for BackendStatusHandle {
+    fn clone(&self) -> Self {
+        Self(self.0.clone())
+    }
+}
+
+/// The shell log: every shell decision and every backend output line lands in
+/// `<app log dir>/ymzz-desktop.log`. A packaged GUI has no stderr, so this file
+/// is the ONLY place diagnostics survive — every failure dialog names it.
+fn log_file_path(app: &tauri::AppHandle) -> Option<PathBuf> {
+    app.path().app_log_dir().ok().map(|dir| dir.join("ymzz-desktop.log"))
+}
+
+fn timestamp() -> String {
+    let millis = SystemTime::now().duration_since(UNIX_EPOCH).map(|d| d.as_millis()).unwrap_or(0);
+    format!("{millis}")
+}
+
+fn log_line(app: &tauri::AppHandle, line: &str) {
+    eprintln!("ymzz-desktop: {line}");
+    if let Some(path) = log_file_path(app) {
+        if let Ok(mut file) = OpenOptions::new().create(true).append(true).open(&path) {
+            let _ = writeln!(file, "[{}] {line}", timestamp());
+        }
+    }
+}
 
 /// Pick a free localhost port: preferred first, then a bounded upward scan,
 /// then an ephemeral port. The listener is released immediately, so another
@@ -230,13 +269,20 @@ fn expand_args(args: &[String], port: u16) -> Vec<String> {
 
 fn report_error(app: &tauri::AppHandle, message: String) {
     eprintln!("ymzz-desktop: {message}");
+    log_line(app, &format!("ERROR {message}"));
     let handle = app.clone();
-    let text = message;
+    // The dialog must name the log file: a packaged GUI has no stderr, so
+    // "check the logs" without a path is useless to the user.
+    let log_note = match log_file_path(app) {
+        Some(path) => format!("\n\n日志文件：{}\n把这个文件整体发回来即可定位问题。", path.display()),
+        None => String::new(),
+    };
+    let text = format!("{message}{log_note}");
     // The dialog blocks, so keep it off the run loop thread.
     std::thread::spawn(move || {
         handle
             .dialog()
-            .message(format!("{text}\n\n请查看日志后重试；本提示由桌面壳给出，不代表 DeepSeek Harness 本体的验收结论。"))
+            .message(format!("{text}\n\n本提示由桌面壳给出，不代表 DeepSeek Harness 本体的验收结论。"))
             .title("湛箴_ymzz 启动失败")
             .kind(MessageDialogKind::Error)
             .blocking_show();
@@ -267,6 +313,13 @@ fn launch_backend(app: tauri::AppHandle) {
         return;
     }
     let args = expand_args(&config.args, port);
+    let status_handle = match app.try_state::<BackendStatusHandle>() {
+        Some(handle) => handle.inner().clone(),
+        None => {
+            report_error(&app, "内部状态不可用（BackendStatus 未注册）".to_string());
+            return;
+        }
+    };
     let child = {
         let state = app.state::<BackendChild>();
         let mut guard = match state.0.lock() {
@@ -295,19 +348,32 @@ fn launch_backend(app: tauri::AppHandle) {
         match command.spawn() {
             Ok((receiver, child)) => {
                 *guard = Some(child);
-                // Drain backend output into the shell's stderr for diagnostics.
+                let status_handle = status_handle.clone();
+                let log_app = app.clone();
                 std::thread::spawn(move || {
                     let mut receiver = receiver;
                     while let Some(event) = tauri::async_runtime::block_on(receiver.recv()) {
-                        match event {
-                            CommandEvent::Stdout(line) => eprintln!("[dsh] {}", String::from_utf8_lossy(&line)),
-                            CommandEvent::Stderr(line) => eprintln!("[dsh] {}", String::from_utf8_lossy(&line)),
-                            CommandEvent::Error(line) => eprintln!("[dsh:error] {line}"),
+                        let line = match event {
+                            CommandEvent::Stdout(line) => Some(format!("[dsh] {}", String::from_utf8_lossy(&line))),
+                            CommandEvent::Stderr(line) => Some(format!("[dsh] {}", String::from_utf8_lossy(&line))),
+                            CommandEvent::Error(line) => Some(format!("[dsh:error] {line}")),
                             CommandEvent::Terminated(status) => {
-                                eprintln!("[dsh:exit] {status:?}");
-                                break;
+                                log_line(&log_app, &format!("[dsh:exit] {status:?}"));
+                                if let Ok(mut guard) = status_handle.0.lock() {
+                                    guard.exited = Some(format!("{status:?}"));
+                                }
+                                None
                             }
-                            _ => {}
+                            _ => None,
+                        };
+                        if let Some(line) = line {
+                            if let Ok(mut guard) = status_handle.0.lock() {
+                                guard.recent.push_back(line.clone());
+                                if guard.recent.len() > 100 {
+                                    guard.recent.pop_front();
+                                }
+                            }
+                            log_line(&log_app, &line);
                         }
                     }
                 });
@@ -326,6 +392,26 @@ fn launch_backend(app: tauri::AppHandle) {
     let mut server_up = false;
     let mut plugin_missing_reported = false;
     loop {
+        // If the child already died, fail NOW with the tail of its output —
+        // waiting out the full timeout would hide the actual error.
+        let snapshot = {
+            let guard = match status_handle.0.lock() {
+                Ok(guard) => guard,
+                Err(_) => {
+                    report_error(&app, "内部状态不可用（BackendStatus 锁中毒）".to_string());
+                    return;
+                }
+            };
+            (guard.exited.clone(), guard.recent.iter().cloned().collect::<Vec<_>>())
+        };
+        if let (Some(exit), false) = (&snapshot.0, server_up) {
+            let tail: Vec<String> = snapshot.1.iter().rev().take(15).rev().cloned().collect();
+            let recent = if tail.is_empty() { String::from("（无输出）") } else { tail.join("\n") };
+            report_error(&app, format!(
+                "打包服务进程在就绪前退出（{exit}）。最近输出：\n{recent}"
+            ));
+            return;
+        }
         let ready = match config.ready_probe.as_str() {
             "tcp" => probe_tcp(port),
             _ => probe_http(port, &config.ready_path),
@@ -352,7 +438,11 @@ fn launch_backend(app: tauri::AppHandle) {
                     "本地服务已在 http://127.0.0.1:{port} 就绪，但 ymzz 插件路由（/{PLUGIN_BEACON_PATH}）持续 404：打包运行时未装载 @ymzz/dsh-product。请检查 desktop/scripts/prepare-upstream-runtime.mjs 是否执行了 pack-local-packages 并重新组装资源。"
                 ));
             } else {
-                report_error(&app, format!("本地服务在 {} 毫秒内未就绪（http://127.0.0.1:{port}{}）。", config.ready_timeout_ms, config.ready_path));
+                let tail: String = snapshot.1.iter().rev().take(15).rev().cloned().collect::<Vec<_>>().join("\n");
+                report_error(&app, format!(
+                    "本地服务在 {} 毫秒内未就绪（http://127.0.0.1:{port}{}）。最近输出：\n{tail}",
+                    config.ready_timeout_ms, config.ready_path,
+                ));
             }
             return;
         }
@@ -391,6 +481,7 @@ pub fn run() -> Result<(), tauri::Error> {
         .plugin(tauri_plugin_shell::init())
         .setup(|app| {
             app.manage(BackendChild(Mutex::new(None)));
+            app.manage(BackendStatusHandle(Arc::new(Mutex::new(BackendStatus::default()))));
             let handle = app.handle().clone();
             // The launch flow blocks on readiness polling, so keep it off the
             // main thread; window APIs it uses are thread-safe in Tauri 2.
