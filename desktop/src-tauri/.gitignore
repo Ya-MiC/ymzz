@@ -1,2 +1,4 @@
-/target
+target/
 /gen/schemas
+resources-backend/*
+!resources-backend/README.md

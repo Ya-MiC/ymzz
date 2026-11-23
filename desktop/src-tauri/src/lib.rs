@@ -87,7 +87,7 @@ impl Default for ShellConfig {
             ready_path: "/".to_string(),
             ready_probe: "http".to_string(),
             ready_timeout_ms: 30_000,
-            backend_dir: "backend".to_string(),
+            backend_dir: "resources-backend".to_string(),
         }
     }
 }
@@ -204,16 +204,21 @@ fn probe_plugin(port: u16, path: &str) -> PluginProbe {
 /** Locate the bundled backend directory inside the installed resources. */
 fn backend_root(app: &tauri::AppHandle, configured: &str) -> Result<PathBuf, String> {
     let resources = app.path().resource_dir().map_err(|error| format!("resource directory unavailable: {error}"))?;
-    // Bundler resource paths keep their src-tauri-relative shape, so the same
-    // folder may appear under either name depending on the packaging target.
-    for candidate in [configured.to_string(), format!("resources/{configured}")] {
+    // Bundler resource paths keep their src-tauri-relative shape. The backend
+    // is assembled INTO src-tauri (resources-backend/**) so the glob is fully
+    // documented behaviour; the historical names stay accepted as fallbacks.
+    for candidate in [
+        configured.to_string(),
+        "backend".to_string(),
+        format!("resources/{configured}"),
+    ] {
         let directory = resources.join(&candidate);
         if directory.is_dir() {
             return Ok(directory);
         }
     }
     Err(format!(
-        "bundled backend directory not found under {} (looked for {configured} and resources/{configured}); rebuild with desktop/scripts/assemble-resources.mjs",
+        "bundled backend directory not found under {} (looked for resources-backend, backend and resources/resources-backend); rebuild with desktop/scripts/assemble-resources.mjs",
         resources.display()
     ))
 }

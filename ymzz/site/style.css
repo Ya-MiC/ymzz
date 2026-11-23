@@ -373,6 +373,7 @@ details[open] .collapse-body{grid-template-rows:1fr}
 
 /* Long-form legal page: reuse the panel grid, keep the measure narrow. */
 .legal{padding:clamp(1.5rem,4vw,3rem)}
+.legal img.emblem{display:block;width:72px;height:72px;border-radius:18px;margin:0 0 var(--s4)}
 .legal h1{margin:var(--s3) 0 var(--s4);font:400 var(--t-3xl)/var(--lh-tight) var(--f-display)}
 .legal h2{margin:var(--s7) 0 var(--s3);font:400 var(--t-xl)/var(--lh-snug) var(--f-display)}
 .legal h3{margin:var(--s5) 0 var(--s2);font-size:var(--t-base);font-weight:600}

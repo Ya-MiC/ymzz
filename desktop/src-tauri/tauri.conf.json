@@ -31,7 +31,7 @@
     "longDescription": "湛箴_ymzz 桌面壳：Tauri 窗口与生命周期管理，本体为打包随附的 DeepSeek Harness 本地服务。CI 产物为未验收 canary 安装包。",
     "targets": ["nsis", "dmg", "appimage"],
     "icon": ["icons/128x128.png", "icons/icon.ico", "icons/icon.icns"],
-    "resources": ["../resources/backend"],
+    "resources": ["resources-backend/"],
     "windows": {
       "nsis": {
         "displayLanguageSelector": true,

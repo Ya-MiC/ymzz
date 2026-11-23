@@ -27,7 +27,7 @@
 // cannot resolve them against the --dir project by accident (the CI ENOENT on
 // targets/win-x64/packed/landlock came from relative-path resolution).
 // After this, desktop/scripts/assemble-resources.mjs copies the results into
-// desktop/resources/backend. Fail closed on any non-zero exit.
+// desktop/src-tauri/resources-backend. Fail closed on any non-zero exit.
 
 import {execFileSync} from 'node:child_process';
 import fs from 'node:fs';

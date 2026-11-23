@@ -1,5 +1,8 @@
 #!/usr/bin/env node
-// MIT. Assemble desktop/resources/backend for Tauri bundling — PURE COPY.
+// MIT. Assemble desktop/src-tauri/resources-backend for Tauri bundling — PURE COPY.
+// The folder lives INSIDE src-tauri so bundling only needs the documented
+// list-glob form ("resources-backend/**", structure preserved relative to
+// src-tauri); bare "../" directory entries proved unreliable on NSIS.
 //
 // The backend payload comes from the upstream, already-verified Desktop
 // packaging chain (`apps/desktop`, see desktop/scripts/prepare-upstream-runtime.mjs),
@@ -27,6 +30,7 @@
 import {createHash} from 'node:crypto';
 import {execFileSync} from 'node:child_process';
 import fs from 'node:fs';
+import os from 'node:os';
 import path from 'node:path';
 import process from 'node:process';
 import {fileURLToPath} from 'node:url';
@@ -181,8 +185,11 @@ export function assertBackendComplete(backend) {
 async function main() {
   const values = parseArgs(process.argv.slice(2));
   const root = path.resolve(values.get('root') ?? path.join(import.meta.dirname, '..', '..'));
-  const backend = path.join(root, 'desktop', 'resources', 'backend');
-  const temp = path.join(backend, '.assemble-temp');
+  const backend = path.join(root, 'desktop', 'src-tauri', 'resources-backend');
+  // The temp dir must never sit inside the bundled payload: an interrupted CI
+  // run would otherwise ship its leftovers to users.
+  fs.mkdirSync(backend, {recursive: true});
+  const temp = fs.mkdtempSync(path.join(os.tmpdir(), 'ymzz-assemble-temp '));
 
   if (values.get('from-nodejs-dist') === 'true') {
     // Fallback branch (default OFF): official Node download + SHA256 verify.

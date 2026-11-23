@@ -1,0 +1,1 @@
+# Assembled backend payload lands in this folder (desktop/scripts/assemble-resources.mjs). This placeholder keeps the bundler glob valid before assembly; assembly merges the real payload alongside it.
