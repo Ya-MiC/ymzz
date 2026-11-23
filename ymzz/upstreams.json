@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "fetchedAt": "2026-11-22T07:14:32.533Z",
+  "fetchedAt": "2026-11-23T02:27:08.389Z",
   "note": "Version records only. No artifact is downloaded or bundled by this workflow; installers require the Tauri shell and the release acceptance gate.",
   "upstreams": [
     {
@@ -8,12 +8,12 @@
       "role": "DSH runtime (MIT, unmodified)",
       "status": "ok",
       "kind": "commit",
-      "tag": "commit d98f5d685192",
-      "name": "Merge pull request #8945 from deepseek-harness/worktree-release-dsh-0.2.3-alpha.1",
-      "url": "https://github.com/deepseek-ai/deepseek-harness/commit/d98f5d68519215da48f3002da2cb9c9d2068d81d",
+      "tag": "commit 4b399c39a6d1",
+      "name": "Merge pull request #8961 from deepseek-harness/worktree-release-dsh-0.2.3-alpha.2",
+      "url": "https://github.com/deepseek-ai/deepseek-harness/commit/4b399c39a6d1479cd84ca591b4d7c88e24d38a96",
       "prerelease": false,
       "draft": false,
-      "publishedAt": "2026-11-21T16:45:52Z"
+      "publishedAt": "2026-11-22T08:50:28Z"
     },
     {
       "repo": "chuspeeism/dashi-taskboard",
