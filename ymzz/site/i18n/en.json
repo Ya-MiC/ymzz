@@ -180,7 +180,7 @@
   "download.src.p": "See the getting-started steps",
   "download.canary.hint": "The developer channel in the home Get section lists prerelease assets labelled 未驗收 canary only after you opt in; they never become the main button. A version appears on the home page automatically once it passes real-machine acceptance.",
   "download.step1.h": "Download",
-  "download.step1.p": "Open the prerelease entry on GitHub Releases and pick your platform. Asset names start with 湛箴_ymzz; assets from other products (including 稟冊) are unrelated.",
+  "download.step1.p": "Open the prerelease entry on GitHub Releases and pick your platform. Canary asset names look like _ymzz_0.1.0_x64-setup.exe (Windows) and _ymzz_0.1.0_aarch64.dmg (macOS) — the bundler strips the CJK characters from the product name, which is expected; assets from other products (including 稟冊) are unrelated.",
   "download.step2.h": "Verify, then install",
   "download.step2.p": "Compare the SHA256 from the release page first (canary builds are unsigned, so SmartScreen/Gatekeeper may warn about an unknown publisher — expected). Windows: run the NSIS installer; macOS: open the DMG and drag the app; Linux: chmod +x the AppImage and run it.",
   "download.step3.h": "First run",

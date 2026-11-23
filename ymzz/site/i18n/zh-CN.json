@@ -180,7 +180,7 @@
   "download.src.p": "查看开始步骤",
   "download.canary.hint": "首页「取得」区的开发者通道只在你勾选允许后，才列出标注「未验收 canary」的预发布资产；它们不会出现在主按钮上。等一个版本通过真机点按验收后，才会转为正式发布并自动出现在首页。",
   "download.step1.h": "下载",
-  "download.step1.p": "到 GitHub Releases 的预发布条目，选你平台的安装包。文件名以「湛箴_ymzz」开头；其他产品（含稟冊）的资产与本产品无关。",
+  "download.step1.p": "到 GitHub Releases 的预发布条目，选你平台的安装包。canary 文件名形如 _ymzz_0.1.0_x64-setup.exe（Windows）与 _ymzz_0.1.0_aarch64.dmg（macOS）——打包器会把产品名中的中文字从文件名略去，属预期；其他产品（含稟冊）的资产与本产品无关。",
   "download.step2.h": "核对后安装",
   "download.step2.p": "安装前先比对 Release 页提供的 SHA256（canary 阶段尚未配置代码签名，SmartScreen／Gatekeeper 可能提示未知发布者，属预期）。Windows 直接运行 NSIS 安装程序；macOS 打开 DMG 拖入应用程序；Linux 赋予执行权限后运行 AppImage。",
   "download.step3.h": "首次启动",
