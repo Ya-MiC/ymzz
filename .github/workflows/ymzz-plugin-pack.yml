@@ -61,12 +61,8 @@ jobs:
         shell: bash
         run: |
           TGZ=$(ls dist/ymzz-dsh-product-*.tgz)
+          URL="${{ github.server_url }}/${{ github.repository }}/releases/download/$TAG/$(basename "$TGZ")"
+          NOTES="湛箴_ymzz DSH 社区插件 tarball。在任意已安装的 DeepSeek Harness（含本 fork 桌面版）执行：dsh plugin --profile web add ${URL} 。内置：标签化知识面板（审批写入 Obsidian Vault、撤销、检索、多簇星云）、跨会话标签库（八类条目、Lists）、MCP 状态/检查/重启。npm 发布待维护者配置 NPM_TOKEN 后开启。"
           gh release view "$TAG" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1 \
-            || gh release create "$TAG" --repo "$GITHUB_REPOSITORY" \
-                 --title "湛箴_ymzz 插件包 $TAG" \
-                 --notes "DSH 社区插件 tarball。任意已安装的 DeepSeek Harness（含本 fork 的桌面版）执行：
-\`\`\`
-dsh plugin --profile web add ${{ github.server_url }}/${{ github.repository }}/releases/download/$TAG/$(basename "$TGZ")
-\`\`\`
-已内置：标签化知识面板（审批写入 Obsidian Vault、撤销、检索、多簇星云）、跨会话标签库（八类条目、Lists）、MCP 状态/检查/重启。npm 发布待维护者配置 NPM_TOKEN 后另行开启。"
+            || gh release create "$TAG" --repo "$GITHUB_REPOSITORY" --title "湛箴_ymzz 插件包 $TAG" --notes "$NOTES"
           gh release upload "$TAG" "$TGZ" --repo "$GITHUB_REPOSITORY" --clobber
