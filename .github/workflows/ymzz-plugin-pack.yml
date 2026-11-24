@@ -45,9 +45,12 @@ jobs:
         run: |
           TGZ=$(ls dist/ymzz-dsh-product-*.tgz)
           echo "tarball: $TGZ"
-          tar -tzf "$TGZ" | grep -q 'package/cordis.patch.yml' || { echo 'cordis.patch.yml missing from tarball'; exit 1; }
+          # Materialise the listing first: `tar | grep -q` dies on SIGPIPE
+          # under the runner's default `set -o pipefail`.
+          tar -tzf "$TGZ" > /tmp/contents.txt
+          grep -q 'package/cordis.patch.yml' /tmp/contents.txt || { echo 'cordis.patch.yml missing from tarball'; exit 1; }
+          grep -q 'package/lib/' /tmp/contents.txt || { echo 'built lib missing from tarball'; exit 1; }
           tar -xzOf "$TGZ" package/package.json | node -e "const m=JSON.parse(require('fs').readFileSync(0,'utf8')); if(!m.dsh?.bundle?.patch) { console.error('dsh.bundle.patch missing'); process.exit(1);} console.log('dsh.bundle.patch =', m.dsh.bundle.patch);"
-          tar -tzf "$TGZ" | grep -q 'package/lib/' || { echo 'built lib missing from tarball'; exit 1; }
       - uses: actions/upload-artifact@v4
         with:
           name: ymzz-plugin-tarball
