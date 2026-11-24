@@ -1,0 +1,72 @@
+# MIT. Pack the community-installable @ymzz/dsh-product DSH plugin bundle.
+#
+# The tarball self-mounts on a stock DeepSeek Harness: its package.json declares
+# dsh.bundle.patch -> cordis.patch.yml, so `dsh plugin --profile web add <tgz>`
+# inserts the plugin into any profile without this fork's baked patch.
+#
+# Two distribution lines ship from this repository:
+#   1. this workflow — the plugin tarball alone (community installs);
+#   2. ymzz-desktop.yml — the fork-built DSH desktop app with the plugin baked in.
+#
+# The tag release body carries the exact install command. npm publishing stays
+# out of scope until the maintainer configures an NPM_TOKEN secret; this
+# workflow never invents credentials.
+name: ymzz plugin pack (community tarball)
+on:
+  push:
+    tags:
+      - 'plugin-v*'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: ymzz-plugin-pack
+  cancel-in-progress: false
+jobs:
+  pack:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable corepack pnpm
+        run: corepack enable
+      - name: Install workspace dependencies
+        run: corepack pnpm install --frozen-lockfile
+      - name: Build repository artifacts
+        run: corepack pnpm run build:artifacts
+      - name: Unit tests (must stay green before packing)
+        run: node --test packages/ymzz/product/tests/*.test.mjs
+      - name: Pack the plugin tarball
+        run: corepack pnpm --filter @ymzz/dsh-product pack --pack-destination "$GITHUB_WORKSPACE/dist"
+      - name: Verify the tarball self-mounts on a stock DSH
+        shell: bash
+        run: |
+          TGZ=$(ls dist/ymzz-dsh-product-*.tgz)
+          echo "tarball: $TGZ"
+          tar -tzf "$TGZ" | grep -q 'package/cordis.patch.yml' || { echo 'cordis.patch.yml missing from tarball'; exit 1; }
+          tar -xzOf "$TGZ" package/package.json | node -e "const m=JSON.parse(require('fs').readFileSync(0,'utf8')); if(!m.dsh?.bundle?.patch) { console.error('dsh.bundle.patch missing'); process.exit(1);} console.log('dsh.bundle.patch =', m.dsh.bundle.patch);"
+          tar -tzf "$TGZ" | grep -q 'package/lib/' || { echo 'built lib missing from tarball'; exit 1; }
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ymzz-plugin-tarball
+          path: dist/*.tgz
+          if-no-files-found: error
+      - name: Attach the tarball to the plugin release
+        if: startsWith(github.ref, 'refs/tags/plugin-v')
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAG: ${{ github.ref_name }}
+        shell: bash
+        run: |
+          TGZ=$(ls dist/ymzz-dsh-product-*.tgz)
+          gh release view "$TAG" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1 \
+            || gh release create "$TAG" --repo "$GITHUB_REPOSITORY" \
+                 --title "湛箴_ymzz 插件包 $TAG" \
+                 --notes "DSH 社区插件 tarball。任意已安装的 DeepSeek Harness（含本 fork 的桌面版）执行：
+\`\`\`
+dsh plugin --profile web add ${{ github.server_url }}/${{ github.repository }}/releases/download/$TAG/$(basename "$TGZ")
+\`\`\`
+已内置：标签化知识面板（审批写入 Obsidian Vault、撤销、检索、多簇星云）、跨会话标签库（八类条目、Lists）、MCP 状态/检查/重启。npm 发布待维护者配置 NPM_TOKEN 后另行开启。"
+          gh release upload "$TAG" "$TGZ" --repo "$GITHUB_REPOSITORY" --clobber

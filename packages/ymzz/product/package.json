@@ -2,7 +2,6 @@
   "name": "@ymzz/dsh-product",
   "version": "0.1.0",
   "description": "湛箴 native DSH bounded tasks, approved tools, memory and Wenrun extension",
-  "private": true,
   "type": "module",
   "license": "MIT",
   "main": "index.mjs",
@@ -22,6 +21,9 @@
         "@deepseek-ai/dsh-client-ui-theme"
       ],
       "platform": "web"
+    },
+    "bundle": {
+      "patch": "./cordis.patch.yml"
     }
   },
   "scripts": {
@@ -33,6 +35,7 @@
     "*.css",
     "*.json",
     "*.png",
+    "*.yml",
     "LICENSE",
     "WENRUN-LICENSE",
     "lib",

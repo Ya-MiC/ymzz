@@ -1,0 +1,10 @@
+# MIT. Community-install bundle declaration for @ymzz/dsh-product.
+#
+# On a stock DeepSeek Harness this file is referenced by the package's own
+# `dsh.bundle.patch` field and inserts the ymzz product plugin into the cordis
+# composition. Inside this fork's own builds the same insert is baked into the
+# web-app bundle patch, so the plugin mounts in both delivery paths exactly once.
+- insert:
+    - id: ymzz-product
+      name: '@ymzz/dsh-product'
+      config: {}
