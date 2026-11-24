@@ -13,9 +13,11 @@ const target = resolveDesktopBuildTarget()
 const windows = target === 'win-x64'
 const artifacts = desktopArtifactOutput(paths, { unsigned: values.unsigned, skipNotarization: values['skip-notarization'] }).directory
 const application = windows ? join(artifacts, 'win-unpacked')
-  : join(artifacts, target === 'mac-arm64' ? 'mac-arm64' : 'mac', 'DeepSeek Harness.app', 'Contents')
+  // The fork's electron-builder productName (electron-builder-config.mjs:120)
+  // names the bundle and its executable; the smoke path must match it.
+  : join(artifacts, target === 'mac-arm64' ? 'mac-arm64' : 'mac', '湛箴_ymzz.app', 'Contents')
 const resources = join(application, windows ? 'resources' : 'Resources')
-const executable = windows ? join(application, '湛箴_ymzz.exe') : join(application, 'MacOS', 'DeepSeek Harness')
+const executable = windows ? join(application, '湛箴_ymzz.exe') : join(application, 'MacOS', '湛箴_ymzz')
 const descriptor = await verifyDesktopRuntime(paths.dsh, readDesktopRuntime(paths.dsh).release.version,
   resolveDesktopPackageTarget(target))
 if (windows && !values.unsigned) await verifyWindowsCode(application)

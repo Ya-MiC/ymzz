@@ -43,6 +43,29 @@ jobs:
         run: corepack enable
       - name: Install workspace dependencies
         run: corepack pnpm install --frozen-lockfile
+      - name: Stage ymzz notice payloads (electron-builder packs ymzz/.build/licenses as extraResources)
+        run: node ymzz/scripts/stage-notices.mjs
+      - name: Generate .env.windows for the unsigned canary (gitignored; generated per run, never committed)
+        if: matrix.target == 'win-x64'
+        env:
+          TAG: ${{ github.ref_name }}
+        shell: bash
+        run: |
+          cat > apps/desktop/.env.windows <<EOF
+          DSH_DESKTOP_APP_ID=io.github.ya-mic.ymzz
+          DSH_DESKTOP_AUTO_UPDATE_ENV=test
+          DOWNLOAD_TEST_ORIGIN=
+          DOWNLOAD_TEST_RELEASE_ID=$(printf '%s' "${TAG:-desktop-v-local}" | sha256sum | cut -c1-32)
+          DSH_DESKTOP_MANDATORY_UPDATE_TEST_ORIGIN=
+          DSH_DESKTOP_MANDATORY_UPDATE_PROD_ORIGIN=
+          DSH_DESKTOP_MANDATORY_UPDATE_CONFIG={}
+          DSH_DESKTOP_WINDOWS_CER_FILE=
+          DSH_DESKTOP_WINDOWS_SIGNTOOL=
+          DSH_DESKTOP_WINDOWS_KEY_CONTAINER=
+          DSH_DESKTOP_WINDOWS_TOKEN_PIN=
+          DSH_DESKTOP_WINDOWS_COMPRESSION_LEVEL=3
+          EOF
+          cat apps/desktop/.env.windows
       - name: Build repository artifacts
         run: corepack pnpm run build:artifacts
       - name: Package desktop installer (unsigned canary, plugin included)
