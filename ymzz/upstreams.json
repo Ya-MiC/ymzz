@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "fetchedAt": "2026-11-25T04:50:32.285Z",
+  "fetchedAt": "2026-11-26T04:03:48.089Z",
   "note": "Version records only. No artifact is downloaded or bundled by this workflow; installers require the Tauri shell and the release acceptance gate.",
   "upstreams": [
     {
@@ -32,12 +32,12 @@
       "role": "T3 Code (MIT, planned bundle)",
       "status": "ok",
       "kind": "release",
-      "tag": "v0.1.11",
-      "name": "T3 Code v0.1.11",
-      "url": "https://github.com/pingdotgg/t3code/releases/tag/v0.1.11",
+      "tag": "v0.1.12",
+      "name": "T3 Code v0.1.12",
+      "url": "https://github.com/pingdotgg/t3code/releases/tag/v0.1.12",
       "prerelease": false,
       "draft": false,
-      "publishedAt": "2026-11-20T07:38:08Z"
+      "publishedAt": "2026-11-25T07:36:07Z"
     }
   ]
 }
