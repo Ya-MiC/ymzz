@@ -14,7 +14,7 @@ A focused plugin increment inspired by public harness evidence patterns: protect
 
 ## Install / first use — ordinary users
 
-**There is currently no public Agent installer to download.** The [Releases page](https://github.com/Ya-MiC/ymzz/releases) has no published qualified Windows package; an asset-free draft is not a download. GitHub **Source code (zip)** and the commands below are developer paths, not a normal installation. Do not use a Loop/稟冊 installer for this Agent.
+**There is currently no accepted public desktop installer to download.** The [Releases page](https://github.com/Ya-MiC/ymzz/releases) currently has `plugin-v0.1.0` (a plugin tarball, not a desktop installer) and `v0.1.0-alpha.1` (a source-only preview with no installer). There is no qualified Windows, macOS or Linux desktop package. Draft or unpublished canary `.exe` / `.dmg` files are not a public download. GitHub **Source code (zip)** and the commands below are developer paths, not a normal installation. Do not use a Loop/稟冊 installer for this Agent.
 
 The ordinary-user delivery is a verified Windows x64 NSIS `.exe`, SHA256 checksums and matching third-party notices/source materials. It is **not available yet**; this README does not require ordinary users to install Git/Node/pnpm instead.
 
