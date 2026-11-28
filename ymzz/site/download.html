@@ -12,7 +12,7 @@
 <meta property="og:url" content="https://ya-mic.github.io/ymzz/download.html">
 <meta property="og:type" content="website">
 <meta property="og:title" content="下載與首次啟動 · 湛箴_ymzz">
-<meta property="og:description" content="平台現況據實標注；canary 安裝包未驗收，僅供第一位產品體驗者測試並回饋。">
+<meta property="og:description" content="目前沒有已驗收、已公開的桌面安裝包。請先從原始碼運行。">
 <meta property="og:image" content="https://ya-mic.github.io/ymzz/og.png">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#F8F6EF">
@@ -47,8 +47,8 @@
 <section class="panel legal" id="download-guide">
   <img src="assets/icon-512.png" alt="湛箴_ymzz 产品图标" width="72" height="72" class="emblem" />
   <p class="label" data-i18n="download.k">下載與首次啟動</p>
-  <h1 data-i18n="download.h">第一位產品體驗者從這一頁開始</h1>
-  <p class="status-note" data-i18n="download.status">現況據實：正式（非預發佈）安裝包尚未發佈與驗收；canary 安裝包由 CI 自動構建，屬於預發佈資產，標注「未驗收」。你可以當第一位體驗者下載測試，並用 GitHub issues 回報。</p>
+  <h1 data-i18n="download.h">尚無已驗收的桌面安裝包</h1>
+  <p class="status-note" data-i18n="download.status">現況據實：目前沒有已驗收、已公開的桌面安裝包。公開 Releases 現有 plugin-v0.1.0（插件包）與 v0.1.0-alpha.1（源碼階段預覽，無安裝包）。未驗收的桌面 canary 已改為 draft，不再作為公開下載入口。請先從原始碼運行。</p>
 
   <h2>1. 平台現況</h2>
   <div class="table-wrap">
@@ -60,19 +60,19 @@
         <tr>
           <td>Windows 10/11 x64</td>
           <td>NSIS 安裝包（exe）</td>
-          <td><span class="tag wait" data-i18n="download.win.s">canary · 未驗收</span></td>
+          <td><span class="tag wait" data-i18n="download.win.s">尚未發佈／尚未驗收</span></td>
           <td><a href="https://github.com/Ya-MiC/ymzz/releases" rel="noopener noreferrer">GitHub Releases</a></td>
         </tr>
         <tr>
           <td>macOS（Apple Silicon）</td>
           <td>DMG</td>
-          <td><span class="tag wait" data-i18n="download.mac.s">canary · 未驗收</span></td>
+          <td><span class="tag wait" data-i18n="download.mac.s">尚未發佈／尚未驗收</span></td>
           <td><a href="https://github.com/Ya-MiC/ymzz/releases" rel="noopener noreferrer">GitHub Releases</a></td>
         </tr>
         <tr>
           <td>Linux x64</td>
           <td>AppImage</td>
-          <td><span class="tag wait" data-i18n="download.linux.s">canary · 未驗收</span></td>
+          <td><span class="tag wait" data-i18n="download.linux.s">尚未發佈／尚未驗收</span></td>
           <td><a href="https://github.com/Ya-MiC/ymzz/releases" rel="noopener noreferrer">GitHub Releases</a></td>
         </tr>
         <tr>
@@ -84,22 +84,22 @@
       </tbody>
     </table>
   </div>
-  <p data-i18n="download.canary.hint">首頁「取得」區的開發者通道只在你勾選允許後，才列出標注「未驗收 canary」的預發佈資產；它們不會出現在主按鈕上。等一個版本通過真機點按驗收後，才會轉為正式發佈並自動出現在首頁。</p>
+  <p data-i18n="download.canary.hint">首頁「取得」區的開發者通道只在你勾選允許後，才查詢公開的預發佈資產；它們不會出現在主按鈕上。目前沒有已公開的桌面 canary 安裝包。等一個版本通過真機點按驗收後，才會轉為正式發佈並自動出現在首頁。</p>
 
   <h2>2. 四步首次體驗</h2>
   <ol class="steps">
     <li>
       <span class="n">1</span>
       <div>
-        <h3 data-i18n="download.step1.h">下載</h3>
-        <p data-i18n="download.step1.p">到 GitHub Releases 的預發佈條目，選你平台的安裝包。canary 檔名形如 _ymzz_0.1.0_x64-setup.exe（Windows）與 _ymzz_0.1.0_aarch64.dmg（macOS）——打包器會把產品名中的中文字從檔名略去，屬預期；其他產品（含稟冊）的資產與本產品無關。</p>
+        <h3 data-i18n="download.step1.h">現況</h3>
+        <p data-i18n="download.step1.p">目前沒有已驗收的桌面安裝包可下載。公開 Releases 現有 plugin-v0.1.0（插件包，不是桌面安裝程式）與 v0.1.0-alpha.1（源碼階段預覽，無安裝包）。請不要把 draft 資產、其他產品（含稟冊）的安裝包，或舊的 canary 檔名當成正式交付。</p>
       </div>
     </li>
     <li>
       <span class="n">2</span>
       <div>
-        <h3 data-i18n="download.step2.h">核對後安裝</h3>
-        <p data-i18n="download.step2.p">安裝前先比對 Release 頁提供的 SHA256（canary 階段尚未配置代碼簽名，SmartScreen／Gatekeeper 可能提示未知發佈者，屬預期）。Windows 直接執行 NSIS 安裝程式；macOS 打開 DMG 拖入應用程式；Linux 賦予執行權限後運行 AppImage。</p>
+        <h3 data-i18n="download.step2.h">現在如何使用</h3>
+        <p data-i18n="download.step2.p">請先依「開始」頁從原始碼運行。待已驗收的桌面安裝包以非 draft 的公開 Release 資產發佈後，再核對該頁提供的 SHA256 後安裝。目前沒有公開、已簽名的桌面安裝包；這不表示 Windows 桌面版已可正式發布。</p>
       </div>
     </li>
     <li>
@@ -120,14 +120,14 @@
 
   <h2>3. 回饋與邊界</h2>
   <ul>
-    <li data-i18n="download.feedback">回饋入口：<a href="https://github.com/Ya-MiC/ymzz/issues" rel="noopener noreferrer">Ya-MiC/ymzz issues</a>。canary 階段的目標就是找出「哪裡不行」。</li>
+    <li data-i18n="download.feedback">回饋入口：<a href="https://github.com/Ya-MiC/ymzz/issues" rel="noopener noreferrer">Ya-MiC/ymzz issues</a>。使用原始碼運行時若有問題，請附版本號、平台、截圖與重現步驟。</li>
     <li data-i18n="download.boundary">本頁不提供盜版、破解或第三方轉載下載；安裝包只來自本倉庫的 GitHub Releases。</li>
     <li data-i18n="download.privacy">資料去哪：見<a href="privacy.html">隱私與 Cookie</a>。產品零遙測；模型金鑰只保存在本機。</li>
   </ul>
 
   <div class="en">
     <h2>Summary (English)</h2>
-    <p>No stable installer is published yet. CI-built canary installers (NSIS / DMG / AppImage) are prerelease assets, labelled 未驗收 (not accepted), and listed only behind an explicit opt-in on the home page. Verify the SHA256 from the release page before installing; unsigned binaries may trigger SmartScreen or Gatekeeper warnings, which is expected for canary builds.</p>
+    <p>There is currently no accepted, publicly downloadable desktop installer. Public Releases include plugin-v0.1.0 (a plugin tarball) and v0.1.0-alpha.1 (a source-only preview with no installer). Unreviewed desktop canaries were moved to draft and are not a public download. Please run from source first. This page does not claim that the Windows desktop edition is ready to ship.</p>
     <p>First run: pick a nickname, skip the model key with "Add API Key → Set up later", configure model and MCP in native Settings, then open the 知識 dock on the right to set a Vault and turn a conversation into an approved Obsidian note. Report anything broken at the GitHub issues page with version, platform, screenshot and steps.</p>
   </div>
 </section>

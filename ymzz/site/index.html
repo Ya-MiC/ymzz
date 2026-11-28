@@ -98,13 +98,13 @@
       <h2 data-i18n="get.h">先跑原始碼，安裝包要等合格發佈</h2>
       <p class="lede" data-i18n="get.p">主按鈕只指向實際可用的合格發佈。在公開 Releases 出現已驗收資產之前，這裡不會放空的下載按鈕。</p>
     </div>
-    <p class="status-note note-row" data-i18n="get.bundle">計劃中的桌面版以 Rust + Tauri 2 作外殼：一個安裝包捆綁 DSH runtime、Dashi Taskboard 與 T3 Code，並由 GitHub Actions 追蹤上游 Release 產生每日 canary。目前尚未產出合格安裝包。</p>
+    <p class="status-note note-row" data-i18n="get.bundle">計劃中的桌面版以 Rust + Tauri 2 作外殼：一個安裝包捆綁 DSH runtime、Dashi Taskboard 與 T3 Code。目前沒有已驗收的公開桌面安裝包，也沒有公開可下載的 canary 安裝包。</p>
     <div id="download" class="table-wrap">
       <p class="status-note" data-i18n="get.pending">目前沒有公開正式產品安裝包。只有勾選允許並按下手動檢查，才查詢 GitHub 公開 Release 資料。</p>
-      <p><a href="https://github.com/Ya-MiC/ymzz/releases" rel="noopener noreferrer" data-i18n="get.releases">查看 GitHub Releases（目前為空）</a></p>
+      <p><a href="https://github.com/Ya-MiC/ymzz/releases" rel="noopener noreferrer" data-i18n="get.releases">查看 GitHub Releases（尚無已驗收的桌面安裝包）</a></p>
     </div>
     <div id="canary" class="table-wrap">
-      <p class="status-note" data-i18n="canary.note">開發者通道：CI 自動構建的 canary 安裝包屬於預發佈（prerelease），未通過真機點按驗收。只有勾選允許並按下列出，才會查詢；安裝前請比對 Release 頁的說明。</p>
+      <p class="status-note" data-i18n="canary.note">開發者通道：只有勾選允許後，才會查詢公開的預發佈（prerelease）資產。目前沒有已公開的未驗收桌面 canary 安裝包；舊 canary 已改為 draft，不會出現在此列表。若未來有公開預發佈資產，安裝前請比對 Release 說明，且不得視為已驗收產品。</p>
       <div id="canary-list"></div>
       <p id="canary-empty" class="status-note" hidden data-i18n="canary.none">目前沒有 canary 安裝包；保留未發佈狀態。</p>
       <p><a href="download.html" data-i18n="get.guide">下載與首次啟動指引</a></p>

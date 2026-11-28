@@ -12,7 +12,7 @@
 
 ## 普通用戶：安裝與首次使用
 
-**目前沒有公開、已合格的 Agent 安裝包可下載。** [Releases](https://github.com/Ya-MiC/ymzz/releases) 裡的私人 draft 不是下載入口；GitHub「Source code (zip)」也不是安裝程式。正常交付應是 Windows x64 NSIS `.exe`、SHA256 與匹配的第三方聲明／源碼材料，**不是叫普通用戶先裝 Git、Node、pnpm**。不要把獨立 Loop／稟冊的安裝包拿來安裝本 Agent。
+**目前沒有已驗收、已公開的桌面安裝包可下載。** [Releases](https://github.com/Ya-MiC/ymzz/releases) 現有公開項目是 `plugin-v0.1.0`（插件包，不是桌面安裝程式）與 `v0.1.0-alpha.1`（源碼階段預覽，無安裝包）。未驗收的桌面 canary 已改為 draft，不是公開下載入口；GitHub「Source code (zip)」也不是安裝程式。正常交付應是通過發版閘的 Windows x64 NSIS `.exe`、SHA256 與匹配的第三方聲明／源碼材料，**不是叫普通用戶先裝 Git、Node、pnpm**。不要把獨立 Loop／稟冊的安裝包拿來安裝本 Agent。
 
 待真正發佈合格安裝包後：安裝並開啟「湛箴_ymzz」→ 沒有 provider 可先依原生畫面選 **Add API Key → Set up later** → 設暱稱、選工作區 → 要執行真人模型任務時，再於原生 Settings/Models 明確配置 provider。跳過設定不會自動產生可用模型；Google 指南與本機 Sheets 是離線功能，不取代既有 Office 轉換。
 
@@ -58,7 +58,7 @@ corepack pnpm exec node ymzz/scripts/dev.mjs --no-open --port 3081
 
 本輪真正補齊並 rehash：libvips28個實際 constituent、原始 recipe 與353個 Rust crate；Core下載清單98個 external 原始碼 archive，另51個由原生 configure 明確停用的 fonts／Java／Python／lxml 項逐一核對；85個 native preferred source 比對原 manifest。來源材料實體已保留，並接入可選的 installed/source 驗證；**這不是全局商用許可蓋章、新版 Windows GUI 成功或已能公開下載**。正式閘已改查 post-selector 真實安裝依賴圖，完整 native／材料條件不放寬。[重現方法／實際 hash 與界限](ymzz/compliance/REBUILD.md)。
 
-發佈閘維持 fail-closed；未公開未驗收 EXE，也未發 Release。標準安裝與上游 protocol handler 會產生正常 OS／使用者登錄項，不宣稱完全不寫登錄檔；沒有自訂 registry 修改腳本。
+發佈閘維持 fail-closed；目前沒有已驗收、已公開的桌面安裝包。公開 Releases 現有 `plugin-v0.1.0` 與 `v0.1.0-alpha.1`，前者是插件包、後者是無安裝包的源碼預覽；未驗收的桌面 canary 已改為 draft，不再公開下載。標準安裝與上游 protocol handler 會產生正常 OS／使用者登錄項，不宣稱完全不寫登錄檔；沒有自訂 registry 修改腳本。
 
 [基線證據](ymzz/docs/evidence/m2-baseline.json) · [真實 DSH 任務證據](ymzz/docs/evidence/full-dsh-product-web.json) · [網路與關閉控制](ymzz/docs/NETWORK.md) · [來源索引](ymzz/docs/RESOURCES.md)
 
